@@ -60,9 +60,17 @@ def asset_features(csv_path):
         tstats.append(abs(float(r.mean() * np.sqrt(len(r)) / sd)) if sd > 1e-12 else 0.0)
         sk.append(float(pd.Series(r).skew()))
         ku.append(float(pd.Series(r).kurt()))
+    # 相对波动率（因果）：rv(t) / median(rv(t-120:t-1))，与样本级定义一致，非新特征
+    rv_arr = np.array(rvs)
+    rel = []
+    for k in range(len(rv_arr)):
+        base = rv_arr[max(0, k - 120):k]
+        if len(base) >= 20 and np.median(base) > 0:
+            rel.append(rv_arr[k] / np.median(base))
     return {
         "n_samples": ns,
         "realized_vol": float(np.median(rvs)),
+        "relative_vol": float(np.mean(rel)) if rel else np.nan,
         "acf1_abs": float(np.median(acfs)) if acfs else np.nan,
         "jump_ratio": float(np.median(jumps)),
         "trend_persistence": float(np.median(tstats)),
@@ -87,7 +95,8 @@ def strat_of(tag, seed=2021, mode="relative"):
     hi, lo, hi20, lo20 = g("high50%"), g("low50%"), g("high20%"), g("low20%")
     return {
         "n": H["n_samples"],
-        "delta_high": hi.get("delta_mse"), "delta_low": lo.get("delta_mse"),
+        "delta_high": hi.get("delta_mse"), "ci_high": hi.get("ci95"),
+        "delta_low": lo.get("delta_mse"), "ci_low": lo.get("ci95"),
         "delta_high20": hi20.get("delta_mse"), "delta_low20": lo20.get("delta_mse"),
         "interaction": it.get("value"),
         "ci_lo": (it.get("ci95") or [None, None])[0], "ci_hi": (it.get("ci95") or [None, None])[1],
@@ -96,6 +105,16 @@ def strat_of(tag, seed=2021, mode="relative"):
         "win_high20": hi20.get("win_rate"),
         "n_high": hi.get("n"), "n_low": lo.get("n"),
     }
+
+
+def descriptor(delta, ci_lo, ci_hi):
+    """严格区分 direction 与 significance 的措辞（协议 §四）。"""
+    if delta is None or ci_lo is None:
+        return "n/a"
+    dirn = "negative" if delta < 0 else "positive"
+    supported = (ci_lo > 0) or (ci_hi < 0)
+    return (f"directionally {dirn} and statistically supported" if supported
+            else f"directionally {dirn} but statistically inconclusive")
 
 
 def spearman(x, y):
@@ -141,11 +160,41 @@ def main():
     if os.path.exists(cap_path):
         cap = pd.read_csv(cap_path)
 
-    done = df[df.has_strat & df.interaction.notna()].copy()
+    SEEDS_MAP = {"GSPC": [2021, 2022]}
+
+    def asset_level_row(tag):
+        """资产级汇总：GSPC 的 2021/2022 合并为一个资产（不得人为扩大资产数）。"""
+        seeds = SEEDS_MAP.get(tag, [2021])
+        ss = [s for s in (strat_of(tag, sd) for sd in seeds) if s]
+        if not ss:
+            return None
+        csv_path = os.path.join(REPO, "dataset", f"{tag}-2016-2025.csv")
+        feats = asset_features(csv_path) if os.path.exists(csv_path) else {}
+        its = [s["interaction"] for s in ss]
+        row = dict(feats)
+        row.update({
+            "asset": tag, "n_seeds": len(ss), "n": ss[0]["n"],
+            "delta_high": float(np.mean([s["delta_high"] for s in ss])),
+            "delta_low": float(np.mean([s["delta_low"] for s in ss])),
+            "ci_high": [min(s["ci_high"][0] for s in ss), max(s["ci_high"][1] for s in ss)],
+            "ci_low": [min(s["ci_low"][0] for s in ss), max(s["ci_low"][1] for s in ss)],
+            "interaction": float(np.mean(its)),
+            "interaction_seed_values": its,
+            "ci_lo": min(s["ci_lo"] for s in ss), "ci_hi": max(s["ci_hi"] for s in ss),
+            "significant": bool(all(s["significant"] for s in ss)),
+            "sign_consistent": len({int(np.sign(v)) for v in its}) == 1,
+            "win_high": float(np.mean([s["win_high"] for s in ss])),
+            "win_low": float(np.mean([s["win_low"] for s in ss])),
+            "has_strat": True,
+        })
+        return row
+
+    asset_rows = [r for r in (asset_level_row(t) for t in ASSETS_ALL) if r]
+    done = pd.DataFrame(asset_rows)
     df.to_csv(os.path.join(OUTDIR, "asset-dependence-table.csv"), index=False)
-    cols = ["asset", "n", "delta_high", "delta_low", "interaction", "ci_lo", "ci_hi", "significant",
-            "win_high", "win_low", "realized_vol", "acf1_abs", "jump_ratio", "trend_persistence",
-            "sign_persistence", "skew", "kurtosis"]
+    cols = ["asset", "n_seeds", "n", "delta_high", "ci_high", "delta_low", "ci_low", "interaction",
+            "ci_lo", "ci_hi", "significant", "sign_consistent", "win_high", "win_low", "realized_vol",
+            "relative_vol", "acf1_abs", "jump_ratio", "trend_persistence", "sign_persistence", "skew", "kurtosis"]
     done[cols].to_csv(os.path.join(OUTDIR, "asset-dependence-summary.csv"), index=False)
 
     # ---------------------------------------------------------- A. 符号分布
@@ -156,7 +205,8 @@ def main():
     ci_zero = done[(done.ci_lo <= 0) & (done.ci_hi >= 0)]
 
     # ------------------------------------------- B/C. 关联 + LOO 敏感性
-    feats = ["realized_vol", "acf1_abs", "jump_ratio", "trend_persistence", "sign_persistence", "skew", "kurtosis"]
+    feats = ["realized_vol", "relative_vol", "acf1_abs", "jump_ratio", "trend_persistence",
+             "sign_persistence", "skew", "kurtosis"]
     assoc, loo = [], []
     for f in feats:
         r, p, n = spearman(done[f], done["interaction"])
@@ -176,17 +226,44 @@ def main():
     loo_sum["single_asset_sensitive"] = (loo_sum.r_min * loo_sum.r_max) < 0
 
     n_a = len(done)
-    both_signs = len(pos) > 0 and len(neg) > 0
-    stable_feat = assoc_df[(assoc_df.p_exploratory < 0.10) & (~np.isnan(assoc_df.p_exploratory))]
-    stable_feat = stable_feat[stable_feat.feature.map(
-        lambda f: not bool(loo_sum.loc[loo_sum.feature == f, "single_asset_sensitive"].iloc[0]))] if len(loo_sum) else stable_feat
+    n_neg, n_pos = int((done.interaction < 0).sum()), int((done.interaction > 0).sum())
+    dominant = max(n_neg, n_pos)
+    both_signs = n_neg > 0 and n_pos > 0
+
+    # PATH 1 必须同时满足协议五项条件
+    cand = []
+    g1, g2 = strat_of("GSPC", 2021), strat_of("GSPC", 2022)
+    for _, a in assoc_df.iterrows():
+        f = a.feature
+        lo = loo_sum[loo_sum.feature == f]
+        if not len(lo):
+            continue
+        # 条件 3+4：非单一资产驱动，且 LOO 后方向保持
+        loo_ok = (not bool(lo.single_asset_sensitive.iloc[0])) and \
+                 (np.sign(lo.r_min.iloc[0]) == np.sign(lo.r_max.iloc[0]) == np.sign(a.spearman_r))
+        # 条件 2：存在稳定 association（探索性阈值 p<0.10）
+        p_ok = (not np.isnan(a.p_exploratory)) and a.p_exploratory < 0.10
+        # 条件 5：不是 GSPC seed 合并方式造成的
+        seed_ok = True
+        if g1 and g2:
+            s1, s2 = done.copy(), done.copy()
+            s1.loc[s1.asset == "GSPC", "interaction"] = g1["interaction"]
+            s2.loc[s2.asset == "GSPC", "interaction"] = g2["interaction"]
+            r1, _, _ = spearman(s1[f], s1["interaction"])
+            r2, _, _ = spearman(s2[f], s2["interaction"])
+            seed_ok = (np.sign(r1) == np.sign(r2) == np.sign(a.spearman_r))
+        if p_ok and loo_ok and seed_ok:
+            cand.append(f)
 
     if n_a < 5:
         path_dep, path_dep_name = "PATH 3", "Evidence insufficient"
-    elif both_signs and len(stable_feat):
+    elif dominant >= 3 and cand:
         path_dep, path_dep_name = "PATH 1", "Candidate asset-level structural regularity"
+    elif n_a >= 5:
+        path_dep, path_dep_name = "PATH 2", "Asset-level heterogeneity but structurally unexplained"
     else:
-        path_dep, path_dep_name = "PATH 2", "Sign pattern effectively random / structurally unexplained"
+        path_dep, path_dep_name = "PATH 3", "Evidence insufficient"
+    stable_feat = assoc_df[assoc_df.feature.isin(cand)]
 
     # ------------------------------------------------------------- 写报告
     L = []
@@ -194,13 +271,13 @@ def main():
     L.append("> 定位：**Exploratory Asset-Dependence Analysis**——只检查 interaction 符号与资产结构特征的关系，")
     L.append("> 不验证 volatility 假设、不声称因果。所有 association 仅为 exploratory。\n")
     L.append(f"## 1. 资产级表（n={n_a} 个资产有分层结果；GSPC 使用 seed 2021，seed 稳健性见 §4）\n")
-    L.append("| 资产 | 样本 | Δ_low | Δ_high | **Δ_interaction** | 95%CI | 显著 | 高波动侧胜率 | RV | \\|ACF1\\| | Jump | Trend |")
-    L.append("|---|---|---|---|---|---|---|---|---|---|---|---|")
+    L.append("| 资产 | seeds | 样本 | Δ_low | Δ_high | **Δ_interaction** | 交互 CI | 描述（方向 vs 显著性）| 高波动侧胜率 | RV | RelVol | \\|ACF1\\| | Jump | Trend |")
+    L.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     for _, r in done.sort_values("interaction").iterrows():
-        L.append(f"| {r.asset} | {int(r.n)} | {r.delta_low:+.5f} | {r.delta_high:+.5f} | "
+        L.append(f"| {r.asset} | {int(r.n_seeds)} | {int(r.n)} | {r.delta_low:+.5f} | {r.delta_high:+.5f} | "
                  f"**{r.interaction:+.5f}** | [{r.ci_lo:+.5f},{r.ci_hi:+.5f}] | "
-                 f"{'是' if r.significant else '否'} | {r.win_high:.1%} | {r.realized_vol:.5f} | "
-                 f"{r.acf1_abs:.3f} | {r.jump_ratio:.4f} | {r.trend_persistence:.2f} |")
+                 f"{descriptor(r.interaction, r.ci_lo, r.ci_hi)} | {r.win_high:.1%} | {r.realized_vol:.5f} | "
+                 f"{r.relative_vol:.3f} | {r.acf1_abs:.3f} | {r.jump_ratio:.4f} | {r.trend_persistence:.2f} |")
     L.append("")
     L.append("## 2. A. 符号分布（严格区分方向与显著性）\n")
     L.append(f"- 负号（Δ_interaction<0，非线性优势随波动上升）：**{len(neg)}** 个；正号：**{len(pos)}** 个")
@@ -289,6 +366,25 @@ def main():
              "且不得由 `ETH → nonlinear` 推出 `ETH → NS`。")
     F.append("")
     F.append("---\n")
+    F.append("## Q1–Q5 必答（协议 §九）\n")
+    F.append("- **Q1 是否存在稳健 sample-level routing evidence？** → **No**（结构状态→算子偏好未发现稳定关系："
+             "Case 1/2 均不成立；反转是资产级全状态而非状态级；状态间 Range(ΔMSE) 未随容量扩大；方向随种子波动）")
+    F.append(f"- **Q2 是否存在真实 asset-level operator heterogeneity？** → **Yes**（基于容量对照结果："
+             f"ETHUSD 64/128 维下 36/36 观测偏好非线性（128 维平均 ΔMSE {eth_cap:+.5f}）；"
+             f"BTCUSD 全容量偏好线性（{btc_cap:+.5f}）；GSPC 高容量接近打平（{gspc_cap:+.5f}）。"
+             f"同时保留：23-d nonlinear bottleneck materially affected the earlier ETH result）")
+    F.append(f"- **Q3 这种 heterogeneity 能否由现有 structural features 解释？** → 由 7 资产 Spearman + LOO 判定："
+             f"**{path_dep} — {path_dep_name}**（LOO 稳定特征：{', '.join(cand) if cand else '无'}）")
+    F.append("- **Q4 当前主要 uncertainty 在哪里？** → 主要在 **(d) asset dependence**（资产级差异已知但尚无稳定结构解释）"
+             "与 **(b) operator form**（何种非线性算子形态在何种资产上值得加强）；"
+             "**不**把 unknown 伪装成 representation bottleneck："
+             "目前只能说 current structural features do not yet establish a general sample-level operator-selection mechanism。"
+             "routing（a）方向已基本排除。")
+    ns_ok = (path_dep in ("PATH 1", "PATH 2")) and (n_a >= 5)
+    F.append(f"- **Q5 下一阶段是否有资格重新考虑 NS？** → **{'可以（仅作为候选之一）' if ns_ok else '否'}**。"
+             "判据：there exists a reproducible context in which a stronger nonlinear operator is justified；"
+             "即使满足，也只能与 capacity-matched MLP 做受控对比，且不得由 ETH→nonlinear 推出 ETH→NS。")
+    F.append("")
     F.append("## 四类证据分列（协议 §七）\n")
     F.append("**A. Routing evidence**：$$\\boxed{\\text{No robust sample-level routing evidence}}$$")
     F.append("")
