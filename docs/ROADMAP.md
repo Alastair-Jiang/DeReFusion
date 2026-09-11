@@ -89,7 +89,31 @@ docs/                    文档
 
 ---
 
-## 三、已知坑位（复现必读）
+## 四、当日结果更新（2026-09-11 晚间）
+
+原定 18:00 的自动收尾任务超时失败（批次在 14:37 启动 GSPC seed2022 后中断），已人工接管并补齐交付：
+
+**已完成**
+- `gatev1-volatilityaware`（GSPC T=24）：**MSE 0.06767** —— 优于线性（0.07007），但**劣于无参数加法**（0.06230，差 8.6%）。
+- BTCUSD 分层（相对 + 绝对口径），n=707：全样本 DeReFusion 仅领先 2.4%；**交互效应 +0.01502（显著正）**，与 GSPC 的 −0.01205（显著负）**符号相反**。
+
+**核心结论**
+- GSPC：非线性优势随波动率显著上升（A）；BTCUSD：反号且显著（B，非"无效应"）。
+- 唯一跨资产一致现象：平静期两分支打平。
+- 决策：**自适应融合止损；NS spike 暂缓**（两条独立否定证据：跨资产不成立 + 结构存在但门控无收益）。
+- 结构感知路由主线（方向 A）不受影响。
+
+**未完成（已重新排入后台队列 `reproduction/batches/run_remaining_batch.ps1`）**
+- ETHUSD（DeReFusion + DLinear, T=24, s2021）
+- GSPC seed 2022 对（用于种子稳健性）
+
+**方法学修正**
+- 绝对波动率与时间段混淆（GSPC corr=+0.44，BTC corr=−0.67）→ 跨资产比较以 relative 口径为主判定。
+- 交互效应现有两套口径（50/50 与任务书 Q4+Q5−Q1+Q2），均带 bootstrap CI（修复了此前仅旧掩码命名才计算的 bug）。
+
+---
+
+## 五、已知坑位（复现必读）
 
 1. 隐式依赖：`patool`、`huggingface_hub`、`sktime`(+`scikit-base`)、`datasets` 为 data pipeline 无条件导入。
 2. `sktime` 安装需 `pip download`（可续传）+ 本地 whl；`joblib` pin `1.5.3`。

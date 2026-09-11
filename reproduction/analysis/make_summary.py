@@ -44,6 +44,15 @@ def parse_metrics_log(path):
     return rows
 
 
+def _inter(comp):
+    """兼容两代键名：优先 50/50 口径，其次任务书 Q4+Q5 口径，最后旧键。"""
+    for k in ("interaction_high50_minus_low50", "interaction_Q45_minus_Q12", "interaction"):
+        v = comp.get(k)
+        if v:
+            return v
+    return None
+
+
 def verdict_for(strata, comp):
     """机械判定：高波动分位非线性显著占优 & 平静分位不显著 -> strong/full support"""
     def sig_neg(name):
@@ -56,7 +65,7 @@ def verdict_for(strata, comp):
 
     hi = sig_neg("high20%") or sig_neg("high50%")
     lo = ns("low20%") or ns("low50%")
-    inter = comp.get("interaction")
+    inter = _inter(comp)
     inter_sig = bool(inter) and (inter["ci95"][1] < 0 or inter["ci95"][0] > 0)
     if hi and lo and inter_sig:
         return "A（支持：高波动显著、平静打平、交互显著）"
@@ -109,7 +118,7 @@ def main():
                 out.append(f"| {name} | {c.get('n','')} | {strata[name]['DeReFusion']['MSE']:.5f} | "
                            f"{strata[name]['revin-DLinear']['MSE']:.5f} | {rel:+.1f}% | "
                            f"[{ci[0]:+.5f},{ci[1]:+.5f}] | {c.get('win_rate',0):.1%} |")
-            it = comp.get("interaction")
+            it = _inter(comp)
             if it:
                 out.append("")
                 out.append(f"- 交互效应 Δ_high50−Δ_low50 = {it['value']:+.5f}, 95%CI[{it['ci95'][0]:+.5f},{it['ci95'][1]:+.5f}]")
