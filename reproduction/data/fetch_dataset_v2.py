@@ -6,7 +6,7 @@ import sys, io, time, json
 from pathlib import Path
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
-ROOT = Path(__file__).resolve().parent / "dataset"
+ROOT = Path(__file__).resolve().parents[2] / "dataset"  # repo root / dataset
 ROOT.mkdir(exist_ok=True)
 
 ASSETS = [

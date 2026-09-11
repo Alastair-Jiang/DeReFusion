@@ -3,7 +3,7 @@
 import sys, json, time, urllib.request
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent / "dataset"
+ROOT = Path(__file__).resolve().parents[2] / "dataset"  # repo root / dataset
 ROOT.mkdir(exist_ok=True)
 
 ASSETS = [

@@ -21,8 +21,8 @@ while ($true) {
 Say "existing training finished $(Get-Date -Format HH:mm:ss)"
 
 # 2) BTCUSD stratification (needs both models done)
-& $py -W ignore scripts/analyze_volatility_regimes.py --csv dataset/BTCUSD-2016-2025.csv --tag BTCUSD --seed 2021 --rv-mode relative 2>&1 | Out-Null
-& $py -W ignore scripts/analyze_volatility_regimes.py --csv dataset/BTCUSD-2016-2025.csv --tag BTCUSD --seed 2021 --rv-mode absolute 2>&1 | Out-Null
+& $py -W ignore reproduction/analysis/analyze_volatility_regimes.py --csv dataset/BTCUSD-2016-2025.csv --tag BTCUSD --seed 2021 --rv-mode relative 2>&1 | Out-Null
+& $py -W ignore reproduction/analysis/analyze_volatility_regimes.py --csv dataset/BTCUSD-2016-2025.csv --tag BTCUSD --seed 2021 --rv-mode absolute 2>&1 | Out-Null
 Say "BTCUSD stratification done $(Get-Date -Format HH:mm:ss)"
 
 # 3) experiment queue, priority ordered
@@ -59,9 +59,9 @@ $analyses = @(
 )
 foreach ($a in $analyses) {
   Say "---- analysis $($a.tag) s$($a.seed) $($a.mode) $(Get-Date -Format HH:mm:ss)"
-  & $py -W ignore scripts/analyze_volatility_regimes.py --csv $a.csv --tag $a.tag --seed $a.seed --rv-mode $a.mode 2>&1 | Select-Object -Last 1 | ForEach-Object { Say $_ }
+  & $py -W ignore reproduction/analysis/analyze_volatility_regimes.py --csv $a.csv --tag $a.tag --seed $a.seed --rv-mode $a.mode 2>&1 | Select-Object -Last 1 | ForEach-Object { Say $_ }
 }
 
 # 5) digest for the 18:00 wake
-& $py scripts/make_summary.py 2>&1 | ForEach-Object { Say $_ }
+& $py reproduction/analysis/make_summary.py 2>&1 | ForEach-Object { Say $_ }
 Say "ALL DONE $(Get-Date -Format HH:mm:ss)"

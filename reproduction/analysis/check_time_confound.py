@@ -4,7 +4,7 @@ import sys, io, os
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 import numpy as np, pandas as pd
 
-REPO = r"C:\Users\26843\Desktop\project\repos\DeReFusion"
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repository root
 SEQ, T = 96, 24
 
 for tag, csv in [("GSPC", "GSPC-2016-2025.csv"), ("BTCUSD", "BTCUSD-2016-2025.csv")]:

@@ -7,7 +7,7 @@ import sys, io, time
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent / "dataset"
+ROOT = Path(__file__).resolve().parents[2] / "dataset"  # repo root / dataset
 ROOT.mkdir(exist_ok=True)
 
 # (文件名, yfinance ticker, 类型) —— 论文 Table 2 资产清单
