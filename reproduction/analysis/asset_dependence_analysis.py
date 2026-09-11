@@ -66,9 +66,13 @@ def interaction_of(tag):
     lo = c.get("low20%", {})
     return {
         "interaction": None if not it else it["value"],
+        "interaction_ci_lo": None if not it else it["ci95"][0],
+        "interaction_ci_hi": None if not it else it["ci95"][1],
         "interaction_sig": None if not it else it["significant"],
         "high20_delta": hi.get("delta_mse"), "high20_win": hi.get("win_rate"),
+        "high20_ci": hi.get("ci95"),
         "low20_delta": lo.get("delta_mse"), "low20_win": lo.get("win_rate"),
+        "low20_ci": lo.get("ci95"),
         "n": H["n_samples"],
     }
 
@@ -90,6 +94,12 @@ def main():
 
     df = pd.DataFrame(rows)
     df.to_csv(os.path.join(OUTDIR, "asset-dependence-table.csv"), index=False)
+    # 协议 §5 要求的汇总表：只含已有分层结果的资产
+    done_all = df[df.has_results & df.interaction.notna()].copy()
+    summary_cols = ["asset", "interaction", "interaction_ci_lo", "interaction_ci_hi", "interaction_sig",
+                    "high20_delta", "low20_delta", "high20_win", "n",
+                    "rv_median", "acf1_median_abs", "jump_ratio_median", "sign_persistence_median"]
+    done_all[summary_cols].to_csv(os.path.join(OUTDIR, "asset-dependence-summary.csv"), index=False)
     done = df[df.has_results & df.interaction.notna()].copy()
 
     lines = ["# Asset-Dependence Exploration（探索性）", ""]
