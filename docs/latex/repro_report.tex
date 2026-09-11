@@ -1,0 +1,395 @@
+%% DeReFusion 复现报告 —— 按 Applied Soft Computing (elsarticle) 格式规范生成
+%% 编译：xelatex/pdflatex + elsarticle.cls（本目录附官方 cls 与 .bst）
+%% 期刊格式要素：frontmatter（title/author/affiliation/abstract/keyword）+
+%% graphicalabstract + highlights + CRediT + declaration + appendix + elsarticle-num 参考文献
+\documentclass[preprint,12pt]{elsarticle}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+
+\journal{Applied Soft Computing}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{Reproduction Study of DeReFusion: A Controlled Comparison of Soft
+Computing Fusion Strategies for Financial Time Series Forecasting\tnoteref{t1}}
+\tnotetext[t1]{Reproduction of Hsieh and Chen (2026), Applied Soft Computing 203, 116252.}
+
+\author[nwpu]{Dongxu Jiang\corref{cor1}}
+\ead{jiangdongxu04@gmail.com}
+\cortext[cor1]{Corresponding author. Email: jiangdongxu04@gmail.com.}
+\affiliation[nwpu]{organization={},
+            city={},
+            country={}}
+
+\begin{abstract}
+This report documents a partial reproduction of the DeReFusion framework
+proposed by Hsieh and Chen (2026), which compares fusion strategies for
+financial time series forecasting under a controlled protocol: a DLinear base
+branch, an LSTM--Transformer residual branch, and parameter-free additive
+fusion, all wrapped in Reversible Instance Normalization (RevIN). Using the
+authors' official code repository with newly fetched Yahoo Finance daily OHLC
+data (2016--2025), we reproduce six controlled experiments on the S\&P 500
+index: the full DeReFusion model, a RevIN-wrapped DLinear baseline, and a
+learnable-gate fusion variant, at forecast horizons $T\in\{1,24\}$. The
+central qualitative finding of the original paper is confirmed: under an
+identical protocol, parameter-free additive fusion outperforms learnable
+gating (MSE 0.0623 vs.\ 0.0719 at $T=24$), and the hybrid model is
+competitive with the strongest linear baseline. The model size (28{,}436
+trainable parameters) matches the paper's reported ${\sim}26$k. We further
+distill the experimental protocol into six verified insertion points
+(checkpoints) that allow new research directions---in particular,
+structure-aware expert routing---to be evaluated within the same framework
+at minimal engineering cost. All materials (forked code, dataset, fetch
+scripts, and per-experiment artifacts) are available in a public
+repository.
+\end{abstract}
+
+\begin{graphicalabstract}
+% 论文要求：单独图形摘要文件；此处嵌入复现主图作为示意
+\includegraphics[width=\textwidth]{figs/fig_derefusion_t24_dashboard.png}
+\end{graphicalabstract}
+
+\begin{highlights}
+\item Full pipeline of DeReFusion reproduced from official code on new data
+\item Additive fusion beats learnable gating under identical protocol
+\item Model size 28k parameters matches the paper's reported scale
+\item Six verified insertion points documented for follow-up experiments
+\item Environment pitfalls (encoding, CPU mode, dependency pins) recorded
+\end{highlights}
+
+\begin{keyword}
+Financial time series forecasting \sep Reproduction study \sep
+Decomposition--residual architecture \sep Fusion strategy comparison \sep
+Reversible instance normalization
+\end{keyword}
+
+\end{frontmatter}
+
+% \linenumbers
+
+\section{Introduction}
+\label{sec:intro}
+
+DeReFusion~\cite{hsieh2026derefusion} poses a deliberately simple question:
+on non-stationary financial series, how far can a linear decomposition base,
+a learned residual, and plain additive fusion go, and does anything more
+elaborate buy accuracy? The paper answers it with a controlled benchmark: a
+single data pipeline, normalization scheme, training protocol, and metric
+set shared by every model, so that differences in results reflect the
+backbone rather than the harness. The authors conclude that parameter-free
+additive fusion beats static weighting and dynamic gating, that
+architectural complexity is no guarantee of accuracy, and that statistical
+accuracy does not translate into economic value.
+
+This document serves two purposes. First, it reports a partial reproduction
+of the paper's experiments from the official repository, verifying that the
+published protocol and qualitative conclusions are attainable from the
+public code with freshly fetched data. Second, it distills the experimental
+machinery into a set of verified \emph{insertion points} so that follow-up
+research---ours is structure-aware expert routing for financial panel
+forecasting---can be evaluated inside the same framework with minimal
+engineering.
+
+The remainder of this report is organized as follows.
+Section~\ref{sec:method} summarizes the reproduced architecture and
+protocol. Section~\ref{sec:setup} describes the reproduction environment
+and deviations from the original setup. Section~\ref{sec:results} presents
+the reproduced results and compares them against the paper's reported
+values. Section~\ref{sec:checkpoints} formalizes six verified insertion
+points for future work, and Section~\ref{sec:lessons} records engineering
+lessons. Section~\ref{sec:conclusion} concludes.
+
+\section{Reproduced framework}
+\label{sec:method}
+
+\subsection{Architecture}
+
+DeReFusion is a dual-branch decomposition--residual forecaster wrapped in
+RevIN~\cite{kim2022revin}. Given an input window
+$\mathbf{X}\in\mathbb{R}^{B\times L\times C}$ ($C=4$ OHLC channels):
+
+\begin{enumerate}
+  \item \textbf{RevIN normalization} strips instance-level mean/variance
+        shift; statistics are retained for symmetric de-normalization.
+  \item \textbf{Linear base branch (DLinear):} moving-average decomposition
+        (kernel $k=25$) splits $\mathbf{X}$ into seasonal and trend
+        components; channel-shared linear maps
+        $W_{\mathrm{se}}, W_{\mathrm{tr}}\in\mathbb{R}^{T\times L}$ produce
+        the base forecast $\mathbf{Y}_{\mathrm{base}}$.
+  \item \textbf{Nonlinear residual branch:} per-feature projection
+        $\mathbb{R}^{C\to d}$, a one-layer LSTM, a one-layer Transformer
+        encoder (4 heads, FFN width $4d$, dropout 0.3), then temporal
+        ($\mathbb{R}^{L\to T}$) and channel ($\mathbb{R}^{d\to C}$)
+        projections yield $\mathbf{Y}_{\mathrm{res}}$.
+  \item \textbf{Direct additive fusion:}
+        $\mathbf{F}=\mathbf{Y}_{\mathrm{base}}+\mathbf{Y}_{\mathrm{res}}$
+        with no fusion parameters.
+  \item \textbf{RevIN de-normalization} restores the original scale.
+\end{enumerate}
+
+\subsection{Controlled protocol}
+
+All models share: chronological 70/10/20 splitting; StandardScaler fitted on
+the training split only; RevIN on every trained model; multivariate input
+with single-target output (MS; target \texttt{Close}); Adam with learning
+rate $10^{-4}$, batch size 32, MSE loss, early stopping (patience 5) on
+validation MSE, cosine schedule; random seed 2021. Metrics are MAE, MSE,
+RMSE, MAPE, MSPE, and $R^2$, computed on the normalized series.
+
+\section{Reproduction setup and deviations}
+\label{sec:setup}
+
+Table~\ref{tab:setup} lists the setup and deviations from the original
+study. Deviations are limited to factors that do not affect the protocol's
+fairness (single asset, single seed, CPU training, newer library versions).
+
+\begin{table}[H]
+\centering
+\caption{Reproduction setup and deviations from the original study.}
+\label{tab:setup}
+\begin{tabular}{lll}
+\toprule
+Item & Original & This reproduction \\
+\midrule
+Code & Official repo (MIT) & Fork of official repo \\
+Data & 10 assets, 2016--2025, Yahoo & GSPC only, Yahoo, 2016--2025 (2{,}513 rows) \\
+Assets grid & 10 assets $\times$ 5 horizons & 1 asset $\times$ 2 horizons \\
+Horizons $T$ & $\{1,7,12,24,36\}$ & $\{1,24\}$ \\
+Seeds & 5 seeds (2020--2024) & 1 seed (2021) \\
+Models & 16 (10 RevIN baselines + gates + z.s.) & 3 (DeReFusion, revin-DLinear, gatev2) \\
+Hardware & 3 machines, CUDA & 1 laptop, CPU-only \\
+PyTorch & 2.5.1 & 2.14.0 (CPU) \\
+Python & 3.11 & 3.13.5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The dataset was regenerated from Yahoo Finance with a purpose-written fetch
+script (\texttt{scripts/fetch\_dataset\_v3.py}), since the upstream
+repository ignores \texttt{dataset/} in version control. Row counts match
+the paper for every asset class (2{,}513 trading days for equities/indices;
+2{,}602 for FX; 3{,}653/2{,}975 for BTC/ETH).
+
+\section{Reproduced results}
+\label{sec:results}
+
+\subsection{Main comparison}
+
+Table~\ref{tab:main} reports the reproduced test metrics on GSPC with seed
+2021. Values are MSE/R$^2$ on the normalized series, consistent with the
+paper's convention.
+
+\begin{table}[H]
+\centering
+\caption{Reproduced test metrics (GSPC, seed 2021). Best value per column in bold.}
+\label{tab:main}
+\begin{tabular}{lcccc}
+\toprule
+Model & MSE ($T{=}1$) & MSE ($T{=}24$) & $R^2$ ($T{=}24$) & Params \\
+\midrule
+DeReFusion (additive)   & 0.0165 & \textbf{0.0623} & \textbf{0.869} & 28{,}436 \\
+revin-DLinear           & \textbf{0.0158} & 0.0701 & 0.853 & ${\sim}3$k \\
+gatev2-learnable        & 0.0253 & 0.0719 & 0.849 & ${\sim}28$k \\
+\midrule
+\multicolumn{5}{l}{\footnotesize Paper anchors (10-asset means): DeReFusion $T{=}1$ $\approx$ 0.037, $T{=}24$ $\approx$ 0.205; DLinear $\approx$ 0.049/0.172.}\\
+\end{tabular}
+\end{table}
+
+\subsection{Verification against the paper's conclusions}
+
+\paragraph{Additive fusion beats learnable gating.} At $T=24$ the ordering
+DeReFusion $(0.0623) <$ DLinear $(0.0701) <$ gatev2 $(0.0719)$ matches the
+paper's central claim that parameter-free additive fusion outperforms
+parameterized gating. The gate variant is worse than even the linear
+baseline, echoing the paper's finding that gates under-fit on
+sample-limited, low signal-to-noise financial series.
+
+\paragraph{Model scale.} The reproduced DeReFusion has 28{,}436 trainable
+parameters, in line with the paper's ${\sim}26$k (difference attributable
+to the horizon-dependent output head).
+
+\paragraph{Hybrid vs.\ linear at short horizons.} On this single asset the
+DLinear baseline marginally outperforms DeReFusion at $T=1$ (0.0158 vs.\
+0.0165, a 4\% gap). The paper, averaging over ten assets, reports a 24\%
+advantage for DeReFusion at $T=1$ while also stressing that differences
+inside the leading cluster are tiny and asset-dependent. Our single-asset,
+single-seed observation therefore does not contradict the paper; it
+illustrates exactly the variance structure the paper acknowledges.
+
+\subsection{Qualitative artifacts}
+
+Figures~\ref{fig:deref} and \ref{fig:curves} show the reproduced dashboard
+(six-metric radar, error analysis, prediction curves) generated by the
+repository's own visualization utilities from saved predictions.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figs/fig_derefusion_t24_dashboard.png}
+\caption{DeReFusion, GSPC, $T=24$: reproduction dashboard (metrics radar,
+error analysis, error heatmap).}
+\label{fig:deref}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figs/fig_derefusion_t24_curves.png}
+\caption{DeReFusion, $T=24$: sample ground-truth vs.\ prediction windows.}
+\label{fig:curves}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.48\textwidth]{figs/fig_dlinear_t24_dashboard.png}\hfill
+\includegraphics[width=0.48\textwidth]{figs/fig_gatev2_t24_dashboard.png}
+\caption{Baseline dashboards at $T=24$: revin-DLinear (left) and the
+learnable-gate variant (right). The gate variant's error panel is visibly
+wider, consistent with Table~\ref{tab:main}.}
+\label{fig:baselines}
+\end{figure}
+
+\section{Verified insertion points for follow-up research}
+\label{sec:checkpoints}
+
+A key purpose of this reproduction is to certify that the framework can
+host new experiments with minimal friction. We define six insertion points,
+each verified by an executed run (CP1--CP3, CP5, CP6) or by mechanism
+inspection (CP4):
+
+\begin{enumerate}
+  \item \textbf{CP1 --- New model.} The registry auto-discovers any
+        \texttt{models/*.py} defining \texttt{class Model(nn.Module)} taking
+        \texttt{configs}. A new architecture is one file plus one
+        \texttt{run.py} invocation.
+        \texttt{--model <name>}
+  \item \textbf{CP2 --- New data.} Any CSV with columns
+        \texttt{date,Open,High,Low,Close} in \texttt{dataset/};
+        adapt \texttt{--data\_path} and \texttt{--enc\_in}. Verified with
+        freshly fetched GSPC data.
+  \item \textbf{CP3 --- Fusion operator.} The gate variants
+        (\texttt{-gatev1/-gatev2/-gatev3}) are drop-in comparators under an
+        identical protocol; the controlled-comparison design transfers
+        directly to any new fusion/routing operator.
+        \texttt{--model DeReFusion-gatev2-learnable}
+  \item \textbf{CP4 --- Ablations.} \texttt{-woDy}, \texttt{-woLSTM},
+        \texttt{-woTransformer} variants isolate component contributions
+        without protocol changes.
+  \item \textbf{CP5 --- Sweep harness.} Horizon grid ($T\in\{1,7,12,24,36\}$),
+        look-back ($L\in\{48,96,192\}$), and capacity ($d_{\mathrm{model}}$)
+        are single flags; the batch runner supports resumable sweeps.
+  \item \textbf{CP6 --- Metrics and figures.} Every run emits six metrics,
+        parameter counts, training/inference timings, and six
+        publication-style figures from saved arrays.
+\end{enumerate}
+
+For structure-aware expert routing, the minimal experiment is therefore:
+implement the router replacement as CP1, compare against CP3's fusion
+family under CP5's sweep, and report via CP6 --- reusing the paper's
+fairness argument wholesale.
+
+\section{Engineering lessons}
+\label{sec:lessons}
+
+The following pitfalls were encountered and fixed; they are recorded so
+that future runs are unblocked from the start.
+
+\begin{enumerate}
+  \item \textbf{Hidden dependency chain.} Beyond the README's requirements,
+        \texttt{patool}, \texttt{huggingface\_hub}, \texttt{sktime}
+        (with \texttt{scikit-base}), and \texttt{datasets} are imported
+        unconditionally by the data pipeline; each missing module aborts
+        startup.
+  \item \textbf{Console encoding.} An emoji in the lazy-loading log line
+        crashes Windows GBK consoles (\texttt{UnicodeEncodeError}); fixed by
+        replacing it with an ASCII marker (committed to the fork).
+        Setting \texttt{PYTHONIOENCODING=utf-8} is a robust belt-and-braces
+        measure.
+  \item \textbf{CPU mode.} \texttt{run.py} defaults to CUDA and asserts when
+        torch lacks CUDA support; \texttt{--no\_use\_gpu} is required on
+        CPU-only machines.
+  \item \textbf{Dependency pins.} \texttt{sktime} requires
+        \texttt{joblib<1.6}; when the resolver fights an installed newer
+        \texttt{joblib}, pin \texttt{joblib==1.5.3} explicitly. Wheel
+        downloads that stall can be recovered with
+        \texttt{pip download} (resumable) plus local installation.
+  \item \textbf{Dataset in version control.} The upstream repository
+        ignores \texttt{dataset/}; the data must be refetched. Our fork
+        force-adds the ten CSVs so the repository is self-contained.
+  \item \textbf{Non-determinism.} \texttt{run.py} seeds Python/NumPy/PyTorch
+        but not cuDNN; with CPU training and a single seed our runs are
+        deterministic, but multi-seed reporting remains necessary on CUDA.
+\end{enumerate}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+We reproduced the DeReFusion pipeline end to end from the official code with
+newly fetched data and confirmed its central qualitative conclusion:
+under a controlled protocol, parameter-free additive fusion outperforms
+learnable gating, and a ${\sim}28$k-parameter hybrid model is competitive
+with the strongest linear baseline. The reproduction doubles as a verified
+experiment harness: six documented insertion points allow follow-up
+research --- structure-aware expert routing for financial panels --- to be
+evaluated under the same fairness protocol at minimal engineering cost.
+
+\section*{CRediT authorship contribution statement}
+\textbf{Dongxu Jiang}: Writing -- original draft, Investigation, Formal
+analysis, Software. (Supervisor and collaborator contributions to be
+finalized at submission.)
+
+\section*{Declaration of competing interest}
+The authors declare that they have no known competing financial interests
+or personal relationships that could have appeared to influence the work
+reported in this paper.
+
+\section*{Data availability}
+All data used are publicly available from Yahoo Finance. The fetch script,
+forked code, dataset CSVs, and per-experiment artifacts are available at
+the authors' public repository fork.
+
+\bibliographystyle{elsarticle-num}
+\begin{thebibliography}{10}
+\bibitem{hsieh2026derefusion}
+C.-C. Hsieh, M.-Y. Chen,
+DeReFusion: A controlled comparison of soft computing fusion strategies for
+financial time series forecasting via a decomposition-residual architecture,
+Applied Soft Computing 203 (2026) 116252.
+\href{https://doi.org/10.1016/j.asoc.2026.116252}{doi:10.1016/j.asoc.2026.116252}.
+
+\bibitem{kim2022revin}
+T. Kim, J. Kim, Y. Tae, C. Park, J. Choi, G. Choo,
+Reversible instance normalization for accurate time-series forecasting
+against distribution shift,
+in: International Conference on Learning Representations (ICLR), 2022.
+
+\bibitem{zeng2023dlinear}
+A. Zeng, M. Chen, L. Zhang, Q. Xu,
+Are transformers effective for time series forecasting?,
+in: AAAI Conference on Artificial Intelligence, 2023.
+
+\bibitem{vaswani2017attention}
+A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A.N. Gomez,
+{\L}. Kaiser, I. Polosukhin,
+Attention is all you need,
+in: Advances in Neural Information Processing Systems (NeurIPS), 2017.
+
+\bibitem{hochreiter1997lstm}
+S. Hochreiter, J. Schmidhuber,
+Long short-term memory,
+Neural Computation 9 (1997) 1735--1780.
+
+\bibitem{tslib}
+H. Wu, T. Hu, Y. Liu, H. Zhou, J. Wang, M. Long,
+TimesNet: Temporal 2D-variation modeling for general time series analysis,
+in: International Conference on Learning Representations (ICLR), 2023.
+(Time-Series-Library code base.)
+
+\end{thebibliography}
+
+\end{document}

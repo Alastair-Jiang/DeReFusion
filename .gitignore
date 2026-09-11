@@ -169,3 +169,11 @@ result_anomaly_detection.txt
 scripts/augmentation/
 run_anylearn.py
 environment.txt
+# local run artifacts (reproduction)
+pip_cache_dl/
+afternoon_batch_*.txt
+repro_*.txt
+r_*_*.txt
+repro_results_snapshot.txt
+volatility_stratification.txt
+volatility_stratification.json
