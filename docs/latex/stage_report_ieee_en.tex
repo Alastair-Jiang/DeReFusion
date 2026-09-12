@@ -1,0 +1,356 @@
+%% Stage report (IEEEtran, English) — completed work up to 2026-09-12
+%% Compile: pdflatex -interaction=nonstopmode stage_report_ieee_en.tex  (twice)
+%% Companion: stage_report_ieee_zh.tex (independent, xelatex + xeCJK)
+\documentclass[conference]{IEEEtran}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{url}
+
+\begin{document}
+
+\title{Reproduction of DeReFusion and Diagnostics of Operator\\ Specialization for Financial Time Series}
+
+\author{\IEEEauthorblockN{Dongxu Jiang}
+\IEEEauthorblockA{Email: jiangdongxu04@gmail.com}}
+
+\maketitle
+
+\begin{abstract}
+This report consolidates the work completed up to 2026-09-12 on the reproduction of
+DeReFusion and on a sequence of controlled diagnostics that ask a single question: does the
+structural state of the input determine which operator is more useful? We first reproduce the
+core comparison of the original paper --- a DLinear base branch, an LSTM--Transformer residual
+branch and parameter-free additive fusion, all under RevIN --- and then stratify forecast errors
+by a causal relative-volatility measure. The marginal value of the nonlinear branch turns out to
+be \emph{asset-dependent} rather than universal: significantly positive and seed-robust on the
+S\&P~500, directionally positive but statistically inconclusive for ETHUSD, and significantly
+\emph{reversed} for BTCUSD. A capacity-sensitivity experiment (hidden width $23\!\to\!128$, all
+else frozen) shows that the earlier ``linear dominates everywhere'' reading was partly an artefact
+of a narrow nonlinear bottleneck: at adequate capacity ETHUSD prefers the nonlinear operator in
+$36/36$ observations while BTCUSD never does. A capacity-matched proxy routing experiment (twelve
+pre-registered structural states, linear versus MLP, identical protocol) finds no robust
+state-level operator specialization. Finally, an exploratory sweep over ten assets yields
+interaction effects that span zero (six negative, four positive, five supported) and two
+leave-one-out-stable associations (realized volatility and $|\mathrm{ACF}_1|$), reported as a
+\emph{candidate} asset-level structural regularity only. We state explicitly what the evidence
+excludes, what it supports, and what remains unresolved.
+\end{abstract}
+
+\begin{IEEEkeywords}
+reproduction, time series forecasting, operator specialization, structural states,
+adaptive fusion, controlled comparison.
+\end{IEEEkeywords}
+
+\section{Scope and Research Questions}
+The work follows an evidence-first protocol: reproduce the reference result, then ask one
+question at a time with every grouping rule, threshold and operator definition fixed \emph{before}
+outcomes are inspected. Three questions structure the report: \textbf{Q-A} does the published
+ordering of fusion strategies reproduce on independently fetched data; \textbf{Q-B} is the
+marginal contribution of the nonlinear branch conditioned on the volatility regime of the input
+window; and \textbf{Q-C} does the \emph{structural state} of the input determine which operator is
+more useful, i.e.\ is there an experimental basis for routing? All experiments run on CPU under a
+frozen 70/10/20 chronological split and report paired bootstrap intervals (4000 resamples) with
+paired win rates. No hyper-parameter was tuned after observing test outcomes.
+
+\section{Reproduction of the Reference Comparison}
+The dataset of the original repository is not redistributable, so ten daily OHLC series
+(2016--2025) were re-fetched; row counts match the paper (2513 for indices and equities, 2602 for
+FX, 3653 for BTCUSD, 2975 for ETHUSD). Table~\ref{tab:repro} reports the S\&P~500 comparison at
+$T\in\{1,24\}$ (seed 2021).
+
+\begin{table}[!t]
+\caption{Reproduction of the core comparison (GSPC, seed 2021, normalized scale).}
+\label{tab:repro}
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Model & $T{=}1$ & $T{=}24$ & $R^2$ & Params \\
+\midrule
+DeReFusion (additive)   & 0.01647 & \textbf{0.06230} & \textbf{0.8691} & 28{,}436 \\
+revin-DLinear (linear)  & \textbf{0.01577} & 0.07007 & 0.8528 & 4{,}664 \\
+gatev1 (volatility)     & ---     & 0.06767 & 0.8578 & 28{,}580 \\
+gatev2 (learnable)      & 0.02526 & 0.07191 & 0.8489 & $\sim$28k \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At $T=24$ the published ordering reproduces: additive fusion beats the linear branch by $11.1\%$
+in MSE, while both gate variants are worse than parameter-free addition. At $T=1$ the linear
+branch is marginally better, consistent with the behaviour of long-horizon linear forecasters.
+Extending the protocol to two further assets at $T=24$ gives $0.21797$ versus $0.22322$ for BTCUSD
+($+2.4\%$) and $0.14602$ versus $0.14876$ for ETHUSD ($+1.8\%$); the additive advantage is ordered
+GSPC $\gg$ BTCUSD $\approx$ ETHUSD. Figure~\ref{fig:curves} shows the corresponding
+per-horizon prediction curves and the run dashboard of the full model.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.49\columnwidth]{figs/fig_derefusion_t24_curves.png}
+\hfill
+\includegraphics[width=0.49\columnwidth]{figs/fig_derefusion_t24_dashboard.png}
+\caption{Reproduction of DeReFusion on GSPC ($T{=}24$): forecast curves (left) and the
+per-run diagnostic dashboard (right).}
+\label{fig:curves}
+\end{figure}
+
+\section{Volatility-Regime Stratification}
+Each test window is assigned a regime from \emph{causal} volatility measures computed on the input
+window only: the standard deviation of log returns and a de-trended version,
+$RV^{rel}_t = RV_t / \mathrm{median}(RV_{t-120:t-1})$. Table~\ref{tab:regime} reports the relative
+improvement of the nonlinear branch per stratum (relative volatility, the primary measure) and the
+interaction effect $\Delta_{high50}-\Delta_{low50}$.
+
+\begin{table}[!t]
+\caption{Stratified performance, relative volatility
+($\Delta=$ MSE$_{nonlin}-$MSE$_{lin}$; negative favours the nonlinear branch).
+$^\dagger$CI excludes zero.}
+\label{tab:regime}
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Asset & low 20\% & high 50\% & high 20\% & Interaction \\
+\midrule
+GSPC (2021) & $+6.0\%$ & $+14.2\%^\dagger$ & $+21.6\%^\dagger$ & $-0.01205^\dagger$ \\
+GSPC (2022) & $-2.7\%$ & $+23.2\%^\dagger$ & $+29.6\%^\dagger$ & $-0.02248^\dagger$ \\
+ETHUSD      & $+16.7\%^\dagger$ & $+6.3\%^\dagger$ & $+14.2\%^\dagger$ & $-0.00943$ \\
+BTCUSD      & $+3.5\%$ & $-1.0\%$ & $-3.5\%$ & $+0.01502^\dagger$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Two findings follow. The S\&P~500 effect is \emph{seed-robust}: both seeds give significantly
+negative interactions of the same order, and the calm strata are indistinguishable between
+branches. BTCUSD reverses the sign significantly, so ``nonlinear advantage grows with volatility''
+cannot be stated as a universal criterion. A methodological check explains part of the earlier
+confusion: raw volatility is strongly confounded with time (correlation of $RV$ with the sample
+index: $+0.44$ for GSPC, $-0.67$ for BTCUSD). The de-trended $RV^{rel}$ removes that trend, and
+under it the spurious ``linear wins in the middle quintile'' of GSPC disappears; all reported
+figures therefore use $RV^{rel}$.
+
+\section{Adaptive Fusion Does Not Pay}
+The natural use of the regime structure would be a gate $\alpha(X)$ mixing the two branches, and
+the framework already provides exactly this variant. On the asset where the structure is strongest
+and seed-robust (GSPC, $T=24$) the volatility-aware gate obtains MSE $0.06767$, i.e.\ $8.6\%$
+\emph{worse} than parameter-free addition ($0.06230$) and only $3.4\%$ better than the plain linear
+branch ($0.07007$). Because the nonlinear branch is never worse than the linear one in the calm
+strata, the optimal gate weight is essentially constant at one, leaving no switching headroom.
+Together with the previously reported negative results for the learnable gate, this motivates
+stopping the adaptive-fusion line rather than building a router on top of it.
+
+\section{Capacity Sensitivity}
+The proxy experiment of Section~\ref{sec:routing} compares a linear operator with a
+capacity-matched MLP ($9{,}240$ versus $9{,}431$ parameters, $+2.1\%$). That matching forces a
+384-dimensional input through a 23-dimensional hidden layer, a severe bottleneck. We therefore
+re-ran the structural-state evaluation with the hidden width as the \emph{only} variable
+($23\to64\to128$; data, features, splits, optimizer, learning rate, batch size, epochs, early
+stopping, seeds and evaluation protocol unchanged). Table~\ref{tab:cap} reports the mean
+$\Delta$MSE over twelve structural states and three seeds.
+
+\begin{table}[!t]
+\caption{Capacity sensitivity. Mean $\Delta$MSE (negative $=$ nonlinear better); in parentheses,
+the number of the 36 (state, seed) observations preferring the nonlinear operator.}
+\label{tab:cap}
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Hidden & Params & GSPC & BTCUSD & ETHUSD \\
+\midrule
+23  & 9{,}431  & $+0.0598$ (0/36) & $+0.1783$ (0/36) & $+0.0145$ (12/36) \\
+64  & 26{,}200 & $+0.0250$ (7/36) & $+0.1888$ (0/36) & $\mathbf{-0.0281}$ (36/36) \\
+128 & 52{,}376 & $+0.0061$ (8/36) & $+0.2998$ (0/36) & $\mathbf{-0.0321}$ (36/36) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Three pre-registered checks agree. (i) \emph{Sign reversals}: 25 state-level reversals across
+widths, 23 of them ETHUSD (all seeds) and 8 GSPC (all at seed 2023 only, i.e.\ seed-unstable);
+BTCUSD has none. (ii) \emph{Spread across states}: the range of $\Delta$MSE across states
+\emph{shrinks} with capacity for GSPC ($0.106\to0.060$) and ETHUSD ($0.089\to0.040$); the BTCUSD
+increase is driven by a single high-error state. (iii) \emph{Per-seed direction consistency} falls
+from $31/36$ to $29/36$ to $28/36$. The ETHUSD preference is \emph{asset-wide} once capacity is
+sufficient --- all twelve states reverse, not a subset --- so it is asset-level heterogeneity
+rather than state-level specialization. We therefore record the earlier uniform ``linear dominates''
+statement as partly capacity-driven, and do not treat the capacity sweep as routing evidence.
+
+\section{Structure-Aware Routing: A Minimal Controlled Proxy}
+\label{sec:routing}
+\subsection{Design}
+Twelve structural states were defined \emph{before} any outcome was inspected, using causal
+window features: autocorrelation at lags 1/5/10, a trend $t$-statistic, sign persistence, a jump
+ratio with a fixed threshold of $c=3\sigma$, the de-trended relative volatility, skewness and
+kurtosis. Binary states use train-set medians as thresholds; a composite \emph{structure strength}
+state and a $K{=}3$ $k$-means cross-check are also reported. The two operators are a linear map
+($9{,}240$ parameters) and an MLP with one 23-unit hidden layer ($9{,}431$ parameters), trained
+under an identical protocol (same seed, optimizer, steps, batch, learning rate, early stopping and
+preprocessing).
+
+\subsection{Result}
+At matched capacity the linear operator is better in \emph{every} one of the twelve states for
+GSPC and BTCUSD (GSPC $\Delta$MSE between $+0.047$ and $+0.081$, significant in all three seeds;
+BTCUSD between $+0.129$ and $+0.448$). Only ETHUSD shows between-state variation of both signs
+(structure-weak states favouring the nonlinear operator by up to $-0.013$, structure-strong states
+favouring the linear one by $+0.033$). No state preference survives the capacity sweep.
+\textbf{Main finding: no robust operator specialization is established at capacity-matched
+scale}; the one cross-asset invariant is that the two operators are indistinguishable in calm
+regimes.
+
+\section{Asset-Level Heterogeneity Across Ten Assets}
+The frozen protocol ($T=24$, seed 2021) was then run on seven additional assets to map the
+\emph{sign} of the interaction effect. GSPC aggregates its two seeds into a single asset, so
+$N=10$. Table~\ref{tab:assets} reports the interaction effect and Table~\ref{tab:assoc} the
+exploratory association between asset structure features and that effect, including a
+leave-one-asset-out (LOO) check.
+
+\begin{table}[!t]
+\caption{Asset-level interaction effects (relative volatility).
+$^\dagger$CI excludes zero.}
+\label{tab:assets}
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Asset & $\Delta_{interaction}$ & 95\% CI & Supported \\
+\midrule
+EURUSD & $-0.1371$ & $[-0.164,-0.111]$ & yes$^\dagger$ \\
+GSPC   & $-0.0173$ & $[-0.027,-0.009]$ & yes$^\dagger$ \\
+USDJPY & $-0.0122$ & $[-0.026,+0.002]$ & no \\
+ETHUSD & $-0.0094$ & $[-0.019,+0.000]$ & no \\
+DJI    & $-0.0084$ & $[-0.019,+0.003]$ & no \\
+TM     & $-0.0081$ & $[-0.028,+0.011]$ & no \\
+SOX    & $+0.0044$ & $[-0.008,+0.017]$ & no \\
+BTCUSD & $+0.0150$ & $[+0.006,+0.024]$ & yes$^\dagger$ \\
+BABA   & $+0.0405$ & $[+0.022,+0.060]$ & yes$^\dagger$ \\
+NVO    & $+0.0976$ & $[+0.046,+0.149]$ & yes$^\dagger$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\caption{Exploratory Spearman association of asset structure features with
+$\Delta_{interaction}$ ($N=10$) and LOO stability.}
+\label{tab:assoc}
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Feature & $\rho$ & $p$ & LOO range & Stable \\
+\midrule
+$|\mathrm{ACF}_1|$  & $+0.733$ & $0.016$ & $[+0.633,+0.817]$ & yes \\
+Realized volatility & $+0.661$ & $0.038$ & $[+0.533,+0.900]$ & yes \\
+Kurtosis            & $+0.345$ & $0.328$ & $[+0.100,+0.533]$ & yes \\
+Trend persistence   & $+0.042$ & $0.907$ & $[-0.317,+0.283]$ & no (flips) \\
+Jump ratio          & ---      & ---     & --- & constant \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The sign of the effect spans zero: six assets negative, four positive, five statistically
+supported. Two features are LOO-stable: assets with higher realized volatility and stronger
+first-order autocorrelation show a \emph{less} favourable (or reversed) nonlinear advantage in
+turbulent regimes. At $N{=}10$ both associations reach $p<0.05$ ($|\mathrm{ACF}_1|$
+$\rho=+0.733$, $p=0.016$; realized volatility $\rho=+0.661$, $p=0.038$), and the inclusion of
+SOX (interaction $+0.0044$, statistically inconclusive) leaves the verdict unchanged.
+\textbf{These associations are exploratory and are reported as a candidate regularity only}: with
+ten assets a single $p$-value is not decisive, the jump-ratio feature is constant across assets at
+the median (one exceedance in 95 returns) and therefore carries no discriminative information at
+the pre-registered threshold, and trend persistence flips sign under LOO and is marked
+single-asset sensitive.
+
+Two further observations qualify the table. First, the four assets whose confidence intervals
+contain zero (USDJPY, ETHUSD, DJI, TM) are all directionally negative and agree in sign with the
+supported negative cases, so the negative side is internally consistent even where it is not
+individually significant. Second, the two supported positive cases (NVO, BABA) are precisely the
+assets with the strongest first-order autocorrelation, which is what the candidate regularity
+predicts; the association is therefore not driven by the significance pattern alone but by the
+ordering of the effect sizes across the feature range.
+
+\section{Diagnosis and Decisions}
+\begin{table}[!t]
+\caption{Consolidated answers to the five diagnostic questions.}
+\label{tab:q}
+\centering
+\small
+\begin{tabular}{@{}p{0.46\columnwidth}p{0.48\columnwidth}@{}}
+\toprule
+Question & Answer \\
+\midrule
+Q1 Robust sample-level routing evidence? &
+No. Neither the routing proxy nor the capacity sweep produces a stable state-to-operator mapping. \\
+Q2 Genuine asset-level operator heterogeneity? &
+Yes. At adequate capacity ETHUSD prefers the nonlinear operator in 36/36 observations, BTCUSD
+prefers linear at every capacity, GSPC is near parity. \\
+Q3 Explainable by the existing structural features? &
+Only as a candidate: realized volatility and $|\mathrm{ACF}_1|$ associate with the interaction sign
+and survive LOO, but the sign spans zero across ten assets. \\
+Q4 Principal remaining uncertainty? &
+Asset dependence and operator form --- not the structural representation, and not routing, which
+is now largely excluded. \\
+Q5 May a stronger nonlinear operator be reconsidered? &
+Only as one candidate, tested against a capacity-matched MLP, and never by extrapolating
+``ETHUSD prefers nonlinear'' to a specific operator family. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The decisions recorded here are: stop the adaptive-fusion line, since a volatility gate measures
+worse than parameter-free addition and the structure it would exploit leaves no switching
+headroom; do not build a neural router, because the state-to-operator mapping is not established;
+treat operator choice as an asset-level configuration question, which is what the evidence
+supports; and keep any structured nonlinear operator conditional on a reproducible context and on
+a capacity-matched comparison.
+
+\section{Limitations}
+\emph{Operator fidelity:} the proxy operators (a linear map and an MLP over flattened windows)
+differ from the framework branches, which combine a DLinear decomposition with an
+LSTM--Transformer residual under RevIN. Proxy results must therefore not be read as
+``nonlinearity is useless''; within the framework the residual branch still outperforms the linear
+base on the S\&P~500 at $T=24$ across both seeds, and the two statements are consistent.
+\emph{Sample size:} the asset-level association rests on ten assets and one seed per asset (two
+for GSPC), so association intervals are wide and the analysis is exploratory.
+\emph{Regime definition:} regimes are volatility quintiles of a causal window measure, and the
+calm strata are statistically indistinguishable between operators, so ``calm'' is an acceptance
+result rather than a separate effect. \emph{Environment:} runs are CPU-only, so wall-clock times
+are not comparable to published GPU numbers and only relative comparisons are interpreted.
+
+\section{Conclusion}
+The reproduction reproduces the published ordering at $T=24$ and does so robustly across seeds.
+The diagnostics that follow refine but do not overturn it: the marginal value of the nonlinear
+branch is asset-dependent rather than regime-universal, the volatility gate does not pay, and
+matched-capacity comparisons show that the earlier uniform preference for the linear operator was
+partly a capacity artefact. No robust experimental basis for sample-level routing was found,
+whereas genuine asset-level operator heterogeneity was. The next question the evidence supports is
+therefore not how a router should choose, but in which reproducible contexts a stronger nonlinear
+operator is worth its capacity --- to be answered against a capacity-matched baseline. All
+artifacts reported here (analysis scripts, batch runners, per-run prediction files and
+stratification outputs) are committed to the public repository, so every number in this report
+can be regenerated from the committed commands without access to the original authors' data.
+
+\section*{Reproducibility Notes}
+All reproduction assets live under \texttt{reproduction/} in the project repository: analysis
+scripts under \texttt{reproduction/analysis/}, batch runners under
+\texttt{reproduction/batches/}, per-setting results under \texttt{reproduction/results/}. Four
+environment facts cost real time and are recorded for reuse: the data pipeline imports
+\texttt{patool}, \texttt{huggingface\_hub}, \texttt{sktime} and \texttt{datasets}
+unconditionally; \texttt{joblib} must be pinned to \texttt{1.5.3}; CPU runs require
+\texttt{--no\_use\_gpu}; and killing DataLoader worker processes (\texttt{spawn\_main})
+deadlocks the parent trainer, so a stalled run must be detected by process CPU time rather than
+by log output.
+
+\begin{thebibliography}{1}
+\bibitem{hsieh2026} C.-Y. Hsieh and Y.-C. Chen, ``DeReFusion: a decomposition-reconstruction
+fusion framework for financial time series forecasting,'' \emph{Applied Soft Computing},
+vol.~203, p.~116252, 2026.
+\bibitem{zeng2023} A. Zeng, M. Chen, L. Zhang, and Q. Xu, ``Are transformers effective for time
+series forecasting?'' in \emph{Proc. AAAI}, vol.~37, no.~9, 2023, pp.~11121--11128.
+\end{thebibliography}
+
+\end{document}
