@@ -50,3 +50,5 @@ merged while its prerequisite is unmet.
   that constraint for this artefact; the constraint list in `RESEARCH-LINE.md` §7 and
   `PROJECT-BRIEF.md` §7 is **unchanged** and still applies to every other file and to any decision
   to run this code. Amending those lists is an owner decision and has not been made.
+
+**Cross-reference:** the shared position with the external Codex agent (including why this branch stays dormant and what would legitimise a manifest) is recorded on main as eports/evidence_closure/19_codex_agent_convergence.md.
