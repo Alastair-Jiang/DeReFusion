@@ -39,6 +39,17 @@ import structure_routing_experiment as S  # noqa: E402
 OUTDIR = os.path.join(S.PROJ, "05_research_intelligence")
 WIDTHS = [23, 64, 128]
 
+# Optional asset override: --assets BYD,BOE,EASTMONEY,YANGHE (structural-validation extension).
+# Only the ASSET SET changes; operators, states, protocol and metrics are untouched.
+if "--assets" in sys.argv:
+    S.ASSETS = sys.argv[sys.argv.index("--assets") + 1].split(",")
+    SUFFIX = "_sv"          # structural-validation extension: never overwrite the E4 outputs
+else:
+    SUFFIX = ""
+if "--widths" in sys.argv:
+    WIDTHS = [int(w) for w in sys.argv[sys.argv.index("--widths") + 1].split(",")]
+print(f"[cfg] assets={S.ASSETS} widths={WIDTHS} suffix={SUFFIX!r}", flush=True)
+
 
 def train_linear_once(tag, seed, data):
     x_tr, y_tr, x_va, y_va, x_te, y_te, mu, sd = data
@@ -112,8 +123,8 @@ def main():
 
     df = pd.DataFrame(rows)
     os.makedirs(os.path.join(S.REPO, "reproduction", "results"), exist_ok=True)
-    df.to_csv(os.path.join(S.REPO, "reproduction", "results", "operator-regime-capacity.csv"), index=False)
-    print("\n[saved] reproduction/results/operator-regime-capacity.csv", flush=True)
+    df.to_csv(os.path.join(S.REPO, "reproduction", "results", f"operator-regime-capacity{SUFFIX}.csv"), index=False)
+    print(f"\n[saved] reproduction/results/operator-regime-capacity{SUFFIX}.csv", flush=True)
 
     # ---- 汇总 1：按容量
     g = df.groupby("width").agg(
@@ -122,7 +133,7 @@ def main():
         mean_winN=("winN", "mean"),
     ).reset_index()
     g["frac_pref_nonlin"] = (g.states_pref_nonlin / g.states_total).round(3)
-    g.to_csv(os.path.join(OUTDIR, "operator-regime-capacity-summary.csv"), index=False)
+    g.to_csv(os.path.join(OUTDIR, f"operator-regime-capacity-summary{SUFFIX}.csv"), index=False)
 
     # ---- 汇总 2：Range(ΔMSE) 随容量
     rng = []
@@ -197,10 +208,10 @@ def main():
         lines.append(f"- 128 维下有 {frac128:.1%} 的状态偏好非线性。是否构成 Case 2（跨 seed、CI 支持、非单资产）"
                      "需对照上表逐项核对；仅 ETH 成立则为 Case 3（asset-specific conditional specialization）。")
     md = "\n".join(lines) + "\n"
-    with open(os.path.join(OUTDIR, "capacity-sign-reversal.md"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUTDIR, f"capacity-sign-reversal{SUFFIX}.md"), "w", encoding="utf-8") as f:
         f.write(md)
     print(md, flush=True)
-    print("[saved] capacity-sign-reversal.md / operator-regime-capacity-summary.csv", flush=True)
+    print(f"[saved] capacity-sign-reversal{SUFFIX}.md / operator-regime-capacity-summary{SUFFIX}.csv", flush=True)
 
 
 if __name__ == "__main__":
