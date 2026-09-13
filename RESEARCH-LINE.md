@@ -3,6 +3,10 @@
 > `README.md` (top level) is the **upstream paper's** readme — leave it as is.
 > This file documents the work carried out in **this fork**: what has been done, what the
 > current state is, where everything lives, and how to reproduce it.
+>
+> **Outside reader / planning agent:** start from [`PROJECT-BRIEF.md`](PROJECT-BRIEF.md) — a
+> self-contained, **read-only** briefing (evidence ledger, frozen rules, roadmap options, caveats,
+> reading map).
 
 ---
 
