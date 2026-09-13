@@ -1,0 +1,34 @@
+{
+  "protocol_id": "REPLACE_WITH_LOCKED_PROTOCOL_ID",
+  "status": "TEMPLATE_NOT_LOCKED",
+  "eligibility_evidence": "C1_REPLICATED",
+  "eligibility_report": "reports/evidence_closure/14_replace_after_c1.md",
+  "assets": ["REPLACE_WITH_PRE_REGISTERED_ASSET"],
+  "asset_sha256": {},
+  "capacity_labels": ["w23", "w64", "w128"],
+  "models": ["mlp", "causal_conv", "ssm", "temporal_ns"],
+  "feature_view": "multiscale_state",
+  "time_coordinate": "lag_linear",
+  "fusion_mode": "none",
+  "regularizer": {
+    "prediction_curvature_weight": 0.0
+  },
+  "falsification": {
+    "utility": "The temporal NS-inspired nonlinear operator has no established extra value if its paired MSE advantage does not persist against every listed capacity-aligned ordinary baseline under the locked seeds.",
+    "mechanism": "The claimed local flux/curvature mechanism has no support if the strictly-past closure_q detector does not predict the pre-specified direction of paired improvement, or if an ordinary convolution or SSM reproduces the result with the same input view and budget.",
+    "scope": "No result changes Gate A, selects assets or samples, or establishes a physical law for markets."
+  },
+  "frozen_protocol": {
+    "seq_len": 96,
+    "pred_len": 24,
+    "train_ratio": 0.7,
+    "test_ratio": 0.2,
+    "seeds": [2021, 2022, 2023],
+    "epochs": 30,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "patience": 5,
+    "bootstrap_resamples": 4000
+  },
+  "output_root": "reproduction/results/ns_hypothesis_benchmark"
+}

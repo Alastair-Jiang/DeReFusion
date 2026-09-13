@@ -18,7 +18,10 @@ reproduction/
 ├── analysis/
 │   ├── analyze_volatility_regimes.py   # 工况分层评估（核心）
 │   ├── check_time_confound.py          # 波动率分层 vs 时间段 混淆诊断
-│   └── make_summary.py                 # 汇总 result log + 分层 JSON → 摘要
+│   ├── make_summary.py                 # 汇总 result log + 分层 JSON → 摘要
+│   └── run_ns_hypothesis_benchmark.py  # 锁定 manifest 后的独立算子基准（默认只预检）
+├── configs/
+│   └── ns_hypothesis_benchmark.example.json
 ├── batches/                       # 实验批次（PowerShell，串行）
 │   ├── run_batch_repro.ps1        # GSPC 复现批次 v1
 │   ├── run_batch_repro2.ps1       # GSPC 复现批次 v2（3 模型 × 2 时域）
@@ -85,6 +88,28 @@ reproduction/
 powershell -NoProfile -ExecutionPolicy Bypass -File reproduction/batches/run_afternoon_batch.ps1
 ```
 > 注意：Windows PowerShell 5.1 读取含中文的 `.ps1` 会按 ANSI 解析而报语法错，**批次脚本保持纯 ASCII**。
+
+## Temporal NS-inspired nonlinear operator benchmark
+
+`run_ns_hypothesis_benchmark.py` 是独立代理基准，不修改或接入 DeReFusion。它固定运行
+MLP、普通因果时序卷积、非选择性 SSM 和 temporal NS-inspired nonlinear operator；所有模型
+使用同一锁定输入视图、种子、切分与训练预算。默认只检查 manifest，不训练也不写输出：
+
+```powershell
+.venv\Scripts\python.exe reproduction/analysis/run_ns_hypothesis_benchmark.py `
+  --manifest reproduction/configs/ns_hypothesis_benchmark.example.json
+```
+
+执行前，OpenClaw 需要把模板替换成已锁定的 manifest，提供完整资产列表与 SHA-256、`C1_REPLICATED`
+资格证据报告路径及事先写定的证伪文字。只有显式 `--execute` 才会训练；执行器拒绝未锁定
+manifest、缺失资格证据、哈希不匹配、缺少任一普通基线或已有输出目录。每个运行会保留预测、
+目标、逐样本平方误差、前瞻性 `closure_q` 探测器和配对 bootstrap 汇总。
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File reproduction/batches/run_ns_hypothesis_benchmark.ps1 `
+  -Manifest path\to\locked-manifest.json -Execute
+```
 
 ## 结果与报告
 
