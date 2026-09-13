@@ -31,6 +31,7 @@ it relies on are in `reproduction/results/`.
 | `evidence_closure/13b_external_review_round2.md` | external review, round 2 (archived verbatim) |
 | `evidence_closure/14_*` | **result + Gate A verdict** (written when the framework runs complete) |
 | `evidence_closure/15_data_acquisition_diagnosis.md` | network diagnosis: why Yahoo is unreachable here, and the source policy for the new cohort |
+| `evidence_closure/16_post_gate_experiment_program.md` | authoritative post-Gate plan: FAIL/CONDITIONAL branches, resources, falsification rules and the NS-inspired feasibility boundary |
 
 ## Reviewer / handoff material
 
@@ -47,3 +48,4 @@ it relies on are in `reproduction/results/`.
 2. `evidence_closure/07_evidence_matrix.md` + `08_evidence_chain.md` — what is supported and what is not.
 3. `evidence_closure/11_*` → `12a` → `12b` — how the current verdict is being reached, and under which frozen rules.
 4. `evidence_closure/14_*` — the verdict (when written).
+5. `evidence_closure/16_*` — the verdict-dependent experiment program; do not execute a branch before `14_*` exists.

@@ -9,6 +9,11 @@
 > Anything in this file is a *summary*; when a number matters, verify it against the file named in
 > §9. Where the project is uncertain, this file says so explicitly — do not resolve uncertainty by
 > assumption.
+>
+> **Planning addendum:** a later request separately authorised documentation-only planning changes.
+> The authoritative post-Gate decision tree and NS-inspired feasibility boundary are now recorded
+> in `reports/evidence_closure/16_post_gate_experiment_program.md`. It changes no evidence or frozen
+> Gate rule and authorises no experiment by itself; this brief remains the read-only entry point.
 
 ---
 
@@ -162,6 +167,7 @@ rule (2 lowest + 2 highest `|ACF1|` among full-history candidates) **before** an
 | Two external reviews (verbatim) | `reports/evidence_closure/13_*`, `13b_*` |
 | Gate A result (written when the runs finish) | `reports/evidence_closure/14_*` |
 | Data-acquisition diagnosis + source policy | `reports/evidence_closure/15_data_acquisition_diagnosis.md` |
+| Post-Gate experiment program + NS feasibility boundary | `reports/evidence_closure/16_post_gate_experiment_program.md` |
 | Raw per-setting results | `reproduction/results/` (JSON/TXT/CSV) |
 | Raw per-run outputs and weights | `results/`, `checkpoints/` |
 | Analysis scripts | `reproduction/analysis/` |

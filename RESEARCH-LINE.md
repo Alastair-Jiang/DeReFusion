@@ -73,8 +73,14 @@ External validation of the candidate regularity on **four pre-registered new ass
 
 **Not** an NS module. The only defensible next step is an **independent, prospective structural
 validation on a same-source cohort** (≈15–20 assets, ≥3 seeds per asset, `|ACF1|` as the single
-primary predictor, features computed strictly before the decision point). A structured
-(NS-inspired) nonlinear operator remains a **downstream hypothesis**, never an assumption.
+primary predictor, features computed strictly before the decision point). A temporal
+NS-inspired nonlinear operator remains a **downstream hypothesis**, never an assumption.
+
+The executable decision tree is specified in
+[`reports/evidence_closure/16_post_gate_experiment_program.md`](reports/evidence_closure/16_post_gate_experiment_program.md):
+`FAIL` first triggers an all-remaining-assets capacity-controlled stability panel;
+`CONDITIONAL` triggers the independent prospective cohort. Both branches have fixed prerequisites,
+resource envelopes and falsification criteria. No branch starts until `14_*` records Gate A.
 
 ## 5. Repository map
 

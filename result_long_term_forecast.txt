@@ -97,3 +97,9 @@ mse:0.033905040472745895, mae:0.1386425644159317, rmse:0.18413321673870087, mape
 long_term_forecast_BOE_96_24_revin-DLinear_custom_ftMS_sl96_ll48_pl24_dm32_nh8_el2_dl1_df2048_expand2_dc4_fc1_ebtimeF_dtTrue_test_seed2021_0  
 mse:0.03248347342014313, mae:0.13477109372615814, rmse:0.1802317202091217, mape:2.4707319736480713, mspe:116.57893371582031, r2:0.12174201011657715, dtw:Not calculated, time:16.82s, train_time:2074.55s, inference_time:0.0440ms/sample (457 samples, 0.0201s total), params:4664, trainable_params:4664, gpu_mem_peak_mb:nan
 
+long_term_forecast_EASTMONEY_96_24_revin-DLinear_custom_ftMS_sl96_ll48_pl24_dm32_nh8_el2_dl1_df2048_expand2_dc4_fc1_ebtimeF_dtTrue_test_seed2021_0  
+mse:0.14295682311058044, mae:0.21788658201694489, rmse:0.3780963122844696, mape:1.659595012664795, mspe:107.74610137939453, r2:0.7383366823196411, dtw:Not calculated, time:16.21s, train_time:1913.28s, inference_time:0.0304ms/sample (457 samples, 0.0139s total), params:4664, trainable_params:4664, gpu_mem_peak_mb:nan
+
+long_term_forecast_EASTMONEY_96_24_DeReFusion_custom_ftMS_sl96_ll48_pl24_dm32_nh8_el2_dl1_df2048_expand2_dc4_fc1_ebtimeF_dtTrue_test_seed2021_0  
+mse:0.14257870614528656, mae:0.22305406630039215, rmse:0.3775959610939026, mape:1.7979413270950317, mspe:119.62220001220703, r2:0.7390287518501282, dtw:Not calculated, time:16.64s, train_time:1969.53s, inference_time:0.5485ms/sample (457 samples, 0.2507s total), params:28436, trainable_params:28436, gpu_mem_peak_mb:nan
+

@@ -1,5 +1,10 @@
 # DeReFusion 复现与研究路线（ROADMAP）
 
+> **状态提示（2026-09-13）：本文件是 2026-09-11 的历史计划快照，不再是当前执行依据。**
+> 其中 NS 实现、gatev3、HMM/阈值替换、router/MoE/attention 等待办已被后续证据否决、暂停或禁止；
+> 不得从本文件恢复执行。当前证据状态以 `../PROJECT-BRIEF.md` 为准，Gate A 后的唯一权威计划见
+> `../reports/evidence_closure/16_post_gate_experiment_program.md`。
+>
 > 更新：2026-09-11 ｜ 记录**已完成成果**与**待办清单**（含不在当日 18:00 计划内的部分）。
 > 上游：Hsieh & Chen, *DeReFusion*, Applied Soft Computing 203 (2026) 116252。本仓库为其复现 fork。
 > 复现资产集中在 `reproduction/`（见 `reproduction/README.md`），上游代码结构未改动。
