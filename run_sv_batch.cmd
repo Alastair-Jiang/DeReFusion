@@ -1,6 +1,5 @@
 @echo off
-REM Durable launcher for the structural-validation batch (idempotent; safe to re-run).
-cd /d C:\Users\26843\Desktop\project\repos\DeReFusion
-set PYTHONIOENCODING=utf-8
-set PYTHONUTF8=1
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\26843\Desktop\project\repos\DeReFusion\reproduction\batches\run_structural_validation.ps1" >> sv_batch_log.txt 2>&1
+REM Entry point referenced by the scheduled task "sv_batch_resume".
+REM Delegates to the guard, which (a) exits if a training run is already in flight and
+REM (b) otherwise resumes the idempotent structural-validation batch.
+powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\26843\Desktop\project\repos\DeReFusion\run_sv_batch_guard.ps1"
