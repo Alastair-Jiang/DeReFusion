@@ -154,6 +154,19 @@ def main():
               f"{'MATCH' if ok_p else 'MISMATCH'} | dint: obs={obs_dirn:8s} exp={exp_dirn:8s} "
               f"{'MATCH' if ok_d else 'MISMATCH'}")
 
+    # ---- new-cohort-only descriptive check (N=4). NOT part of the frozen Gate-A rule ----
+    print("\n=== new-cohort-only descriptive check (N=4) -- NOT part of the frozen Gate-A rule ===")
+    nc = d[d.set == "new"].sort_values("acf1_abs")
+    if len(nc) >= 2:
+        r_nc, p_nc, n_nc = sp(nc.acf1_abs, nc.interaction)
+        for i, (_, r) in enumerate(nc.iterrows(), 1):
+            print(f"  rank {i}: {r.asset:10s} |ACF1|={r.acf1_abs:.4f}  "
+                  f"d_interaction={r.interaction:+.5f}")
+        print(f"  Spearman rho (new cohort only, N={n_nc}) = {r_nc:+.3f} (p={p_nc:.3f}) -- "
+              f"descriptive only, no confirmatory claim at this sample size")
+    print("  NOTE: descriptive association, not a predictive selection rule; the Gate A verdict "
+          "uses the pooled N=14 analysis and the frozen rule, not this block.")
+
     # ---------------------------------------------------------------- verdict
     rho_flip = (r_acf * 0.733) < 0
     sig = (p_acf == p_acf) and (p_acf < 0.05)

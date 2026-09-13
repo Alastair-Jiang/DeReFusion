@@ -129,3 +129,40 @@ apply: the corrected ≥3/4 label (§2.1), the CONDITIONAL cap (§2.3), the doma
 (§2.4), the contemporaneous-descriptive limitation (§2.5), the capacity wording (§2.6) and the
 multiplicity note (§2.7). The reviewer's text is archived as `13_external_review.md` and its points
 are cited by section number in the final result report.
+
+---
+
+## 6. Second review round — two report-level annotations (adopted; no rule change)
+
+Received 2026-09-13 17:36, archived verbatim as `13b_external_review_round2.md`. The reviewer
+recommends explicitly: **no further change to any Gate threshold, FAIL condition or the CONDITIONAL
+cap.** Only two labelling additions are requested, and both are adopted as **report-level only** —
+they change no decision logic.
+
+### 6.1 "Contemporaneous association", not "data leakage"
+
+Exact formulation to be used, replacing any loose use of the word "leakage":
+
+> **The current feature–outcome association is contemporaneous and descriptive, because both the
+> structural features and the interaction outcome are measured on the same held-out test segment.
+> It therefore cannot support an ex-ante operator-selection rule.**
+
+Rationale recorded: describing *what structure a segment exhibits and how the models performed on
+that same segment* is not classic train–test leakage; the error would be in **interpreting** it as
+"observe ACF1 first, then choose the operator". Hence the distinction to carry into the report:
+
+$$
+\text{descriptive association} \neq \text{predictive selection rule}
+$$
+
+### 6.2 New-cohort-only descriptive check (N = 4)
+
+The final report must additionally show the four new assets on their own — `|ACF1|`,
+`Δ_interaction`, rank order and Spearman ρ — with **no confirmatory significance claim** (N = 4 is
+too small), so that a favourable pooled N = 14 ρ cannot mask how the held-out cohort actually
+behaved. Mandatory disclaimer printed with the block:
+
+> **This descriptive N=4 check is not part of the frozen Gate-A decision rule.**
+
+The block is emitted mechanically by `reproduction/analysis/sv_gate_a.py`; the verdict continues to
+use the pooled N = 14 analysis and the frozen rule.
