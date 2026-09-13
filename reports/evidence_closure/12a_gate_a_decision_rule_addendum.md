@@ -88,3 +88,23 @@ CONDITIONAL and additionally requires an independent, same-source, multi-seed re
 The verdict is produced mechanically by `reproduction/analysis/sv_gate_a.py` with these thresholds;
 no threshold may be adjusted after the N=14 numbers exist. The script's outputs and this addendum
 are committed together so the lock is auditable.
+
+---
+
+## 6. Accuracy correction (2026-09-13 17:40, external review)
+
+**No threshold in this file was changed.** One label was corrected for accuracy, following the
+external review archived as `13_external_review.md` (see `12b_reviewer_response_and_corrections.md`
+§2.1):
+
+- This addendum was committed at 17:32, i.e. **after** the capacity-layer (Layer B) results were
+already available (`5f35dc6`, 16:33). The ≥3/4 Layer-B rule is therefore **not** a fully
+pre-registered Layer-B falsification threshold. Its accurate description is:
+
+  > a **pre-Layer-A adjudication rule, specified after the secondary capacity-layer results were
+  > available.**
+
+- What *was* pre-registered before any operator result (file `11`, commit `669c80e`): the asset
+  selection rule, the per-asset expected directions, and the PASS conditions.
+- All thresholds (`ρ < 0.30`, `p > 0.10`, LOO crossing zero, ≥3/4) are retained unchanged and are to
+  be described as **operational gate criteria**, not as universal statistical significance standards.
