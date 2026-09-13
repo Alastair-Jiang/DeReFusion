@@ -102,6 +102,10 @@ docs/          ROADMAP.md (state of record + pitfalls) · latex/ (stage reports,
 dataset/       ten 2016–2025 daily OHLC CSVs (Yahoo) committed with git add -f
 data/raw/yahoo/  target for the new cohort data (NOTE: /data/ is git-ignored → git add -f)
 sweep_runs/    per-run training logs · *_log.txt at top level: batch logs
+draft branch   `draft/ns-benchmark-runner` holds a **dormant draft artefact** (an NS benchmark
+               runner + a handoff-package snapshot) added at the operator's request and kept off
+               `main`; see that branch's `DRAFT-BRANCH-NOTES.md`. It is not eligible to run in this
+               line (Gate A = FAIL) and the constraint list in §7 is unchanged.
 ```
 
 ## 6. How to reproduce
