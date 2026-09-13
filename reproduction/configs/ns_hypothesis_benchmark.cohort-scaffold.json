@@ -1,0 +1,27 @@
+{
+  "protocol_id": "BLOCKED_PENDING_C1__NOT_A_PREREGISTRATION",
+  "status": "BLOCKED_PENDING_C1",
+  "eligibility_evidence": "NOT_AVAILABLE_GATE_A_FAILED",
+  "eligibility_report": "reports/evidence_closure/14_structural_validation_result.md",
+  "assets": ["BYD", "BOE", "EASTMONEY", "YANGHE"],
+  "asset_sha256": {
+    "BYD": "9ffb1f8ec9a0058db07d40e3ffad1bbded1467dbf9695efedc5ff16f9ac45830",
+    "BOE": "7139cb2e87215508fc9a492b4dee0386b1f212ac58cab6a2840e48b90b332609",
+    "EASTMONEY": "adbab122d9dadc0478ad20295ec6563c9e0b3c3be86b19cbde0f43379f850f9a",
+    "YANGHE": "fa3a9c83a21898b86669a696f49c1ca10ce209cf62e62e28ed976771c01d6403"
+  },
+  "capacity_labels": ["w23", "w64", "w128"],
+  "models": ["mlp", "causal_conv", "ssm", "temporal_ns"],
+  "feature_view": "multiscale_state",
+  "time_coordinate": "lag_linear",
+  "fusion_mode": "none",
+  "regularizer": { "prediction_curvature_weight": 0.0 },
+  "falsification": {
+    "utility": "The temporal NS-inspired nonlinear operator has no established extra value if its paired MSE advantage does not persist against every listed capacity-aligned ordinary baseline under the locked seeds.",
+    "mechanism": "The claimed local flux/curvature mechanism has no support if the strictly-past closure_q detector does not predict the pre-specified direction of paired improvement, or if an ordinary convolution or SSM reproduces the result with the same input view and budget.",
+    "scope": "No result changes Gate A, selects assets or samples, or establishes a physical law for markets."
+  },
+  "frozen_protocol": { "seq_len": 96, "pred_len": 24, "train_ratio": 0.7, "test_ratio": 0.2, "seeds": [2021,2022,2023], "epochs": 30, "batch_size": 32, "learning_rate": 0.0001, "patience": 5, "bootstrap_resamples": 4000 },
+  "output_root": "reproduction/results/ns_hypothesis_benchmark_scaffold",
+  "notes": "Scaffold only. Cannot be locked: Gate A = FAIL closes the structural-bridge direction, so eligibility_evidence=C1_REPLICATED is unreachable. Asset list is a placeholder (the four structural-validation cohort assets), not a pre-registered cohort."
+}
