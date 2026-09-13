@@ -60,7 +60,11 @@ does not test a structural explanation and does not test NS.
 
 **Resource envelope**
 
-- 7 assets × 3 widths × 3 seeds × 12 states × 2 operators = **1,512 operator fits**.
+- 7 assets × 3 widths × 3 seeds × 2 operators = **126 operator fits**.
+  *Correction (2026-09-13, see `17a_agent_check_notes.md` §2.1): the twelve structural states are
+  an **evaluation stratification over a single fit per (asset, width, seed)**, not a training
+  multiplier. The earlier figure of 1,512 over-counted by that factor; measured cost ≈2–3 s per fit
+  makes F1 a **minutes-scale** job, not an hours-scale one.*
 - Analysis cost is negligible relative to fitting; CPU-hours must be estimated from existing E4/E5
   logs before scheduling rather than guessed here.
 - Parallelism changes wall time only; it may not change seeds, batch size or early stopping.
