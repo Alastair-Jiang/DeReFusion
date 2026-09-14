@@ -73,6 +73,10 @@ def main():
     ap.add_argument("--src", default=DEFAULT_SRC)
     ap.add_argument("--dest", default=os.path.join(REPO, "results"))
     ap.add_argument("--copy", action="store_true")
+    ap.add_argument("--inventory", default="",
+                    help="write a per-file SHA-256 inventory (CSV) of everything received")
+    ap.add_argument("--exec-commit", default="",
+                    help="the executor's reported commit hash of the frozen script it ran")
     a = ap.parse_args()
 
     if not os.path.isdir(a.src):
@@ -167,6 +171,20 @@ def main():
 
     pd.DataFrame(rows).to_csv(os.path.join(REPO, "reproduction", "results", "t005_intake.csv"),
                               index=False)
+
+    # own role per the operator's de-duplication notice: per-file SHA-256 inventory of the handoff
+    if a.inventory:
+        inv = []
+        for dirpath, _, files in os.walk(a.src):
+            for fn in sorted(files):
+                fp = os.path.join(dirpath, fn)
+                rel = os.path.relpath(fp, a.src)
+                inv.append({"relpath": rel, "bytes": os.path.getsize(fp), "sha256": sha256(fp)})
+        pd.DataFrame(inv).to_csv(a.inventory, index=False)
+        print(f"inventory written: {a.inventory} ({len(inv)} files)")
+        if a.exec_commit:
+            print(f"executor-reported commit for the frozen script: {a.exec_commit}")
+
     return 0 if n_ok == len(rows) else 1
 
 
