@@ -152,3 +152,12 @@ cutoff after any outcome is seen.**
 No running before data + lock + owner authorisation; no rule change after outcomes are seen; no
 adding or dropping assets; no metric shopping; no reinterpreting a failure as success; no
 outsourcing the analysis to a party that has seen the outcome first.
+
+## 10. Companion documents (bind this pre-registration)
+
+- `24_c1_precommitted_interpretation.md` — the two outcome branches and the authorisation boundary,
+  **committed before the first C1 outcome existed**; it fixes what may and may not be said in each
+  branch and states that C1 never overrides Gate A.
+- `24a_c1_blind_recomputation_spec.md` — the pre-specified blind recomputation of the headline
+  statistic by a party that has not seen the analysis, including the integrity rule that a
+  discrepancy is a finding rather than something to tune away.

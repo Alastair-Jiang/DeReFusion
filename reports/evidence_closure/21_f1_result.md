@@ -7,7 +7,12 @@
 
 ## 1. Raw scale
 
-`7 assets × 3 widths × 3 seeds = 63 operator fits` (linear + MLP each) → **792 state-level rows**.
+`7 assets × 3 widths × 3 seeds = 63 paired settings` → **126 individual arm fits** (a linear and an
+MLP fit in every paired setting) → **792 state-level rows**.
+
+*Counting note (corrected 2026-09-14 after external review): the earlier wording called the 63
+paired settings "operator fits", which collided with `16`'s count of **126** arm fits. Both numbers
+describe the same run: 63 pairs, 126 individual arm fits, 792 state-level rows.*
 Nothing was overwritten: outputs are `operator-regime-capacity_f1.csv` (the E4 file and the `_sv`
 file are untouched).
 

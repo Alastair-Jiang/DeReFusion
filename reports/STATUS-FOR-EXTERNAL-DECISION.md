@@ -45,7 +45,7 @@ layer (DeReFusion vs `revin-DLinear`, volatility-stratified) and a capacity-cont
 
 ## 3. F1 (the breadth panel) — SUCCESS, with half the conclusion being a caveat
 
-70 additional capacity-controlled fits (`reproduction/results/operator-regime-capacity_f1.csv`):
+126 additional individual arm fits — 63 paired settings, each pairing a linear and an MLP fit — producing 792 state-level rows (`reproduction/results/operator-regime-capacity_f1.csv`):
 
 - **Stable (seed- and width-stable): 4 of 7** — TM (nonlinear), DJI, EURUSD, USDJPY (linear);
   **3 new opposite-sign pairs** beyond ETH/BTC → the locked success criterion is met.

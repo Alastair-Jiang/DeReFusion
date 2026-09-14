@@ -77,6 +77,12 @@ does not test a structural explanation and does not test NS.
 - An individual asset is not considered stable if its mean ΔMSE sign differs between widths 64 and
   128 or across seeds.
 - If the claim fails, stop structural-candidate and temporal NS-inspired nonlinear operator work.
+
+**Note (2026-09-14, operator-approved — keeps the audit trail coherent):** the C1 cohort study
+(`23`) was launched **after** this FAIL branch and **after** F1 completed. It is therefore an
+**operator-approved post-F1 prospective closure test**, not a contradiction of this section: its
+result **never overrides Gate A**. See `24_c1_precommitted_interpretation.md` §4 for the authorisation
+record and §6 for the boundaries that hold in both outcomes.
   Record the result as evidence that operator preference is not yet a stable asset property.
 - If opposite stable preferences exist, the only supported upgrade is “asset-level heterogeneity
   replicated on the existing source”; no feature-based explanation follows automatically.
