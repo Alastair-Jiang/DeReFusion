@@ -24,8 +24,10 @@ outcomes were inspected and was not modified afterwards.
 | Input windows | `L = 96` only (`L ∈ {48,192}` never run) |
 | Seeds | stratification & asset-level: 1/asset (GSPC 2); proxy & capacity: 3 |
 | Gate variants | gatev1, gatev2 run; **gatev3-inputconditioned never run** |
-| Ablations | `-woDy / -woLSTM / -woTransformer` never run (was queued as a candidate task for a second machine, since cancelled by operator instruction) |
+| Ablations | `-woDy / -woLSTM / -woTransformer` **已在第二台机器跑完**（T001 证据，6 run + 1 环境校准，seed 2021，GSPC+BTCUSD）——见 `07_evidence_matrix.md` R10/R11；其中 `woDy` 被权重初始化混淆，不可作组件结论 |
 
-These holes are **declared** rather than filled: none of them is required to answer the five
-closure questions, and the protocol forbids designing new experiments when the existing evidence
-is sufficient (spec §1).
+## T001 证据到位后的更新（2026-09-14）
+
+两次独立环境的校准吻合（第二台机器 `revin-DLinear` GSPC T=24 seed2021 MSE **0.070065**，本机 **0.07007**），
+说明跨机复现成立（详见 `07_evidence_matrix.md` R12）。消融结论**仅在单 seed 下成立**，且 `woDy` 一行被初始化混淆——
+引用时必须带 `CONFOUNDED_BY_INIT` 标注。

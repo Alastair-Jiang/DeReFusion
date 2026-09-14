@@ -15,6 +15,10 @@ Per spec §12. Status vocabulary: **Supported** · **Partially supported** · **
 | R8 GSPC conclusion depends on seed merging | recomputed under 4 GSPC treatments | stable | ρ within ±0.12, no sign flip | n/a | n/a | high | **Not supported** (`GSPC_SEED_SENSITIVE = NO`) |
 | R9 Adaptive gating / α(X) routing pays | gatev1 0.06767 vs additive 0.06230 on GSPC | worse than parameter-free addition | single protocol, one seed | n/a | n/a | moderate-high | **Not supported** |
 
+| R10 Component ablation (woLSTM / woTransformer / woDy) | 6 runs on a second machine, single seed 2021, identical protocol; env calibration reproduced (0.070065 vs our 0.07007) | woTransformer 10.71% worse than the full model (clean); woLSTM 1.29% **better** than full on GSPC; BTCUSD all three arms worse than full | calibration inside the pre-registered band; ablation deltas rest on **one seed** | 2 assets only | n/a | low-moderate | **Partially supported** (component necessity not established) |
+| R11 Validity of the woDy ablation | `woDy` is architecturally identical to `revin-DLinear` (4,664 params) yet differs by **8.28%**; traced to the weight-init convention (`1/L·1` vs PyTorch default) | not interpretable as a component-removal effect | n/a | n/a | n/a | high | **Not supported** (`CONFOUNDED_BY_INIT`) |
+| R12 Cross-machine reproducibility of the baseline | a second, independently configured machine reproduced the GSPC T=24 `revin-DLinear` calibration (0.070065 vs 0.07007) | agrees | inside the pre-registered band 0.066–0.074 | 1 asset, 1 model | n/a | moderate-high | **Supported** |
+
 ## Notes on reading the matrix
 
 - "Directional only" is the correct status whenever the estimate has a sign but the interval is
