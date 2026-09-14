@@ -129,6 +129,24 @@ the generation trail).
   rows were dropped only where Yahoo returned all-null OHLC rows (documented per file in the
   provider's `MANIFEST.csv`), never interpolated.
 
+### Predictor frozen (2026-09-14, before any outcome exists)
+
+`reproduction/analysis/c1_predictor.py` computes the primary predictor from **pre-cutoff windows
+only**: a feature window `close[i:i+96]` is usable only if `i + 96 <= border1_test`, so the last
+close index touched is `border1_test - 1`. Output `reproduction/results/c1_predictor.csv` (and `.md`)
+carries, per asset, `num_train`, the cutoff index and date, the number of windows used, the last
+close index used, a boolean leak check, and both the **primary** pre-cutoff medians
+(`acf1_abs_pre`, `rv_pre`) and the **contrast-only** contemporaneous test-window medians
+(`acf1_abs_test`, `rv_test`).
+
+Result at freeze time: `leakage check: ALL PASS` (20/20). Pre-cutoff `acf1_abs_pre` spans 0.0470
+(META) to 0.1257 (WMT) — a usable spread for the correlation. Note the two versions differ
+materially for several assets (META 0.0470 vs 0.0769 contemporaneous; WMT 0.1257 vs 0.0566), which
+is precisely why the prospective version, not the contemporaneous one, is the primary.
+
+**The predictor is now frozen. It must not be recomputed with a different window, estimator or
+cutoff after any outcome is seen.**
+
 ## 9. Explicit prohibitions
 
 No running before data + lock + owner authorisation; no rule change after outcomes are seen; no
