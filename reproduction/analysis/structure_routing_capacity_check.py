@@ -46,6 +46,8 @@ if "--assets" in sys.argv:
     SUFFIX = "_sv"          # structural-validation extension: never overwrite the E4 outputs
 else:
     SUFFIX = ""
+if "--suffix" in sys.argv:  # explicit output suffix (e.g. F1): OUTPUT NAMING ONLY, no definition change
+    SUFFIX = sys.argv[sys.argv.index("--suffix") + 1]
 if "--widths" in sys.argv:
     WIDTHS = [int(w) for w in sys.argv[sys.argv.index("--widths") + 1].split(",")]
 print(f"[cfg] assets={S.ASSETS} widths={WIDTHS} suffix={SUFFIX!r}", flush=True)
