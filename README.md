@@ -11,6 +11,10 @@
 
 This repository contains everything needed to reproduce the experiments in the paper: the proposed **DeReFusion** model with its **ablation** and **fusion-gate** variants, the **RevIN-wrapped baseline models** and **pretrained foundation models** they are compared against, the **daily OHLC stock/index/crypto/forex datasets**, and the **shared training and evaluation pipeline** that makes the comparison fair.
 
+> **Research-fork guide.** The top-level README describes the upstream paper and model suite. For the
+> current fork's evidence, frozen decisions, reproduction practice, risks, and permitted next work,
+> read the [Chinese project handbook](docs/PROJECT_HANDBOOK.zh-CN.md) first.
+
 ---
 
 ## Table of Contents
