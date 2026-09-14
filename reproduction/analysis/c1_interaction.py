@@ -34,11 +34,23 @@ COHORT = ["AAPL", "MSFT", "AMZN", "META", "TSLA", "JPM", "XOM", "WMT",
           "GBPUSD", "AUDUSD", "USDCAD", "GOLD", "WTI", "GLD", "TLT"]
 
 
-def one(tag: str, seed: int) -> dict | None:
+def one(tag: str, seed: int, allow_overwrite: bool = False) -> dict | None:
     csv = os.path.join(REPO, "dataset", f"{tag}-2016-2025.csv")
     if not os.path.exists(csv):
         print(f"  {tag}: dataset csv missing -> skip")
         return None
+    jp = os.path.join(RES, f"volatility_stratification_{tag}_relative_s{seed}.json")
+    # GUARD: never silently overwrite a stratification file that is already tracked as evidence
+    # (an earlier regression run did exactly that: the values matched but the file content changed
+    # because a different arm set had produced it).
+    if os.path.exists(jp) and not allow_overwrite:
+        tracked = subprocess.run(["git", "ls-files", "--error-unmatch",
+                                  os.path.relpath(jp, REPO)], cwd=REPO,
+                                 capture_output=True, text=True).returncode == 0
+        if tracked:
+            print(f"  {tag} s{seed}: REFUSING to overwrite tracked {os.path.basename(jp)} "
+                  f"(pass --allow-overwrite to force)")
+            return None
     cmd = [PY, "-W", "ignore", ANALYZE, "--csv", csv, "--tag", tag, "--seed", str(seed),
            "--models", "DeReFusion,revin-DLinear", "--rv-mode", "relative"]
     r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace",
@@ -72,6 +84,8 @@ def main():
     ap.add_argument("--tags", default="")
     ap.add_argument("--seeds", default="2021,2022,2023")
     ap.add_argument("--out", default="c1_interactions")
+    ap.add_argument("--allow-overwrite", action="store_true",
+                    help="permit regenerating a stratification file that is already tracked as evidence")
     a = ap.parse_args()
     tags = [t.strip() for t in a.tags.split(",") if t.strip()] or COHORT
     seeds = [int(s) for s in a.seeds.split(",") if s.strip()]
@@ -79,7 +93,7 @@ def main():
     print(f"=== interaction collection | {len(tags)} tags x {len(seeds)} seeds ===")
     for tag in tags:
         for seed in seeds:
-            r = one(tag, seed)
+            r = one(tag, seed, allow_overwrite=a.allow_overwrite)
             if r:
                 rows.append(r)
                 print(f"  {tag:8s} s{seed}: Q45-Q12 {r['inter_q45_q12']:+.5f} "
