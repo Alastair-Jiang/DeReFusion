@@ -23,14 +23,17 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import json
 import os
 import shutil
 import sys
+from datetime import datetime, timezone
 
 import numpy as np
 import pandas as pd
 
-REPO = r"C:\Users\26843\Desktop\project\repos\DeReFusion"
+# Resolve from this tracked script rather than from a machine-specific checkout.
+REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 DEFAULT_SRC = r"C:\Users\26843\lobster-link\geng-lobster\T005-c1"
 
 # frozen protocol: every one of these must appear in the stored command line
@@ -77,7 +80,13 @@ def main():
                     help="write a per-file SHA-256 inventory (CSV) of everything received")
     ap.add_argument("--exec-commit", default="",
                     help="the executor's reported commit hash of the frozen script it ran")
+    ap.add_argument("--report", default="",
+                    help="optional path for the machine-readable intake report; dry runs write no report by default")
     a = ap.parse_args()
+
+    if a.inventory and not a.exec_commit:
+        print("FAIL: --inventory requires --exec-commit so the executed frozen revision is recorded")
+        return 2
 
     if not os.path.isdir(a.src):
         print(f"SOURCE ABSENT: {a.src}\n(awaiting geng's first push)")
@@ -85,14 +94,19 @@ def main():
 
     man = {}
     mp = os.path.join(a.src, "per_run_manifest.csv")
-    if os.path.isfile(mp):
-        for _, r in pd.read_csv(mp).iterrows():
-            man[(str(r.get("tag")).strip(), str(r.get("model")).strip(), int(r.get("seed")))] = r
-        print(f"manifest rows: {len(man)}")
-    else:
-        print(f"note: no per_run_manifest.csv yet at {mp} (hashes will not be cross-checked)")
+    if not os.path.isfile(mp):
+        print(f"FAIL: required per_run_manifest.csv absent at {mp}")
+        return 2
+    for _, r in pd.read_csv(mp).iterrows():
+        key = (str(r.get("tag")).strip(), str(r.get("model")).strip(), int(r.get("seed")))
+        if key in man:
+            print(f"FAIL: duplicate manifest row for {key}")
+            return 2
+        man[key] = r
+    print(f"manifest rows: {len(man)}")
 
     rows = []
+    seen = set()
     for seed_dir in sorted(os.listdir(a.src)):
         sd = os.path.join(a.src, seed_dir)
         if not os.path.isdir(sd) or not seed_dir.isdigit():
@@ -124,16 +138,24 @@ def main():
                 if f"--data_path {tag}-2016-2025.csv" not in ctext:
                     probs.append(f"cmdline data_path mismatch (expected {tag}-2016-2025.csv)")
             m = man.get((tag, model, seed))
-            if m is not None and hashes:
+            key = (tag, model, seed)
+            seen.add(key)
+            if m is None:
+                probs.append("no manifest row")
+            elif hashes:
                 for f, col in (("pred.npy", "pred_sha256"), ("true.npy", "true_sha256")):
                     want = str(m.get(col, "")).strip().lower()
-                    if want and want != hashes[f]:
+                    if not want:
+                        probs.append(f"manifest missing {col}")
+                    elif want != hashes[f]:
                         probs.append(f"{f} sha mismatch vs manifest")
             if os.path.isfile(os.path.join(rd, "metrics.npy")):
                 try:
                     v = np.load(os.path.join(rd, "metrics.npy"))
                     if v.size != 6:
                         probs.append(f"metrics has {v.size} values, expected 6")
+                    elif not np.isfinite(v).all():
+                        probs.append("metrics contains non-finite value")
                 except Exception as e:
                     probs.append(f"metrics unreadable: {type(e).__name__}")
             rows.append({"seed": seed, "tag": tag, "model": model, "ok": not probs,
@@ -145,10 +167,18 @@ def main():
         print("no run directories found under the source")
         return 3
 
+    # A manifest entry without a matching run directory is also an integrity failure.
+    for key in sorted(set(man) - seen):
+        rows.append({"seed": key[2], "tag": key[0], "model": key[1], "ok": False,
+                     "problems": "manifest row has no matching run directory"})
+        print(f"  {key[2]} {key[0]:8s} {key[1]:14s} FAIL - manifest row has no matching run directory")
+
     n_ok = sum(1 for r in rows if r["ok"])
     print(f"\n=== {n_ok}/{len(rows)} runs pass protocol+hash checks ===")
 
-    if a.copy:
+    if a.copy and n_ok != len(rows):
+        print("REFUSE COPY: this batch has failed checks; no partial batch is placed into results/")
+    elif a.copy:
         copied = 0
         for r in rows:
             if not r["ok"]:
@@ -169,8 +199,9 @@ def main():
     else:
         print("(dry run: nothing copied; pass --copy to place verified runs into results/)")
 
-    pd.DataFrame(rows).to_csv(os.path.join(REPO, "reproduction", "results", "t005_intake.csv"),
-                              index=False)
+    if a.report:
+        pd.DataFrame(rows).to_csv(a.report, index=False)
+        print(f"intake report written: {a.report}")
 
     # own role per the operator's de-duplication notice: per-file SHA-256 inventory of the handoff
     if a.inventory:
@@ -182,8 +213,19 @@ def main():
                 inv.append({"relpath": rel, "bytes": os.path.getsize(fp), "sha256": sha256(fp)})
         pd.DataFrame(inv).to_csv(a.inventory, index=False)
         print(f"inventory written: {a.inventory} ({len(inv)} files)")
-        if a.exec_commit:
-            print(f"executor-reported commit for the frozen script: {a.exec_commit}")
+        receipt = {
+            "created_utc": datetime.now(timezone.utc).isoformat(),
+            "source": os.path.abspath(a.src),
+            "inventory": os.path.abspath(a.inventory),
+            "executor_reported_commit": a.exec_commit,
+            "runs_seen": len(rows),
+            "runs_passing": n_ok,
+        }
+        receipt_path = a.inventory + ".receipt.json"
+        with open(receipt_path, "w", encoding="utf-8") as f:
+            json.dump(receipt, f, indent=2, sort_keys=True)
+            f.write("\n")
+        print(f"handoff receipt written: {receipt_path}")
 
     return 0 if n_ok == len(rows) else 1
 
