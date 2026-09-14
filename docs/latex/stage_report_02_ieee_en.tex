@@ -48,12 +48,13 @@ Four stages have been executed in order, each gated by the previous one:
 \begin{table}[!t]
 \centering
 \footnotesize
-\begin{tabular}{@{}cll@{}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{0.07\columnwidth}p{0.55\columnwidth}p{0.24\columnwidth}@{}}
 \toprule
 Stage & Content & Status \\
 \midrule
 S1 & Reproduction and controlled diagnostics & complete \\
-S2 & Structural validation of the candidate regularity & \textbf{FAIL} \\
+S2 & Structural validation (candidate regularity) & \textbf{FAIL} \\
 S3 & Capacity-controlled breadth panel (F1) & \textbf{SUCCESS} \\
 S4 & Independent prospective cohort (C1) & executing \\
 \bottomrule
@@ -80,15 +81,16 @@ a list of intentions.
 \begin{table}[!t]
 \centering
 \footnotesize
-\begin{tabular}{@{}lrl@{}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{0.26\columnwidth}p{0.20\columnwidth}p{0.40\columnwidth}@{}}
 \toprule
 Property & Value & Note \\
 \midrule
-Assets & 20 & pre-named universe, no additions \\
-Provider & Yahoo & one provider only; no composite \\
+Assets & 20 & pre-named universe \\
+Provider & Yahoo & single source \\
 Window & 2016-01-04/01 -- 2025-12-31 & daily OHLC, unadjusted \\
-Exclusions & 0 & all 20 delivered and accepted \\
-Rows per asset & 2444--2602 & market calendar differences \\
+Exclusions & 0 & all 20 accepted \\
+Rows per asset & 2444--2602 & exchange calendars \\
 Hash table & per file & verified on intake \\
 \bottomrule
 \end{tabular}
@@ -133,17 +135,18 @@ protocol, with per-run predictions and ground truth retained for the paired anal
 \begin{table}[!t]
 \centering
 \footnotesize
-\begin{tabular}{@{}lrl@{}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{0.26\columnwidth}p{0.20\columnwidth}p{0.40\columnwidth}@{}}
 \toprule
 Property & Value & Note \\
 \midrule
 Runs & 120 & $20 \times 2 \times 3$ \\
-Concurrency & 2 lanes & frozen; widening declined \\
-Threads per process & 14 & unchanged mid-campaign \\
-Retained per run & metrics, pred, true & command line and log tail too \\
-Checkpoints & not transferred & not needed for the analysis \\
-Batch reporting & 40 runs or 6 h & manifest per batch \\
-Progress at writing & 0/120 & launched 13:36, first runs $\approx$60 min \\
+Concurrency & 2 lanes & widening declined \\
+Threads & 14 & unchanged mid-campaign \\
+Retained & metrics, pred, true & + command line, log tail \\
+Checkpoints & not transferred & not needed \\
+Batch reporting & 40 runs / 6 h & manifest per batch \\
+Progress & 0/120 & launched 13:36 \\
 \bottomrule
 \end{tabular}
 \caption{Execution configuration. Throughput changes that would alter run comparability mid-campaign
@@ -154,12 +157,12 @@ Progress at writing & 0/120 & launched 13:36, first runs $\approx$60 min \\
 The executor was selected because its network reaches the provider while the analysing host does not.
 Its runner is \emph{offline-capable} by construction: everything is staged once, after which training
 reads only local files, so a network outage cannot interrupt the campaign. Resilience rests on four
-mechanisms: idempotent skipping of completed runs; a watchdog that restarts lanes without ever
-duplicating a run; detection of stalled runs by \emph{process-tree CPU time} rather than log output;
+mechanisms: idempotent skipping; a watchdog that restarts lanes without ever
+duplicating a run; stall detection by \emph{process-tree CPU time} rather than log output;
 and a contingency plan that pre-authorises self-recovery while forbidding any protocol or data
-change. One genuine defect was found and fixed during the campaign: a restart had orphaned two
-finished runs that no lane recorded, which would have produced a silent two-run gap; the runner now
-\emph{ingests} such runs and marks them in the manifest, so the process, not merely the content, is
+change. One genuine defect was found and fixed: a restart orphaned two
+finished runs that no lane recorded, which would have left a silent two-run gap; the runner now
+ingests such runs and flags them in the manifest, so the process, not merely the content, is
 auditable.
 
 \section{Intake Verification}
@@ -200,17 +203,18 @@ about C1's outcome.
 \begin{table}[!t]
 \centering
 \footnotesize
-\begin{tabular}{@{}rlp{0.52\columnwidth}@{}}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}p{0.07\columnwidth}p{0.51\columnwidth}p{0.28\columnwidth}@{}}
 \toprule
 \# & Milestone & Status \\
 \midrule
-M1 & Cohort acquired by the peer machine & done \\
-M2 & Intake validation of the cohort & done, 20/20 \\
-M3 & Cohort locked with a per-file hash table & done \\
-M4 & Predictor frozen with a leakage check & done, all assets \\
-M5 & Verifier hardened and smoke-tested & done \\
-M6 & Panel launched (120 runs, 2 lanes) & running, 0/120 \\
-M7 & First batch returned and verified & pending \\
+M1 & Cohort acquired (peer machine) & done \\
+M2 & Intake validation & done, 20/20 \\
+M3 & Cohort locked (hash table) & done \\
+M4 & Predictor frozen (leak check) & done \\
+M5 & Verifier hardened, smoke-tested & done \\
+M6 & Panel launched (120 runs) & running, 0/120 \\
+M7 & First batch verified & pending \\
 M8 & Blind third-party recomputation & pending \\
 \bottomrule
 \end{tabular}
@@ -238,12 +242,5 @@ No estimate of the headline statistic appears here, no per-asset interaction eff
 either branch of the pre-committed interpretation, and no claim about the eligibility of any
 structured operator. Those omissions are not gaps: they are the condition under which the report is
 useful, and the same applies to any progress summary written while the panel runs.
-
-\section*{Reproducibility Notes}
-\addcontentsline{toc}{section}{Reproducibility Notes}
-
-All artefacts cited here live in the project repository: the lock table with per-file hashes, the
-frozen predictor, the intake verifier with its inventory and handoff receipt, and the batch manifests
-that reproduce each run's command line.
 
 \end{document}
