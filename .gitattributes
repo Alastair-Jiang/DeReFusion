@@ -1,0 +1,29 @@
+# The C1 blind package is byte-sealed.  Disable Git text normalization for every
+# textual input whose SHA-256 was frozen before handoff; otherwise Windows CRLF
+# working-tree bytes become LF in a source archive and invalidate the seal.
+dataset/AAPL-2016-2025.csv -text
+dataset/AMZN-2016-2025.csv -text
+dataset/AUDUSD-2016-2025.csv -text
+dataset/FTSE-2016-2025.csv -text
+dataset/GBPUSD-2016-2025.csv -text
+dataset/GDAXI-2016-2025.csv -text
+dataset/GLD-2016-2025.csv -text
+dataset/GOLD-2016-2025.csv -text
+dataset/HSI-2016-2025.csv -text
+dataset/JPM-2016-2025.csv -text
+dataset/META-2016-2025.csv -text
+dataset/MSFT-2016-2025.csv -text
+dataset/N225-2016-2025.csv -text
+dataset/RUT-2016-2025.csv -text
+dataset/TLT-2016-2025.csv -text
+dataset/TSLA-2016-2025.csv -text
+dataset/USDCAD-2016-2025.csv -text
+dataset/WMT-2016-2025.csv -text
+dataset/WTI-2016-2025.csv -text
+dataset/XOM-2016-2025.csv -text
+reports/evidence_closure/24a_c1_blind_recomputation_spec.md -text
+reports/evidence_closure/24b_c1_blind_handoff_lock_table.md -text
+reproduction/analysis/analyze_volatility_regimes.py -text
+reproduction/analysis/c1_predictor.py -text
+reproduction/c1_handoff/per_run_manifest.csv -text
+reproduction/c1_handoff/BLIND_STAGE1_MANIFEST.csv -text
