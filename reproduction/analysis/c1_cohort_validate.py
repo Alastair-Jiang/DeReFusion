@@ -30,7 +30,10 @@ import hashlib
 import os
 import re
 import sys
+from pathlib import Path
 from datetime import datetime
+
+REPO = Path(__file__).resolve().parents[2]
 
 try:
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -126,9 +129,9 @@ def read_manifest(path: str):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--cohort", default=r"C:\Users\26843\lobster-link\geng-lobster\T004-cohort")
+    ap.add_argument("--cohort", default=str(REPO / "dataset"))
     ap.add_argument("--manifest", default="")
-    ap.add_argument("--repo", default=r"C:\Users\26843\Desktop\project\repos\DeReFusion")
+    ap.add_argument("--repo", default=str(REPO))
     ap.add_argument("--draft", default="")
     a = ap.parse_args()
 

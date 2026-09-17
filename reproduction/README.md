@@ -1,104 +1,79 @@
-# Reproduction assets — DeReFusion (Applied Soft Computing 203, 2026)
+# Reproduction guide / 复现指南
 
-本目录收录对 Hsieh & Chen, *DeReFusion*（ASC 203, 2026, 116252）的复现资产。
-**上游代码库结构保持不变**（`run.py`、`exp/`、`models/`、`data_provider/`、`utils/`、`layers/`、`scripts/<task>/` 等），
-本目录只承载复现新增的脚本、批次与结果。所有命令均**在仓库根目录执行**。
+Run every command from the repository root. Research-specific code and retained
+outputs live here; the core training harness remains in `run.py`, `exp/`,
+`models/`, `layers/` and `data_provider/`.
 
----
+## Layout
 
-## 目录结构
-
-```
+```text
 reproduction/
-├── README.md                      # 本文件
-├── data/                          # 数据集重建（上游 dataset/ 被 gitignore，需重建）
-│   ├── fetch_dataset.py           # 10 资产日线 OHLC 抓取（初版）
-│   ├── fetch_dataset_v2.py
-│   └── fetch_dataset_v3.py        # 现行版本（urllib 直连 Yahoo chart API，UA 必带）
-├── analysis/
-│   ├── analyze_volatility_regimes.py   # 工况分层评估（核心）
-│   ├── check_time_confound.py          # 波动率分层 vs 时间段 混淆诊断
-│   └── make_summary.py                 # 汇总 result log + 分层 JSON → 摘要
-├── batches/                       # 实验批次（PowerShell，串行）
-│   ├── run_batch_repro.ps1        # GSPC 复现批次 v1
-│   ├── run_batch_repro2.ps1       # GSPC 复现批次 v2（3 模型 × 2 时域）
-│   ├── run_btc_repro.ps1          # BTCUSD T=24 跨市场复核
-│   ├── run_btc_revin.ps1
-│   └── run_afternoon_batch.ps1    # 无人值守流水线（等待→分析→队列→摘要，带截止保护）
-└── results/                       # 分层分析结果（JSON/TXT）
+  analysis/       deterministic audits and result recomputation
+  batches/        bounded experiment launchers
+  data/           acquisition and conversion helpers
+  results/        tracked small tables, JSON/TXT summaries and registries
+  c1_handoff/     C1 predictions/targets, commands, manifests and hash inventory
 ```
 
----
+## Environment
 
-## 环境
+- Recommended: Python 3.11 and torch 2.5.1.
+- Install `requirements/core.txt` after a machine-appropriate PyTorch build.
+- CPU runs require `--no_use_gpu`.
+- On Windows, set `PYTHONIOENCODING=utf-8` when replaying scripts that print
+  Chinese or mathematical symbols.
+- C1 execution provenance records Python 3.11.9 / torch 2.5.1+cpu. Some
+  receiving-side tabular analyses used an existing Python 3.13 environment;
+  the frozen scripts and input hashes anchor the comparison.
 
-- Windows / Python 3.13（venv）/ PyTorch 2.14 **CPU** / MiKTeX（LaTeX 报告另见 `docs/latex/`）
-- 安装要点（复现时踩过的坑）：
-  - 隐式依赖：`patool`、`huggingface_hub`、`sktime`(+`scikit-base`)、`datasets` —— 缺一即崩
-  - `sktime` 若 pip 直连断流：`pip download`（可续传）+ 本地 whl 安装；`joblib` 需 pin `1.5.3`
-  - CPU 环境**必须**加 `--no_use_gpu`（`run.py` 默认 CUDA 并 assert）
-  - 控制台建议设 `PYTHONIOENCODING=utf-8`
+## Core checks
 
-## 数据
+```bash
+# 61-file schema, chronology, hash and OHLC audit
+python reproduction/analysis/dataset_audit.py
 
-```powershell
-# 在仓库根目录
-.venv\Scripts\python.exe reproduction/data/fetch_dataset_v3.py
+# Recompute F1 summaries from the retained 792-row table
+python reproduction/analysis/f1_analysis.py
+
+# Verify and rebuild the result-free C1 Stage-1 handoff manifest
+python reproduction/analysis/build_c1_blind_manifest.py
 ```
-生成 `dataset/<ASSET>-2016-2025.csv`（date,Open,High,Low,Close）。行数须与论文一致：
-股指/个股 2,513；FX 2,602；BTC 3,653；ETH 2,975。仓库已 `git add -f` 入库这 10 个 CSV。
 
-## 复现实验
+The canonical single-model training command is in the root README. Analysis
+scripts no longer write to the former sibling `05_research_intelligence`
+directory; all active outputs stay under `reproduction/results/`.
 
-```powershell
-.venv\Scripts\python.exe run.py --task_name long_term_forecast --is_training 1 `
-  --model_id GSPC_96_24 --model DeReFusion --data custom --root_path ./dataset/ `
-  --data_path GSPC-2016-2025.csv --features MS --target Close --freq b `
-  --seq_len 96 --label_len 48 --pred_len 24 --enc_in 4 --dec_in 4 --c_out 1 `
-  --d_model 32 --moving_avg 25 --train_epochs 30 --batch_size 32 `
-  --learning_rate 0.0001 --patience 5 --lradj cosine --rand_seed 2021 --no_use_gpu
-```
-换模型只需改 `--model`（`DeReFusion` / `revin-DLinear` / `DeReFusion-gatev1-volatilityaware` / `...-gatev2-learnable` / `...-gatev3-inputconditioned`）；
-换资产改 `--data_path` 与 `--model_id`。结果目录名含种子（`..._seed{seed}_0`），多种子不会互相覆盖。
+## C1 evidence package
 
-## 工况分层分析
+`c1_handoff/` contains the complete 20-asset × 2-arm × 3-seed panel:
 
-```powershell
-# 绝对波动率（对照口径）
-.venv\Scripts\python.exe reproduction/analysis/analyze_volatility_regimes.py `
-  --csv dataset/GSPC-2016-2025.csv --tag GSPC --seed 2021 --rv-mode absolute
-# 相对波动率（主口径；去趋势，避免与时间段混淆）
-.venv\Scripts\python.exe reproduction/analysis/analyze_volatility_regimes.py `
-  --csv dataset/GSPC-2016-2025.csv --tag GSPC --seed 2021 --rv-mode relative
-```
-输出 `reproduction/results/volatility_stratification_<TAG>_<MODE>_s<SEED>.json|txt`，内含：
-分层（最低/最高 20%、低/高半区）的 MSE/MAE/MSPE/95% 分位误差、逐样本配对 bootstrap 95%CI、胜率、
-交互效应 (Δ_high50 − Δ_low50)、五分位性能曲线。
+- 120 run directories;
+- 120 `pred.npy` and 120 `true.npy` files;
+- commands and log tails;
+- executor and receiver manifests;
+- frozen analysis and predictor code;
+- per-file SHA-256 inventories;
+- `BLIND_STAGE1_MANIFEST.csv`, which intentionally excludes analyst results.
 
-> **口径提醒**：绝对波动率与时间段强相关（GSPC corr=+0.44，BTC corr=−0.67）。跨资产比较应以
-> `relative` 口径为主判定，`absolute` 仅作对照。
+The first handoff message mistakenly supplied the SHA-256 of the pre-commit
+Windows working-tree manifest. Git line-ending normalization changed the stored
+blob. The correct Git-object hash was recomputed and the discrepancy was logged
+before the independent reviewer opened the result inputs. This operational
+mistake is part of the audit trail, not hidden metadata.
 
-## 批次脚本
+## Data caveats
 
-```powershell
-# 全批次（串行，含截止保护）
-powershell -NoProfile -ExecutionPolicy Bypass -File reproduction/batches/run_afternoon_batch.ps1
-```
-> 注意：Windows PowerShell 5.1 读取含中文的 `.ps1` 会按 ANSI 解析而报语法错，**批次脚本保持纯 ASCII**。
+See [`../dataset/README.md`](../dataset/README.md). In particular, WTI's
+non-positive April 2020 prices make log-return features undefined locally, and
+five FX feeds contain small OHLC envelope inconsistencies. Scripts must disclose
+their handling; they must not mutate source rows in place.
 
-## 结果与报告
+## Output discipline
 
-| 位置 | 内容 |
-|---|---|
-| `reproduction/results/` | 分层分析原始结果（JSON/TXT） |
-| `docs/ROADMAP.md` | 已完成 / 待办清单 |
-| `docs/reports/` | 复现报告、工况分层报告 |
-| `docs/latex/` | ASC（elsarticle）与 IEEEtran 两版论文格式报告 |
-
-## 已知坑位
-
-1. `results/`、`checkpoints/`、`result_long_term_forecast.txt` 被 gitignore（体积大），需本地生成。
-2. exec 后台进程有超时上限（本机 3h）：超时会杀外壳，但已落盘的结果不受影响；长批次请用 `run_afternoon_batch.ps1` 的截止保护。
-3. 上游 `exp/exp_basic.py` 的 emoji 打印会导致 Windows GBK 控制台崩溃，本 fork 已改为 ASCII（提交 37b612f）。
-4. `scripts/` 下的 `analyze_volatility_regimes.py` / `make_summary.py` 为**临时兼容入口**（转发到本目录），
-   仅为让 2026-09-11 启动的批次跑完，随后删除。
+- Never overwrite an earlier experiment family; use explicit suffixes.
+- Keep prediction/target arrays, configuration, logs and hashes for every
+  headline result.
+- A summary table without its raw inputs is incomplete.
+- Test data is evaluated only after validation-selected training is complete.
+- Do not add an asset, seed, feature or threshold to rescue a failed frozen
+  result.

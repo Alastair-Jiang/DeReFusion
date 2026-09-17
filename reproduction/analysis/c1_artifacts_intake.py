@@ -34,7 +34,7 @@ import pandas as pd
 
 # Resolve from this tracked script rather than from a machine-specific checkout.
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-DEFAULT_SRC = r"C:\Users\26843\lobster-link\geng-lobster\T005-c1"
+DEFAULT_SRC = os.path.join(REPO, "reproduction", "c1_handoff")
 
 # frozen protocol: every one of these must appear in the stored command line
 FROZEN_FLAGS = [

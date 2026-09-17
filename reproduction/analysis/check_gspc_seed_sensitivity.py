@@ -2,11 +2,13 @@
 """GSPC seed-merge sensitivity: recompute the two candidate associations with
 GSPC taken as s2021 only / s2022 only / merged (mean), per protocol section 5."""
 import json
+import os
 
 import pandas as pd
 
-P = r"C:\Users\26843\Desktop\project\05_research_intelligence\asset-dependence-summary.csv"
-R = "reproduction/results"
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+P = os.path.join(REPO, "reproduction", "results", "asset-dependence-summary.csv")
+R = os.path.join(REPO, "reproduction", "results")
 
 
 def sp(a, b):

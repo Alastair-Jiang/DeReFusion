@@ -165,10 +165,12 @@ class Exp_Long_Term_Forecast(Exp_Basic):
             print("Epoch: {} cost time: {}".format(epoch + 1, time.time() - epoch_time))
             train_loss = np.average(train_loss)
             vali_loss = self.vali(vali_data, vali_loader, criterion)
-            test_loss = self.vali(test_data, test_loader, criterion)
-
-            print("Epoch: {0}, Steps: {1} | Train Loss: {2:.7f} Vali Loss: {3:.7f} Test Loss: {4:.7f}".format(
-                epoch + 1, train_steps, train_loss, vali_loss, test_loss))
+            # The test split is deliberately untouched during training.  Earlier revisions
+            # printed test loss every epoch (while still selecting checkpoints only on
+            # validation loss).  Removing that diagnostic closes a human-in-the-loop leakage
+            # channel and keeps the test set for the single final evaluation below.
+            print("Epoch: {0}, Steps: {1} | Train Loss: {2:.7f} Vali Loss: {3:.7f}".format(
+                epoch + 1, train_steps, train_loss, vali_loss))
             early_stopping(vali_loss, self.model, path)
             if early_stopping.early_stop:
                 print("Early stopping")

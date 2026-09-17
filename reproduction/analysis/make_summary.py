@@ -11,7 +11,7 @@ import re
 from glob import glob
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repository root
-OUT = os.path.join(os.path.dirname(os.path.dirname(REPO)), "05_research_intelligence", "afternoon-digest.md")
+OUT = os.path.join(REPO, "reproduction", "results", "afternoon-digest.md")
 
 SETTING_RE = re.compile(
     r"long_term_forecast_(?P<asset>[A-Z]+)_96_(?P<pl>\d+)_(?P<model>[A-Za-z0-9\-]+)_custom_ftMS_.*_seed(?P<seed>\d+)_0"

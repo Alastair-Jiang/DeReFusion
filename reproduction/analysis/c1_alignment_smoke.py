@@ -29,7 +29,7 @@ except Exception:
     pass
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SRC = r"C:\Users\26843\lobster-link\geng-lobster\T005-c1"
+SRC = os.path.join(REPO, "reproduction", "c1_handoff")
 TAGS = ["AAPL", "HSI"]
 SEED = 2021
 T = 24

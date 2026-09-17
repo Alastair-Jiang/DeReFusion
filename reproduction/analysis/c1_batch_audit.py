@@ -40,7 +40,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 sys.path.insert(0, REPO)
 from utils.metrics import MAE, MSE, RMSE, MAPE, MSPE, R2  # noqa: E402  (the pipeline's own functions)
 
-DEFAULT_SRC = r"C:\Users\26843\lobster-link\geng-lobster\T005-c1"
+DEFAULT_SRC = os.path.join(REPO, "reproduction", "c1_handoff")
 ASSETS = ["AAPL", "MSFT", "AMZN", "META", "TSLA", "JPM", "XOM", "WMT", "N225", "GDAXI",
           "HSI", "FTSE", "RUT", "GBPUSD", "AUDUSD", "USDCAD", "GOLD", "WTI", "GLD", "TLT"]
 ARMS = ["DeReFusion", "revin-DLinear"]

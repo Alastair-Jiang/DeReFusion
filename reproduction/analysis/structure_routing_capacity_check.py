@@ -18,8 +18,8 @@ batch size、训练步数、早停、随机种子、预处理、评估协议。
 
 输出：
   reproduction/results/operator-regime-capacity.csv       逐行完整指标
-  05_research_intelligence/operator-regime-capacity-summary.csv  汇总
-  05_research_intelligence/capacity-sign-reversal.md      符号反转与范围/一致性检查
+  reproduction/results/operator-regime-capacity-summary.csv  汇总
+  reproduction/results/capacity-sign-reversal.md      符号反转与范围/一致性检查
 """
 import os
 import sys
@@ -36,7 +36,7 @@ except Exception:
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import structure_routing_experiment as S  # noqa: E402
 
-OUTDIR = os.path.join(S.PROJ, "05_research_intelligence")
+OUTDIR = os.path.join(S.REPO, "reproduction", "results")
 WIDTHS = [23, 64, 128]
 
 # Optional asset override: --assets BYD,BOE,EASTMONEY,YANGHE (structural-validation extension).

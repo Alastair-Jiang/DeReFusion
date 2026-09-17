@@ -15,9 +15,9 @@ Asset-Level Operator Heterogeneity — Final Diagnosis pipeline（协议最终�
   D. 稳健性：GSPC 按一个资产 + 分 seed 展示；asset-level preference 与 volatility interaction 分开
 
 产出：
-  05_research_intelligence/asset-dependence-summary.csv
-  05_research_intelligence/asset-dependence-exploration.md
-  05_research_intelligence/final-diagnosis.md（含 ≤1 页 executive summary）
+  reproduction/results/asset-dependence-summary.csv
+  reproduction/results/asset-dependence-exploration.md
+  reproduction/results/final-diagnosis.md（含 ≤1 页 executive summary）
   并在 structure-aware-routing-experiment.md 追加 §9/§10/§11
 """
 import glob
@@ -34,8 +34,7 @@ except Exception:
     pass
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PROJ = os.path.dirname(os.path.dirname(REPO))
-OUTDIR = os.path.join(PROJ, "05_research_intelligence")
+OUTDIR = os.path.join(REPO, "reproduction", "results")
 SEQ_LEN, PRED_LEN, JUMP_C = 96, 24, 3.0
 ASSETS_ALL = ["GSPC", "BTCUSD", "ETHUSD", "USDJPY", "EURUSD", "SOX", "DJI", "BABA", "NVO", "TM"]
 

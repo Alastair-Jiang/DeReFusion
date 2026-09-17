@@ -26,7 +26,7 @@ try:
 except Exception:
     pass
 
-REPO = r"C:\Users\26843\Desktop\project\repos\DeReFusion"
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 OUTDIR = os.path.join(REPO, "data", "raw", "yahoo")
 UA = "Mozilla/5.0"
 TIMEOUT = 30

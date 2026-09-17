@@ -6,11 +6,13 @@ Uses ONLY existing data (no new assets): N=10 asset-level interaction effects + 
 capacity CSVs for the three assets that have them. No definition is changed.
 """
 import json
+import os
 
 import pandas as pd
 
-P = r"C:\Users\26843\Desktop\project\05_research_intelligence\asset-dependence-summary.csv"
-CAP = "reproduction/results/operator-regime-capacity.csv"
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+P = os.path.join(REPO, "reproduction", "results", "asset-dependence-summary.csv")
+CAP = os.path.join(REPO, "reproduction", "results", "operator-regime-capacity.csv")
 
 
 def sp(a, b):

@@ -10,8 +10,8 @@ asset-level structural regularity，符号随机则关闭该方向。
   - replication/results/volatility_stratification_<ASSET>_relative_s2021.json（各资产分层结果）
   - dataset/<ASSET>-2016-2025.csv（用于计算资产级结构特征）
 输出：
-  - 05_research_intelligence/asset-dependence-exploration.md
-  - 05_research_intelligence/asset-dependence-table.csv
+  - reproduction/results/asset-dependence-exploration.md
+  - reproduction/results/asset-dependence-table.csv
 """
 import glob
 import io
@@ -24,8 +24,7 @@ import pandas as pd
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PROJ = os.path.dirname(os.path.dirname(REPO))
-OUTDIR = os.path.join(PROJ, "05_research_intelligence")
+OUTDIR = os.path.join(REPO, "reproduction", "results")
 SEQ_LEN, PRED_LEN, JUMP_C = 96, 24, 3.0
 
 

@@ -23,8 +23,7 @@ except Exception:
     pass
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PROJ = os.path.dirname(os.path.dirname(REPO))
-INT = os.path.join(PROJ, "05_research_intelligence")
+INT = os.path.join(REPO, "reproduction", "results")
 
 NEW = ["BYD", "BOE", "EASTMONEY", "YANGHE"]
 PREREG = {  # asset: (|ACF1|, expected interaction direction, expected operator preference)

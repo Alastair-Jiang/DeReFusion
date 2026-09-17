@@ -24,8 +24,8 @@ import sys
 
 import pandas as pd
 
-REPO = r"C:\Users\26843\Desktop\project\repos\DeReFusion"
-PY = os.path.join(REPO, ".venv", "Scripts", "python.exe")
+REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PY = sys.executable
 ANALYZE = os.path.join(REPO, "reproduction", "analysis", "analyze_volatility_regimes.py")
 RES = os.path.join(REPO, "reproduction", "results")
 
@@ -53,8 +53,10 @@ def one(tag: str, seed: int, allow_overwrite: bool = False) -> dict | None:
             return None
     cmd = [PY, "-W", "ignore", ANALYZE, "--csv", csv, "--tag", tag, "--seed", str(seed),
            "--models", "DeReFusion,revin-DLinear", "--rv-mode", "relative"]
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
     r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace",
-                       cwd=REPO)
+                       cwd=REPO, env=env)
     jp = os.path.join(RES, f"volatility_stratification_{tag}_relative_s{seed}.json")
     if r.returncode != 0 or not os.path.exists(jp):
         print(f"  {tag} s{seed}: FAILED rc={r.returncode} {(r.stderr or '')[-160:]}")
