@@ -25,5 +25,7 @@ reports/evidence_closure/24a_c1_blind_recomputation_spec.md -text
 reports/evidence_closure/24b_c1_blind_handoff_lock_table.md -text
 reproduction/analysis/analyze_volatility_regimes.py -text
 reproduction/analysis/c1_predictor.py -text
+reproduction/analysis/structure_routing_experiment.py -text
 reproduction/c1_handoff/per_run_manifest.csv -text
 reproduction/c1_handoff/BLIND_STAGE1_MANIFEST.csv -text
+reports/evidence_closure/24c_c1_blind_dependency_addendum.md -text

@@ -15,8 +15,8 @@
 
 输出：
   - reproduction/results/structure_routing_raw.json     原始逐状态结果
-  - 05_research_intelligence/structural-state-summary.csv
-  - 05_research_intelligence/operator-regime-results.csv
+  - reproduction/results/structural-state-summary.csv
+  - reproduction/results/operator-regime-results.csv
 """
 import io
 import json
@@ -34,8 +34,7 @@ except Exception:
     pass
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-PROJ = os.path.dirname(os.path.dirname(REPO))
-OUTDIR = os.path.join(PROJ, "05_research_intelligence")
+OUTDIR = os.path.join(REPO, "reproduction", "results")
 
 SEQ_LEN, LABEL_LEN, PRED_LEN = 96, 48, 24
 C_IN, C_OUT = 4, 1

@@ -1,8 +1,9 @@
 """Build and verify the result-free stage-1 manifest for the C1 blind audit.
 
 The manifest contains only locked inputs, raw prediction/ground-truth arrays,
-the executor manifest, the two frozen analysis scripts, and the two result-free
-audit specifications.  It deliberately excludes metrics and analyst outputs.
+the executor manifest, the frozen analysis scripts and their explicit
+dependency, and the result-free audit specifications.  It deliberately excludes
+metrics and analyst outputs.
 """
 
 from __future__ import annotations
@@ -127,6 +128,10 @@ def main() -> None:
     )
     add_entry(rows, root, "frozen_script", root / "reproduction/analysis/c1_predictor.py")
     add_entry(
+        rows, root, "frozen_dependency",
+        root / "reproduction/analysis/structure_routing_experiment.py",
+    )
+    add_entry(
         rows, root, "audit_spec",
         root / "reports/evidence_closure/24a_c1_blind_recomputation_spec.md",
     )
@@ -134,9 +139,13 @@ def main() -> None:
         rows, root, "lock_table",
         root / "reports/evidence_closure/24b_c1_blind_handoff_lock_table.md",
     )
+    add_entry(
+        rows, root, "audit_addendum",
+        root / "reports/evidence_closure/24c_c1_blind_dependency_addendum.md",
+    )
 
-    if len(rows) != 265:
-        raise AssertionError(f"expected 265 files, found {len(rows)}")
+    if len(rows) != 267:
+        raise AssertionError(f"expected 267 files, found {len(rows)}")
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(
