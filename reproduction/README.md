@@ -40,6 +40,9 @@ python reproduction/analysis/build_c1_blind_manifest.py
 
 # Validate the frozen Phase 1 grid without starting training
 python reproduction/analysis/build_phase1_manifest.py
+
+# Audit all 72 real rolling split combinations without training
+python reproduction/analysis/audit_phase1_date_splits.py
 ```
 
 The canonical single-model training command is in the root README. Analysis
@@ -86,5 +89,7 @@ their handling; they must not mutate source rows in place.
 The frozen protocol is [`../docs/PHASE1_PREREGISTRATION.md`](../docs/PHASE1_PREREGISTRATION.md),
 with machine-readable settings in `configs/phase1_modern_baselines.json`.
 Generated manifests live in `results/phase1/`. The manifest builder performs
-data-hash and model-availability checks and never launches training. Stage D is
-deliberately marked blocked until explicit date-boundary rolling splits exist.
+data-hash and model-availability checks and never launches training. Explicit
+end-exclusive date boundaries are implemented and audited across all frozen
+Stage D asset/year/horizon combinations; Stage D is now engineering-ready but
+remains downstream of Stages A--C under the frozen stage order.

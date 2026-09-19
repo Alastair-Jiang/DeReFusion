@@ -29,6 +29,14 @@ if __name__ == '__main__':
     parser.add_argument('--freq', type=str, default='h',
                         help='freq for time features encoding, options:[s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly], you can also use more detailed freq like 15min or 3h')
     parser.add_argument('--checkpoints', type=str, default='./checkpoints/', help='location of model checkpoints')
+    parser.add_argument('--split_mode', type=str, choices=['ratio', 'dates'], default='ratio',
+                        help='custom-data split: legacy 70/10/20 ratio or explicit end-exclusive dates')
+    parser.add_argument('--train_end', type=str, default=None,
+                        help='first date excluded from training when --split_mode dates')
+    parser.add_argument('--val_end', type=str, default=None,
+                        help='first date excluded from validation when --split_mode dates')
+    parser.add_argument('--test_end', type=str, default=None,
+                        help='first date excluded from testing when --split_mode dates')
 
     # forecasting task
     parser.add_argument('--seq_len', type=int, default=96, help='input sequence length')
@@ -155,6 +163,14 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
+    split_suffix = ''
+    if args.split_mode == 'dates':
+        required_boundaries = (args.train_end, args.val_end, args.test_end)
+        if any(value in (None, '') for value in required_boundaries):
+            parser.error('--split_mode dates requires --train_end, --val_end and --test_end')
+        compact = [value.replace('-', '') for value in required_boundaries]
+        split_suffix = '_splitdates_te{}_ve{}_xe{}'.format(*compact)
+
     random.seed(args.rand_seed)
     torch.manual_seed(args.rand_seed)
     np.random.seed(args.rand_seed)
@@ -225,6 +241,7 @@ if __name__ == '__main__':
                 args.embed,
                 args.distil,
                 args.des, args.rand_seed, ii)
+            setting += split_suffix
 
             print('>>>>>>>start training : {}>>>>>>>>>>>>>>>>>>>>>>>>>>'.format(setting))
             _, train_time = exp.train(setting)
@@ -259,6 +276,7 @@ if __name__ == '__main__':
             args.embed,
             args.distil,
             args.des, args.rand_seed, ii)
+        setting += split_suffix
 
         print('>>>>>>>testing : {}<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<'.format(setting))
         exp.test(setting, test=1)

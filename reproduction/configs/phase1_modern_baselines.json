@@ -1,5 +1,5 @@
 {
-  "protocol_version": "phase1-v1-2026-09-19",
+  "protocol_version": "phase1-v1.1-2026-09-19",
   "dataset_registry": "reproduction/results/dataset_registry.csv",
   "confirmatory_cohorts": ["original-10", "c1-20"],
   "calibration_assets": ["BOND10Y", "BONDETF", "CITICSEC"],
@@ -63,7 +63,7 @@
       "seeds": [2024],
       "origins": ["2023", "2024", "2025"],
       "expected_fits": 144,
-      "blocked_until": "explicit-date rolling split is implemented and tested"
+      "split_mode": "dates"
     }
   }
 }

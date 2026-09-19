@@ -1,7 +1,7 @@
 """Validate the frozen Phase 1 grid and optionally write run manifests.
 
 This script never starts training.  It checks data hashes, model availability,
-stage cardinalities and the declared rolling-origin implementation block.
+stage cardinalities and explicit rolling-origin boundaries.
 """
 
 from __future__ import annotations
@@ -85,6 +85,12 @@ def build_rows(stage_name: str, stage: dict, config: dict, registry: list[dict])
     for asset, model, horizon, seed, origin in product(
         assets, models, stage["horizons"], stage["seeds"], stage["origins"]
     ):
+        train_end = val_end = test_end = ""
+        if stage.get("split_mode") == "dates":
+            test_year = int(origin)
+            train_end = f"{test_year - 1}-01-01"
+            val_end = f"{test_year}-01-01"
+            test_end = f"{test_year + 1}-01-01"
         rows.append(
             {
                 "protocol_version": config["protocol_version"],
@@ -94,8 +100,12 @@ def build_rows(stage_name: str, stage: dict, config: dict, registry: list[dict])
                 "horizon": horizon,
                 "seed": seed,
                 "origin": origin,
-                "status": "blocked" if stage.get("blocked_until") else "planned",
-                "block_reason": stage.get("blocked_until", ""),
+                "split_mode": stage.get("split_mode", "ratio"),
+                "train_end": train_end,
+                "val_end": val_end,
+                "test_end": test_end,
+                "status": "planned",
+                "block_reason": "",
             }
         )
     return rows

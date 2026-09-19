@@ -1,6 +1,7 @@
 # Phase 1 pre-registration: when does complexity pay?
 
-**Status:** frozen before any Phase 1 outcome is generated.  
+**Status:** frozen before any Phase 1 outcome is generated; implementation
+amendment v1.1 recorded below.
 **Date:** 2026-09-19.  
 **Scope:** modern-baseline refresh and temporal robustness; this document does
 not reopen Gate A, F1 or C1.
@@ -89,8 +90,8 @@ uses calendar year `Y-1`, and test uses calendar year `Y`. Each split may borrow
 only the preceding `seq_len` rows as input context. Scaling is fit on training
 rows only.
 
-Stage D cannot run until the data loader accepts explicit date boundaries. A
-fixed 70/10/20 split must not be relabelled as rolling-origin evaluation.
+Stage D uses explicit, end-exclusive date boundaries. A fixed 70/10/20 split
+must not be relabelled as rolling-origin evaluation.
 
 ## 4. Fixed training protocol
 
@@ -105,9 +106,9 @@ fixed 70/10/20 split must not be relabelled as rolling-origin evaluation.
   operation is recorded;
 - no model-specific hyperparameter search in Phase 1.
 
-The current harness is not yet authorized for Stage D. Stage A may begin only
-after the manifest checker passes; Stage B begins only after all Stage A jobs
-produce the required artifact set.
+Stage A may begin only after the manifest checker passes; Stage B begins only
+after all Stage A jobs produce the required artifact set. Stage D remains
+downstream of Stages A--C even though its loader prerequisite is now met.
 
 ## 5. Outcomes and statistics
 
@@ -160,3 +161,18 @@ new attempt identifier; they never overwrite the failed attempt.
 The immediate authorized action is manifest generation and Stage A calibration.
 No Stage B–D training is authorized until Stage A artifacts and the rolling
 split implementation gap are reviewed in the repository.
+
+## 9. Implementation amendment v1.1 (2026-09-19; before outcomes)
+
+The loader now accepts `--split_mode dates` with end-exclusive `--train_end`,
+`--val_end` and `--test_end`. Validation and test partitions borrow exactly the
+preceding `seq_len` rows as input context, while every forecast label stays
+inside its declared year. Scaling remains fitted on training rows only, and
+the three boundaries are embedded in the experiment identifier to prevent
+cross-origin artifact overwrite.
+
+This amendment resolves an engineering prerequisite only. It changes no
+asset, model, horizon, seed, estimand, success rule or stage ordering. Unit
+tests cover leakage boundaries, training-only scaling, invalid inputs and
+legacy-ratio compatibility; `audit_phase1_date_splits.py` checks all 72 frozen
+asset/year/horizon combinations before Stage D may be considered runnable.
