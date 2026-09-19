@@ -31,6 +31,8 @@ if __name__ == '__main__':
     parser.add_argument('--freq', type=str, default='h',
                         help='freq for time features encoding, options:[s:secondly, t:minutely, h:hourly, d:daily, b:business days, w:weekly, m:monthly], you can also use more detailed freq like 15min or 3h')
     parser.add_argument('--checkpoints', type=str, default='./checkpoints/', help='location of model checkpoints')
+    parser.add_argument('--result_log', type=str, default='result_long_term_forecast.txt',
+                        help='append-only summary log for long-term forecast results')
     parser.add_argument('--split_mode', type=str, choices=['ratio', 'dates'], default='ratio',
                         help='custom-data split: legacy 70/10/20 ratio or explicit end-exclusive dates')
     parser.add_argument('--train_end', type=str, default=None,

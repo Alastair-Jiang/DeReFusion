@@ -298,7 +298,9 @@ class Exp_Long_Term_Forecast(Exp_Basic):
 
         print('mse:{}, mae:{}, rmse:{}, mape:{}, mspe:{}, r2:{}, dtw:{}, time:{:.2f}s{}{}{}'.format(
             mse, mae, rmse, mape, mspe, r2, dtw, test_elapsed, train_time_str, inference_str, model_stats_str))
-        f = open("result_long_term_forecast.txt", 'a')
+        result_log_dir = os.path.dirname(os.path.abspath(self.args.result_log))
+        os.makedirs(result_log_dir, exist_ok=True)
+        f = open(self.args.result_log, 'a')
         f.write(setting + "  \n")
         f.write('mse:{}, mae:{}, rmse:{}, mape:{}, mspe:{}, r2:{}, dtw:{}, time:{:.2f}s{}{}{}'.format(
             mse, mae, rmse, mape, mspe, r2, dtw, test_elapsed, train_time_str, inference_str, model_stats_str))

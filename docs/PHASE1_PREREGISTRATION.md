@@ -145,6 +145,9 @@ Every fit must retain:
 - parameter count, wall time, inference time and memory;
 - a per-file SHA-256 inventory.
 
+Calibration commands must use a Phase-1-specific `--result_log`; they may not
+append to the legacy global result ledger.
+
 A batch is incomplete if any headline row lacks its raw arrays. Reruns use a
 new attempt identifier; they never overwrite the failed attempt.
 
