@@ -133,12 +133,15 @@ python reproduction/analysis/build_c1_blind_manifest.py
 2. [仓库与证据审计](docs/REPOSITORY_AUDIT_2026-09-18.md)；
 3. [`reports/README.md`](reports/README.md) 的结论索引；
 4. Gate A 报告 14 → F1 报告 21 → C1 预承诺 24/24a/24b → 最终报告 26；
-5. [前沿文献与下一步](docs/LITERATURE_AND_NEXT_PLAN.md)。
+5. [前沿文献与下一步](docs/LITERATURE_AND_NEXT_PLAN.md)；
+6. [Phase 1 现代基线预注册](docs/PHASE1_PREREGISTRATION.md)。
 
 ### 8. 后续原则
 
-下一步做现代基线刷新（TimeMixer、state-space
-基线、Chronos-2、TimesFM-3、Moirai）。评估必须报告资产/种子/预测步长失败，
+Phase 1 已在结果产生前冻结：先做 15 次校准运行，再做 300 次现代基线筛查、
+360 次 DeReFusion–DLinear 主确认；144 次滚动稳健性运行在显式日期切分实现前保持
+阻塞。TimeMixer 与 state-space 基线是公开的实现缺口，Chronos、TimesFM、Moirai
+保持为独立零样本轨道。评估必须报告资产/种子/预测步长失败，
 并同时考虑准确率、校准、时延、内存与能耗。只有在参数量与计算预算匹配后，
 频域/算子归纳偏置仍稳定超过普通 MLP、时域卷积与状态空间基线，才值得继续。
 
@@ -188,7 +191,9 @@ asset-clustered uncertainty, rolling origins, multiple seeds/horizons, and
 accuracy–compute reporting. A spectral or neural-operator residual may be tested
 only as a matched architectural bias against ordinary MLP, convolution and
 state-space controls. See the full
-[literature map and plan](docs/LITERATURE_AND_NEXT_PLAN.md).
+[literature map and plan](docs/LITERATURE_AND_NEXT_PLAN.md) and the frozen
+[Phase 1 pre-registration](docs/PHASE1_PREREGISTRATION.md). The rolling-origin
+stage remains blocked until explicit date-boundary splits are implemented.
 
 ## Citation, provenance and licence
 

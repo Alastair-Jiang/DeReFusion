@@ -37,6 +37,9 @@ python reproduction/analysis/f1_analysis.py
 
 # Verify and rebuild the result-free C1 Stage-1 handoff manifest
 python reproduction/analysis/build_c1_blind_manifest.py
+
+# Validate the frozen Phase 1 grid without starting training
+python reproduction/analysis/build_phase1_manifest.py
 ```
 
 The canonical single-model training command is in the root README. Analysis
@@ -77,3 +80,11 @@ their handling; they must not mutate source rows in place.
 - Test data is evaluated only after validation-selected training is complete.
 - Do not add an asset, seed, feature or threshold to rescue a failed frozen
   result.
+
+## Phase 1 modern-baseline programme
+
+The frozen protocol is [`../docs/PHASE1_PREREGISTRATION.md`](../docs/PHASE1_PREREGISTRATION.md),
+with machine-readable settings in `configs/phase1_modern_baselines.json`.
+Generated manifests live in `results/phase1/`. The manifest builder performs
+data-hash and model-availability checks and never launches training. Stage D is
+deliberately marked blocked until explicit date-boundary rolling splits exist.
