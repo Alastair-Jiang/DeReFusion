@@ -24,12 +24,20 @@
     "dec_in": 4,
     "c_out": 1,
     "d_model": 32,
+    "n_heads": 8,
+    "e_layers": 2,
+    "d_layers": 1,
+    "d_ff": 2048,
+    "factor": 1,
+    "dropout": 0.1,
+    "embed": "timeF",
     "moving_avg": 25,
     "train_epochs": 30,
     "batch_size": 32,
     "learning_rate": 0.0001,
     "patience": 5,
-    "lradj": "cosine"
+    "lradj": "cosine",
+    "deterministic": true
   },
   "stages": {
     "A_calibration": {

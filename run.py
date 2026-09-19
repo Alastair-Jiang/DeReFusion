@@ -10,6 +10,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='TimesNet')
 
     parser.add_argument('--rand_seed', type=int, default=2021, help='random seed')
+    parser.add_argument('--deterministic', action='store_true', default=False,
+                        help='request deterministic PyTorch algorithms and deterministic cuDNN settings')
 
     # basic config
     parser.add_argument('--task_name', type=str, required=True, default='long_term_forecast',
@@ -174,6 +176,13 @@ if __name__ == '__main__':
     random.seed(args.rand_seed)
     torch.manual_seed(args.rand_seed)
     np.random.seed(args.rand_seed)
+    if args.deterministic:
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(args.rand_seed)
+        if hasattr(torch.backends, 'cudnn'):
+            torch.backends.cudnn.deterministic = True
+            torch.backends.cudnn.benchmark = False
 
     if torch.cuda.is_available() and args.use_gpu:
         args.device = torch.device('cuda:{}'.format(args.gpu))

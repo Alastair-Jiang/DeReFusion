@@ -99,6 +99,8 @@ must not be relabelled as rolling-origin evaluation.
 - input/target: OHLC multivariate input, `Close` target;
 - `seq_len=96`, `label_len=48`, `enc_in=4`, `dec_in=4`, `c_out=1`;
 - `d_model=32`, moving-average kernel 25 where applicable;
+- `n_heads=8`, two encoder layers, one decoder layer, `d_ff=2048`, dropout
+  `0.1`, factor `1`, and `timeF` embeddings where applicable;
 - Adam, learning rate `1e-4`, MSE loss, cosine schedule;
 - maximum 30 epochs, patience 5, validation-selected checkpoint;
 - test split is evaluated once after training;
@@ -176,3 +178,7 @@ asset, model, horizon, seed, estimand, success rule or stage ordering. Unit
 tests cover leakage boundaries, training-only scaling, invalid inputs and
 legacy-ratio compatibility; `audit_phase1_date_splits.py` checks all 72 frozen
 asset/year/horizon combinations before Stage D may be considered runnable.
+The machine-readable configuration also makes the unchanged harness defaults
+for heads, layers, feed-forward width, dropout, attention factor and time
+embedding explicit, and Phase 1 commands request deterministic PyTorch
+algorithms.
