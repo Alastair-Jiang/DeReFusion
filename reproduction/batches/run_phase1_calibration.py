@@ -232,17 +232,32 @@ def validate_source_state() -> str:
     return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 
 
+def resource_blocked_models() -> set[str]:
+    blocked = set()
+    for receipt_path in PACKAGE_ROOT.glob("*/receipt.json"):
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        if receipt.get("status") == "resource_blocked":
+            blocked.add(receipt["model"])
+    return blocked
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--execute", action="store_true", help="run training; default is dry-run")
     parser.add_argument("--limit", type=int, default=None, help="maximum number of missing fits to run")
     parser.add_argument("--only-asset", choices=["BOND10Y", "BONDETF", "CITICSEC"])
     parser.add_argument("--only-model")
+    parser.add_argument("--exclude-model", action="append", default=[])
+    parser.add_argument("--retry-blocked-model", action="append", default=[],
+                        help="explicitly override a model-family resource pause")
+    parser.add_argument("--timeout-seconds", type=int, default=300,
+                        help="hard wall-clock limit per calibration fit")
     args = parser.parse_args()
 
     config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     rows = load_csv(MANIFEST_PATH)
     registry = {row["asset"]: row for row in load_csv(REGISTRY_PATH)}
+    blocked_models = resource_blocked_models()
     if len(rows) != 15:
         raise RuntimeError(f"expected 15 calibration rows, found {len(rows)}")
 
@@ -251,6 +266,11 @@ def main() -> int:
         if args.only_asset and row["asset"] != args.only_asset:
             continue
         if args.only_model and row["model"] != args.only_model:
+            continue
+        if row["model"] in set(args.exclude_model):
+            continue
+        if row["model"] in blocked_models and row["model"] not in set(args.retry_blocked_model):
+            print(f"PAUSE family-blocked {run_id(index, row)}")
             continue
         data_path = ROOT / registry[row["asset"]]["file"]
         if sha256(data_path) != registry[row["asset"]]["sha256"]:
@@ -280,14 +300,20 @@ def main() -> int:
         environment = dict(os.environ)
         environment["PYTHONUNBUFFERED"] = "1"
         with log_path.open("w", encoding="utf-8", newline="") as log:
-            completed = subprocess.run(
-                command,
-                cwd=ROOT,
-                env=environment,
-                stdout=log,
-                stderr=subprocess.STDOUT,
-                text=True,
-            )
+            try:
+                completed = subprocess.run(
+                    command,
+                    cwd=ROOT,
+                    env=environment,
+                    stdout=log,
+                    stderr=subprocess.STDOUT,
+                    text=True,
+                    timeout=args.timeout_seconds,
+                )
+            except subprocess.TimeoutExpired as error:
+                raise RuntimeError(
+                    f"{identifier} exceeded {args.timeout_seconds}s and was terminated; see {log_path}"
+                ) from error
         if completed.returncode != 0:
             raise RuntimeError(f"{identifier} failed with exit code {completed.returncode}; see {log_path}")
         destination = package_run(index, row, registry, config, command, log_path, git_commit)

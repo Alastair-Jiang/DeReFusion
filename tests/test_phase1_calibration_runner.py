@@ -30,6 +30,14 @@ class Phase1CalibrationRunnerTest(unittest.TestCase):
             self.assertIn(f"--model {row['model']}", joined)
             self.assertIn(f"--rand_seed {row['seed']}", joined)
 
+    def test_resource_guard_defaults_are_explicit(self):
+        source = (CONFIG_PATH.parents[1] / 'batches' / 'run_phase1_calibration.py').read_text(encoding='utf-8')
+        self.assertIn('default=300', source)
+        self.assertIn('subprocess.TimeoutExpired', source)
+        self.assertIn('--exclude-model', source)
+        self.assertIn('resource_blocked_models()', source)
+        self.assertIn('--retry-blocked-model', source)
+
 
 if __name__ == '__main__':
     unittest.main()
