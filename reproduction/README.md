@@ -43,6 +43,9 @@ python reproduction/analysis/build_phase1_manifest.py
 
 # Audit all 72 real rolling split combinations without training
 python reproduction/analysis/audit_phase1_date_splits.py
+
+# Preview the 15 calibration fits (training requires explicit --execute)
+python reproduction/batches/run_phase1_calibration.py
 ```
 
 The canonical single-model training command is in the root README. Analysis
