@@ -28,7 +28,7 @@ that was named. The incidents below all passed every existing check.
 | I4 The C1 implementation silently dropped 96 windows via `nanmedian` where `diff(log(Close))` was undefined | the dropped windows were never counted, so the N looked correct | L0.3, L0.5, L0.7 |
 | I5 Five FX feeds carry OHLC-envelope violations at 1.1–6.4% of rows, uniformly across train/val/test | declared qualitatively in prereg §2 with no count, magnitude or per-split incidence | L0.4, L0.6 |
 | I6 Cross-platform newline conversion broke every frozen hash at once | no clause declared a line-ending policy for hash-compared artifacts | L1.7 |
-| **I7** `tests/test_phase1_model_shapes.py` is **green** and asserts shapes under a hand-written `d_ff=128`, while the frozen configuration sets `d_ff=2048` | the fixture is a hand-copy of the configuration, so test and configuration drift independently — and did | L1.8 |
+| **I7** `tests/test_phase1_model_shapes.py` asserts shapes under a hand-written `d_ff=128` while the frozen configuration sets `d_ff=2048`; the gate was green and blind on **3 of 5** models | the fixture is a hand-copy of the configuration, so the two drift independently — and did. Measured against the frozen config: TimesNet 4,699,969 vs 75,010,369 (15.96×), iTransformer 29,376 vs 278,976 (9.5×), PatchTST 35,232 vs 284,832 (8.1×). The two it covered correctly — DLinear 4,664 and DeReFusion 28,436 — are exactly the two that never read `d_ff` | L1.8 |
 
 The common shape: **a number was correct in itself and wrong in what it was
 attached to.** The gates below exist to make that specific failure loud.
@@ -38,6 +38,17 @@ exists, passes, and is a statement about a model that is never run.** I1 is a
 missing check; I7 is a check that manufactures false assurance. A missing check
 leaves a hole a reader can see. A green check that covers nothing is worse than
 no check, because it is evidence of a property nobody has.
+
+It is worse than that, and the measurement is worth stating plainly. The
+fixture's `d_ff=128` did not merely mis-state TimesNet: it made iTransformer
+9.5× and PatchTST 8.1× too small as well. The gate was correct for DLinear and
+DeReFusion — the only two models in the cohort that never read `d_ff`.
+**The check was right precisely for the models that could not be wrong, and
+wrong for every model that could.** This is structural rather than unlucky: a
+drifted key is invisible to every architecture that does not read it, so a
+fixture-level drift necessarily produces a gate that is green exactly where it
+is not needed. It follows that the reach of such a gate is not merely unknown —
+it is *inversely* correlated with where the risk is.
 
 ## 1. Four principles
 
@@ -164,13 +175,30 @@ before any number from that model is used for planning or comparison.
   line-ending policy.
 - **L1.8** **A check on a frozen configuration reads the frozen configuration.**
   A fixture that restates a configuration by hand tests the restatement. Where
-  the two can drift they will, and the check stays green throughout. The
-  existing shape test is the worked example: it asserts under a hand-written
-  `d_ff=128`, which yields 4,699,969 parameters — within 0.007% of the
-  reference — while the frozen configuration's `d_ff=2048` yields 75,010,369.
-  The check must be re-pointed at the frozen file, and a drift assertion added:
-  the fixture's values, where any remain, are compared against the frozen
-  configuration at collection time and the test fails if they diverge.
+  the two can drift they will, and the check stays green throughout. The shape
+  gate was the worked example: under a hand-written `d_ff=128` it made TimesNet
+  4,699,969 parameters, iTransformer 29,376 and PatchTST 35,232, against the
+  frozen configuration's 75,010,369, 278,976 and 284,832 — and it passed. It was
+  green because the two architectures it happened to get right are the two that
+  never read `d_ff`. **A gate whose reach is unknown must be assumed wrong
+  wherever the drifted key is read, and a drifted key is read only by the models
+  that can be wrong.**
+  Two channels must both be closed, because a check that reads the frozen file
+  but restates anything else has moved the drift rather than removed it:
+  1. every value the executing harness **passes** is read from the frozen
+     configuration, never transcribed;
+  2. every value the harness does **not** pass is read from the harness's own
+     defaults, for the same reason — production silently takes those defaults,
+     so a default that moves alters the frozen protocol with no recorded event.
+  The gate also asserts that its model list still equals the frozen model list,
+  so a stale mapping fails the check instead of quietly narrowing it.
+  *Status: both channels are closed in `tests/test_phase1_model_shapes.py` as of
+  the commit that added this clause. The gate now builds its configuration from
+  the frozen file and the manifest, reads `run.py`'s defaults for `top_k`,
+  `num_kernels` and `activation`, and asserts its module map covers
+  `available_models`. Verified by measurement, not by the colour of the test:
+  under the repaired gate TimesNet reports 75,010,369 parameters, matching the
+  Stage A receipt digit for digit.*
 
 **Statuses:** `reference-matched` · `declared-variant` · `unverified`.
 **Exit:** no model enters L2 or above at `unverified`.
