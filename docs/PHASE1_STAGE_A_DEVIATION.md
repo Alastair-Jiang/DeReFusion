@@ -16,7 +16,7 @@
 
 > This stage checks imports, tensor shapes, output retention, timing, and manifest generation. **Its losses are not compared or published as evidence.**
 
-Stage A 不产生任何被比较或发表的损益。若同类设备变更发生在 Stage B/C/D，则属协议违背，处置方式应完全不同（见 §6）。
+Stage A 不产生任何被比较或发表的损益。若同类设备变更发生在 Stage B/C/D，则属协议违背：应立即停止该阶段、保留并记录失败 attempt，在任何重跑前签发事前 amendment；随后只能按修订后的协议重新运行，不能事后补记来追认（见 §6）。
 
 ## 2. 授权基线
 
@@ -48,9 +48,9 @@ Stage A 在 P4（Tesla P4 7680 MiB）上以**完整 15-fit 网格**端到端重�
 
 **D3 — 冻结文档与仓库历史互相矛盾。** 执行计划 §1/§8 仍描述「仅 A05/A15」；而 `0d05f93` 的提交信息描述的是全网格重跑。两者至今并存于仓库中。
 
-**根因（D1/D2）**：`run_phase1_calibration.py:33` 的 `PACKAGE_ROOT` 是一个单一路径 `reproduction/results/phase1/calibration`；`choose_attempt()`（:88）与 `resource_blocked_models()`（:312）均只在该根下 glob。把 CPU 包 `git mv` 到 `calibration-cpu/` 后，runner 在 P4 上看到的是一个**空的 Stage A 根**，于是把 15 个 fit 全部选为待执行的 attempt-1。该行为是**刻意的**（`0d05f93` 明载理由为设备同构），但其与单根设计的交互未被记入任何协议文档。
+**根因（D1/D2）**：`run_phase1_calibration.py:33` 的 `PACKAGE_ROOT` 是一个单一路径 `reproduction/results/phase1/calibration`；`choose_attempt()`（:88）与 `resource_blocked_models()`（:312）均只在该根下 glob。把 CPU 包 `git mv` 到 `calibration-cpu/` 后，runner 在 P4 上看到的是一个**空的 Stage A 根**，于是把 15 个 fit 全部选为待执行的 attempt-1。该行为是**刻意的**：`0d05f93` 的提交信息明确写明要在 P4 上端到端重跑完整 15-fit 网格，使其处于单一、同构的环境，并说明将 CPU 包移出 runner 可见根的理由；但这仍未获得协议中的事前授权，也未记入执行计划。
 
-**动机澄清**：重跑的动机是**设备同构**，不是获取更好指标——Stage A 的损失本就不被比较（§3）。因此 D2 违反的是 §4.2 的字面，而非其「禁止指标择优」的立意。
+**动机澄清**：重跑的动机是让 Stage A 的执行环境保持一致，不是获取更好指标——Stage A 的损失本就不被比较（§3）。因此 D2 违反的是 §4.2「成功状态禁止重跑」的字面规定；本记录不把该规定改写成仅禁止指标择优，也不据动机将未授权重跑追认为合规。
 
 ## 5. 未偏离项
 
@@ -65,11 +65,11 @@ Stage A 在 P4（Tesla P4 7680 MiB）上以**完整 15-fit 网格**端到端重�
 
 ## 6. 科学后果评估
 
-**结论：本次偏差不影响任何 Stage A 的科学主张，因为 Stage A 不承载科学主张。** 依据 §3。
+**结论：本次偏差不影响任何 Stage A 的科学主张，因为 Stage A 不承载科学主张。** 这是对科学后果的限定，不是对程序合规性的豁免。依据仅为预注册 §3：Stage A 的损失不被比较，也不作为证据发表。
 
 但有一项**须显式声明的连带影响**：预注册 §5 把 `parameter count, training wall time, inference milliseconds per sample and peak memory` 列为次级产出。这些量随设备变化显著（见 §8），因此**引用 Stage A 标定数值时必须同时声明其来源设备与软件环境**，不得混用两套数字。
 
-**假如同一偏差发生在 Stage B/C/D**：那将是协议违背，正确处置是停止、记录失败 attempt、并就设备变更签发事前 amendment 后重跑，而不是事后补记。本次之所以可接受，唯一原因是 Stage A 的定位。
+**假如同一变更发生在 Stage B/C/D**：那将是协议违背。正确处置是停止该阶段、记录失败 attempt、先签发事前 amendment，再依修订后的协议重跑，而不是事后补记。本次仅能依据 §3 记录为没有 Stage A 科学后果；这不构成对程序偏差的追认。
 
 ## 7. A05 判定校正（不修改任何 receipt）
 
@@ -79,7 +79,7 @@ CPU A05 的 `status = "resource_blocked"`，其 `status_reason` 为：
 
 该判定不成立，有两条独立证据：
 
-1. **receipt 自证。** 同一份 receipt 的 `termination` 字段为 `"manual controlled interrupt during backward pass"`，`observed.completed_epochs = 0`。即 status 声称「超出阈值」，而 termination 记载的是「人工中断」——两者不能同时为真。
+1. **receipt 自证矛盾。** 同一份 receipt 的 `status` 为 `resource_blocked`，理由称 205 秒未完成 epoch 1；但 `termination` 字段为 `"manual controlled interrupt during backward pass"`，且 `observed.completed_epochs = 0`。status/理由声称资源阈值阻塞，termination 却记载人工中断；这两种原因不能同时作为该次终止的真实解释。
 2. **实测证伪。** 同机同模型的 A10 在 CPU 上单 epoch 实测约 880 秒（总计 7285.16 s 完成早停）。205 秒仅相当于 epoch 1 的约 23%，属正常进度。且 A05 的 BOND10Y 训练段（1285 行）比 A10 的 BONDETF（1567 行）更小，只会更快。A05 在 GPU 上于 2230.97 s 内正常完成至早停。
 
 **结论：A05 的真实性质是「人工可控中断」，`resource_blocked` 是误判。** 但 A05 的 CPU receipt 是 immutable 证据，**本次未作任何修改**。校正以本文记录。
@@ -135,10 +135,10 @@ A10、A15 同样存在 CPU/GPU 双包（A15 的 CPU 侧无包，故只涉及 A10
 以下两项涉及科学口径，**不单方面决定**：
 
 **决策 1 — 哪一列是 Stage A 的正式产物。**
-倾向方案：以 GPU 列（15/15，设备同构、单一 commit）为准，CPU 列整体转为历史证据并在摄入工具中显式排除。理由：CPU 列残缺（A05 受阻），GPU 列完整；且整列 GPU 恰好满足执行计划 §3.1 的设备一致性要求，无需再为「同列内 CPU/GPU 混用」作任何声明。**采纳前需确认**：一旦 Stage A 定为 GPU，则 Stage A 的标定数值全部来自 P4 环境，与 Stage B 若在同类 GPU 上执行的假设一致。
+倾向方案：以 GPU 列（15/15，设备同构、单一 commit）为准，CPU 列整体转为历史证据并在摄入工具中显式排除。理由：CPU 列残缺（A05 受阻），GPU 列完整；且整列 GPU 恰好满足执行计划 §3.1 的设备一致性要求，无需再为「同列内 CPU/GPU 混用」作任何声明。**该倾向不是已批准裁定**：须待决策 1 确认。一旦 Stage A 定为 GPU，则其标定数值全部来自 P4 环境，与 Stage B 若在同类 GPU 上执行的假设一致。
 
 **决策 2 — 关闭 §9 的谱系冲突。**
-候选做法（需择一并形成 amendment）：(a) 将 CPU 列 A05 的 `resource_blocked` 依 §7 校正为「人工中断」，并在摄入工具的可见域中合并两根、显式断言 supersession；(b) 将 CPU 列整体移出 Stage A 的摄入范围，使其不参与 §4.5 的唯一性判定。**任一做法都必须先修订 `resource_blocked_models()` 的语义边界**，否则 `revin-TimesNet` 的门控状态仍然悬空。
+候选做法（需择一并形成事前 amendment）：(a) 保留 CPU receipt 原字节，将本文对 A05 的判定作为外部审计说明；在统一可见域中纳入两根并明确记载 GPU 包与 CPU 失败 attempt 的谱系关系；(b) 明确将 CPU 列限定为历史证据并排除在 Stage A 的正式摄入与 §4.5 唯一性判定范围之外。**任一方案均须定义统一的 attempt 可见域及 `resource_blocked_models()` 的门控边界**。本记录提出选项，不自行改写 receipt 中的状态或谱系字段。
 
 **未经批准前**：不改动任何 receipt，不改动 runner，不推进 Stage B。
 
@@ -150,6 +150,8 @@ A10、A15 同样存在 CPU/GPU 双包（A15 的 CPU 侧无包，故只涉及 A10
 | 预注册 | §3 Stage A | 未指定设备 | 声明 Stage A 标定产物的来源设备 |
 | 预注册 | §9 | 止于 v1.1 | 若本文结论被采纳，需另起 v1.2 并**以英文记入规范正文**；本文为中文执行层记录，不能替代规范修订 |
 | runner | :33 `PACKAGE_ROOT` | 单根 | 明确双根可见性语义（或显式声明单根为设计约束并据此约束摄入） |
+
+以上是拟处理事项，不表示相关冻结条款已修订或本文已取得 amendment 地位。任何 v1.2 规范文本均须单独形成英文修订，并在 Stage B 首次训练启动前签发。
 
 若采纳规范修订，须**在 Stage B 任何训练启动之前**签发，以维持 §8 门禁的效力。
 
