@@ -134,7 +134,8 @@ python reproduction/analysis/build_c1_blind_manifest.py
 3. [`reports/README.md`](reports/README.md) 的结论索引；
 4. Gate A 报告 14 → F1 报告 21 → C1 预承诺 24/24a/24b → 最终报告 26；
 5. [前沿文献与下一步](docs/LITERATURE_AND_NEXT_PLAN.md)；
-6. [Phase 1 现代基线预注册](docs/PHASE1_PREREGISTRATION.md)。
+6. [Phase 1 现代基线预注册](docs/PHASE1_PREREGISTRATION.md)；
+7. [实验门禁规范（拟议，尚未采用）](docs/EXPERIMENTAL_DOCTRINE.md)。
 
 ### 8. 后续原则
 
