@@ -11,9 +11,12 @@ import gzip
 import hashlib
 import json
 import os
+import shutil
+import signal
 import subprocess
 import sys
 import time
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -21,6 +24,7 @@ import numpy as np
 import pandas as pd
 import torch
 from sklearn.preprocessing import StandardScaler
+from tqdm import tqdm
 
 ROOT = Path(__file__).resolve().parents[2]
 PHASE = ROOT / "reproduction/results/phase1"
@@ -35,6 +39,54 @@ MANIFESTS = {
     "D_temporal_robustness": PHASE / "D_temporal_robustness.manifest.csv",
 }
 OUTPUT = PHASE / "attempts"
+
+
+def atomic_json(path: Path, value: dict) -> None:
+    """Publish one durable JSON commit marker; never expose a partial receipt."""
+    temporary = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
+    with temporary.open("x", encoding="utf-8") as stream:
+        json.dump(value, stream, indent=2, sort_keys=True)
+        stream.write("\n")
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.replace(temporary, path)
+
+
+def atomic_copy(source: Path, target: Path) -> None:
+    if source.resolve() == target.resolve():
+        return
+    if target.exists():
+        raise RuntimeError(f"refusing to overwrite packaged artifact: {target}")
+    temporary = target.with_name(f".{target.name}.{uuid.uuid4().hex}.tmp")
+    with source.open("rb") as incoming, temporary.open("xb") as outgoing:
+        shutil.copyfileobj(incoming, outgoing, length=1024 * 1024)
+        outgoing.flush()
+        os.fsync(outgoing.fileno())
+    os.replace(temporary, target)
+
+
+def run_worker(command: list[str], log, env: dict, timeout: float) -> tuple[int, bool]:
+    """End the worker on budget expiry, allowing its recovery handler to flush."""
+    worker = subprocess.Popen(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT,
+                              start_new_session=os.name != "nt")
+    try:
+        return worker.wait(timeout=timeout), False
+    except (subprocess.TimeoutExpired, KeyboardInterrupt) as error:
+        if os.name == "nt":
+            worker.terminate()
+        else:
+            os.killpg(worker.pid, signal.SIGTERM)
+        try:
+            worker.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            if os.name == "nt":
+                worker.kill()
+            else:
+                os.killpg(worker.pid, signal.SIGKILL)
+            worker.wait()
+        if isinstance(error, KeyboardInterrupt):
+            raise
+        return worker.returncode, True
 
 
 def sha256(path: Path) -> str:
@@ -236,9 +288,8 @@ def package_attempt(row: dict[str, str], destination: Path, command: list[str], 
         raise RuntimeError("non-finite output; attempt retained and flagged")
     if not np.allclose(true, wanted, rtol=2e-5, atol=2e-6):
         raise RuntimeError("true.npy does not align with frozen test targets; attempt retained and flagged")
-    destination.mkdir(parents=True)
     for name, path in source.items():
-        (destination / name).write_bytes(path.read_bytes())
+        atomic_copy(path, destination / name)
     hashes = {name: sha256(destination / name) for name in source}
     receipt = {"logical_run_id": logical_id(row), "attempt": 1, "attempt_id": destination.name,
                "protocol_version": row["protocol_version"], "stage": row["stage"], "status": "completed_unreviewed",
@@ -251,11 +302,29 @@ def package_attempt(row: dict[str, str], destination: Path, command: list[str], 
                "command": subprocess.list2cmdline(command), "created_at_utc": datetime.now(timezone.utc).isoformat(),
                "shapes": {"pred.npy": list(pred.shape), "true.npy": list(true.shape), "metrics.npy": list(metrics.shape)},
                "sha256": hashes}
-    running_receipt.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    atomic_json(running_receipt, receipt)
 
 
 def command_device(command: list[str]) -> str:
     return "cuda" if "--gpu_type" in command else "cpu"
+
+
+def interrupted_attempt(path: Path) -> bool:
+    """True for an attempt the budget stopped mid-fit.
+
+    This is deliberately narrower than "not completed": a genuinely failed fit
+    must still block, because continuing one is a retry and needs its own
+    authorization.  A budget stop is not a failure of the fit -- the same
+    attempt simply has more to do -- so it continues in place, creating no
+    second attempt and needing no new authorization.
+    """
+    receipt = path / "receipt.json"
+    if not receipt.is_file():
+        return False
+    try:
+        return json.loads(receipt.read_text(encoding="utf-8")).get("status") == "interrupted"
+    except (json.JSONDecodeError, OSError):
+        return False
 
 
 def completed_attempt(path: Path, row: dict[str, str], split: dict[str, str], expected_config: str) -> bool:
@@ -269,6 +338,8 @@ def completed_attempt(path: Path, row: dict[str, str], split: dict[str, str], ex
         raise RuntimeError(f"attempt identity does not match the frozen manifest: {path}")
     if receipt.get("split_manifest_id") != split["split_manifest_id"] or receipt.get("config_fingerprint") != expected_config:
         raise RuntimeError(f"attempt split/config differs from current frozen inputs: {path}")
+    if receipt.get("prediction_keys_sha256") != split["prediction_keys_sha256"]:
+        raise RuntimeError(f"attempt prediction keys differ from current frozen inputs: {path}")
     for name, expected in receipt.get("sha256", {}).items():
         artifact = path / name
         if not artifact.is_file() or sha256(artifact) != expected:
@@ -287,9 +358,37 @@ def main() -> int:
     parser.add_argument("--authorization", type=Path)
     parser.add_argument("--environment-fingerprint", type=Path)
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
+    parser.add_argument("--max-hours", type=float, help="monotonic wall-time budget; gracefully stop the active fit at the deadline")
+    parser.add_argument("--fit-timeout-hours", type=float, default=2.0)
+    parser.add_argument("--shutdown-buffer-minutes", type=float, default=5.0)
+    parser.add_argument("--enable-recovery", action="store_true", help="save worker recovery snapshots at completed epoch boundaries")
+    parser.add_argument("--models", help="comma-separated model filter; lets a bounded budget finish the cheap fits first")
+    parser.add_argument("--resume-interrupted", action="store_true",
+                        help="continue an attempt the budget stopped, from its own save point")
+    parser.add_argument("--stop-below-seconds", type=float, default=60.0,
+                        help="do not start another fit when less than this remains in the budget; "
+                             "set it above a TimesNet fit's runtime so a long fit is never started "
+                             "with no room to finish")
     args = parser.parse_args()
+    if args.resume_interrupted and not args.enable_recovery:
+        parser.error("--resume-interrupted needs --enable-recovery, or the worker retrains from scratch")
+    if args.limit is not None and args.limit < 1:
+        parser.error("--limit must be positive")
+    if args.fit_timeout_hours <= 0 or args.shutdown_buffer_minutes < 0:
+        parser.error("fit timeout must be positive and shutdown buffer nonnegative")
+    if args.max_hours is not None and args.max_hours * 60 <= args.shutdown_buffer_minutes:
+        parser.error("--max-hours must exceed the shutdown buffer")
+    started = time.monotonic()
+    deadline = None if args.max_hours is None else started + args.max_hours * 3600
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     selected = [r for stage in args.stage for r in rows(MANIFESTS[stage]) if r["status"] == "planned"]
+    if args.models:
+        wanted = {name.strip() for name in args.models.split(",") if name.strip()}
+        unknown = wanted - set(config["available_models"])
+        if unknown:
+            parser.error(f"--models names models the frozen config does not list: {sorted(unknown)}")
+        selected = [row for row in selected if row["model"] in wanted]
+        print(f"model filter={','.join(sorted(wanted))} matches={len(selected)}")
     _, _, issues = validate_preflight(selected)
     if issues:
         for issue in issues:
@@ -301,6 +400,7 @@ def main() -> int:
     print(f"selected={len(selected)} stages={','.join(args.stage)} protocol={config['protocol_version']}")
     pending = []
     already_done = 0
+    resumable = set()
     for row in selected:
         attempts = sorted(OUTPUT.glob(logical_id(row) + "__attempt-*")) if OUTPUT.exists() else []
         if len(attempts) > 1:
@@ -312,6 +412,10 @@ def main() -> int:
                 current_config = {"row": row, "common": config["common"], "device": args.device}
                 completed_attempt(attempts[0], row, split, canonical_hash(current_config))
             except (RuntimeError, json.JSONDecodeError) as error:
+                if args.resume_interrupted and interrupted_attempt(attempts[0]):
+                    resumable.add(logical_id(row))
+                    pending.append(row)
+                    continue
                 print(f"BLOCK: {error}")
                 return 2
             already_done += 1
@@ -337,35 +441,77 @@ def main() -> int:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     log_root = ROOT / "reproduction/logs/phase1"
     log_root.mkdir(parents=True, exist_ok=True)
+    progress_path = log_root / "batch_progress.json"
+    progress = {"stages": args.stage, "total_selected": len(selected) + already_done,
+                "previously_completed_verified": already_done, "newly_completed": 0,
+                "max_hours": args.max_hours, "status": "running", "current_run": None}
+
+    def save_progress(status: str, current: str | None = None) -> None:
+        progress.update(status=status, current_run=current, elapsed_seconds=time.monotonic() - started,
+                        updated_at_utc=datetime.now(timezone.utc).isoformat())
+        atomic_json(progress_path, progress)
+
+    save_progress("running")
+    bar = tqdm(total=len(selected) + already_done, initial=already_done, unit="fit", desc="Phase 1")
     for row in selected:
+        remaining = (float("inf") if deadline is None
+                     else deadline - time.monotonic() - args.shutdown_buffer_minutes * 60)
+        if remaining < args.stop_below_seconds:
+            save_progress("budget_exhausted")
+            bar.close()
+            print(f"BUDGET STOP: {remaining / 60:.1f} min left, below the "
+                  f"{args.stop_below_seconds / 60:.1f} min floor for starting a fit. "
+                  "Remaining fits stay planned; completed packages are durable and restart-verifiable.")
+            return 0
+        timeout = min(args.fit_timeout_hours * 3600, remaining)
         logical = logical_id(row)
         destination = OUTPUT / f"{logical}__attempt-01"
-        if destination.exists():
-            raise RuntimeError(f"refusing to overwrite attempt: {destination}")
-        destination.mkdir(parents=True, exist_ok=False)
+        resuming = logical in resumable
+        if resuming:
+            # The interrupted receipt is the record of what the budget cut
+            # short.  A resumed fit must not erase it, so it is set aside
+            # rather than overwritten.
+            index = len(list(destination.glob("receipt.interrupted-*.json"))) + 1
+            (destination / "receipt.json").rename(
+                destination / f"receipt.interrupted-{index:02d}.json")
+        else:
+            if destination.exists():
+                raise RuntimeError(f"refusing to overwrite attempt: {destination}")
+            destination.mkdir(parents=True, exist_ok=False)
         run_started = datetime.now(timezone.utc).isoformat()
-        (destination / "receipt.json").write_text(json.dumps({
+        atomic_json(destination / "receipt.json", {
             "logical_run_id": logical, "attempt": 1, "attempt_id": destination.name,
             "protocol_version": row["protocol_version"], "stage": row["stage"],
-            "status": "running", "created_at_utc": run_started,
+            "status": "running", "resumed_from_interrupted": resuming,
+            "created_at_utc": run_started,
             "authorization_record": auth.get("decision_record"), "authorization_commit": auth["git_commit"],
             "environment_fingerprint_sha256": env_hash,
-        }, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        })
         command = build_command(row, config["common"], registry[row["asset"]], 1, args.device)
+        if args.enable_recovery:
+            command.append("--enable_recovery")
         model_id = f"{logical}__attempt-01"
         log_path = destination / "run.log"
         env = dict(os.environ, PYTHONUNBUFFERED="1")
-        with log_path.open("x", encoding="utf-8") as log:
-            result = subprocess.run(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT)
-        if result.returncode:
+        save_progress("running", logical)
+        bar.set_postfix_str(logical)
+        with log_path.open("a" if resuming else "x", encoding="utf-8") as log:
+            if resuming:
+                log.write(f"\n===== resumed at {run_started} from this attempt's save point =====\n")
+            returncode, timed_out = run_worker(command, log, env, timeout)
+        if returncode or timed_out:
             failed = {"logical_run_id": logical, "attempt": 1, "attempt_id": destination.name,
                       "protocol_version": row["protocol_version"], "stage": row["stage"],
-                      "status": "failed", "failure_class": "nonzero_exit", "exit_code": result.returncode,
+                      "status": "interrupted" if timed_out else "failed",
+                      "failure_class": "budget_or_fit_timeout" if timed_out else "nonzero_exit", "exit_code": returncode,
                       "created_at_utc": run_started, "finished_at_utc": datetime.now(timezone.utc).isoformat(),
                       "authorization_record": auth.get("decision_record"), "authorization_commit": auth["git_commit"],
                       "environment_fingerprint_sha256": env_hash, "sha256": {"run.log": sha256(log_path)}}
-            (destination / "receipt.json").write_text(json.dumps(failed, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-            raise RuntimeError(f"{logical} failed with exit {result.returncode}; log and any partial artifacts retained")
+            atomic_json(destination / "receipt.json", failed)
+            save_progress("interrupted" if timed_out else "failed", logical)
+            bar.close()
+            print(f"STOP: {logical}: exit={returncode}, timeout={timed_out}; all partial artifacts retained, no retry.")
+            return 3 if timed_out else 2
         matches = [p for p in (ROOT / "results").glob(f"*{model_id}*") if p.is_dir()]
         if len(matches) != 1:
             raise RuntimeError(f"expected one result directory for {logical}; found {len(matches)}")
@@ -380,9 +526,17 @@ def main() -> int:
                        "authorization_record": auth.get("decision_record"), "authorization_commit": auth["git_commit"],
                        "environment_fingerprint_sha256": env_hash,
                        "sha256": {"run.log": sha256(log_path)}}
-            (destination / "receipt.json").write_text(json.dumps(invalid, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+            atomic_json(destination / "receipt.json", invalid)
+            save_progress("artifact_invalid", logical)
+            bar.close()
             raise
+        progress["newly_completed"] += 1
+        save_progress("running")
+        bar.update(1)
         print("PACKAGED", destination)
+    bar.close()
+    save_progress("queue_completed")
+    return 0
 
 
 if __name__ == "__main__":
