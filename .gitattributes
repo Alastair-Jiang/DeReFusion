@@ -36,4 +36,11 @@ reports/evidence_closure/24c_c1_blind_dependency_addendum.md -text
 reproduction/handoff/phase1_outsourcing/** -text
 reproduction/results/phase1/**/*.json -text
 reproduction/results/phase1/**/*.csv -text
+# run.log is the only textual member of a calibration receipt's sealed set
+# (pred/true/metrics are .npy, the checkpoint is .pth, both binary and left
+# alone by Git).  Without this rule core.autocrlf=true stores LF in the blob
+# while the receipt hashes the CRLF working-tree bytes, so every receipt fails
+# verification on a Linux checkout.
+reproduction/results/phase1/**/*.log -text
+reproduction/logs/phase1/**/*.log -text
 docs/PHASE1_OUTSOURCING_EXECUTION_PLAN.md -text
