@@ -14,7 +14,7 @@ what was known when an earlier decision was made.
 | F1 breadth panel | [`21_f1_result.md`](evidence_closure/21_f1_result.md) | **SUCCESS with 3/7 unstable caveat** |
 | C1 pre-commit interpretation | [`24_c1_precommitted_interpretation.md`](evidence_closure/24_c1_precommitted_interpretation.md) | frozen |
 | C1 blind specification/lock | [`24a`](evidence_closure/24a_c1_blind_recomputation_spec.md), [`24b`](evidence_closure/24b_c1_blind_handoff_lock_table.md) | frozen |
-| C1 result and audit | [`26_c1_result_and_blind_audit.md`](evidence_closure/26_c1_result_and_blind_audit.md), [`27`](evidence_closure/27_c1_rule_provenance_and_blind_audit_scope.md), [`28`](evidence_closure/28_c1_raw_replay_and_data_quality.md) | analyst verdict **FAIL**; raw replay matches exactly; separate blind review pending |
+| C1 result and audit | [`26_c1_result_and_blind_audit.md`](evidence_closure/26_c1_result_and_blind_audit.md), [`27`](evidence_closure/27_c1_rule_provenance_and_blind_audit_scope.md), [`28`](evidence_closure/28_c1_raw_replay_and_data_quality.md), [`29`](evidence_closure/29_c1_independent_blind_replay.md) | **FAIL**; independent blind replay complete; no material numerical discrepancies |
 | Literature and next plan | [`../docs/LITERATURE_AND_NEXT_PLAN.md`](../docs/LITERATURE_AND_NEXT_PLAN.md) | current |
 
 ## Chronology
@@ -29,9 +29,9 @@ what was known when an earlier decision was made.
   63 paired settings = 126 arm fits = 792 state rows.
 - `23`–`25`: C1 protocol, lock table, pre-committed interpretation, blind
   recomputation spec and an execution-in-progress snapshot.
-- `26`–`28`: analyst C1 outcome, partial independent audit, rule provenance,
-  and a raw-artifact replay. The replay matches the analyst outputs exactly but
-  was not blind; a separate blind review remains pending.
+- `26`–`29`: analyst C1 outcome, partial audit history, rule provenance,
+  owner-side raw replay and completed independent blind replay. Both replays
+  support FAIL; the independent review found no material numerical discrepancy.
 
 ## Historical-warning labels
 
@@ -49,8 +49,8 @@ what was known when an earlier decision was made.
 1. repository audit;
 2. 14 (why Gate A failed);
 3. 21 (what F1 did and did not rescue);
-4. 24, 24a, 24b, 27, 28 (C1 rules, audit scope, and replay status);
-5. 26 (analyst result and partial independent audit as recorded at that time);
+4. 24, 24a, 24b, 27–29 (C1 rules, audit scope, and independent replay);
+5. 26 (analyst result and the partial independent audit as recorded at that time);
 6. literature and next plan.
 
 Negative results, execution anomalies and frozen decisions are retained because
