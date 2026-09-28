@@ -22,7 +22,7 @@ class Phase1CalibrationRunnerTest(unittest.TestCase):
             identifier = run_id(index, row)
             self.assertNotIn(identifier, identifiers)
             identifiers.add(identifier)
-            command = build_command(row, registry, config)
+            command, _, _ = build_command(row, registry, config, attempt=1, device='cpu')
             joined = ' '.join(command)
             self.assertIn('--deterministic', command)
             self.assertIn('--no_use_gpu', command)
