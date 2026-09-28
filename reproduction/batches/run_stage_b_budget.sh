@@ -36,8 +36,11 @@ echo "    commit $(git rev-parse --short HEAD)   host $(hostname)"
 
 echo
 echo "--- phase 1/2: the 240 affordable fits ---"
+# --resume-interrupted matters here too: without it a fit cut off by the
+# timeout would block the whole phase on the next run instead of continuing
+# its own attempt from its save point.
 "$PYTHON" reproduction/batches/run_phase1_stages.py "${COMMON[@]}" \
-    --models "$FAST_MODELS" \
+    --models "$FAST_MODELS" --resume-interrupted \
     --fit-timeout-hours 0.5 \
     --stop-below-seconds 300
 echo "--- phase 1 exit=$? elapsed=$(( $(date +%s) - START ))s ---"
