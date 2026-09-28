@@ -44,6 +44,12 @@ python reproduction/analysis/build_phase1_manifest.py
 # Audit all 72 real rolling split combinations without training
 python reproduction/analysis/audit_phase1_date_splits.py
 
+# Preview the result-free Phase 1 data contract and common prediction keys
+python reproduction/analysis/build_phase1_preflight_artifacts.py
+
+# Write the deterministic contract, split manifest, and compressed key table
+python reproduction/analysis/build_phase1_preflight_artifacts.py --write
+
 # Preview the 15 calibration fits (training requires explicit --execute)
 python reproduction/batches/run_phase1_calibration.py
 ```
@@ -96,3 +102,10 @@ data-hash and model-availability checks and never launches training. Explicit
 end-exclusive date boundaries are implemented and audited across all frozen
 Stage D asset/year/horizon combinations; Stage D is now engineering-ready but
 remains downstream of Stages A--C under the frozen stage order.
+
+Before any Phase 1 model run, `phase1_data_contract.csv`,
+`phase1_split_manifest.csv`, and `phase1_prediction_keys.csv.gz` freeze the
+confirmatory data identity and test prediction keys without loading model
+outputs. B/C share identical fixed-split keys; D uses its explicit date origins.
+This preflight does not resolve the separately recorded Stage A deviation,
+complete the B--D runner/intake tooling, or authorize training.
