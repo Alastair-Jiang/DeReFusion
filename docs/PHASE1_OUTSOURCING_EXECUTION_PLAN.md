@@ -1,31 +1,32 @@
 # DeReFusion Phase 1 GPU 外包与执行控制计划
 
 状态：执行准备中，不构成 Stage B--D 开跑授权  
-协议：`phase1-v1.1-2026-09-19`  
+协议：`phase1-v1.2-2026-09-28`（仅 Stage A 证据范围修订；科学问题与 B--D 门禁不变）
 制定日期：2026-09-28
 
 ## 1. 决策摘要
 
-本机正在执行的 A10（BONDETF / revin-TimesNet / h24 / seed 2021）允许完成，作为
-CPU 标定和执行链证据。A10 完成后停止 CPU TimesNet 队列；A15 不在本机启动，A05
-不在原目录重跑。A05 attempt 2、A15 attempt 1 与 Stage B 完整 300-fit 面板转移到
-同一型号 GPU、同一冻结环境。
+依据 `docs/PHASE1_AMENDMENT_V1.2.md`，P4 `calibration/` 下 15/15 个
+`calibration_pass` 包是 Stage A 权威执行标定包；CPU `calibration-cpu/` 下 14 个包
+原样保留为历史证据，不纳入当前 Stage A 有效包与 attempt 唯一性范围。Stage A 已按
+执行证据收口；不得再按旧计划补跑 A05/A15，也不得把标定损失用于模型优劣判断。
 
 Stage B--D 仍受预注册 §8 门禁约束。在以下条件全部满足前，任何 Stage B--D 训练均
 未获授权：
 
-1. Stage A 的 15 个 logical runs 均有一个通过完整性校验的有效成功 attempt；
+1. Stage A 的 15 个 logical runs 均由 v1.2 指定的 P4 权威包覆盖且完整性校验通过；
 2. rolling/date split 的参数传递、边界语义和回读验证经过仓库审查；
 3. 外包包、环境指纹、摄入工具和幂等重试测试通过；
 4. 冻结 commit 与数据逐文件 SHA-256 已记录。
 
 ## 2. 当前证据状态
 
-- 已存在 13 个 Stage A 包目录：12 个 `calibration_pass`，1 个 A05
-  `resource_blocked`；因此不能表述为“13/15 科学完成”。
-- A10 于 2026-09-28 在 CPU 上实测首个 epoch 训练耗时 894.15 秒，验证后每 epoch
-  约 17 分钟；该测量证明 TimesNet 的 CPU 批量执行不可行，但不属于模型优劣证据。
-- A15 尚未开始。
+- P4 权威包集：15/15 `calibration_pass`，对应 receipt 列出的产物哈希已复核无差异；
+  该状态仅表示执行标定与产物完整性通过，不表示科学结果通过。
+- CPU 历史包集：14 个包，13 个 `calibration_pass`、1 个 A05
+  `resource_blocked`；完整保留，不能与 P4 包合并计为当前有效 attempt。
+- Stage A 的 P4 TimesNet 单次耗时与完整环境指纹见 v1.2 amendment 和证据目录；这些
+  运行仅用于资源与执行链标定，不构成模型优劣证据。
 - 现有 B/C/D manifest 分别冻结为 300、360、144 fits；状态均为 `planned`。
 - 其余 744 fits 应称为“非 TimesNet fits”，不能笼统称为 DLinear 系。
 
@@ -150,7 +151,8 @@ phase1_outsourcing/
 1. 允许当前 A10 完成，落盘后停止 CPU 队列；
 2. 修 runner、外包包、摄入校验与测试；
 3. 在租用 GPU 上做环境探测并冻结完整指纹；
-4. 仅运行 A15 attempt 1 和 A05 attempt 2，摄入并关闭 Stage A；
+4. Stage A 已依 v1.2 收口；不再启动 A05/A15 补跑。后续工作从滚动/日期切分审查开始，
+   不得据此自动启动 Stage B；
 5. 审查 rolling/date split，实现合成边界测试与回执回读；
 6. 形成门禁审查记录；
 7. 门禁通过后另行签发 Stage B 执行授权；
