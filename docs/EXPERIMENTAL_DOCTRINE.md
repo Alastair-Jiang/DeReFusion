@@ -1,13 +1,17 @@
 # Experimental doctrine: gates for computational research
 
 **Status:** proposed; not yet adopted.
-**Date:** 2026-09-28.
+**Date:** 2026-09-28 (rev. 2, after external review).
 **Scope:** how a protocol in this repository is built, gated and reported.
 **Relationship to frozen documents:** this document governs the *construction*
 of future protocols. It does not retroactively bind `phase1-v1.1-2026-09-19`,
 and it does not convert any past deviation into a compliant one. Where it would
 have caught something Phase 1 did, the remedy is a v1.2 amendment signed before
 the affected stage runs — not an appeal to this text.
+
+Every clause below is anchored to an external document or a measured incident.
+Clauses written only from intuition are marked as such. §6 lists the anchors and
+states, per anchor, how it was verified.
 
 ## 0. Why this exists
 
@@ -24,21 +28,46 @@ that was named. The incidents below all passed every existing check.
 | I4 The C1 implementation silently dropped 96 windows via `nanmedian` where `diff(log(Close))` was undefined | the dropped windows were never counted, so the N looked correct | L0.3, L0.5, L0.7 |
 | I5 Five FX feeds carry OHLC-envelope violations at 1.1–6.4% of rows, uniformly across train/val/test | declared qualitatively in prereg §2 with no count, magnitude or per-split incidence | L0.4, L0.6 |
 | I6 Cross-platform newline conversion broke every frozen hash at once | no clause declared a line-ending policy for hash-compared artifacts | L1.7 |
+| **I7** `tests/test_phase1_model_shapes.py` is **green** and asserts shapes under a hand-written `d_ff=128`, while the frozen configuration sets `d_ff=2048` | the fixture is a hand-copy of the configuration, so test and configuration drift independently — and did | L1.8 |
 
 The common shape: **a number was correct in itself and wrong in what it was
 attached to.** The gates below exist to make that specific failure loud.
 
-## 1. Three principles
+I7 is the sharpest of the seven, because it is the only one where **the gate
+exists, passes, and is a statement about a model that is never run.** I1 is a
+missing check; I7 is a check that manufactures false assurance. A missing check
+leaves a hole a reader can see. A green check that covers nothing is worse than
+no check, because it is evidence of a property nobody has.
+
+## 1. Four principles
 
 - **P1 — One number, one provenance.** Every number that appears in a report
   resolves to an artifact hash and the configuration that produced it. A number
-  whose provenance is a later reconstruction is labelled as such.
-- **P2 — Assert before execute.** Every gate is a machine-checkable assertion
-  evaluated *before* the expensive step it guards, not a review conducted after.
-  A gate that can only be run by reading output is not a gate.
+  whose provenance is a later reconstruction is labelled as such. The vocabulary
+  is W3C PROV-O's: the number is an entity, produced by an activity, attributed
+  to an agent. A record missing the agent is incomplete, not merely terse.
+- **P2 — Assert before execute, and score the assertions honestly.** Every gate
+  is an assertion evaluated *before* the expensive step it guards. But not every
+  assertion can be automated, and a doctrine that demands automation where it is
+  impossible will be quietly ignored. Each gate therefore scores **1** where a
+  system runs and verifies it repeatedly, **0.5** where a human executes it and
+  **documents the result**, and **0** where it is absent or fails. A stage's
+  score is the **minimum over its gate groups**, not the mean. A check that can
+  only be run by reading output is not disqualified by that fact; it is scored
+  0.5, and it caps the stage.
 - **P3 — Every deviation produces an assertion.** A deviation record that ends
   in a disposition and no new check has not finished. The disposition fixes this
-  instance; the assertion is what stops the next one.
+  instance; the assertion is what stops the next one. The pattern is the
+  constraint-suggestion cycle: observe empirically → form a candidate assertion
+  → review it as a human → adopt it into the standing check set. The middle step
+  is not optional; a suggestion adopted unreviewed is how a gate encodes a
+  transient artifact of one dataset.
+- **P4 — The count of trials is part of the result.** Selection over N
+  configurations inflates the best observed performance whether or not the
+  selection was deliberate, and the inflation does not care about motive. Every
+  protocol declares N before outcomes exist, reports it, and reports the winner
+  deflated. A result presented without its N is not interpretable — not
+  "weaker", not "less rigorous": uninterpretable.
 
 ## 2. Layers
 
@@ -55,8 +84,27 @@ Runs before any model, and its output is a per-asset status table.
   time and not only at registration.
 - **L0.2** Every asset declares its **time grid** (trading calendar vs calendar
   day) and the wall-clock span that `seq_len` and each horizon denote on that
-  grid. Assets are pooled or paired only when their grids are declared
-  comparable; otherwise results are reported per grid.
+  grid. Assets on different grids are made commensurable by **exactly one
+  declared mechanism**, named before outcomes:
+  - **(a) common index** — all series aggregated onto a shared synchronous time
+    index before any comparison;
+  - **(b) scale-free normalisation** — each series scored against a
+    same-frequency, same-grid reference, so pooling happens on dimensionless
+    ratios;
+  - **(c) rank estimand** — the target is redefined as a cross-sectional rank
+    within the cohort, which removes the comparability question at the estimand
+    level rather than correcting for it.
+
+  These three are not interchangeable and none is a default. A comparison whose
+  commensuration mechanism is unstated is not a comparison.
+- **L0.2a** *Comparability of grids is decided by an artifact, not by
+  inspection.* A reference distribution is computed once from the declared grid
+  and stored; a candidate grid is compared to it by a metric whose units can be
+  stated in one sentence; a failure names the specific value and timestamp that
+  caused it. **A test with no effect-size floor is inadmissible**: the
+  chi-square test fires on contamination of roughly 0.01% in 10⁸ points, which
+  is why the standard practice reports a maximum per-value probability change
+  rather than a p-value.
 - **L0.3** The declared target is well-defined across the asset's observed range
   **in every split**. A target undefined on any row of a split is a finding, not
   a filter.
@@ -74,6 +122,12 @@ Runs before any model, and its output is a per-asset status table.
 - **L0.7** Defect handling is declared **before outcomes are visible**. A defect
   first noticed after outcomes exist may be reported and bounded by sensitivity
   analysis; it may not be handled by a newly written rule.
+- **L0.8** An artifact larger than its host's limit is stored by a declared
+  mechanism — a content-addressed external store with a committed pointer, or an
+  immutable release — never by committing the blob. Version identity uses
+  immutable numbered versions plus an alias; a mutable stage pointer is not
+  admissible as provenance. A retention policy is declared per artifact class,
+  because no host prescribes one.
 
 **Statuses:** `eligible` · `inapplicable` · `requires-resolution` ·
 `excluded-by-protocol` · `protocol-deviation`.
@@ -94,9 +148,12 @@ before any number from that model is used for planning or comparison.
 - **L1.4** A model whose capacity differs from its reference by more than the
   declared factor is **not that baseline**, whatever its filename says. It may
   run as a declared variant, reported under a different name.
-  *Threshold: **TBD**; 4× is proposed, as it admits the conventional FFN
-  expansion while rejecting I1 (15.96×) and the head-dimension departure
-  (64 → 4).*
+  *Threshold: **TBD**. `4×` is used as a placeholder because it admits the
+  conventional FFN expansion while rejecting I1 (15.96×) and the
+  head-dimension departure (64 → 4). **No external source publishes a
+  capacity-equivalence threshold** — this was searched for and not found. The
+  number is therefore a project choice, and it must be replaced by a stated
+  basis before any protocol cites it as a rule.*
 - **L1.5** A hyperparameter is **not shared across architectures when it does not
   denote the same quantity in them.** Sharing a name is not sharing a meaning.
   An equal-capacity-budget grid is admissible for models where the parameters
@@ -105,6 +162,15 @@ before any number from that model is used for planning or comparison.
   recorded.
 - **L1.7** Any artifact whose hash is compared across platforms has a declared
   line-ending policy.
+- **L1.8** **A check on a frozen configuration reads the frozen configuration.**
+  A fixture that restates a configuration by hand tests the restatement. Where
+  the two can drift they will, and the check stays green throughout. The
+  existing shape test is the worked example: it asserts under a hand-written
+  `d_ff=128`, which yields 4,699,969 parameters — within 0.007% of the
+  reference — while the frozen configuration's `d_ff=2048` yields 75,010,369.
+  The check must be re-pointed at the frozen file, and a drift assertion added:
+  the fixture's values, where any remain, are compared against the frozen
+  configuration at collection time and the test fails if they diverge.
 
 **Statuses:** `reference-matched` · `declared-variant` · `unverified`.
 **Exit:** no model enters L2 or above at `unverified`.
@@ -121,7 +187,8 @@ Establishes feasibility and cost. **Produces no scientific claim.**
   produces a finding about the threshold, not about the model.
 - **L2.3** A `status` field and a `termination` field must not contradict each
   other. Where they do, the contradiction invalidates the *status*, and the
-  termination record stands as the account of what happened.
+  termination record stands as the account of what happened. A later record may
+  not overwrite the earlier one; it may only be added.
 - **L2.4** Attempt lineage: each logical run has exactly one validated successful
   attempt. Zero is incomplete; more than one is a conflict and fails stop.
 - **L2.5** **The attempt visibility domain is closed.** Every reader of attempt
@@ -145,6 +212,13 @@ Establishes runtime and gross failure across the declared cohort.
   determine which failures to hide.
 - **L3.3** A model family that fails or is blocked at screen is recorded with its
   reason and is not silently dropped from later stages.
+- **L3.4** **Where the protocol admits any feedback loop, the final evaluation is
+  sealed.** A loop that returns scores during development lets the configuration
+  be tuned against the evaluation set, and the loss is measurable: in the largest
+  recorded instance, 63.7% of entrants beat the benchmark on their best
+  submission but only 48.4% on the submission they finally chose — a loss of
+  15.3 percentage points attributable to acting on validation feedback. Either
+  the loop is absent, or the final block is evaluated without it.
 
 **Exit:** a coverage table showing every declared key covered by every compared
 model, or an explicit statement of which keys are not.
@@ -158,8 +232,71 @@ model, or an explicit statement of which keys are not.
   selection, tuning — is fit on the applicable training prefix or inner
   validation loop only, and the fit domain is recorded per artifact.
 - **L4.4** An active confirmation protocol is not modified. Approved changes take
-  a **new protocol ID** and require independent confirmation before any
-  confirmatory claim.
+  a **new protocol ID**.
+  *Basis: the operative part of this clause is the new protocol ID, not the word
+  "independent". No general regulatory rule requires independent reproduction of
+  a final primary analysis. In clinical research, separation is mandated only
+  for unblinded **interim** analyses; the general rule is that a specification
+  must be **replicable by a third party**, which is a property of the
+  specification, not a role. Presenting the stronger reading as a ported
+  requirement would be inventing a rule rather than porting one.*
+- **L4.5 — The trial count is declared, not discovered.** N is fixed before the
+  first run and each seed is a trial, not a technical detail. Configurations are
+  justified by the research question, not by available compute. Where trials are
+  correlated — as repeated seeds are — the effective count is derived by a
+  **declared dimension-reduction step** (e.g. principal components over the
+  trial-outcome matrix), not taken as the raw count.
+- **L4.6 — Minimum sample length is checked, not assumed.** Before running,
+  compute `MinBTL = 2·ln(N)/E[max]²` for the declared N against the available
+  sample, and state the outcome in the design section. MinBTL is a **necessary,
+  non-sufficient** condition. When it fails, the protocol's honest framing is
+  *comparison under a multiple-testing correction*, not an edge claim, and the
+  text must say so in those words. Worked reference: with 5 years of data, no
+  more than ~45 independent configurations may be tried before an in-sample
+  Sharpe of 1 corresponds to an expected out-of-sample Sharpe of zero; with 2
+  years, the figure is 7.
+- **L4.7 — The winner is reported with a deflation table.** For the selected
+  configuration, and for each declared stratum separately: N, the variance of
+  the trial statistics, sample length, skewness, kurtosis, and the resulting
+  deflated statistic. Reporting only the selected configuration's raw statistic
+  is incomplete. Reporting only the pooled winner, without per-stratum rows, is
+  incomplete.
+- **L4.8 — Selection overfitting is estimated and gated.** Over the declared
+  configuration set, compute the probability of backtest overfitting by
+  combinatorially symmetric cross-validation — an even number of partitions (16
+  is conventional), N ≫ 10 so the rank statistic has sufficient granularity, all
+  configurations on the declared common index — and report the estimate.
+  **A value above 0.05 is a rejection, not a caveat.** State the method's own
+  two limitations alongside the number: the symmetric split is unsuitable under
+  strong autocorrelation, and the estimator weights all sample statistics
+  equally.
+- **L4.9 — Labels are purged and embargoed where the cohort is pooled.** Where
+  labels span an interval (an h-step-ahead target covers `[t, t+h]`), training
+  rows whose label interval overlaps any evaluation row are removed, and an
+  embargo of at least the label span is applied forward from each evaluation
+  block. Where the cohort is pooled into one model, the purge is applied **across
+  assets as well as across time**, since label intervals of different assets
+  overlap.
+  *Verified status in this repository: the condition is satisfied by
+  construction, and this is a strength worth recording rather than a defect.
+  `Dataset_Custom` sizes each split's usable index range as
+  `len(slice) − seq_len − pred_len + 1`, so the maximum target end index is
+  exactly the split's `border2`, and the target never crosses the boundary.
+  Boundary leakage of up to `h−1` steps, which a naive chronological split
+  admits, cannot occur. The cross-asset clause is additionally inapplicable here
+  because each run reads exactly one asset file, so no pooled model exists.
+  Both facts must be re-verified for any protocol that changes either the loader
+  or the pooling.*
+- **L4.10 — Every gate names who can satisfy it.** A gate whose evidence is an
+  *object* — a deposit, a hash, a published artifact — may be satisfied by the
+  author. A gate whose verdict *asserts validity* cannot be: it requires a named
+  party other than the author, or it is recorded as **self-assessed** and scored
+  0.5 under P2. This is the artifact-badging distinction applied as a rule: only
+  object-availability is author-serviceable, and every validity-asserting badge
+  requires an independent evaluator. *Synthesis — mine, not a ported standard.
+  The honest consequence for a solo project is that its validity-asserting gates
+  are self-assessed by construction, and the doctrine must say so rather than
+  implying otherwise.*
 
 ### L5 — Temporal robustness
 
@@ -181,21 +318,41 @@ model, or an explicit statement of which keys are not.
   "letter" and "spirit" and claiming only the letter was touched is relabelling.
 - **X3** A post-hoc record does not acquire amendment authority by being written
   down. Authority comes from being written before the outcome, not from being
-  written carefully.
+  written carefully. A recorded change that cannot obscure the previous record
+  is the standard to meet; a change that replaces it is a different act
+  entirely.
 - **X4** Motive, consequence and compliance are three separate questions. A
   favourable answer to one does not answer the others.
 - **X5** Unsupported numeric thresholds are marked `TBD` and named as such in any
   gate table, together with whether a research-question, power, precision or
   resource analysis is needed to set them.
+- **X6** N is disclosed in the abstract, not buried in a methods subsection. A
+  reader who cannot see the trial count cannot weigh the result.
+- **X7** **Do not inherit a terminology convention silently.** The terms
+  "reproducibility" and "replication" are used with **opposite meanings** in two
+  live conventions: in the National Academies / NISO sense, reproduction reuses
+  the original data and code while replication collects new data; the ACM
+  badging scheme deliberately swapped the two. Every document in this repository
+  states which convention it uses and what it means by each term. A reader who
+  assumes the other convention must be visibly wrong, not quietly misled.
+- **X8** A partial outcome is reported as a partial outcome. Where a check
+  succeeds for some strata and not others, both are published with equal
+  prominence, and the partial result is not dressed with a badge or a label that
+  implies the whole. A partially satisfied claim that is visible in the record
+  is a contribution; the same claim silently promoted is a defect.
 
 ## 4. Gate table format
 
 Every gate evaluation returns a table of:
 
-| check | input | status | evidence | next permitted action |
-|---|---|---|---|---|
+| check | input | status | credit | evidence | next permitted action |
+|---|---|---|---|---|---|
 
-A row whose evidence is a narrative rather than an artifact hash is not a pass.
+`credit` ∈ {`0`, `0.5`, `1`} per P2. A row whose evidence is a narrative rather
+than an artifact hash **or a named human sign-off** is not a pass. The stage
+score is the minimum credit within each gate group, and the stage is reported by
+its vector of group minima — a single averaged figure hides the weak gate, which
+is the only one that matters.
 
 ## 5. Incident index
 
@@ -206,11 +363,70 @@ was written for.
 
 | Clause | Incident |
 |---|---|
+| L0.2, L0.2a | BTCUSD 3,653 calendar-day rows vs equities ~2,514 trading-day rows |
 | L0.3, L0.5, L0.7 | I4 — silent `nanmedian` removal of 96 undefined-log windows in C1 |
 | L0.4, L0.6 | I5 — five FX feeds, violations unquantified in prereg §2 |
-| L0.2 | BTCUSD 3,653 calendar-day rows vs equities ~2,514 trading-day rows |
+| L0.8 | 4 untracked checkpoints at 286.8 MB each, against a 100 MiB host limit |
 | L1.2–L1.5 | I1 — `revin-TimesNet` at 15.96× its reference |
 | L1.7 | I6 — cross-platform newline conversion |
+| **L1.8** | **I7 — the shape test's hand-copied `d_ff=128`** |
 | L2.2–L2.3 | I2 — A05 status/termination contradiction |
 | L2.5 | I3 — single-rooted `PACKAGE_ROOT` |
-| X2 | the deviation record's letter-vs-spirit framing |
+| L3.4 | no incident in this repository; written from the measured M5 leaderboard loss |
+| L4.4 | the deviation record's letter-vs-spirit framing |
+| L4.5–L4.8 | no incident in this repository; written from the multiplicity literature, and from Phase 1's N |
+| L4.9 | no incident; written from the leakage literature, and records a **verified strength** of the existing loader |
+| L4.10, L3.4 | no incident; written from the badging-role and feedback-loop evidence |
+
+Note on rows with no incident: they are the only clauses not earned by a
+failure here. They are included because the failure they prevent is documented
+elsewhere and expensive, and they are marked so that a future reader can tell
+which parts of this doctrine are paid for and which are borrowed.
+
+## 6. External anchors
+
+Sources are tagged by how they were verified. `verified` = read in full at the
+primary document. `partial` = the document was reachable but a specific number
+or quotation was not. `secondary` = concordant summaries only; **do not quote
+these verbatim.**
+
+| Clause | Anchor | Tag |
+|---|---|---|
+| P1 | W3C PROV-O (entity / activity / agent; 12-term starting point) | verified |
+| P2 | Breck et al., "The ML Test Score," SysML 2019 — 28 checks in 4 areas, scored 0 / 0.5 / 1, aggregated by minimum over areas, not mean | verified |
+| P3 | Deequ constraint suggestion — suggestions are generated from data and must be human-reviewed before adoption | verified |
+| P4, L4.5, L4.7, X6 | Bailey, Borwein, López de Prado & Zhu, *Notices of the AMS* 61(5), 458–471 (2014) — "a backtest which does not report the number of trials N … makes it impossible to assess the risk of overfitting" | verified |
+| L4.6 | Same source, Theorem 3.1: `MinBTL < 2·ln(N)/E[max_N]²`; and the authors' own caveat that it is necessary and not sufficient | verified |
+| L0.2(a), L4.8 | Bailey et al., "The Probability of Backtest Overfitting" — CSCV requires a true matrix with synchronous rows, and prescribes aggregating configurations to a common index; PBO > 0.05 as the conventional rejection, S = 16, N ≫ 10; authors' own stated limitations | verified (journal volume/pages unverified) |
+| L4.7 | Bailey & López de Prado, *J. Portfolio Management* 40(5), 94–107 (2014) — the four-item disclosure list (N, variance of trial statistics, sample length, skewness/kurtosis) | verified |
+| L0.2(b) | M4 evaluation code — MASE scaled by each series' own in-sample seasonal-naive error at its own frequency; OWA normalised against a same-frequency benchmark; results reported per frequency, never pooled across raw series | verified (the cross-frequency aggregation weight is **unknown**) |
+| L0.2(c) | M6 — the target redefined as a cross-sectional rank probability over the cohort, the only one of the three mechanisms that does not assume commensurability | verified |
+| L3.4 | M5 accuracy competition — 63.7% beat the benchmark on their best submission vs 48.4% on their selected submission; the sealed test phase with no leaderboard | verified |
+| L4.9 | López de Prado, *Advances in Financial Machine Learning* Ch. 7 and Ch. 12 — purging and embargo; **chapter and section titles are safe to cite, verbatim quotations are not** | secondary |
+| X3 | 21 CFR 11.10(e) — "Record changes shall not obscure previously recorded information" | verified (quoted in the regulatory review) |
+| X7 | NASEM (2019) *Reproducibility and Replicability in Science*; NISO RP-31-2021 (ORO / ORO-A / ROR / ROR-R / RER badges); ACM's documented swap of the two terms | verified (NASEM, NISO); ACM page unreachable, definitions from index |
+| X8 | NISO RP-31-2021 — partially satisfied findings "should be made visible in some way in the scholarly record", and should not receive a badge | verified |
+| L0.8 | GitHub file-size limits (100 MiB hard, 50 MiB warning); DVC pointer-plus-remote including plain SSH/SFTP; MLflow model stages deprecated as of 2.9.0 in favour of immutable versions plus aliases | verified |
+| L4.4 | ICH E9(R1) §A.2 (the specification must be replicable by a third party); FDA DMC guidance §6.4 (separation mandated for unblinded interim analyses, not final ones) | verified |
+| L4.10 | ACM artifact badging v1.1 — the scheme deliberately prescribes no reviewer roles; only object-availability is author-serviceable, every validity-asserting badge requires a party other than the author | verified (roles); index (badge definitions) |
+| L0.2a | TensorFlow Data Validation — maximum per-value probability change with a prior-derived bound, adopted because the chi-square test fired on 7 of 10 trials at 0.01% contamination in 10⁸ points; the schema is a version-controlled production asset | verified |
+
+### Known gaps in this doctrine
+
+Stated rather than hidden:
+
+1. **L0.2a's metric and bound are named but not yet selected.** The pattern is
+   adopted; the specific distance and its threshold are `TBD` and require the
+   reference distribution to be computed first.
+2. **L1.4's factor has no external precedent** — searched for, not found. It is
+   a project choice presented as one.
+3. **L4.10 makes the solo-project constraint explicit but does not solve it.**
+   Under this clause, every validity-asserting gate in this repository is
+   self-assessed and scores 0.5. That is the honest score, not a limitation to
+   be worked around by redefining the gate.
+4. **No clause covers who adjudicates a disputed gate.** The badging evidence
+   says the venue decides, post-publication. Until there is a venue, disputes
+   are recorded open, not resolved by fiat.
+5. **The anchors marked `secondary`** — AFML's chapter content, the "10 Reasons"
+   list, and the ACM badge definitions — must be verified against the primary
+   documents before any of them is quoted in a manuscript.
