@@ -108,18 +108,19 @@ def choose_attempt(logical_run_id: str, retry_authorization: str | None) -> tupl
     return previous_attempt + 1, attempt_directory(logical_run_id, previous_attempt + 1), previous_path.name
 
 
-def config_fingerprint(row: dict[str, str], config: dict, attempt: int) -> str:
-    payload = {"row": row, "common": config["common"], "attempt": attempt, "device": "cpu"}
+def config_fingerprint(row: dict[str, str], config: dict, attempt: int, device: str) -> str:
+    payload = {"row": row, "common": config["common"], "attempt": attempt, "device": device}
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()[:12]
 
 
 def build_command(
-    row: dict[str, str], registry: dict[str, dict[str, str]], config: dict, attempt: int
+    row: dict[str, str], registry: dict[str, dict[str, str]], config: dict, attempt: int,
+    device: str,
 ) -> tuple[list[str], str, str]:
     common = config["common"]
     data_file = Path(registry[row["asset"]]["file"])
-    fingerprint = config_fingerprint(row, config, attempt)
+    fingerprint = config_fingerprint(row, config, attempt, device)
     model_id = f"phase1A_{row['asset']}_h{row['horizon']}_s{row['seed']}__attempt-{attempt:02d}_{fingerprint}"
     description = f"phase1A_calibration_{fingerprint}"
     command = [
@@ -157,10 +158,13 @@ def build_command(
         "--lradj", common["lradj"],
         "--rand_seed", row["seed"],
         "--num_workers", "0",
-        "--no_use_gpu",
         "--des", description,
         "--result_log", "reproduction/logs/phase1/calibration_result_log.txt",
     ]
+    if device == "cpu":
+        command.append("--no_use_gpu")
+    else:
+        command.extend(["--gpu_type", "cuda", "--gpu", "0"])
     if common.get("deterministic"):
         command.append("--deterministic")
     return command, model_id, fingerprint
@@ -209,6 +213,7 @@ def package_run(
     retry_authorization: str | None,
     fingerprint: str,
     model_id: str,
+    requested_device: str,
 ) -> Path:
     setting = find_setting(row, model_id)
     result_dir = ROOT / "results" / setting
@@ -248,7 +253,7 @@ def package_run(
         "numpy": np.__version__,
         "pandas": pd.__version__,
         "scikit_learn": sklearn.__version__,
-        "device": "cpu",
+        "device": requested_device,
         "cuda_available": torch.cuda.is_available(),
         "torch_cuda": torch.version.cuda,
         "cudnn": torch.backends.cudnn.version(),
@@ -324,6 +329,8 @@ def main() -> int:
                         help="required authorization identifier for a retry attempt")
     parser.add_argument("--timeout-seconds", type=int, default=300,
                         help="hard wall-clock limit per calibration fit")
+    parser.add_argument("--device", choices=["cpu", "cuda"], default="cpu",
+                        help="execution device; CUDA must pass the environment preflight")
     args = parser.parse_args()
 
     config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
@@ -365,11 +372,16 @@ def main() -> int:
     if not args.execute:
         return 0
 
+    if args.device == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("CUDA requested but torch.cuda.is_available() is false")
+
     git_commit = validate_source_state()
     LOG_ROOT.mkdir(parents=True, exist_ok=True)
     for index, row, destination, attempt, supersedes in selected:
         identifier = run_id(index, row)
-        command, model_id, fingerprint = build_command(row, registry, config, attempt)
+        command, model_id, fingerprint = build_command(
+            row, registry, config, attempt, args.device
+        )
         log_path = LOG_ROOT / f"{destination.name}.log"
         print(f"START {destination.name}")
         started = time.time()
@@ -395,6 +407,7 @@ def main() -> int:
         destination = package_run(
             index, row, registry, config, command, log_path, git_commit, destination,
             identifier, attempt, supersedes, args.retry_authorization, fingerprint, model_id,
+            args.device,
         )
         print(f"PASS {destination.name} elapsed={time.time() - started:.1f}s package={destination}")
     return 0
