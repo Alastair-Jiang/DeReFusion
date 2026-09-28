@@ -103,7 +103,7 @@ end-exclusive date boundaries are implemented and audited across all frozen
 Stage D asset/year/horizon combinations; Stage D is now engineering-ready but
 remains downstream of Stages A--C under the frozen stage order.
 
-Before any Phase 1 model run, `phase1_data_contract.csv`,
+Before any Stage B--D model run, `phase1_data_contract.csv`,
 `phase1_split_manifest.csv`, and `phase1_prediction_keys.csv.gz` freeze the
 confirmatory data identity and test prediction keys without loading model
 outputs. B/C share identical fixed-split keys; D uses its explicit date origins.
