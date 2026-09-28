@@ -61,6 +61,12 @@ container: pytorch/pytorch:2.5.1-cuda12.1-cudnn9-devel
 驱动、cuDNN、操作系统、CPU、RAM 和完整 Python 包清单。后续不一致立即 fail-stop。
 系统 `nvcc` 版本不作为 PyTorch CUDA runtime 的判据。
 
+Stage A 收口后的 P4 主机身份观测见
+`docs/PHASE1_P4_HOST_IDENTITY_SUPPLEMENT_2026-09-28.json`：GPU UUID、驱动、操作系统
+及冻结训练解释器均已从原 P4 实例读取。该补充是运行后主机级佐证，不回写原始 receipt。
+P4 平台未向实例暴露正在运行镜像的不可变 digest；该项仍是 B--D 前置门禁，环境锁中的
+镜像 tag 不能替代 digest。
+
 ## 4. Attempt 与重试规则
 
 1. logical run 与物理 attempt 分离。所有新目录使用
