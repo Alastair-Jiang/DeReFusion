@@ -1,6 +1,7 @@
 # The C1 blind package is byte-sealed.  Disable Git text normalization for every
 # textual input whose SHA-256 was frozen before handoff; otherwise Windows CRLF
 # working-tree bytes become LF in a source archive and invalidate the seal.
+dataset/*.csv -text
 dataset/AAPL-2016-2025.csv -text
 dataset/AMZN-2016-2025.csv -text
 dataset/AUDUSD-2016-2025.csv -text
