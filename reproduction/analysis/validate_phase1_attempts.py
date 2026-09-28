@@ -16,6 +16,7 @@ from reproduction.batches.run_phase1_stages import (
     CONFIG, MANIFESTS, OUTPUT, canonical_hash, completed_attempt, expected_truth,
     logical_id, rows, split_for, validate_preflight,
 )
+from utils.metrics import metric
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -55,6 +56,9 @@ def main() -> int:
                 raise RuntimeError("non-finite artifact value")
             if not np.allclose(true, expected, rtol=2e-5, atol=2e-6):
                 raise RuntimeError("true.npy is not aligned with frozen prediction keys and train-only scaling")
+            recomputed_metrics = np.asarray(metric(pred, true), dtype=np.float64)
+            if not np.allclose(metrics, recomputed_metrics, rtol=1e-5, atol=1e-8, equal_nan=True):
+                raise RuntimeError("metrics.npy does not reproduce from packaged predictions and targets")
             inventory.append({"logical_run_id": logical, "attempt_id": path.name, "status": "accepted_for_stage_review"})
         except Exception as error:
             issues.append(f"{logical}: {error}")
