@@ -44,3 +44,7 @@ reproduction/results/phase1/**/*.csv -text
 reproduction/results/phase1/**/*.log -text
 reproduction/logs/phase1/**/*.log -text
 docs/PHASE1_OUTSOURCING_EXECUTION_PLAN.md -text
+
+# Shell scripts are executed on the Linux worker, so their line endings are
+# load-bearing: a CRLF shebang fails with ": command not found".
+*.sh text eol=lf

@@ -46,7 +46,7 @@ FROZEN_COMMAND = [
     "--moving_avg", "25", "--factor", "1", "--dropout", "0.1", "--embed", "timeF",
     "--train_epochs", "{epochs}", "--batch_size", "32", "--patience", "100",
     "--learning_rate", "0.0001", "--lradj", "cosine", "--rand_seed", "2021",
-    "--deterministic", "--num_workers", "0", "--no_use_gpu",
+    "--deterministic", "--num_workers", "0",
     "--des", "recovery_verification",
     "--result_log", "{result_log}",
 ]
@@ -56,10 +56,13 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def build_command(model_id: str, epochs: int, result_log: Path, recovery: bool) -> list:
+def build_command(model_id: str, epochs: int, result_log: Path, recovery: bool,
+                  device: str) -> list:
     command = [part.format(model_id=model_id, epochs=epochs, result_log=result_log)
                for part in FROZEN_COMMAND]
     command = [sys.executable] + command
+    if device == "cpu":
+        command.append("--no_use_gpu")
     if recovery:
         command.append("--enable_recovery")
     return command
@@ -102,6 +105,8 @@ def main() -> int:
     parser.add_argument("--epochs", type=int, default=12)
     parser.add_argument("--kill-after-epoch", type=int, default=2)
     parser.add_argument("--timeout-seconds", type=float, default=180.0)
+    parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu",
+                        help="verify the RNG stream the production device actually uses")
     args = parser.parse_args()
 
     if args.kill_after_epoch >= args.epochs:
@@ -123,7 +128,7 @@ def main() -> int:
     checkpoint_dir = None
     try:
         # ---- 1. baseline: one clean pass, no save point -------------------
-        run_to_completion(build_command(model_id, args.epochs, scratch / "baseline.log", False),
+        run_to_completion(build_command(model_id, args.epochs, scratch / "baseline.log", False, args.device),
                           scratch / "baseline.stdout")
         baseline_results = only(ROOT / "results", setting_glob)
         checkpoint_dir = only(ROOT / "checkpoints", setting_glob)
@@ -138,7 +143,7 @@ def main() -> int:
         snapshot = checkpoint_dir / SNAPSHOT_NAME
 
         worker = subprocess.Popen(
-            build_command(model_id, args.epochs, scratch / "interrupted.log", True),
+            build_command(model_id, args.epochs, scratch / "interrupted.log", True, args.device),
             cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
             text=True, encoding="utf-8", errors="replace")
         reached = wait_for_epoch(snapshot, args.kill_after_epoch, args.timeout_seconds)
@@ -150,7 +155,7 @@ def main() -> int:
             raise RuntimeError("the kill destroyed the save point; nothing was durable")
 
         # ---- 3. resumed: restart and continue from the save point ---------
-        run_to_completion(build_command(model_id, args.epochs, scratch / "resumed.log", True),
+        run_to_completion(build_command(model_id, args.epochs, scratch / "resumed.log", True, args.device),
                           scratch / "resumed.stdout")
         resumed_text = (scratch / "resumed.stdout").read_text(encoding="utf-8")
         if "resuming :" not in resumed_text:
