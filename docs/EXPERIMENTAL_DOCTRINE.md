@@ -270,6 +270,18 @@ model, or an explicit statement of which keys are not.
   two limitations alongside the number: the symmetric split is unsuitable under
   strong autocorrelation, and the estimator weights all sample statistics
   equally.
+- **Scope note for L4.6–L4.8.** The minimum-length bound and the deflation
+  machinery are derived for a selection criterion that is a **Sharpe-like
+  ratio**. L4.8's estimator is the general one: its inputs are a matrix of
+  per-period outcomes and a metric estimable on subsamples, and it is
+  explicitly model-free and non-parametric, so **it transfers to an error
+  metric unchanged**. L4.6's constant and L4.7's deflation **do not**. A
+  protocol that selects on forecasting error rather than on a Sharpe-like ratio
+  must mark those two as having **no derivation in the source literature**, and
+  disclose the trial count as an *uncorrected* caveat rather than present a
+  corrected result. A protocol states which of the two cases it is in **before
+  outcomes exist**, because the distinction determines what the confirmatory
+  claim is allowed to say.
 - **L4.9 — Labels are purged and embargoed where the cohort is pooled.** Where
   labels span an interval (an h-step-ahead target covers `[t, t+h]`), training
   rows whose label interval overlaps any evaluation row are removed, and an
@@ -430,3 +442,12 @@ Stated rather than hidden:
 5. **The anchors marked `secondary`** — AFML's chapter content, the "10 Reasons"
    list, and the ACM badge definitions — must be verified against the primary
    documents before any of them is quoted in a manuscript.
+6. **L4.6 and L4.7 do not transfer to an error-metric protocol.** The
+   minimum-length constant and the deflation statistic are derived for a
+   Sharpe-ratio selection criterion, and this repository's comparison is on
+   forecasting error. The scope note appended to L4.8 records the consequence:
+   the multiplicity correction can be *estimated* (L4.8 transfers) but not
+   *computed* (L4.6, L4.7 do not), so the trial count is disclosed as an
+   uncorrected caveat. Closing this is an open methodological question, not a
+   missing citation, and it must not be papered over by quoting a constant that
+   was derived for a different metric.
