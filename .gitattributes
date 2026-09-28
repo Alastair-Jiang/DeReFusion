@@ -29,3 +29,10 @@ reproduction/analysis/structure_routing_experiment.py -text
 reproduction/c1_handoff/per_run_manifest.csv -text
 reproduction/c1_handoff/BLIND_STAGE1_MANIFEST.csv -text
 reports/evidence_closure/24c_c1_blind_dependency_addendum.md -text
+
+# Phase 1 handoff inputs and receipts are hashed as raw bytes.  Keep Git from
+# rewriting them on Windows or when source archives are produced.
+reproduction/handoff/phase1_outsourcing/** -text
+reproduction/results/phase1/**/*.json -text
+reproduction/results/phase1/**/*.csv -text
+docs/PHASE1_OUTSOURCING_EXECUTION_PLAN.md -text
