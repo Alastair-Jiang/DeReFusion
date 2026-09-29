@@ -36,9 +36,9 @@ export default function LiveComputeFlow() {
     try {
       const response = await fetch("/ops-api/status", { cache: "no-store", signal });
       if (!response.ok) throw new Error(`状态服务响应 ${response.status}`);
-      const data = await response.json();
+      const data = (await response.json()) as Partial<Snapshot>;
       if (!data.readOnly || !Array.isArray(data.tasks) || !Array.isArray(data.hardware)) throw new Error("状态数据格式无效");
-      setSnapshot(data); setError(null);
+      setSnapshot(data as Snapshot); setError(null);
     } catch (failure) {
       if (!signal?.aborted) setError(failure instanceof Error ? failure.message : "无法连接状态服务");
     }
