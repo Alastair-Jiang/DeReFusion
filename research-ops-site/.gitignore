@@ -44,3 +44,5 @@ next-env.d.ts
 /.codex/
 /outputs/
 /work/
+# typescript incremental build info is checkout-local
+tsconfig.tsbuildinfo
