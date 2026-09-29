@@ -39,6 +39,29 @@ MANIFESTS = {
     "D_temporal_robustness": PHASE / "D_temporal_robustness.manifest.csv",
 }
 OUTPUT = PHASE / "attempts"
+STAGE_C_TRACK = "confirmatory_local_stage_c"
+STAGE_C_AUTH_VERSION = "phase1-local-stage-c-auth/v1"
+STAGE_C_AMENDMENT = "phase1-stage-c-parallel-5060-20260929"
+STAGE_C_BATCH = "local-5060-stage-c-v1"
+STAGE_C_RUN_LABEL = "stagec_5060_v1"
+STAGE_C_MANIFEST_SHA256 = "bda784f0dd816939cdfd02e30109369df6a3e2e76aecd79aa8ee87b3910e6bfa"
+STAGE_C_ENV_SHA256 = "76b3b80aae7b1addcbc75088331d5d186feb07233b56d323d78bb1e88633c755"
+STAGE_C_LOCK = {"python": "3.11.15", "torch": "2.7.1+cu128", "torch_cuda": "12.8",
+                "numpy": "2.1.2", "pandas": "2.3.3", "scikit_learn": "1.7.2"}
+STAGE_C_GPU = "NVIDIA GeForce RTX 5060 Ti"
+STAGE_C_GPU_UUID = "GPU-8b312e09-ea91-9e3a-c5d3-06b9362181b7"
+STAGE_C_DRIVER = "610.62"
+
+
+def stage_c_receipt_metadata(auth: dict) -> dict:
+    """Add new-track provenance without changing historical receipt schemas."""
+    if auth.get("execution_track") != STAGE_C_TRACK:
+        return {}
+    return {"authorization_version": auth["authorization_version"],
+            "execution_amendment_id": auth["execution_amendment_id"],
+            "manifest_sha256": auth["manifest_sha256"], "output_root": auth["output_root"],
+            "gpu_model": auth["gpu_model"], "gpu_uuid": auth["gpu_uuid"],
+            "driver_version": auth["driver_version"], "cudnn": auth["cudnn"]}
 
 
 def atomic_json(path: Path, value: dict) -> None:
@@ -207,7 +230,34 @@ def validate_authorization(path: Path, env_path: Path, stage_set: set[str], devi
     authorization = json.loads(path.read_text(encoding="utf-8"))
     fingerprint = json.loads(env_path.read_text(encoding="utf-8"))
     track = authorization.get("execution_track", "frozen_protocol")
-    if track == "nonconfirmatory_local_supplement":
+    if track == STAGE_C_TRACK:
+        expected = {"authorization_version": STAGE_C_AUTH_VERSION,
+                    "protocol_version": "phase1-v1.1-2026-09-19",
+                    "execution_track": STAGE_C_TRACK,
+                    "execution_amendment_id": STAGE_C_AMENDMENT,
+                    "run_label": STAGE_C_RUN_LABEL, "manifest_count": 360,
+                    "gpu_model": STAGE_C_GPU, "gpu_uuid": STAGE_C_GPU_UUID,
+                    "driver_version": STAGE_C_DRIVER, "cudnn": 90701,
+                    "environment_lock": STAGE_C_LOCK,
+                    "cross_stack_pooling_authorized": False}
+        if stage_set != {"C_confirmation"} or authorization.get("stages") != ["C_confirmation"]:
+            raise RuntimeError("Stage C authorization is limited to the complete C_confirmation stage")
+        if device != "cuda":
+            raise RuntimeError("Stage C local authorization requires CUDA")
+        if batch_id != STAGE_C_BATCH or authorization.get("batch_id") != STAGE_C_BATCH:
+            raise RuntimeError("Stage C batch_id does not match the approved isolated batch")
+        if output_root.resolve() != (PHASE / STAGE_C_BATCH).resolve():
+            raise RuntimeError("Stage C output root must be its approved isolated direct child")
+        if authorization.get("output_root") != str(output_root.resolve()):
+            raise RuntimeError("Stage C output root does not match authorization")
+        if (sha256(manifest_path) != STAGE_C_MANIFEST_SHA256
+                or authorization.get("manifest_sha256") != STAGE_C_MANIFEST_SHA256
+                or len(rows(manifest_path)) != 360):
+            raise RuntimeError("Stage C requires the full frozen 360-row manifest hash")
+        if sha256(env_path) != STAGE_C_ENV_SHA256:
+            raise RuntimeError("Stage C environment fingerprint differs from the reviewed local fingerprint")
+        pinned = STAGE_C_LOCK
+    elif track == "nonconfirmatory_local_supplement":
         expected = {"authorization_version": "phase1-local-supplement-auth/v1",
                     "protocol_version": "phase1-v1.1-2026-09-19",
                     "execution_track": "nonconfirmatory_local_supplement"}
@@ -241,11 +291,13 @@ def validate_authorization(path: Path, env_path: Path, stage_set: set[str], devi
                   "numpy": "2.1.2", "pandas": "2.3.3", "scikit_learn": "1.7.2"}
         if authorization.get("environment_lock") != pinned:
             raise RuntimeError("remote supplemental authorization must repeat the reviewed environment lock")
-    else:
+    elif track == "frozen_protocol":
         expected = {"authorization_version": "phase1-execution-auth/v1",
                     "protocol_version": "phase1-v1.1-2026-09-19"}
         pinned = {"python": "3.11.15", "torch": "2.5.1+cu121", "torch_cuda": "12.1",
                   "numpy": "2.1.2", "pandas": "2.3.3", "scikit_learn": "1.7.2"}
+    else:
+        raise RuntimeError(f"unknown explicit execution_track: {track!r}")
     for key, value in expected.items():
         if authorization.get(key) != value:
             raise RuntimeError(f"authorization {key} must equal {value!r}")
@@ -270,6 +322,11 @@ def validate_authorization(path: Path, env_path: Path, stage_set: set[str], devi
             raise RuntimeError("CUDA is not available in the environment fingerprint")
         if authorization.get("gpu_model") not in observed.get("gpu_names", []):
             raise RuntimeError("authorized GPU model does not match worker fingerprint")
+        if track == STAGE_C_TRACK:
+            gpu_lock = {"gpu_uuid": STAGE_C_GPU_UUID, "driver_version": STAGE_C_DRIVER,
+                        "cudnn": 90701, "gpu_count": 1, "gpu_names": [STAGE_C_GPU]}
+            if any(observed.get(k) != v for k, v in gpu_lock.items()):
+                raise RuntimeError("Stage C GPU UUID, driver, cuDNN or device count differs from the reviewed fingerprint")
         if track == "nonconfirmatory_local_supplement" and authorization["gpu_model"] != "NVIDIA GeForce RTX 5060 Ti":
             raise RuntimeError("local supplement may run only on the fingerprinted RTX 5060 Ti")
         if track == "nonconfirmatory_remote_gpu_supplement":
@@ -350,7 +407,7 @@ def package_attempt(row: dict[str, str], destination: Path, command: list[str], 
                "config_fingerprint": canonical_hash({"row": row, "common": common, "device": command_device(command)}),
                "command": subprocess.list2cmdline(command), "created_at_utc": datetime.now(timezone.utc).isoformat(),
                "shapes": {"pred.npy": list(pred.shape), "true.npy": list(true.shape), "metrics.npy": list(metrics.shape)},
-               "sha256": hashes}
+               "sha256": hashes, **stage_c_receipt_metadata(auth)}
     atomic_json(running_receipt, receipt)
 
 
@@ -427,8 +484,17 @@ def main() -> int:
                              "set it above a TimesNet fit's runtime so a long fit is never started "
                              "with no room to finish")
     args = parser.parse_args()
+    stage_c_isolated = (set(args.stage) == {"C_confirmation"}
+                        and bool(args.output_root or args.batch_id or args.run_label != "phase1_frozen"))
     supplemental = bool(args.manifest_path or args.output_root or args.batch_id or args.run_label != "phase1_frozen")
-    if supplemental and (not args.manifest_path or not args.output_root or not args.batch_id):
+    if stage_c_isolated:
+        if (args.manifest_path or not args.output_root or args.batch_id != STAGE_C_BATCH
+                or args.run_label != STAGE_C_RUN_LABEL
+                or args.output_root.resolve() != (PHASE / STAGE_C_BATCH).resolve()):
+            parser.error("isolated Stage C requires its frozen manifest, local-5060-stage-c-v1 root/batch, and stagec_5060_v1 label")
+        if args.models or args.limit is not None:
+            parser.error("isolated Stage C must retain the full 360-fit queue; --models and --limit are forbidden")
+    elif supplemental and (not args.manifest_path or not args.output_root or not args.batch_id):
         parser.error("supplemental runs require --manifest-path, --output-root, and --batch-id together")
     if args.manifest_path and set(args.stage) != {"B_screen"}:
         parser.error("custom manifests are limited to B_screen")
@@ -450,8 +516,10 @@ def main() -> int:
     deadline = None if args.max_hours is None else started + args.max_hours * 3600
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     selected = [r for stage in args.stage for r in rows(MANIFESTS[stage]) if r["status"] == "planned"]
-    if supplemental and any(r.get("batch_id") != args.batch_id for r in selected):
+    if supplemental and not stage_c_isolated and any(r.get("batch_id") != args.batch_id for r in selected):
         parser.error("every supplemental manifest row must carry the selected batch_id")
+    if stage_c_isolated and (len(selected) != 360 or sha256(MANIFESTS["C_confirmation"]) != STAGE_C_MANIFEST_SHA256):
+        parser.error("isolated Stage C requires all 360 unchanged frozen planned rows")
     if args.models:
         wanted = {name.strip() for name in args.models.split(",") if name.strip()}
         unknown = wanted - set(config["available_models"])
@@ -506,12 +574,16 @@ def main() -> int:
         raise RuntimeError("--execute requires --authorization and --environment-fingerprint")
     auth, env_hash = validate_authorization(args.authorization, args.environment_fingerprint, set(args.stage),
                                             args.device, MANIFESTS[args.stage[0]], args.batch_id, OUTPUT)
+    if stage_c_isolated and auth.get("execution_track") != STAGE_C_TRACK:
+        raise RuntimeError("isolated Stage C requires its separate confirmatory_local_stage_c authorization")
     if supplemental:
         auth_hash = sha256(args.authorization)
         meta_path = OUTPUT / "batch_meta.json"
         expected_meta = {"batch_id": args.batch_id, "manifest_sha256": sha256(MANIFESTS[args.stage[0]]),
                          "authorization_sha256": auth_hash, "git_commit": auth["git_commit"],
                          "environment_fingerprint_sha256": env_hash}
+        if stage_c_isolated:
+            expected_meta.update(execution_track=STAGE_C_TRACK, **stage_c_receipt_metadata(auth))
         if OUTPUT.exists():
             if not OUTPUT.is_dir() or not meta_path.is_file():
                 raise RuntimeError("existing supplemental root lacks its immutable batch metadata")
@@ -574,6 +646,7 @@ def main() -> int:
             "created_at_utc": run_started,
             "authorization_record": auth.get("decision_record"), "authorization_commit": auth["git_commit"],
             "environment_fingerprint_sha256": env_hash,
+            **stage_c_receipt_metadata(auth),
         })
         command = build_command(row, config["common"], registry[row["asset"]], 1, args.device,
                                 args.run_label if supplemental else "phase1_frozen")
@@ -597,13 +670,16 @@ def main() -> int:
                       "failure_class": "budget_or_fit_timeout" if timed_out else "nonzero_exit", "exit_code": returncode,
                       "created_at_utc": run_started, "finished_at_utc": datetime.now(timezone.utc).isoformat(),
                       "authorization_record": auth.get("decision_record"), "authorization_commit": auth["git_commit"],
-                      "environment_fingerprint_sha256": env_hash, "sha256": {"run.log": sha256(log_path)}}
+                      "environment_fingerprint_sha256": env_hash, "sha256": {"run.log": sha256(log_path)},
+                      **stage_c_receipt_metadata(auth)}
             atomic_json(destination / "receipt.json", failed)
             save_progress("interrupted" if timed_out else "failed", logical)
             bar.close()
             print(f"STOP: {logical}: exit={returncode}, timeout={timed_out}; all partial artifacts retained, no retry.")
             return 3 if timed_out else 2
         matches = [p for p in (ROOT / "results").glob(f"*{model_id}*") if p.is_dir()]
+        if stage_c_isolated:
+            matches = [p for p in matches if p.name.endswith(f"_{STAGE_C_RUN_LABEL}_seed{row['seed']}_0")]
         if len(matches) != 1:
             raise RuntimeError(f"expected one result directory for {logical}; found {len(matches)}")
         try:
@@ -618,7 +694,7 @@ def main() -> int:
                        "created_at_utc": run_started, "finished_at_utc": datetime.now(timezone.utc).isoformat(),
                        "authorization_record": auth.get("decision_record"), "authorization_commit": auth["git_commit"],
                        "environment_fingerprint_sha256": env_hash,
-                       "sha256": {"run.log": sha256(log_path)}}
+                       "sha256": {"run.log": sha256(log_path)}, **stage_c_receipt_metadata(auth)}
             atomic_json(destination / "receipt.json", invalid)
             save_progress("artifact_invalid", logical)
             bar.close()

@@ -6,12 +6,63 @@ from pathlib import Path
 import numpy as np
 
 from reproduction.analysis.audit_phase1_checkpoint_forward import (
-    ROOT, BoundInputs, array_hash, differences, new_output_root,
-    parser_from_source, receipt_args, write_json,
+    ROOT, BoundInputs, array_hash, audit_parser, differences, new_output_root,
+    parser_from_source, receipt_args, reference_attempt, reference_provenance, write_json,
 )
 
 
 class CheckpointForwardAuditTest(unittest.TestCase):
+    def test_external_cli_keeps_existing_track_defaults(self):
+        parser = audit_parser()
+        self.assertEqual(parser.parse_args(["--output-root", "audit"]).reference_track, "both")
+        for track in ("p4", "local", "both"):
+            self.assertEqual(parser.parse_args(["--output-root", "audit", "--reference-track", track]).reference_track, track)
+        args = parser.parse_args(["--output-root", "audit", "--reference-track", "external",
+                                  "--reference-label", "rtx8000"])
+        self.assertEqual((args.reference_track, args.reference_label), ("external", "rtx8000"))
+
+    def test_external_uses_indexed_attempt_and_source_commit(self):
+        reference = {"p4_attempt": "received/rtx8000/attempt-01", "source_commit": "indexed-source"}
+        receipt = {"authorization_commit": "receipt-authorization",
+                   "execution_track": "nonconfirmatory_remote_gpu_supplement"}
+        attempt = reference_attempt("external", reference, Path("local"), "fixed")
+        self.assertEqual(attempt, ROOT / reference["p4_attempt"])
+        self.assertEqual(reference_attempt("p4", reference, Path("local"), "fixed"), attempt)
+        self.assertEqual(reference_attempt("local", reference, Path("local"), "fixed"),
+                         Path("local") / "fixed__attempt-01")
+        provenance = reference_provenance("external", reference, receipt, "rtx8000")
+        self.assertEqual(provenance["reference_track"], "rtx8000")
+        self.assertEqual(provenance["reference_selection_track"], "external")
+        self.assertEqual(provenance["source_execution_track"], receipt["execution_track"])
+        self.assertEqual(provenance["reference_source_commit"], "indexed-source")
+        self.assertEqual(reference_provenance("p4", reference, receipt)["reference_track"], "p4")
+        local = reference_provenance("local", reference, receipt)
+        self.assertEqual(local["reference_track"], "local")
+        self.assertEqual(local["reference_source_commit"], "receipt-authorization")
+
+    def test_external_default_label_reflects_receipt_execution_track(self):
+        reference = {"source_commit": "indexed-source"}
+        provenance = reference_provenance("external", reference, {"execution_track": "actual-rtx8000-track"})
+        self.assertEqual(provenance["reference_track"], "actual-rtx8000-track")
+        self.assertEqual(provenance["source_label"], "actual-rtx8000-track")
+        fallback = reference_provenance("external", reference, {})
+        self.assertEqual(fallback["reference_track"], "external")
+        self.assertIsNone(fallback["source_execution_track"])
+
+    def test_external_indexed_attempt_is_protected_outside_legacy_p4_root(self):
+        with tempfile.TemporaryDirectory() as name:
+            root = Path(name)
+            reference = {"p4_attempt": str(root / "received" / "rtx8000" / "attempt-01")}
+            attempt = reference_attempt("external", reference, root / "local", "fixed")
+            attempt.mkdir(parents=True)
+            artifact = attempt / "receipt.json"
+            artifact.write_text("original", encoding="utf-8")
+            for output in (attempt, attempt / "audit", attempt.parent):
+                with self.assertRaises(RuntimeError):
+                    new_output_root(output, [attempt])
+            new_output_root(root / "fresh-audit", [attempt])
+            self.assertEqual(artifact.read_text(encoding="utf-8"), "original")
+
     def test_ast_parser_preserves_frozen_defaults_without_executing_main(self):
         source = (ROOT / "run.py").read_text(encoding="utf-8")
         source += "\nraise AssertionError('source execution is forbidden')\n"

@@ -155,6 +155,27 @@ def write_json(path: Path, value):
         stream.write("\n")
 
 
+def reference_attempt(track: str, reference: dict, local_root: Path, logical: str) -> Path:
+    """Resolve indexed external inputs using the legacy index field names."""
+    if track in {"p4", "external"}:
+        return ROOT / reference["p4_attempt"]
+    if track == "local":
+        return local_root / f"{logical}__attempt-01"
+    raise ValueError(f"unsupported reference track: {track}")
+
+
+def reference_provenance(track: str, reference: dict, receipt: dict,
+                         label: str | None = None) -> dict:
+    execution_track = receipt.get("execution_track")
+    source_label = (label or execution_track or "external") if track == "external" else track
+    return {"reference_track": source_label,
+            "reference_selection_track": track,
+            "source_label": source_label,
+            "source_execution_track": execution_track,
+            "reference_source_commit": (reference["source_commit"] if track in {"p4", "external"}
+                                        else receipt["authorization_commit"])}
+
+
 def git_output(*arguments: str) -> str:
     return subprocess.check_output(["git", *arguments], cwd=ROOT, text=True, encoding="utf-8")
 
@@ -303,18 +324,29 @@ def replay(args, checkpoint: Path, device):
     return pred, true, dataset, metadata
 
 
-def main() -> int:
+def audit_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--output-root", type=Path, required=True)
     parser.add_argument("--max-settings", type=int, default=0, help="0 means all fixed manifest settings")
-    parser.add_argument("--reference-track", choices=("p4", "local", "both"), default="both")
+    parser.add_argument("--reference-track", choices=("p4", "local", "both", "external"), default="both")
+    parser.add_argument("--reference-label", help="External source label; defaults to the receipt execution_track")
     parser.add_argument("--bridge-manifest", type=Path, default=PHASE / "local-5060-manifests/bridge-v1.csv")
     parser.add_argument("--reference-index", type=Path, default=PHASE / "local-5060-manifests/bridge-p4-reference-index.csv")
     parser.add_argument("--local-root", type=Path, default=PHASE / "local-5060-bridge-v1")
+    return parser
+
+
+def main() -> int:
+    parser = audit_parser()
     cli = parser.parse_args()
     if cli.max_settings < 0:
         parser.error("--max-settings must be nonnegative")
+    if cli.reference_label is not None:
+        if cli.reference_track != "external":
+            parser.error("--reference-label requires --reference-track external")
+        if not cli.reference_label.strip():
+            parser.error("--reference-label must be nonempty")
     import torch
     from reproduction.batches.run_phase1_stages import CONFIG, logical_id, split_for, validate_preflight
 
@@ -355,9 +387,10 @@ def main() -> int:
         split = split_for(row)
         reference = index[logical]
         for track in tracks:
-            attempt = ROOT / reference["p4_attempt"] if track == "p4" else cli.local_root / f"{logical}__attempt-01"
+            attempt = reference_attempt(track, reference, cli.local_root, logical)
+            protected.append(attempt)
             receipt_path = attempt / "receipt.json"
-            bound.bind(receipt_path, reference["receipt_sha256"] if track == "p4" else None)
+            bound.bind(receipt_path, reference["receipt_sha256"] if track in {"p4", "external"} else None)
             receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
             if receipt.get("status") != "completed_unreviewed" or receipt.get("logical_run_id") != logical:
                 raise RuntimeError(f"reference receipt identity/status mismatch: {receipt_path}")
@@ -369,7 +402,8 @@ def main() -> int:
                     raise RuntimeError(f"reference receipt identity mismatch: {key}")
             for name in ("checkpoint.pth", "pred.npy", "true.npy"):
                 bound.bind(attempt / name, receipt["sha256"][name])
-            commit = reference["source_commit"] if track == "p4" else receipt["authorization_commit"]
+            provenance = reference_provenance(track, reference, receipt, cli.reference_label)
+            commit = provenance["reference_source_commit"]
             commits.add(commit)
             if commit not in sources:
                 sources[commit] = git_output("show", f"{commit}:run.py")
@@ -378,7 +412,7 @@ def main() -> int:
             if raw_config != vars(receipt_args(receipt["command"], (ROOT / "run.py").read_text(encoding="utf-8"))):
                 raise RuntimeError("current/reference CLI parser defaults differ")
             validate_config(args, row, config["common"], data)
-            prepared.append((row, track, attempt, receipt, args, raw_config, split))
+            prepared.append((row, track, attempt, receipt, args, raw_config, split, provenance))
     source_check = verify_source(commits, bound)
     bound.verify()
     output = new_output_root(cli.output_root, protected)
@@ -392,7 +426,9 @@ def main() -> int:
     report = {"audit_version": "phase1-checkpoint-forward/v1", "created_at_utc": datetime.now(timezone.utc).isoformat(),
               "purpose": "Fixed checkpoint inference implementation/stack diagnostic; no training or new model fits",
               "selection": "Fixed bridge manifest order; no score-driven selection",
-              "settings": len(selected), "reference_tracks": list(tracks), "environment": environment,
+              "settings": len(selected),
+              "reference_tracks": list(dict.fromkeys(item[-1]["reference_track"] for item in prepared)),
+              "reference_selection_tracks": list(tracks), "environment": environment,
               "source_provenance": source_check, "input_file_sha256": bound.hashes,
               "numerical_equivalence_threshold": "TBD", "pooling_authorized": False,
               "ranking_authorized": False, "numerical_equivalence_claim": False,
@@ -400,9 +436,9 @@ def main() -> int:
     write_json(output / "audit-plan.json", report)
     started = time.monotonic()
     try:
-        for ordinal, (row, track, attempt, receipt, args, raw_config, split) in enumerate(prepared, 1):
+        for ordinal, (row, track, attempt, receipt, args, raw_config, split, provenance) in enumerate(prepared, 1):
             logical = logical_id(row)
-            print(f"[{ordinal}/{len(prepared)}] {track} {logical}", flush=True)
+            print(f"[{ordinal}/{len(prepared)}] {provenance['reference_track']} {logical}", flush=True)
             begin = time.monotonic()
             pred, true, dataset, metadata = replay(args, attempt / "checkpoint.pth", device)
             keys_hash = key_hash_for_dataset(dataset, split)
@@ -420,7 +456,7 @@ def main() -> int:
             # New audit arrays only; originals and production receipts are read-only.
             with (folder / "pred.npy").open("xb") as stream:
                 np.save(stream, pred, allow_pickle=False)
-            result = {"logical_run_id": logical, "reference_track": track,
+            result = {"logical_run_id": logical, **provenance,
                       "reference_attempt": str(attempt.resolve()), "receipt_command": receipt["command"],
                       "receipt_config": raw_config, "effective_root_path": args.root_path,
                       "checkpoint_sha256": receipt["sha256"]["checkpoint.pth"],
