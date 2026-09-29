@@ -1,0 +1,594 @@
+{
+  "audit_version": "phase1-checkpoint-forward/v1",
+  "created_at_utc": "2026-09-29T08:52:15.871198+00:00",
+  "elapsed_seconds": 14.264999999999418,
+  "environment": {
+    "cublas_workspace_config": null,
+    "cuda_runtime": "12.8",
+    "cudnn": 90701,
+    "device": "cuda:0",
+    "executable": "C:\\Users\\26843\\anaconda3\\envs\\derefusion-5060ti\\python.exe",
+    "gpu": "NVIDIA GeForce RTX 5060 Ti",
+    "initial_tf32": {
+      "cudnn_allow_tf32": true,
+      "matmul_allow_tf32": false
+    },
+    "platform": "Windows-10-10.0.26100-SP0",
+    "python": "3.11.15 | packaged by Anaconda, Inc. | (main, Jun 11 2026, 15:12:53) [MSC v.1942 64 bit (AMD64)]",
+    "torch": "2.7.1+cu128"
+  },
+  "gate_table": [
+    {
+      "check": "frozen identities, keys, source, strict weights, shapes, truth",
+      "evidence": "all per-setting audit.json records and input SHA-256 inventory",
+      "input": "fixed bridge manifest, reference receipts/checkpoints, data and prediction keys",
+      "next_permitted_action": "descriptive audit review",
+      "status": "eligible"
+    },
+    {
+      "check": "numerical equivalence tolerance",
+      "evidence": "TBD; none precommitted",
+      "input": "fixed-checkpoint replay differences",
+      "next_permitted_action": "research-question/precision analysis and approved protocol required before an equivalence claim",
+      "status": "requires-resolution"
+    },
+    {
+      "check": "pooling/ranking",
+      "evidence": "descriptive bridge authorization",
+      "input": "existing descriptive bridge authorization",
+      "next_permitted_action": "keep execution tracks separate",
+      "status": "excluded-by-protocol"
+    }
+  ],
+  "input_file_sha256": {
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data_provider\\data_factory.py": "419a532437a55eadbbcd5925b258784ef6f7161702fc797be818fb84236257bb",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data_provider\\data_loader.py": "42a782d0415467f1c8bbc6c2d85b71eb1ee2345d7d35c77159a3497e52772daf",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\dataset\\BTCUSD-2016-2025.csv": "6bac7956b8cbc3be4ba6328c1ce3792012c329c670aedb84382bd452561fbfa7",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\exp\\exp_basic.py": "c8cc877088a39cafa9fc167656020e80231548d607a501c83cf7e1163501731f",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\exp\\exp_long_term_forecasting.py": "5074d13cd0e6aa57633a8c8e61c98830fd89d7675c65e0e2cb80b374d51526f8",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\AutoCorrelation.py": "80b158d71031505c1e646e1419be5508d14410b8a4f64795b0e784bcdbd24ce6",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\Autoformer_EncDec.py": "f69c563c6f7a59ed77769fa26380b583fe63e17a8deb5ee6573a923cccc7d8e7",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\Conv_Blocks.py": "3ef9f4dfd5ef52ee42c72c907b270d3a842fe6809b0c7efeee013c52769bdafc",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\Crossformer_EncDec.py": "6b279d6a1996254839a570ba50695f8e31d1085639980328dbbb12bddb7bd054",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\DWT_Decomposition.py": "dd4c07de6a0a6e5637c2129780bace1c2fb8d734136585130fa92610b79af6ed",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\ETSformer_EncDec.py": "dda1500badca416a4fa19315328873ff8de5686746a066c24ae60a3fd9a78c8f",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\Embed.py": "0a29593e3796b5a3798bd3d37c1150fc2256c559abdee36e83eecd1a05787247",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\FourierCorrelation.py": "ca54e5328a12dedafec9b6dfbe962e7ecc4e596f67e6cce7fc099e53d909f3b7",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\MSGBlock.py": "dcb408f0fd15235c6ea3a1c65e06d0fbf018b805812b3998454cdade3e655b6b",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\MambaBlock.py": "4e0f36b4a670b1af5989bb54f1668ae93ec9d090260dca82fc65cef029b3b264",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\MultiWaveletCorrelation.py": "49d34c949882d4a00345f31f1fbd7be00060525b0d5b488a87bb474128dab8a8",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\Pyraformer_EncDec.py": "6bf671b660f71ca23825cb5ad26cbf58998fd1aa7bbaa3bf36537ece5c965302",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\RevIN.py": "86ae5f290032e2f9ff83846f36480a56b9a0077837e656a0dfb5f8268d59d215",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\SelfAttention_Family.py": "0fea961b640b1a7db471df2e389abfb843ce8e5767aca5af141ee22dd43be66f",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\StandardNorm.py": "42c0d7f8019d899e1dac23ffc81fd2e08763f7d824142a3e29842fc3847c5e15",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\TimeFilter_layers.py": "ed0e14abd8eda187bb0756a3f5f50dc47d3a10dd0310a4a5effe3b2fd0e4970a",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\Transformer_EncDec.py": "031b26a6ed774442bfb4cf316d4a605f7642cd652a4c2b82f5e3d1fcdc47b098",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\layers\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\models\\derefusion\\DeReFusion.py": "7e5194f7db66a1b8218dbacc9f9ca1b63f419dc12f74c6b6a3cafadbcc9c9320",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\models\\revin-DLinear.py": "c0d54cdf161215d99946da316031ef5f1ef51648e5a6285f46bb7e0b741b4abf",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\models\\revin-PatchTST.py": "a2fcd030f14c70590c7d689ad422cbc540d77a91ea8faefc9431cc0a16d009f5",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\models\\revin-TimesNet.py": "9a2698d3bd96016c89fc6147d5ba8445560a85e151e08971d17b8ee7293698d0",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\models\\revin-iTransformer.py": "a6fb3abf77e49f69acd8dbcb073292f8567384a572ba962d48354fae4fab7916",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\analysis\\audit_phase1_checkpoint_forward.py": "157237a1b5793ccfba1fa14e22849c505f35e3681955530c307bbedde0e321d6",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\configs\\phase1_modern_baselines.json": "097f74601d222b1f59b2d58f134bd0c760bc27550df02316bbf82aa96a4a9d3d",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\dataset_registry.csv": "96e70b15740ed6ee666445f54bdc4bca6ce995b0a752824238ab01fca49d7458",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\consumer-rtx8000-20260929-v1\\pass-20260929T084403.831930Z-bdd61d205db54489892c1f7f707a51f8\\intake\\reference-index.csv": "67d106088c5fab9b07937ee8303e0ecb1150b3bbf9d6fdf9f5810b3e6264daf8",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\consumer-rtx8000-20260929-v1\\pass-20260929T084403.831930Z-bdd61d205db54489892c1f7f707a51f8\\intake\\selected-manifest.csv": "8b266d99eca80e066b3382bf1de2df5c6d01b4a8455acb6ce2497e7f10563d42",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\phase1_data_contract.csv": "25b672c1beddb2fdeeadab6bf083b127486543bafcdc874b3074f6929252a383",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\phase1_prediction_keys.csv.gz": "c3fcdaad23c3f97444eea0b15d58dd943f33276758527d6ed50ce2ccf71fee94",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\phase1_split_manifest.csv": "ea4367febe74e7f91b768f87b52faa288c28ea34b7e2d0b3fd902ebdba1028f0",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\rtx8000-intake-20260929-v2\\attempts\\B_screen_BTCUSD_revin-TimesNet_h1_s2021__attempt-01\\checkpoint.pth": "58a6432f56aa8c05ce28a4cf876d09d0d069f539d4d35437047b74c5c3eeb494",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\rtx8000-intake-20260929-v2\\attempts\\B_screen_BTCUSD_revin-TimesNet_h1_s2021__attempt-01\\pred.npy": "de7ad12f999047c7b869433209960f378f20c18ab31634faca67621a98f57810",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\rtx8000-intake-20260929-v2\\attempts\\B_screen_BTCUSD_revin-TimesNet_h1_s2021__attempt-01\\receipt.json": "6d98976b08ea65ec8d46ebf76a5ae9d1d4838b1bface0470ae46d8f5664b671d",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\rtx8000-intake-20260929-v2\\attempts\\B_screen_BTCUSD_revin-TimesNet_h1_s2021__attempt-01\\true.npy": "d671793c633f071a8d6b9866e4d26f832dd604ec06425252256efa270e30d22c",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\run.py": "783cb5400ca342f7c3c7580680e6f004a1202f478ad44faffdd93f7f80a28311",
+    "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\utils\\timefeatures.py": "ec08852581cedb577b42df903c9bc962041c7258bd38a007c71bad94cde1e4a2"
+  },
+  "input_immutability_verified": true,
+  "numerical_equivalence_claim": false,
+  "numerical_equivalence_threshold": "TBD",
+  "pooling_authorized": false,
+  "purpose": "Fixed checkpoint inference implementation/stack diagnostic; no training or new model fits",
+  "ranking_authorized": false,
+  "reference_selection_tracks": [
+    "external"
+  ],
+  "reference_tracks": [
+    "rtx8000"
+  ],
+  "results": [
+    {
+      "checkpoint_sha256": "58a6432f56aa8c05ce28a4cf876d09d0d069f539d4d35437047b74c5c3eeb494",
+      "differences": {
+        "bitwise_equal": false,
+        "max_absolute_prediction_difference": 0.00022292137145996094,
+        "mean_squared_prediction_difference": 3.3950401576812386e-10,
+        "numerical_equivalence_claim": false,
+        "numerical_equivalence_threshold": "TBD",
+        "prediction_difference_l2": 0.0004978332366473038,
+        "reference_mse_float64": 0.04202422457308085,
+        "relative_prediction_difference_l2": 4.23678354810546e-06,
+        "replay_mse_float64": 0.042023577356323435,
+        "signed_mse_difference_float64": -6.47216757417024e-07
+      },
+      "effective_root_path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\dataset",
+      "elapsed_seconds": 13.796999999998661,
+      "inference": {
+        "amp": false,
+        "batch_size": 32,
+        "cudnn_benchmark": false,
+        "cudnn_deterministic": true,
+        "dataset_arrays_sha256": {
+          "data_stamp": "5af2b20bb6311b05778504782c211913eb43e1024b37955e8a872c5f962ff319",
+          "data_x": "36a2f5a1d5281b84931f1352f860233730fa7d90b08ce0676ec06662b2549ae7",
+          "data_y": "36a2f5a1d5281b84931f1352f860233730fa7d90b08ce0676ec06662b2549ae7"
+        },
+        "deterministic_algorithms": true,
+        "deterministic_warn_only": true,
+        "drop_last": false,
+        "gradient_mode": "inference_mode",
+        "input_batches": [
+          {
+            "batch_index": 0,
+            "float32_tensors_sha256": [
+              "f009edb5c151b17829721a65e0aba9f3488b25f5e37c6b077d30086498798e13",
+              "58b4ccb3cfb8835dd47585d489a3ca75b131c85252e1719852ffeac88e8925d6",
+              "590e7712581b859293bc84460c32770d301ad466318ac5fdb4b71d719cf4de0b",
+              "cc9c730fcfb1b37eb1116e16890eb843032c6b68e209fb9dfcd937a61f76f9d4"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 1,
+            "float32_tensors_sha256": [
+              "9fc6541a48afe6242142d787325c7dbe400410bed8703b29fffa5ea735c64658",
+              "d2dc7cd370bcda4446b39683fd59f4415fc444cd014f846fe6b6aea5275627f8",
+              "f59fe574d05b2d82b34d618a962e74823c223713eaa00d21e91cc756f59b4b34",
+              "1b6031721d1c76cac9e8ceb0eca679e8deab112259c8651453add438a0f30675"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 2,
+            "float32_tensors_sha256": [
+              "56df120601b8d6e39335ac7e82d4a0d41df4fe4b958b9575c878337c78d3e8d0",
+              "009b9b66130ccd605142f9e28a439ad91756c0f1a7d91629193ef031e775760c",
+              "78d31dc68b3a61cf0f532e2a8e7fd8e3f643c4a8c3ffe63402915954e314b95a",
+              "5d207e7d199b92a3d1cbc6428b6b5d1852936111c7d1b4f987d520e9709878ff"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 3,
+            "float32_tensors_sha256": [
+              "817b88791bc4757ed738e9cf5a77f8cf06e13fc42855a1bce21aacf2fc8e8dea",
+              "7532ab26552237028ac8878278493b36f3f6eee3581737c80de555052de669f3",
+              "f153ed28a3b3e6605876f7cb82ff20741a580d7dce8cf3cb0e03c44eccca276a",
+              "75b7d5fc8bd219305e4506710071a8c85c0272780437c180abef5a5e7dac520b"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 4,
+            "float32_tensors_sha256": [
+              "9fd2982e3f2991907a6a8a201d88ad987de31f477c542c337dff65ec7bfc851d",
+              "424d99c0057936236a332d9db65d9c73df081670ee27ceb6204dac312a0d3560",
+              "d4d24102843828cf7e0b09a0291e0b0e245a2227e4280bd83f2042ec4b278da2",
+              "9a88f307aa2b0853b9a96bc5bd072923d4d98f6a56d7779d7fcd19a5bb87703c"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 5,
+            "float32_tensors_sha256": [
+              "df08b0851ab3610d5398b3fdb64610342d03540aed8f0d01591f6017c8ca0328",
+              "a05b1760946d22ed3a5978c907ba602e17728e6ec0d278e79927f388a9c085d9",
+              "58f266f4c7876277f03dfc29a86262ce85a0cb29dbb141382f1d69ca783f1f1d",
+              "eb982eb825df762a94af34d563a64497232f1b2a685d403ae5da9798c79419e3"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 6,
+            "float32_tensors_sha256": [
+              "003bc84bc593082f66cffb87a2ebd138c8b238dd166ddeb65a474f758cfaf9c7",
+              "4e7e220e95631b786ee63e7b4fca33d7e3deda3545b90805913f294edb71d312",
+              "d0d45325c1a01bbec9d0c6a6c433263790238ac21054dc10415ffa094f7e3ce1",
+              "c34b7ddcd2d6278b15ce6d20b7e065f522c45918ce55c68b95920e766644efbd"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 7,
+            "float32_tensors_sha256": [
+              "b0322ddeb224336046bf95022c763c1684066744500613ce09b1c6e3a56a68cc",
+              "b0db722da840264e46b971157fabfcfa5f05f08967cde09c11521dcb2d34c026",
+              "b1b723878a1ad3ee2120cbc82e7e008df4415f5102c35764528036ab78d46069",
+              "54cde62972d94fe98ce567f4e777a61461918b78d83a85794bc3c423ca02efe9"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 8,
+            "float32_tensors_sha256": [
+              "2127ef697fc4cd09faf79f3dc61077dc50769aed536f128286ab757b49384a7f",
+              "b8e8496600539e2f7ac9942cdbe99d8016d9967d40cd529a913ddb094ad8eb51",
+              "2ad4e9f2ef19546f10a8ef29387591e6a430d1ddb1af723c981ce3bbee270c39",
+              "16ef0255c6c7151588f36830d9d6265187b44c346d15861f3e300a0dabf2b1b7"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 9,
+            "float32_tensors_sha256": [
+              "4d5889d1b5649739fe680c2f43bcf8f3c7afc8535a459187ca51f09f24bc4bd4",
+              "c4489e5091bc93f563a3be9192d9281308fe907f0ae32ba4a80e2647721d4b0d",
+              "4fb060823a0e3b0782e1c6883ba3aa8a5f503fe507ffad24294dd69880bf10db",
+              "993a829b98d3b8ce92bdd25ca7a2fc1bb6fd264e43286ab0170440ce186dde50"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 10,
+            "float32_tensors_sha256": [
+              "5d1485bf27d5ea8c16b7f6f9e1eca182ee1b756d2a57e94999b6299bb5baf6b3",
+              "80e0ecacca8ffbadc8228c9a0cb515e47725e736706927b31287c1edfc9fd93a",
+              "08369d3747922b398c10c65cb49f1af41f1eedfb0c7abc76a235281a303b59b1",
+              "599a66c417f759b50f341f749b9454f78b58c199a481d835767988e2a35553ae"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 11,
+            "float32_tensors_sha256": [
+              "92b2edf97821fb35542de30204992e68d16f0508f0d2610080b66f2debc228c8",
+              "ba8772adec84d35348fe37f0f2990a61702eb9552113aa95c6b6b0079406eaa3",
+              "b7eb3388301d99fd2ab8a2080b29dc49b962edd0ec49bb928ccd4c29ee0f6c18",
+              "81a8299d080fadb9df1435510edc086346a798f6893cc78d1a8864bfa756ac33"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 12,
+            "float32_tensors_sha256": [
+              "421395d342008a5c54df994c44ebcd39c005f99b3329efaf959fb055a3b7a5b3",
+              "c51a1c98cb846cfd72f0501c0840246df86d43e41b69c6b5f47e5512d3fc0b00",
+              "f60c0153e25f7ab3676829ada1badf500bc53d6dbdd9d5145dbe089e3bca23b4",
+              "baa91885a4891d720eda83cfd647bca721f6f825da385601fbec3552c24bc00a"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 13,
+            "float32_tensors_sha256": [
+              "721fada1278a4328171f9f2ade8abb7040b42a428eebbd84f57b5cb8e818ea59",
+              "ec6e4e263842a5363071e9c36d6ca838b12687ddf93f63a65b7e64012d2af258",
+              "ef68213d7f3b60afd2c3ab271fcd91d3d253f55f14e498a3175aa253dc31bae5",
+              "1aceb85fa5c4bcbd4bbe0489159bb8f104a3d2aee84af6e837689cbae3e6d75e"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 14,
+            "float32_tensors_sha256": [
+              "03607768591e49c7daf77b5161bc3699e74fe0241b28f699e3395ea60fe03d7e",
+              "9b5f6433f29d2595bbefb908e3b3256c6d3e096025f2047faf3127f604ea3204",
+              "773fd5ce4e396def5c698855b00f64b290c3cb20a6ab0ea9b2eb22a34783e53f",
+              "cd26b5343ac2415d244cc99a0f74f4db406f5366a15e020954fbf99bc526075f"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 15,
+            "float32_tensors_sha256": [
+              "6e2abad9216831eaf29ccb6b4718be54ff16fd0216089d92b222b358b4ca84ec",
+              "4ecc4a6b2840213ae6b5a9d7572de177e02fa2b798e5b5029fb154b48feb08cf",
+              "6c92de1e24a7615fe37f121df7c35defc53b99df28c4bdb54dba8300fc482680",
+              "9f5381f98cc698ea1aa3216be56e5c97f81ea9e014354ffdfebfe0f1ec7e0648"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 16,
+            "float32_tensors_sha256": [
+              "b5a83b80fcc79d179e27dd98d0b753665b1f49b463fcbe8a7e507a3780d1be32",
+              "5d07ad80d1d57e5d28e5d32a990dcd51951c4cd234074e35f44a9e8c50480d88",
+              "d9da79c6cd7fdbc0ffb41b0d448684a368c3df692c655f9e3c371aaa4d6be268",
+              "fcb928c9ab74f451ea15850ee64899bf2b3728a04f61626adcef82197c4c46d5"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 17,
+            "float32_tensors_sha256": [
+              "2970ccb27d0053a2d1613f92987a750e27c2e46fc972ded81cf2d81db418f69f",
+              "301255b251d3513e5cca562c1981e320fbb3a5ce7cfb85157bdb7510a3828acf",
+              "46ea3a7ac771bd860c26b04171c72ab93562ee0601c4d16c7c5282ba2da789c5",
+              "b52966428a2283865b2d4dc7818a5ea6de1750104d1253888ff70b8d72297032"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 18,
+            "float32_tensors_sha256": [
+              "d697048008cb45be3c570895cdc4c41a3aee40e4acd0edc86e0acd93a6f64230",
+              "85fae4960afd2fb6a1806d9e6dd20a11c2c353bc8382bb3553d011afdaf09b04",
+              "b6de492bf2a139757172550becbdde12930def9ed2482b42775f981026b00eea",
+              "2d50215b4d78c67fa8398b36e7da874e8d9b414c47117c82b31fc9b5b80084c2"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 19,
+            "float32_tensors_sha256": [
+              "db80266e0de553652aee3833954f0a135e339a13ee2b932fa89a9ff37264ae60",
+              "17a6c1c5b5b48ebaf1362551859fd18de788a3d7fc1707ef423ea0da37ce8d72",
+              "7ff99b6ae5da85ab066e3d40f7265d899e7b63756c7fcbb15fd2b5304488f3df",
+              "0d080b068ec683afd670b0afd29320c6af06e0d2a96ba05cc37064359abfd9a6"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 20,
+            "float32_tensors_sha256": [
+              "4389cd01e2377235a11aeba96d924b418faf345a11b915253382cce4f35c5654",
+              "f798e10330cb205fe3f516cc240689dada583ebf9132864f0787ffd3b6f69b23",
+              "1554fc9910096fad88d19f678be6685f627bca00ba244b953974163cca24f8fc",
+              "b6eb01a88637bb5cdff7a64c6eb5a0cdc4b2a4f0ba53e9c6dffa9e43790bfc50"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 21,
+            "float32_tensors_sha256": [
+              "33e9e77fa4b1391b9a7e0bf0317d7ea9ddb8546e3712cbb2eaf33d132ec382d3",
+              "2d441dac0ea6ad2e5ffa0bad91226596aa8295b22910999afc2deff3ffa2df64",
+              "623f7116957ad7afed297922aefd8d9684600fa3e5542f6fa6dbc8336d89a702",
+              "b7a82689457779fc95090841a5a7c92bf9df96742569d307b4e5303212bcbe55"
+            ],
+            "samples": 32
+          },
+          {
+            "batch_index": 22,
+            "float32_tensors_sha256": [
+              "90e3242806bbb4304a321dee8b00bbc6418465b14b961ebeb04ad54a0094bfe0",
+              "50020bc6ff0e380c03b5f0e7c268430748881a59ee4332012a531b0fd5422687",
+              "f442d44604d80f51a0728a2d7c172c5b1c9853b6607e14c0424d7daa1c8f42f0",
+              "38f47c117e3affa363e244504f0334195ecdf49f2825d966982bf96388d6d355"
+            ],
+            "samples": 26
+          }
+        ],
+        "input_batches_sha256": "972f53097ba2718d3ed9edd77eeabdcab9228d93f894d1f7523570070117cd77",
+        "last_batch_samples": 26,
+        "parameters": 75008138,
+        "samples": 730,
+        "scaler_arrays_sha256": {
+          "mean_": "eb2aba720fb1c04c11fd3b8565d48be796a60e0ce340ec85fe124a4f7efb82d9",
+          "n_samples_seen_": "49b6faf5890ea29a960c3e4a7eed5717f9bb0263c44ddb0c2a6775f1f42b866f",
+          "scale_": "2668bf38077813be3d56abaf2629ff29932683347deade2bda17a798564ce0d9",
+          "var_": "257f8f9b00e355aad167c6b0e048d23f9dfc4db9e04d4bd9844a6b68edec7f61"
+        },
+        "scaler_reconstruction": "Dataset_Custom historical training-prefix StandardScaler; no model fitting",
+        "scaler_sha256": "36218f3a01edffe554e813b27eb037fba0a35098834e9912fa9434f720c4b8cb",
+        "shuffle": false,
+        "split_metadata": {
+          "flag": "test",
+          "mode": "ratio",
+          "slice_start": 2827,
+          "slice_stop": 3653,
+          "test_rows": 730,
+          "train_rows": 2557,
+          "val_rows": 366
+        },
+        "strict_load": true,
+        "tf32": {
+          "cudnn_allow_tf32": true,
+          "matmul_allow_tf32": false
+        },
+        "weights_only": true
+      },
+      "logical_run_id": "B_screen_BTCUSD_revin-TimesNet_h1_s2021",
+      "prediction_keys_sha256": "7370027a8cb2e2e9cba5e2a35f94dfa2ccb30e7a50facc2289d459e2b42e8521",
+      "receipt_command": "/data/envs/phase1-rx8000/bin/python run.py --task_name long_term_forecast --is_training 1 --model_id B_screen_BTCUSD_revin-TimesNet_h1_s2021__attempt-01 --model revin-TimesNet --data custom --root_path /data/coding/DeReFusion/dataset/ --data_path BTCUSD-2016-2025.csv --features MS --target Close --freq b --seq_len 96 --label_len 48 --pred_len 1 --enc_in 4 --dec_in 4 --c_out 1 --d_model 32 --n_heads 8 --e_layers 2 --d_layers 1 --d_ff 2048 --moving_avg 25 --factor 1 --dropout 0.1 --embed timeF --train_epochs 30 --batch_size 32 --patience 5 --learning_rate 0.0001 --lradj cosine --rand_seed 2021 --num_workers 0 --des rx8_v1 --result_log reproduction/logs/phase1/B_screen.txt --deterministic --gpu_type cuda --gpu 0 --enable_recovery",
+      "receipt_config": {
+        "activation": "gelu",
+        "alpha": 0.1,
+        "anomaly_ratio": 0.25,
+        "augmentation_ratio": 0,
+        "batch_size": 32,
+        "c_out": 1,
+        "channel_independence": 1,
+        "checkpoints": "./checkpoints/",
+        "conv_channel": 32,
+        "d_conv": 4,
+        "d_ff": 2048,
+        "d_layers": 1,
+        "d_model": 32,
+        "data": "custom",
+        "data_path": "BTCUSD-2016-2025.csv",
+        "dec_in": 4,
+        "decomp_method": "moving_avg",
+        "des": "rx8_v1",
+        "deterministic": true,
+        "devices": "0,1,2,3",
+        "discdtw": false,
+        "discsdtw": false,
+        "distil": true,
+        "down_sampling_layers": 0,
+        "down_sampling_method": null,
+        "down_sampling_window": 1,
+        "dropout": 0.1,
+        "dtwwarp": false,
+        "e_layers": 2,
+        "embed": "timeF",
+        "enable_recovery": true,
+        "enc_in": 4,
+        "expand": 2,
+        "extra_tag": "",
+        "factor": 1,
+        "features": "MS",
+        "freq": "b",
+        "gcn_depth": 2,
+        "gcn_dropout": 0.3,
+        "gpu": 0,
+        "gpu_type": "cuda",
+        "individual": false,
+        "inverse": false,
+        "is_training": 1,
+        "itr": 1,
+        "jitter": false,
+        "label_len": 48,
+        "learning_rate": 0.0001,
+        "loss": "MSE",
+        "lradj": "cosine",
+        "magwarp": false,
+        "mask_rate": 0.25,
+        "model": "revin-TimesNet",
+        "model_id": "B_screen_BTCUSD_revin-TimesNet_h1_s2021__attempt-01",
+        "moving_avg": 25,
+        "n_heads": 8,
+        "node_dim": 10,
+        "num_kernels": 6,
+        "num_workers": 0,
+        "p_hidden_dims": [
+          128,
+          128
+        ],
+        "p_hidden_layers": 2,
+        "patch_len": 16,
+        "patience": 5,
+        "permutation": false,
+        "pos": 1,
+        "pred_len": 1,
+        "propalpha": 0.3,
+        "rand_seed": 2021,
+        "randompermutation": false,
+        "result_log": "reproduction/logs/phase1/B_screen.txt",
+        "root_path": "/data/coding/DeReFusion/dataset/",
+        "rotation": false,
+        "scaling": false,
+        "seasonal_patterns": "Monthly",
+        "seed": 2,
+        "seg_len": 96,
+        "seq_len": 96,
+        "shapedtwwarp": false,
+        "skip_channel": 32,
+        "spawner": false,
+        "split_mode": "ratio",
+        "target": "Close",
+        "task_name": "long_term_forecast",
+        "test_end": null,
+        "timewarp": false,
+        "top_k": 5,
+        "top_p": 0.5,
+        "train_end": null,
+        "train_epochs": 30,
+        "tv_B": 0,
+        "tv_C": 0,
+        "tv_dt": 0,
+        "use_D": 0,
+        "use_amp": false,
+        "use_dtw": false,
+        "use_gpu": true,
+        "use_multi_gpu": false,
+        "use_norm": 1,
+        "val_end": null,
+        "wdba": false,
+        "windowslice": false,
+        "windowwarp": false
+      },
+      "reference_attempt": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\rtx8000-intake-20260929-v2\\attempts\\B_screen_BTCUSD_revin-TimesNet_h1_s2021__attempt-01",
+      "reference_pred_array_sha256": "0eda7e4d749cda0be9d3b506365a32331c470dadc33eec0339678a47b4ab8cf2",
+      "reference_pred_file_sha256": "de7ad12f999047c7b869433209960f378f20c18ab31634faca67621a98f57810",
+      "reference_selection_track": "external",
+      "reference_source_commit": "096c68be953a3efb2c0e0658bcf16b5b88403f44",
+      "reference_track": "rtx8000",
+      "reference_true_file_sha256": "d671793c633f071a8d6b9866e4d26f832dd604ec06425252256efa270e30d22c",
+      "replay_pred_array_sha256": "80f2610f2652d550d63bf9d2099b795d01c4ddc1b0daeb3b90a23b19d6453b62",
+      "replay_pred_file_sha256": "01bebf660e9994373d5055002323b7fc7e47f720179350f86eaa1db8c020807f",
+      "replay_true_array_sha256": "c754908385f9ccce8b92dcc83830b4b44ddcf1c396295ed29032b6968b26f843",
+      "shape": [
+        730,
+        1,
+        1
+      ],
+      "source_execution_track": "nonconfirmatory_remote_gpu_supplement",
+      "source_label": "rtx8000",
+      "truth_bitwise_equal": true
+    }
+  ],
+  "selection": "Fixed bridge manifest order; no score-driven selection",
+  "settings": 1,
+  "source_provenance": {
+    "head_commit": "f6093f1d85f13613dfe1a3ac0d25b554ca83ccd3",
+    "lf_normalized_source_sha256": {
+      "data_provider/data_factory.py": "8034b4a9b624d358e0a33fe584b3575c9b61c8aff6ee30537a865a126b63ad9a",
+      "data_provider/data_loader.py": "e5ef27eace5e7b86d1e62ff92dceffd3ff37f500815de238df743c32b2ec3827",
+      "exp/exp_basic.py": "5f96336f6f29eb76f33a387037b9f8b834972a4d02e68d1d0479e589548282ad",
+      "exp/exp_long_term_forecasting.py": "3a4943b407c4fa8fd28b3f7bbba9541354dfdbe65af2062d4c55f628bf69faf6",
+      "layers/AutoCorrelation.py": "354b44e54bdd39380c9f5c2bfaaf3b967fdbe80dc7998741dbfdfa5d521a040c",
+      "layers/Autoformer_EncDec.py": "48745b4bb647355e9845792a855df9c59fd7df7fcc664c765351fec390c4073e",
+      "layers/Conv_Blocks.py": "16d9f2d9e4fa094dc357901e32beecda9839709bcca02625e6447186933ce4e1",
+      "layers/Crossformer_EncDec.py": "ee2cc5c8d3a44f4de67ce986e6b442488826a20fa4d8f87991941a75587936a1",
+      "layers/DWT_Decomposition.py": "422af1eec77df1b9dcfdea3d457e545c8575da69da4f505f27ba54db0c9f7764",
+      "layers/ETSformer_EncDec.py": "5c598147e4ae861a108f4ef0641f5c50b0b69f552a63bc29e8e7b1cc99f25e90",
+      "layers/Embed.py": "17e7c3577324c41a0da427a199c955b782fde905aabb1f7cbc3c4e15ebd4ae35",
+      "layers/FourierCorrelation.py": "cea1095b3a94764f240e6ac67280d6ea7fac9f5ef54de137cd1f5e5adab1305f",
+      "layers/MSGBlock.py": "01d3d446a214c33062ba098f251a1e49ed8a342dd4372e973a0a8c0dde5cd8c0",
+      "layers/MambaBlock.py": "cbcbbd6cbb83366e40ffe5926da16b4ca0aa11b6649e2259750994b60527a390",
+      "layers/MultiWaveletCorrelation.py": "cf0b8faf45a1b7fab4a3c1c521623c0762e2f9d7375b20ba9a9acd2142747342",
+      "layers/Pyraformer_EncDec.py": "ab92396677a9ad2e49c7bf171e15c96108d388b8898d29ee520d18dfe0bd5306",
+      "layers/RevIN.py": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc",
+      "layers/SelfAttention_Family.py": "6f6592aed0753e342fc04c01db70528c2eb191eeb067cd5fd4c8d348fddcb794",
+      "layers/StandardNorm.py": "3f690dc5fc0e395d4f1ffe6396717548d18bd04f4518258308bbe5f392703f5f",
+      "layers/TimeFilter_layers.py": "3441713bdb54de1153afe3d5e746de4e251c07b545492180a073c4f275df6b9f",
+      "layers/Transformer_EncDec.py": "7b26f4459735c341f161011f6bc24b9deb8ecc3bcf61e4f15431998272a44fb4",
+      "layers/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "models/derefusion/DeReFusion.py": "5ea0946db3b96f9656cd23c809ee367239554ec674748d0e34f80e22446ff728",
+      "models/revin-DLinear.py": "4d87229bfc936256c7d3bbc8bdbf25d9ce746756ddac608a873a0621f528ee52",
+      "models/revin-PatchTST.py": "b868940f097b5641c9ea29f5696b48b4f4b876e95b68ccdb9ded8aea8ada1e6b",
+      "models/revin-TimesNet.py": "852d21ce395848b7f7b0143199080d11f1ed68a20668c2824dcbc053cdfc336a",
+      "models/revin-iTransformer.py": "7be1cd8474538a2ea8d8b9511a71e14f63752b38e256a811aa607efb80c0cbab",
+      "reproduction/configs/phase1_modern_baselines.json": "097f74601d222b1f59b2d58f134bd0c760bc27550df02316bbf82aa96a4a9d3d",
+      "run.py": "39d330b33943f6a6bccfd9f8b31475811301948fa3ec253eb40039c0b821876d",
+      "utils/timefeatures.py": "319b3da2ef15ccae95162b1b4f4a9a0b0da63fa0062a7f6006a06dd567258d85"
+    },
+    "reference_commits": [
+      "096c68be953a3efb2c0e0658bcf16b5b88403f44"
+    ],
+    "unchanged_paths": [
+      "data_provider/data_factory.py",
+      "data_provider/data_loader.py",
+      "exp/exp_basic.py",
+      "exp/exp_long_term_forecasting.py",
+      "layers/AutoCorrelation.py",
+      "layers/Autoformer_EncDec.py",
+      "layers/Conv_Blocks.py",
+      "layers/Crossformer_EncDec.py",
+      "layers/DWT_Decomposition.py",
+      "layers/ETSformer_EncDec.py",
+      "layers/Embed.py",
+      "layers/FourierCorrelation.py",
+      "layers/MSGBlock.py",
+      "layers/MambaBlock.py",
+      "layers/MultiWaveletCorrelation.py",
+      "layers/Pyraformer_EncDec.py",
+      "layers/RevIN.py",
+      "layers/SelfAttention_Family.py",
+      "layers/StandardNorm.py",
+      "layers/TimeFilter_layers.py",
+      "layers/Transformer_EncDec.py",
+      "layers/__init__.py",
+      "models/derefusion/DeReFusion.py",
+      "models/revin-DLinear.py",
+      "models/revin-PatchTST.py",
+      "models/revin-TimesNet.py",
+      "models/revin-iTransformer.py",
+      "reproduction/configs/phase1_modern_baselines.json",
+      "run.py",
+      "utils/timefeatures.py"
+    ]
+  },
+  "status": "completed_descriptive_only"
+}
