@@ -39,16 +39,24 @@ export default function LiveComputeFlow() {
       const data = (await response.json()) as Partial<Snapshot>;
       if (!data.readOnly || !Array.isArray(data.tasks) || !Array.isArray(data.hardware)) throw new Error("状态数据格式无效");
       setSnapshot(data as Snapshot); setError(null);
+      return true;
     } catch (failure) {
-      if (!signal?.aborted) setError(failure instanceof Error ? failure.message : "无法连接状态服务");
+      // abort 没有可读原因：卸载和超时都会走到这里，所以交给调用方判定，
+      // 不要在这里按 signal.aborted 决定，否则超时会被静默吞掉。
+      if (failure instanceof DOMException && failure.name === "AbortError") return false;
+      setError(failure instanceof Error ? failure.message : "无法连接状态服务");
+      return false;
     }
   }, []);
   useEffect(() => {
     let alive = true; let timer: ReturnType<typeof setTimeout>; let controller: AbortController;
     const poll = async () => {
       controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 8000);
-      await refresh(controller.signal); clearTimeout(timeout);
+      let timedOut = false;
+      const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, 8000);
+      const ok = await refresh(controller.signal); clearTimeout(timeout);
+      // 超时会留下一份旧的 snapshot；不显式标记的话，页面会继续显示一份看起来正常的过期状态。
+      if (alive && !ok && timedOut) setError("状态服务响应超时（8 秒）");
       if (alive) timer = setTimeout(poll, 5000);
     };
     void poll(); return () => { alive = false; clearTimeout(timer); controller?.abort(); };
@@ -64,9 +72,14 @@ export default function LiveComputeFlow() {
         const from = nodes.current[edge.from]?.getBoundingClientRect(), to = nodes.current[edge.to]?.getBoundingClientRect();
         if (!from || !to) return [];
         const vertical = to.top >= from.bottom - 2;
-        const x1 = (vertical ? from.left + from.width / 2 : from.right) - box.left;
+        // 同一行上的回流（intake-8000 在第 2 列 → gpu-replay-queue 在第 1 列）必须从源节点
+        // 左侧出发、接到目标节点右侧；否则连线会横穿源节点，箭头也指向错误的一边。
+        const backward = !vertical && to.left + to.width / 2 < from.left + from.width / 2;
+        const startX = vertical ? from.left + from.width / 2 : backward ? from.left : from.right;
+        const endX = vertical ? to.left + to.width / 2 : backward ? to.right : to.left;
+        const x1 = startX - box.left;
         const y1 = (vertical ? from.bottom : from.top + from.height / 2) - box.top;
-        const x2 = (vertical ? to.left + to.width / 2 : to.left) - box.left;
+        const x2 = endX - box.left;
         const y2 = (vertical ? to.top : to.top + to.height / 2) - box.top;
         const mid = vertical ? (y1 + y2) / 2 : (x1 + x2) / 2;
         return [{ key: edge.from + edge.to, d: vertical ? `M${x1},${y1} C${x1},${mid} ${x2},${mid} ${x2},${y2}` : `M${x1},${y1} C${mid},${y1} ${mid},${y2} ${x2},${y2}`, label: edge.label, x: (x1 + x2) / 2, y: (y1 + y2) / 2, waiting: /wait|queue/.test(edge.kind) }];
