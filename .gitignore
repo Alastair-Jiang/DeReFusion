@@ -19,6 +19,13 @@ eggs/
 .eggs/
 lib/
 lib64/
+# The Next.js site under research-ops-site/ is not a Python package: its own
+# lib/ (shadcn helpers) and build/ (Vite plugin source) are tracked source.
+# Without these negations a fresh clone or worktree cannot build the site.
+!research-ops-site/lib/
+!research-ops-site/lib/**
+!research-ops-site/build/
+!research-ops-site/build/**
 parts/
 sdist/
 var/
