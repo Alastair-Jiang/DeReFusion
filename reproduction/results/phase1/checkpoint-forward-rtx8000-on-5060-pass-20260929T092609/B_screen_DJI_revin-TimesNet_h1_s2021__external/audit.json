@@ -1,0 +1,350 @@
+{
+  "checkpoint_sha256": "5b6e9c41d332366024e93f96d05614c5bac60d3deb62d19ea4bfe3b6f0098c73",
+  "differences": {
+    "bitwise_equal": false,
+    "max_absolute_prediction_difference": 5.841255187988281e-05,
+    "mean_squared_prediction_difference": 7.661742687835421e-11,
+    "numerical_equivalence_claim": false,
+    "numerical_equivalence_threshold": "TBD",
+    "prediction_difference_l2": 0.0001961171800045417,
+    "reference_mse_float64": 0.012391755886723506,
+    "relative_prediction_difference_l2": 2.9963829721843418e-06,
+    "replay_mse_float64": 0.012391668509194154,
+    "signed_mse_difference_float64": -8.737752935257526e-08
+  },
+  "effective_root_path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\dataset",
+  "elapsed_seconds": 9.34400000000096,
+  "inference": {
+    "amp": false,
+    "batch_size": 32,
+    "cudnn_benchmark": false,
+    "cudnn_deterministic": true,
+    "dataset_arrays_sha256": {
+      "data_stamp": "96b7440eebaca024729840b255e1d1e593777d23eae5f0add39d4e3f38af7f9a",
+      "data_x": "dcbef7e02efe45ddf80e0c8c36869d2553811f808d1343c56e81f1720490d65e",
+      "data_y": "dcbef7e02efe45ddf80e0c8c36869d2553811f808d1343c56e81f1720490d65e"
+    },
+    "deterministic_algorithms": true,
+    "deterministic_warn_only": true,
+    "drop_last": false,
+    "gradient_mode": "inference_mode",
+    "input_batches": [
+      {
+        "batch_index": 0,
+        "float32_tensors_sha256": [
+          "1dce339a9fa4df303e1cdda64a4ebfe5c7d57908171649dd5776569a126383f2",
+          "e1410a912c501d6a06b1065d46691976c32000744e3655a13bf597714141c305",
+          "fd3fbe1a23b5a62c90635ebf2c10e379b3a0744dda83784f7aa5a7bfc419fcd4",
+          "e22c484247764be2a8da3e3fae81d209dcc259d3345616e3cec495ceba27a799"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 1,
+        "float32_tensors_sha256": [
+          "48d767fa0542bdb398bf45a23e35cf243d9b1ddcc1ec7d5df5a67042c96d7ee8",
+          "7ecdc1a16ab9e5b4dd8181282939495860607e6273a3a98c741588e5180d6519",
+          "a3c09fbc50cbebdc5d13ad6c4832488eabf5d7e1fb1c35b524c3101dea45abde",
+          "1de3c6e021fff35367f7ba1e50b18a4b15e1e52c186ed562c99ed9c867e3941f"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 2,
+        "float32_tensors_sha256": [
+          "ab5e05d3d5e4f38f552867d85ad871d03a98cba5a4ad1da625601359abb9f4cb",
+          "f8937ff8ecd317fd93c65c8bdb10365e11c55e9b0bcd1e05e2d8d55676de3df9",
+          "e91d215236f98cb1ec895c197bb7207e7a9b1236cb75aadb515224e1fee88cd3",
+          "a69b2ab9572ff88e953c4222755587abe698bc4cef487cd5db9c71a40cd08a89"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 3,
+        "float32_tensors_sha256": [
+          "035e7fea759e9c72bcaff8e9611ea8ce19e6d01b4e68414e22aa6ead8a4274ea",
+          "e42b340fc69a04478417452d2983a9dd82fdbe304081c59edd4662dffe9d39e9",
+          "f7dbfebeddcc40bc1f3f864e29a3c4ed925862a8e8f3a626ef219885867029a2",
+          "af6df35cac3aec1b6557aa13f3270c5596731760e642703af07dcd4c7547e727"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 4,
+        "float32_tensors_sha256": [
+          "b11a9b5efc3d2bdcbd11c0cbc7b70b9b68a0e337c765e883c0169cc024498978",
+          "46c6334420c8c80fd092560086b2c73bda8a8779c6050d196138420df97acc69",
+          "6f5dd11dfeecca8e54bd52fe22c90ff1124f0286bd452920ffb36e5d6350a5ae",
+          "c21dfb804b1dcc83b705497bad02e328706495255b1892266471b621c316e47f"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 5,
+        "float32_tensors_sha256": [
+          "cc5d092753ea12badf623e0b524358dc4be30a2015c731709e4fde061c6531a2",
+          "561c9fb8a770c1729f31d4bf583200fd1f0ac3dcd2ff78e5ee94d7d9d155c492",
+          "eed5051c411b72d0d25ce36c30a11f85f3d6fb76ee5eaeb11e1f2d0ec1abea8b",
+          "fd4ce5addd84f7eae3e16e85dfca2c9d1913c7e1e5a22029e8c8966a7b27ca29"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 6,
+        "float32_tensors_sha256": [
+          "3fd8a283b4c50cf272071f2fbb839b5b0a23691709070f9c1b9daae416280035",
+          "5e9110d6e3075c6c6c022357b255ce3fe9bf961b6e123c1db22a4e3ad3b635c7",
+          "f677f63d1a3b5b71dfcb3de311e6c84c35499992dd6ee8bdb6d010b0de642a2b",
+          "8259c1186f1ce80839dc6e60106d6e158c2e86a02b2229523e16c0a58c783eab"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 7,
+        "float32_tensors_sha256": [
+          "dea77bdc4850724d492ff42ec94e5fdcaaad5dc2b40245ce4a009c278aa90030",
+          "9115c55c4760ccc54b422c1395d16eee4fbb9b7bc984ba465724e01b1f71371a",
+          "87f394798413d295324dec5a6b6e0dfebcf858f22e500928adea552d91432348",
+          "dceedd2eeed025b9c41221a66a562f8d7b8ed45c5b1c185ff73befec55443e48"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 8,
+        "float32_tensors_sha256": [
+          "7a51281cb127fb9b0a1be8fbfd8e67e74b82c93636b92873c6a3c7b8fdcb01d7",
+          "bcf0325e71de894aea29bf96886ff875beca4fc179a249836c989a6604016b9f",
+          "254beb653b30277dc425626a64a1e0e759a2e9479ce08d507f4732ccec19df90",
+          "5d4b9a9b3935df93b9f4fe66ffab91f9321ccc64737375ec9ac959d865ccc468"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 9,
+        "float32_tensors_sha256": [
+          "6818ba1f0ff7bbf933d0027aa2bdf4897c2303bf6863ee1e9d2ad31828f6e3f4",
+          "f8fc06786004cd022e9e2ca93f53b7d7e41658e97ab41bd09cf3d95b5a9fd0c8",
+          "1bc8f3e627529f58eeea11a6de484d58ce30d0524b8ccc475a6cd7ff72a81984",
+          "ad4386d27c86107475bc4b4717a62527ab2a9143af7a72bf745468df8f514115"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 10,
+        "float32_tensors_sha256": [
+          "684361e3b42a9fbabac9989f29927c19f43f01625e39e8992f9a669356933c7a",
+          "ebce3453b262f43fbb57741e5d4010569e5e150eb7cf67f36abba5e2fc76d3df",
+          "ab012e08dc55218e4d1cbe52ca93d68a7e0707b0042b38a8c8d6adc65d55a01b",
+          "58e4e54872fd71396632d1d2066afd1e2e7bd984dadd05f3deaefa7acb47ccce"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 11,
+        "float32_tensors_sha256": [
+          "608d6d409265beb360dbd6d25736a5052fc9b3ac11159fe87ebf4d790e799628",
+          "566b45ca646748b2494a5e2c99e6946d763d012c45a2217a75aec60914b6482e",
+          "3a11e821ab395a5155e3ba4285b66780e894b3ded9469b2499baceb64b8441b0",
+          "6f4b4bab162501a921069c09f26425ef3d7e9d27c9665b73d4f3cba2a2bde630"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 12,
+        "float32_tensors_sha256": [
+          "9597bdcbbfcc2a90e98c1014e01a39cbc6fc550fc59a268e63172018389bebcf",
+          "2e2f23ace63940ad841fa456bd76ec5be8b444dbf0094ecb615f1f16de9d2c59",
+          "65d3bbcfe5106d1a0671fda41dec2a0635d537c7acb79e5756752da924bbc33d",
+          "e723096d4e63b6db46986ee45433954061287c6de0387e8932020ed9a39f3919"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 13,
+        "float32_tensors_sha256": [
+          "95418a9e5cb260946daf53050f239100d7aacd4064ed1e2b4490ad1049d9c310",
+          "730fdce58962cbba77c06061e5c9b551efb6293e7c651f70f1746c4178383b09",
+          "4ee7f011df1945160822421e98328dbd5e7c252a45819eedda6fd0812b6efbfb",
+          "0c951c4a76315b2982c6c9af8b204746a4d5beb79f76c4e1c7c46e270dc1ba65"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 14,
+        "float32_tensors_sha256": [
+          "b09dceab8150b4eba84944cbb4f24b88bf51ed821912c18565238bbf045e5ce5",
+          "1c84a7ba17ea33f9f894df935b0103ea5545103ff459c1a4cbe1e2d0cac1f8e9",
+          "4bee42a2527b194063dacf44ef2ea0f1e7ec3df27ed4a10c6a9fa48e6853f02c",
+          "205aaf6395c5ef65f840438284aea9537b4a5b5bf9bf3ae6a6f6820fe1e05ddd"
+        ],
+        "samples": 32
+      },
+      {
+        "batch_index": 15,
+        "float32_tensors_sha256": [
+          "42b31dccf802c9ad9707e3d124e56a798c49e492bb98a838c5303f669386c35c",
+          "3964d0d738e8c3ed67e594f6af9afa821219111c417fdf5abb600eaaace34724",
+          "7df682d49a4bd21011cc677765378fe0e1cb5a0c54c900414de201b5cd0799c4",
+          "572aa6a40ff5fca65036e94f2928c1d4fcecf847cf701fe65e6bfd7d4e8af9a8"
+        ],
+        "samples": 22
+      }
+    ],
+    "input_batches_sha256": "e45368a7383e2371bda1555dae4991eb83acba31c122f7c08134dd6679896fcf",
+    "last_batch_samples": 22,
+    "parameters": 75008138,
+    "samples": 502,
+    "scaler_arrays_sha256": {
+      "mean_": "5fb0e2838ae73f75b2f0c3cb4925b73e42f8cd0430dbc5f5fd1e026b9bf995d1",
+      "n_samples_seen_": "8c6bed6b7e58e87634bbd0b27790a36d1bd17b7a2072de91e769051fb492ad0a",
+      "scale_": "a07c81c8b404e2b26c899dddce3c17e92298b5c94505db76e4c68755f7266be4",
+      "var_": "cbd2e52f927516ce753ff33aa92ae6d92fbe7100fb172733cb76b1fdaa99cfb6"
+    },
+    "scaler_reconstruction": "Dataset_Custom historical training-prefix StandardScaler; no model fitting",
+    "scaler_sha256": "7bcbfa49791837dd847385883ee63a2cbd64411a65fdcce7a327460a1f1bff9d",
+    "shuffle": false,
+    "split_metadata": {
+      "flag": "test",
+      "mode": "ratio",
+      "slice_start": 1915,
+      "slice_stop": 2513,
+      "test_rows": 502,
+      "train_rows": 1759,
+      "val_rows": 252
+    },
+    "strict_load": true,
+    "tf32": {
+      "cudnn_allow_tf32": true,
+      "matmul_allow_tf32": false
+    },
+    "weights_only": true
+  },
+  "logical_run_id": "B_screen_DJI_revin-TimesNet_h1_s2021",
+  "prediction_keys_sha256": "b62efbff9cb198a6d5b2e24625b644305478aba0e79e1570122d2a1f15a880ac",
+  "receipt_command": "/data/envs/phase1-rx8000/bin/python run.py --task_name long_term_forecast --is_training 1 --model_id B_screen_DJI_revin-TimesNet_h1_s2021__attempt-01 --model revin-TimesNet --data custom --root_path /data/coding/DeReFusion/dataset/ --data_path DJI-2016-2025.csv --features MS --target Close --freq b --seq_len 96 --label_len 48 --pred_len 1 --enc_in 4 --dec_in 4 --c_out 1 --d_model 32 --n_heads 8 --e_layers 2 --d_layers 1 --d_ff 2048 --moving_avg 25 --factor 1 --dropout 0.1 --embed timeF --train_epochs 30 --batch_size 32 --patience 5 --learning_rate 0.0001 --lradj cosine --rand_seed 2021 --num_workers 0 --des rx8_v1 --result_log reproduction/logs/phase1/B_screen.txt --deterministic --gpu_type cuda --gpu 0 --enable_recovery",
+  "receipt_config": {
+    "activation": "gelu",
+    "alpha": 0.1,
+    "anomaly_ratio": 0.25,
+    "augmentation_ratio": 0,
+    "batch_size": 32,
+    "c_out": 1,
+    "channel_independence": 1,
+    "checkpoints": "./checkpoints/",
+    "conv_channel": 32,
+    "d_conv": 4,
+    "d_ff": 2048,
+    "d_layers": 1,
+    "d_model": 32,
+    "data": "custom",
+    "data_path": "DJI-2016-2025.csv",
+    "dec_in": 4,
+    "decomp_method": "moving_avg",
+    "des": "rx8_v1",
+    "deterministic": true,
+    "devices": "0,1,2,3",
+    "discdtw": false,
+    "discsdtw": false,
+    "distil": true,
+    "down_sampling_layers": 0,
+    "down_sampling_method": null,
+    "down_sampling_window": 1,
+    "dropout": 0.1,
+    "dtwwarp": false,
+    "e_layers": 2,
+    "embed": "timeF",
+    "enable_recovery": true,
+    "enc_in": 4,
+    "expand": 2,
+    "extra_tag": "",
+    "factor": 1,
+    "features": "MS",
+    "freq": "b",
+    "gcn_depth": 2,
+    "gcn_dropout": 0.3,
+    "gpu": 0,
+    "gpu_type": "cuda",
+    "individual": false,
+    "inverse": false,
+    "is_training": 1,
+    "itr": 1,
+    "jitter": false,
+    "label_len": 48,
+    "learning_rate": 0.0001,
+    "loss": "MSE",
+    "lradj": "cosine",
+    "magwarp": false,
+    "mask_rate": 0.25,
+    "model": "revin-TimesNet",
+    "model_id": "B_screen_DJI_revin-TimesNet_h1_s2021__attempt-01",
+    "moving_avg": 25,
+    "n_heads": 8,
+    "node_dim": 10,
+    "num_kernels": 6,
+    "num_workers": 0,
+    "p_hidden_dims": [
+      128,
+      128
+    ],
+    "p_hidden_layers": 2,
+    "patch_len": 16,
+    "patience": 5,
+    "permutation": false,
+    "pos": 1,
+    "pred_len": 1,
+    "propalpha": 0.3,
+    "rand_seed": 2021,
+    "randompermutation": false,
+    "result_log": "reproduction/logs/phase1/B_screen.txt",
+    "root_path": "/data/coding/DeReFusion/dataset/",
+    "rotation": false,
+    "scaling": false,
+    "seasonal_patterns": "Monthly",
+    "seed": 2,
+    "seg_len": 96,
+    "seq_len": 96,
+    "shapedtwwarp": false,
+    "skip_channel": 32,
+    "spawner": false,
+    "split_mode": "ratio",
+    "target": "Close",
+    "task_name": "long_term_forecast",
+    "test_end": null,
+    "timewarp": false,
+    "top_k": 5,
+    "top_p": 0.5,
+    "train_end": null,
+    "train_epochs": 30,
+    "tv_B": 0,
+    "tv_C": 0,
+    "tv_dt": 0,
+    "use_D": 0,
+    "use_amp": false,
+    "use_dtw": false,
+    "use_gpu": true,
+    "use_multi_gpu": false,
+    "use_norm": 1,
+    "val_end": null,
+    "wdba": false,
+    "windowslice": false,
+    "windowwarp": false
+  },
+  "reference_attempt": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\reproduction\\results\\phase1\\rtx8000-intake-20260929-v2\\attempts\\B_screen_DJI_revin-TimesNet_h1_s2021__attempt-01",
+  "reference_pred_array_sha256": "a46a3a117a161b009dc6d860f999588592ca24e8a69efd365408340749236642",
+  "reference_pred_file_sha256": "a0b856795cde0d02173794651f1a408af5643598d05761aabdbfa6ed86a32b4a",
+  "reference_selection_track": "external",
+  "reference_source_commit": "096c68be953a3efb2c0e0658bcf16b5b88403f44",
+  "reference_track": "rtx8000",
+  "reference_true_file_sha256": "fe984151d3ac290224c38a1a2d3bc65769a7c9df9efc48aec87f3c8ecedb753e",
+  "replay_pred_array_sha256": "07834ddedac283dcc1ab80dfd87372025ac38d303fe9036f7dc9920a6977ae92",
+  "replay_pred_file_sha256": "b5c33f55688bbb7afc4e6ccf0ce686cae17766da05608c729a597f6d635bd7ae",
+  "replay_true_array_sha256": "7b74afbf4142d688f7a233e4d022b5dba595feed0ebc8bfb48e8d2fecaf27a2a",
+  "shape": [
+    502,
+    1,
+    1
+  ],
+  "source_execution_track": "nonconfirmatory_remote_gpu_supplement",
+  "source_label": "rtx8000",
+  "truth_bitwise_equal": true
+}

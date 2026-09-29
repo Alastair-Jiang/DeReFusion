@@ -1,0 +1,2 @@
+protocol_version,stage,asset,model,horizon,seed,origin,split_mode,train_end,val_end,test_end,status,block_reason,batch_id,batch_role
+phase1-v1.1-2026-09-19,B_screen,DJI,revin-TimesNet,1,2021,legacy-fixed,ratio,,,,planned,,rtx8000-timesnet-remaining-v1,nonconfirmatory_timesnet_completion
