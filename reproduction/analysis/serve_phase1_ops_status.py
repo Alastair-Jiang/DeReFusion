@@ -285,13 +285,18 @@ def build_snapshot(repo_root, now=None, gpu_probe=None, process_probe=None):
     ]
     def intake_status(identifier, seen, failures):
         return "running" if verified and processes.get(identifier) else "failed" if failures else "observed" if seen else "unknown"
-    # GPU forward replay receipts are never inferred from successful CPU intake.
+    # GPU forward replay receipts are never inferred from successful CPU intake:
+    # only a written checkpoint-forward report for a received package counts.
+    # Each replay run writes its own report directory (the P4 bridge and the
+    # RTX 8000 supplement are separate runs), so every report is read.
     replayed = set()
-    for result in bridge_results if isinstance(bridge_results, list) else []:
-        if isinstance(result, dict) and result.get("reference_track") == "rtx8000":
-            identity = safe_run(result.get("logical_run_id"))
-            if identity:
-                replayed.add(identity)
+    for path in children(phase, "checkpoint-forward*/report.json"):
+        results = read_json(path).get("results", [])
+        for result in results if isinstance(results, list) else []:
+            if isinstance(result, dict) and result.get("reference_track") == "rtx8000":
+                identity = safe_run(result.get("logical_run_id"))
+                if identity in remote_completed:
+                    replayed.add(identity)
     queue_count = len(remote_completed - replayed)
     tasks = [
         task("stage-c", "Stage C confirmation", "local-5060", local_status, len(local_completed), local_total,
@@ -314,8 +319,13 @@ def build_snapshot(repo_root, now=None, gpu_probe=None, process_probe=None):
         task("bridge-replay", "Fixed checkpoint bridge replay", "local-5060", "completed" if bridge_report else "unknown", bridge_count,
              bridge_count if bridge_report else None, bridge_time, "fixed checkpoint forward report",
              "Completed descriptive forwards; numerical equivalence and pooling are not claimed.", now),
-        task("gpu-replay-queue", "RTX 8000 GPU replay queue", "local-5060", "waiting-resource" if queue_count else "empty", 0, queue_count,
-             remote_receipt_time, "received completions minus recorded GPU replay", "Waiting for the single CUDA resource used by Stage C.", now, queued=queue_count),
+        task("gpu-replay-queue", "RTX 8000 GPU replay queue", "local-5060",
+             "empty" if not remote_completed else "completed" if not queue_count else "waiting-resource",
+             len(replayed), len(remote_completed),
+             remote_receipt_time, "received completions minus recorded GPU replay",
+             "Waiting for the single CUDA resource used by Stage C." if queue_count else
+             "Every received package has a recorded descriptive forward; numerical equivalence is not claimed.", now,
+             queued=queue_count),
     ]
     edges = [
         {"from": "stage-c", "to": "intake-c", "label": "completed receipts", "kind": "artifact"},

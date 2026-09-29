@@ -189,6 +189,40 @@ class OpsStatusTest(unittest.TestCase):
         self.assertEqual(tasks["transfer"]["completed"], 2)
         self.assertEqual(tasks["gpu-replay-queue"]["queued"], 2)
 
+    def forward_report(self, directory, results):
+        return self.write_json(self.phase / directory / "report.json", {"results": results})
+
+    def test_gpu_replay_queue_counts_only_written_rtx8000_forwards(self):
+        self.progress()
+        self.receipt(self.remote / "attempts", self.run)
+        self.receipt(self.remote / "attempts", "B_screen_SECOND")
+        # The P4 bridge report carries its own reference tracks; it must not
+        # clear a queue that is waiting on RTX 8000 forwards.
+        self.forward_report("checkpoint-forward-5060-v1", [
+            {"logical_run_id": self.run, "reference_track": "p4"},
+            {"logical_run_id": "B_screen_SECOND", "reference_track": "local"},
+        ])
+        task = self.tasks(self.snapshot())["gpu-replay-queue"]
+        self.assertEqual((task["completed"], task["queued"], task["total"]), (0, 2, 2))
+        # A written forward clears exactly the received package it names, in its
+        # own report directory; a forward for a package never received adds nothing.
+        self.forward_report("checkpoint-forward-rtx8000-on-5060-v1", [
+            {"logical_run_id": self.run, "reference_track": "rtx8000"},
+            {"logical_run_id": "B_screen_NEVER_RECEIVED", "reference_track": "rtx8000"},
+        ])
+        task = self.tasks(self.snapshot())["gpu-replay-queue"]
+        self.assertEqual((task["completed"], task["queued"], task["total"]), (1, 1, 2))
+        self.assertEqual(task["status"], "waiting-resource")
+        # Repeated forwards of the same package still count once.
+        self.forward_report("checkpoint-forward-rtx8000-on-5060-v1", [
+            {"logical_run_id": self.run, "reference_track": "rtx8000"},
+            {"logical_run_id": self.run, "reference_track": "rtx8000"},
+            {"logical_run_id": "B_screen_SECOND", "reference_track": "rtx8000"},
+        ])
+        task = self.tasks(self.snapshot())["gpu-replay-queue"]
+        self.assertEqual((task["completed"], task["queued"], task["total"]), (2, 0, 2))
+        self.assertEqual(task["status"], "completed")
+
     def test_cpu_acknowledgements_deduplicate_successes_and_report_failed_pass(self):
         hashes = {self.run + "__attempt-01": "a" * 64, "C_confirmation_SECOND__attempt-01": "b" * 64}
         for consumer, identifier in (("consumer-stagec-20260929-v1", "intake-c"),
