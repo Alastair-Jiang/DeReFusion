@@ -52,6 +52,13 @@ export default defineConfig(async () => {
 
   return {
     server: {
+      host: "127.0.0.1",
+      proxy: {
+        "/ops-api": {
+          target: "http://127.0.0.1:8970",
+          rewrite: (path: string) => path.replace(/^\/ops-api/, ""),
+        },
+      },
       ...(managedLinux ? { host: "0.0.0.0", allowedHosts: ["terminal.local"] } : {}),
       ...(isCodexSeatbeltSandbox ? { watch: { useFsEvents: false, usePolling: true } } : {}),
     },

@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Toaster, toast } from "sonner";
+import LiveComputeFlow from "@/components/live-compute-flow";
 
 type View = "overview" | "experiments" | "evidence" | "protocols" | "tasks" | "compute" | "datasets" | "models" | "literature" | "repository" | "reports" | "audit";
 
@@ -27,7 +28,7 @@ const nav = [
   { id: "protocols", label: "协议与门禁", icon: LockKeyhole, count: "1" },
   { id: "evidence", label: "主张与证据", icon: Network, count: "4" },
   { id: "tasks", label: "任务与 Agent", icon: Bot, count: "3" },
-  { id: "compute", label: "算力与预算", icon: CircleDollarSign },
+  { id: "compute", label: "实时硬件任务流", icon: CircleDollarSign },
 ] as const;
 
 const secondary = [
@@ -63,6 +64,10 @@ function RunsTable({ compact = false }: { compact?: boolean }) {
 }
 
 function Overview() {
+  return <LiveComputeFlow />;
+}
+
+function HistoricalOverview() {
   return <>
     <section className="decision-banner"><div className="decision-icon"><LockKeyhole size={20} /></div><div><strong>Stage B 暂不可启动</strong><p>先解决 TimesNet 校准缺口，并完成 Stage A 产物审计与协议决策。</p></div><button>查看阻塞原因</button></section>
     <section className="metrics-grid"><MetricCard label="Stage A 运行" value="12 / 15" note="80% · 三项待处理" accent="#2457d6" /><MetricCard label="证据成熟度" value="早期" note="1 项部分支持 · 2 项失败" accent="#b7791f" /><MetricCard label="当前算力" value="0" note="没有运行中的计算任务" accent="#687386" /><MetricCard label="预计云端费用" value="¥25–126" note="完整 Phase 1 粗略区间" accent="#16845b" /></section>
@@ -87,7 +92,7 @@ function Evidence() {
 
 function Tasks() { return <div className="kanban"><section><div className="kanban-heading"><span>进行中</span><Badge tone="info">1</Badge></div><article className="task-card"><div className="task-top"><span className="mono">T-P1A-REVIEW</span><Badge tone="info">审计</Badge></div><h3>完成 Stage A 产物审计与总结</h3><p>校验哈希、补充 A10/A15 暂停记录，并形成阶段裁定。</p><div className="task-footer"><span className="avatar">C</span><span>Codex</span><span className="task-lock"><LockKeyhole size={13} /> 已锁定</span></div></article></section><section><div className="kanban-heading"><span>等待决策</span><Badge tone="warning">1</Badge></div><article className="task-card"><div className="task-top"><span className="mono">T-GPU-001</span><Badge tone="warning">审批</Badge></div><h3>TimesNet GPU 补跑方案</h3><p>先用单张 RTX 4090 完成三个校准任务，预算上限 ¥50。</p><div className="task-footer"><span className="avatar owner">J</span><span>项目负责人</span></div></article></section><section><div className="kanban-heading"><span>已阻塞</span><Badge tone="danger">1</Badge></div><article className="task-card"><div className="task-top"><span className="mono">T-P1B-RUN</span><Badge tone="danger">门禁</Badge></div><h3>启动 Stage B 筛选实验</h3><p>依赖 Stage A 全部产物和独立审计通过，当前不可执行。</p><div className="task-footer"><span className="avatar muted-avatar">—</span><span>未分配</span></div></article></section></div>; }
 
-function Compute() { return <div className="detail-grid"><section className="panel"><div className="panel-header"><div><span className="eyebrow">LOCAL</span><h2>本地计算环境</h2></div><Badge tone="neutral">空闲</Badge></div><div className="resource-block"><div className="resource-icon"><Code2 /></div><div><strong>Windows · CPU 环境</strong><p>PyTorch 2.5.1+cpu · Python 3.11.15</p></div></div><div className="resource-stats"><div><span>运行中</span><strong>0</strong></div><div><span>成功校准</span><strong>12</strong></div><div><span>资源阻塞</span><strong>1</strong></div></div></section><section className="panel"><div className="panel-header"><div><span className="eyebrow">CLOUD PILOT</span><h2>建议的云端试跑</h2></div><Badge tone="success">预算内</Badge></div><div className="resource-block"><div className="resource-icon cloud"><Cloud /></div><div><strong>RTX 4090 · 24GB</strong><p>仅补跑 A05、A10、A15，不启动 Stage B</p></div></div><div className="budget-row"><div><span>预算上限</span><strong>¥50</strong></div><div><span>建议时限</span><strong>2–4 小时</strong></div><div><span>预计单价</span><strong>约 ¥1.88/小时</strong></div></div><button className="primary-button wide" onClick={() => toast.success("算力审批草案已创建", { description: "预算上限 ¥50；仅限三个 TimesNet 校准任务。" })}>创建算力审批单</button></section></div>; }
+function Compute() { return <LiveComputeFlow />; }
 
 const datasets = [
   ["BOND10Y", "Bond / Yield", "2016–2025", "已验证", "6fa4…01c"],

@@ -77,6 +77,18 @@ class CompletedReceiverTest(unittest.TestCase):
         self.assertEqual(report["skipped"], [self.attempt])
         self.assertFalse(any(path.endswith("checkpoint.pth") for path in self.sftp.reads))
 
+    def test_bounded_prefetch_preserves_hash_validation(self):
+        calls = []
+        class PrefetchFile(io.BytesIO):
+            def prefetch(self, **kwargs):
+                calls.append(kwargs)
+        path = self.remote + "/" + self.attempt + "/checkpoint.pth"
+        with patch.object(self.sftp, "open", return_value=PrefetchFile(self.files[path])):
+            target = self.root / "prefetched.pth"
+            self.instance.download(self.sftp, path, target, self.receipt["sha256"]["checkpoint.pth"])
+        self.assertEqual(calls, [{"file_size": len(self.files[path]), "max_concurrent_requests": 32}])
+        self.assertEqual(target.read_bytes(), self.files[path])
+
     def test_hash_mismatch_quarantines_and_never_publishes(self):
         self.files[self.remote + "/" + self.attempt + "/checkpoint.pth"] = b"corrupt"
         report = self.instance.receive_pass(self.sftp)

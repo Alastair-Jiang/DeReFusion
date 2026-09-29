@@ -13,6 +13,7 @@ import json
 import os
 import posixpath
 import re
+import shlex
 import socket
 import stat
 import time
@@ -168,6 +169,10 @@ class Receiver:
         info = self.remote_file(sftp, remote)
         digest, transferred, next_update = hashlib.sha256(), 0, 25 * 1024 * 1024
         with sftp.open(remote, "rb") as source, local.open("xb") as target:
+            # Bounded pipelining avoids one network round-trip per 32 KiB read.
+            # Byte order and the full size/hash checks below remain unchanged.
+            if callable(getattr(source, "prefetch", None)):
+                source.prefetch(file_size=info.st_size, max_concurrent_requests=32)
             while True:
                 if self.deadline is not None and time.monotonic() >= self.deadline:
                     raise TimeoutError("authorized receiver duration expired; partial files retained")
@@ -185,13 +190,16 @@ class Receiver:
         if transferred != info.st_size or digest.hexdigest() != expected:
             raise IntegrityError("artifact size or SHA256 mismatch: " + local.name)
 
-    def receive_pass(self, sftp) -> dict:
+    def receive_pass(self, sftp, remote_health: dict | None = None) -> dict:
         report = {"status": "running", "published": [], "skipped": [], "issues": [],
                   "remote_root": self.remote_root, "pooling_authorized": False,
                   "training_performed": False, "gate_table": []}
         try:
             entries = sftp.listdir_attr(self.remote_root)
             report["metadata_snapshot"] = str(self.snapshot_metadata(sftp, entries))
+            if remote_health is not None:
+                with (Path(report["metadata_snapshot"]) / "remote_health.json").open("x", encoding="utf-8") as stream:
+                    json.dump(remote_health, stream, indent=2)
             for entry in sorted(entries, key=lambda item: item.filename):
                 if not stat.S_ISDIR(entry.st_mode) or "__attempt-" not in entry.filename:
                     continue
@@ -275,7 +283,39 @@ def parser() -> argparse.ArgumentParser:
     mode.add_argument("--poll-seconds", type=float, help="foreground polling interval, at least 10 seconds")
     result.add_argument("--max-hours", type=float, default=8, help="bounded polling duration; set remaining authorized GPU budget")
     result.add_argument("--known-hosts", type=Path, default=Path.home() / ".ssh/known_hosts")
+    result.add_argument("--remote-health", action="store_true",
+                        help="also run a fixed read-only GPU/tmux/process probe on the authorized worker")
     return result
+
+
+def read_remote_health(client) -> dict:
+    """Fixed infrastructure observation; no secrets, writes, or training control."""
+    source = """import csv,datetime,json,subprocess
+def probe(argv):
+ result=subprocess.run(argv,capture_output=True,text=True,timeout=4)
+ return result.returncode,result.stdout.strip()
+status={"observedAt":datetime.datetime.now(datetime.timezone.utc).isoformat()}
+code,output=probe(["nvidia-smi","--query-gpu=name,utilization.gpu,memory.used,memory.total","--format=csv,noheader,nounits"])
+status["gpuProbeSucceeded"]=code==0
+if code==0:
+ fields=next(csv.reader(output.splitlines()))
+ status.update(gpuName=fields[0].strip(),utilizationPercent=float(fields[1]),memoryUsedMiB=float(fields[2]),memoryTotalMiB=float(fields[3]))
+status["tmuxAlive"]=probe(["tmux","has-session","-t","rtx8timesnet"])[0]==0
+status["runnerAlive"]=probe(["pgrep","-f","run_phase1_stages.py.*rtx8000-timesnet-remaining-v1"])[0]==0
+status["trainingWorkerAlive"]=probe(["pgrep","-f","run.py.*rx8_v1"])[0]==0
+print(json.dumps(status))"""
+    try:
+        _, stdout, _ = client.exec_command("/data/envs/phase1-rx8000/bin/python -c " + shlex.quote(source), timeout=20)
+        raw = stdout.read(MAX_JSON_BYTES + 1)
+        if len(raw) > MAX_JSON_BYTES:
+            raise ValueError("health probe response too large")
+        result = json.loads(raw)
+        if not isinstance(result, dict) or not result.get("observedAt"):
+            raise ValueError("invalid health probe response")
+        return result
+    except Exception as error:
+        return {"observedAt": datetime.now(timezone.utc).isoformat(), "probeSucceeded": False,
+                "errorClass": type(error).__name__}
 
 
 def main() -> int:
@@ -302,7 +342,7 @@ def main() -> int:
                                banner_timeout=30, auth_timeout=30)
                 with client.open_sftp() as sftp:
                     sftp.get_channel().settimeout(60)
-                    report = receiver.receive_pass(sftp)
+                    report = receiver.receive_pass(sftp, read_remote_health(client) if args.remote_health else None)
                 print(json.dumps({key: report[key] for key in ("status", "published", "skipped", "issues")}))
                 if report["issues"]:
                     result = 2
