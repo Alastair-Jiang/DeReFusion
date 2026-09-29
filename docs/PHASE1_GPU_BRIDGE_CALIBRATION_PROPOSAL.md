@@ -68,3 +68,11 @@
 ## 8. 执行后审查
 
 每份 receipt 都要复核状态、数据/预测键、数组形状、有限值及 SHA-256。桥接报告给出 34 个配对点和分层差异，只能称为描述性敏感性诊断；55 个 fit 报告覆盖及未完成项。不得声称 Stage B 完成：245 P4 + 55 local 的混合栈组合不能替代同一执行栈的完整 300-fit 面板。
+
+## 9. RTX 8000 执行调整（2026-09-29）
+
+用户明确要求将尚未完成的 TimesNet 计算转交线上 RTX 8000，并尽快自动化。原 5060 Ti bridge 已完成 34/34 fits（约 29 分钟）；不再重跑，也不把它当作 RTX 8000 的校准证据。`rtx8000-timesnet-remaining-v1` 是新的、独立的非确认性执行批次，覆盖原计划中 55 个尚未运行的 `revin-TimesNet` B_screen 行；数据、切分、键、模型配置及指标保持原冻结定义。
+
+此调整不改变 `phase1-v1.1`、正式 B_screen manifest 或既有 P4 receipts。RTX 8000 批次具有自己的 manifest、授权、环境指纹、attempt、进度与输出目录；授权仅限 Quadro RTX 8000 上 CUDA 执行，绑定完整代码 commit、manifest 哈希、GPU UUID 和以下执行栈：Python `3.11.15`、PyTorch `2.5.1+cu121` / CUDA runtime `12.1`、NumPy `2.1.2`、pandas `2.3.3`、scikit-learn `1.7.2`。如果这些精确版本无法建立，fail closed；不得降级为 Python 3.10 或借用 5060 授权。
+
+即使软件栈与 P4 对齐，GPU 型号、driver/cuDNN 等仍不同。因此这 55 个结果只补充执行覆盖和技术诊断：**不与 P4 或 RTX 5060 Ti 结果池化，不填充为统一硬件的 B_screen 面板，不用于模型排名/优劣结论，也不构成等价性证明。** RTX 8000 上不另跑 34-fit bridge；如果未来要提出跨硬件可比/池化主张，必须另立事前桥接方案、给出精度容忍标准并获得批准。Stage C/D 仍不在本次授权范围。

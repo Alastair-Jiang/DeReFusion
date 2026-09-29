@@ -223,6 +223,24 @@ def validate_authorization(path: Path, env_path: Path, stage_set: set[str], devi
             raise RuntimeError("local supplemental results must explicitly prohibit pooling")
         pinned = {"python": "3.11.15", "torch": "2.7.1+cu128", "torch_cuda": "12.8",
                   "numpy": "2.1.2", "pandas": "2.3.3", "scikit_learn": "1.7.2"}
+    elif track == "nonconfirmatory_remote_gpu_supplement":
+        expected = {"authorization_version": "phase1-remote-supplement-auth/v1",
+                    "protocol_version": "phase1-v1.1-2026-09-19",
+                    "execution_track": "nonconfirmatory_remote_gpu_supplement"}
+        if stage_set != {"B_screen"}:
+            raise RuntimeError("remote GPU supplemental authorization is limited to B_screen rows")
+        if not batch_id or authorization.get("batch_id") != batch_id:
+            raise RuntimeError("remote supplemental batch_id does not match the authorization")
+        if authorization.get("manifest_sha256") != sha256(manifest_path):
+            raise RuntimeError("remote supplemental manifest hash does not match the authorization")
+        if authorization.get("output_root") != str(output_root.resolve()):
+            raise RuntimeError("remote supplemental output root does not match the authorization")
+        if authorization.get("pooling_authorized") is not False:
+            raise RuntimeError("remote supplemental results must explicitly prohibit pooling")
+        pinned = {"python": "3.11.15", "torch": "2.5.1+cu121", "torch_cuda": "12.1",
+                  "numpy": "2.1.2", "pandas": "2.3.3", "scikit_learn": "1.7.2"}
+        if authorization.get("environment_lock") != pinned:
+            raise RuntimeError("remote supplemental authorization must repeat the reviewed environment lock")
     else:
         expected = {"authorization_version": "phase1-execution-auth/v1",
                     "protocol_version": "phase1-v1.1-2026-09-19"}
@@ -254,6 +272,11 @@ def validate_authorization(path: Path, env_path: Path, stage_set: set[str], devi
             raise RuntimeError("authorized GPU model does not match worker fingerprint")
         if track == "nonconfirmatory_local_supplement" and authorization["gpu_model"] != "NVIDIA GeForce RTX 5060 Ti":
             raise RuntimeError("local supplement may run only on the fingerprinted RTX 5060 Ti")
+        if track == "nonconfirmatory_remote_gpu_supplement":
+            if authorization["gpu_model"] != "Quadro RTX 8000":
+                raise RuntimeError("remote supplemental batch is pinned to the approved Quadro RTX 8000")
+            if authorization.get("gpu_uuid") != observed.get("gpu_uuid"):
+                raise RuntimeError("authorized GPU UUID does not match worker fingerprint")
     return authorization, env_hash
 
 
