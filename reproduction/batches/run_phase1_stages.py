@@ -169,7 +169,8 @@ def validate_preflight(selected: list[dict[str, str]]) -> tuple[dict[str, dict[s
     return data_ids, split_index, issues
 
 
-def build_command(row: dict[str, str], common: dict, registry_row: dict[str, str], attempt: int, device: str) -> list[str]:
+def build_command(row: dict[str, str], common: dict, registry_row: dict[str, str], attempt: int, device: str,
+                  run_label: str = "phase1_frozen") -> list[str]:
     data = ROOT / registry_row["file"]
     model_id = f"{logical_id(row)}__attempt-{attempt:02d}"
     cmd = [sys.executable, "run.py", "--task_name", "long_term_forecast", "--is_training", "1",
@@ -186,7 +187,7 @@ def build_command(row: dict[str, str], common: dict, registry_row: dict[str, str
            "--embed", common["embed"], "--train_epochs", str(common["train_epochs"]),
            "--batch_size", str(common["batch_size"]), "--patience", str(common["patience"]),
            "--learning_rate", str(common["learning_rate"]), "--lradj", common["lradj"],
-           "--rand_seed", row["seed"], "--num_workers", "0", "--des", "phase1_frozen",
+           "--rand_seed", row["seed"], "--num_workers", "0", "--des", run_label,
            "--result_log", f"reproduction/logs/phase1/{row['stage']}.txt"]
     if row["split_mode"] == "dates":
         cmd += ["--split_mode", "dates", "--train_end", row["train_end"],
@@ -200,10 +201,33 @@ def build_command(row: dict[str, str], common: dict, registry_row: dict[str, str
     return cmd
 
 
-def validate_authorization(path: Path, env_path: Path, stage_set: set[str], device: str) -> tuple[dict, str]:
+def validate_authorization(path: Path, env_path: Path, stage_set: set[str], device: str,
+                           manifest_path: Path, batch_id: str | None,
+                           output_root: Path) -> tuple[dict, str]:
     authorization = json.loads(path.read_text(encoding="utf-8"))
     fingerprint = json.loads(env_path.read_text(encoding="utf-8"))
-    expected = {"authorization_version": "phase1-execution-auth/v1", "protocol_version": "phase1-v1.1-2026-09-19"}
+    track = authorization.get("execution_track", "frozen_protocol")
+    if track == "nonconfirmatory_local_supplement":
+        expected = {"authorization_version": "phase1-local-supplement-auth/v1",
+                    "protocol_version": "phase1-v1.1-2026-09-19",
+                    "execution_track": "nonconfirmatory_local_supplement"}
+        if stage_set != {"B_screen"}:
+            raise RuntimeError("local supplemental authorization is limited to B_screen rows")
+        if not batch_id or authorization.get("batch_id") != batch_id:
+            raise RuntimeError("supplemental batch_id does not match the authorization")
+        if authorization.get("manifest_sha256") != sha256(manifest_path):
+            raise RuntimeError("supplemental manifest hash does not match the authorization")
+        if authorization.get("output_root") != str(output_root.resolve()):
+            raise RuntimeError("supplemental output root does not match the authorization")
+        if authorization.get("pooling_authorized") is not False:
+            raise RuntimeError("local supplemental results must explicitly prohibit pooling")
+        pinned = {"python": "3.11.15", "torch": "2.7.1+cu128", "torch_cuda": "12.8",
+                  "numpy": "2.1.2", "pandas": "2.3.3", "scikit_learn": "1.7.2"}
+    else:
+        expected = {"authorization_version": "phase1-execution-auth/v1",
+                    "protocol_version": "phase1-v1.1-2026-09-19"}
+        pinned = {"python": "3.11.15", "torch": "2.5.1+cu121", "torch_cuda": "12.1",
+                  "numpy": "2.1.2", "pandas": "2.3.3", "scikit_learn": "1.7.2"}
     for key, value in expected.items():
         if authorization.get(key) != value:
             raise RuntimeError(f"authorization {key} must equal {value!r}")
@@ -221,8 +245,6 @@ def validate_authorization(path: Path, env_path: Path, stage_set: set[str], devi
     if authorization.get("environment_fingerprint_sha256") != env_hash:
         raise RuntimeError("worker environment fingerprint does not match authorization")
     observed = fingerprint.get("observed", fingerprint)
-    pinned = {"python": "3.11.15", "torch": "2.5.1+cu121", "torch_cuda": "12.1",
-              "numpy": "2.1.2", "pandas": "2.3.3", "scikit_learn": "1.7.2"}
     if fingerprint.get("mismatches", {}) or any(observed.get(k) != v for k, v in pinned.items()):
         raise RuntimeError("worker environment does not match the frozen Python/PyTorch lock")
     if device == "cuda":
@@ -230,6 +252,8 @@ def validate_authorization(path: Path, env_path: Path, stage_set: set[str], devi
             raise RuntimeError("CUDA is not available in the environment fingerprint")
         if authorization.get("gpu_model") not in observed.get("gpu_names", []):
             raise RuntimeError("authorized GPU model does not match worker fingerprint")
+        if track == "nonconfirmatory_local_supplement" and authorization["gpu_model"] != "NVIDIA GeForce RTX 5060 Ti":
+            raise RuntimeError("local supplement may run only on the fingerprinted RTX 5060 Ti")
     return authorization, env_hash
 
 
@@ -293,6 +317,8 @@ def package_attempt(row: dict[str, str], destination: Path, command: list[str], 
     hashes = {name: sha256(destination / name) for name in source}
     receipt = {"logical_run_id": logical_id(row), "attempt": 1, "attempt_id": destination.name,
                "protocol_version": row["protocol_version"], "stage": row["stage"], "status": "completed_unreviewed",
+               "execution_track": auth.get("execution_track", "frozen_protocol"),
+               "batch_id": auth.get("batch_id"),
                "scientific_use": "not interpreted; pending intake and stage gate review",
                "authorization_record": auth.get("decision_record"), "authorization_commit": auth["git_commit"],
                "environment_fingerprint_sha256": env_hash, "dataset_sha256": registry_row["sha256"],
@@ -351,8 +377,16 @@ def completed_attempt(path: Path, row: dict[str, str], split: dict[str, str], ex
 
 
 def main() -> int:
+    global OUTPUT, MANIFESTS
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--stage", action="append", choices=list(MANIFESTS), required=True)
+    parser.add_argument("--manifest-path", type=Path,
+                        help="separate frozen manifest (only allowed with a nonconfirmatory supplemental authorization)")
+    parser.add_argument("--output-root", type=Path,
+                        help="isolated attempt root; never defaults away from the frozen protocol output")
+    parser.add_argument("--batch-id", help="immutable identifier for a separately authorized supplemental batch")
+    parser.add_argument("--run-label", default="phase1_frozen",
+                        help="run.py description label, useful to keep supplemental result directories distinct")
     parser.add_argument("--limit", type=int)
     parser.add_argument("--execute", action="store_true", help="training is blocked without a formal authorization")
     parser.add_argument("--authorization", type=Path)
@@ -370,6 +404,17 @@ def main() -> int:
                              "set it above a TimesNet fit's runtime so a long fit is never started "
                              "with no room to finish")
     args = parser.parse_args()
+    supplemental = bool(args.manifest_path or args.output_root or args.batch_id or args.run_label != "phase1_frozen")
+    if supplemental and (not args.manifest_path or not args.output_root or not args.batch_id):
+        parser.error("supplemental runs require --manifest-path, --output-root, and --batch-id together")
+    if args.manifest_path and set(args.stage) != {"B_screen"}:
+        parser.error("custom manifests are limited to B_screen")
+    if args.manifest_path:
+        MANIFESTS = dict(MANIFESTS, B_screen=args.manifest_path)
+    if supplemental:
+        OUTPUT = args.output_root.resolve()
+        if OUTPUT.parent != PHASE.resolve():
+            parser.error("supplemental output root must be a new direct child of the Phase 1 output directory")
     if args.resume_interrupted and not args.enable_recovery:
         parser.error("--resume-interrupted needs --enable-recovery, or the worker retrains from scratch")
     if args.limit is not None and args.limit < 1:
@@ -382,6 +427,8 @@ def main() -> int:
     deadline = None if args.max_hours is None else started + args.max_hours * 3600
     config = json.loads(CONFIG.read_text(encoding="utf-8"))
     selected = [r for stage in args.stage for r in rows(MANIFESTS[stage]) if r["status"] == "planned"]
+    if supplemental and any(r.get("batch_id") != args.batch_id for r in selected):
+        parser.error("every supplemental manifest row must carry the selected batch_id")
     if args.models:
         wanted = {name.strip() for name in args.models.split(",") if name.strip()}
         unknown = wanted - set(config["available_models"])
@@ -434,14 +481,30 @@ def main() -> int:
         return 0
     if not args.authorization or not args.environment_fingerprint:
         raise RuntimeError("--execute requires --authorization and --environment-fingerprint")
-    auth, env_hash = validate_authorization(args.authorization, args.environment_fingerprint, set(args.stage), args.device)
+    auth, env_hash = validate_authorization(args.authorization, args.environment_fingerprint, set(args.stage),
+                                            args.device, MANIFESTS[args.stage[0]], args.batch_id, OUTPUT)
+    if supplemental:
+        auth_hash = sha256(args.authorization)
+        meta_path = OUTPUT / "batch_meta.json"
+        expected_meta = {"batch_id": args.batch_id, "manifest_sha256": sha256(MANIFESTS[args.stage[0]]),
+                         "authorization_sha256": auth_hash, "git_commit": auth["git_commit"],
+                         "environment_fingerprint_sha256": env_hash}
+        if OUTPUT.exists():
+            if not OUTPUT.is_dir() or not meta_path.is_file():
+                raise RuntimeError("existing supplemental root lacks its immutable batch metadata")
+            actual_meta = json.loads(meta_path.read_text(encoding="utf-8"))
+            if any(actual_meta.get(key) != value for key, value in expected_meta.items()):
+                raise RuntimeError("existing supplemental root belongs to a different frozen batch")
+        else:
+            OUTPUT.mkdir(parents=False, exist_ok=False)
+            atomic_json(meta_path, expected_meta)
     if args.device == "cuda" and not torch.cuda.is_available():
         raise RuntimeError("CUDA was authorized but torch.cuda.is_available() is false")
     registry = {r["asset"]: r for r in rows(REGISTRY)}
     OUTPUT.mkdir(parents=True, exist_ok=True)
     log_root = ROOT / "reproduction/logs/phase1"
     log_root.mkdir(parents=True, exist_ok=True)
-    progress_path = log_root / "batch_progress.json"
+    progress_path = OUTPUT / "batch_progress.json" if supplemental else log_root / "batch_progress.json"
     progress = {"stages": args.stage, "total_selected": len(selected) + already_done,
                 "previously_completed_verified": already_done, "newly_completed": 0,
                 "max_hours": args.max_hours, "status": "running", "current_run": None}
@@ -483,11 +546,14 @@ def main() -> int:
             "logical_run_id": logical, "attempt": 1, "attempt_id": destination.name,
             "protocol_version": row["protocol_version"], "stage": row["stage"],
             "status": "running", "resumed_from_interrupted": resuming,
+            "execution_track": auth.get("execution_track", "frozen_protocol"),
+            "batch_id": auth.get("batch_id"),
             "created_at_utc": run_started,
             "authorization_record": auth.get("decision_record"), "authorization_commit": auth["git_commit"],
             "environment_fingerprint_sha256": env_hash,
         })
-        command = build_command(row, config["common"], registry[row["asset"]], 1, args.device)
+        command = build_command(row, config["common"], registry[row["asset"]], 1, args.device,
+                                args.run_label if supplemental else "phase1_frozen")
         if args.enable_recovery:
             command.append("--enable_recovery")
         model_id = f"{logical}__attempt-01"
@@ -502,6 +568,8 @@ def main() -> int:
         if returncode or timed_out:
             failed = {"logical_run_id": logical, "attempt": 1, "attempt_id": destination.name,
                       "protocol_version": row["protocol_version"], "stage": row["stage"],
+                      "execution_track": auth.get("execution_track", "frozen_protocol"),
+                      "batch_id": auth.get("batch_id"),
                       "status": "interrupted" if timed_out else "failed",
                       "failure_class": "budget_or_fit_timeout" if timed_out else "nonzero_exit", "exit_code": returncode,
                       "created_at_utc": run_started, "finished_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -521,6 +589,8 @@ def main() -> int:
         except Exception as error:
             invalid = {"logical_run_id": logical, "attempt": 1, "attempt_id": destination.name,
                        "protocol_version": row["protocol_version"], "stage": row["stage"],
+                       "execution_track": auth.get("execution_track", "frozen_protocol"),
+                       "batch_id": auth.get("batch_id"),
                        "status": "artifact_invalid", "reason": str(error),
                        "created_at_utc": run_started, "finished_at_utc": datetime.now(timezone.utc).isoformat(),
                        "authorization_record": auth.get("decision_record"), "authorization_commit": auth["git_commit"],
