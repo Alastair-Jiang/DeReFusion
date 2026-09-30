@@ -8,7 +8,7 @@
 
 1. 把 Stage C 作为 DeReFusion 与 RevIN-DLinear 主问题的现成配对证据；配对和数值完整性已复核，但目前只有分层描述性点估计，缺少事前固定的 bootstrap 参数，不能当作确认性区间结论。
 2. 将 Stage B 的 P4 轨道单独处理：其中 240 个非 TimesNet 设置形成完整的 4 模型 × 30 资产 × 2 horizon 同轨子面板。已验证 60/60 个资产 × horizon 组的键、真值、数据和 split 配对，并从全部 240 个包生成限定范围的描述性摘要；不必为配对问题重跑。该摘要不作显著性、确认性或跨轨排名结论。
-3. RTX8000 的 55 个 TimesNet 设置保留为独立补充数据，适合运行可行性、耗时和该轨道自身的描述性审查；不能拿来填补 P4 的 TimesNet 面板并与 P4 模型排名。
+3. RTX8000 的 55 个 TimesNet 设置保留为独立补充轨道。用户另行要求后，已生成带完整硬件标签的 300 项“实际运行结果”分层排序与 TimesNet 偏移敏感性；这不是硬件等价证明、纯模型排名或原授权下的确认性结果。
 4. 暂缓 Stage D。144 个冻结设置仍是 planned，且无专属授权；只有明确的时间稳健性问题需要它时，再另立执行决策。
 
 ## 现有数据盘点
@@ -59,6 +59,7 @@ Stage D 没有结果产物，也没有执行授权。它只服务于预注册的
 
 - Stage B 覆盖与 pooling/ranking 限制：`stage-b-coverage-audit-20260930.md`。
 - Stage B P4 240-fit 限范围复核：`stage-b-p4-subpanel-descriptive-review-20260930.md` 及其复现脚本和 CSV。
+- Stage B 五模型分层实际运行排序与 TimesNet 敏感性：`stage-b-cross-track-observed-ranking-20260930.md` 及其复现脚本和 CSV。
 - Stage B 分轨运行时、245+55 组成和技术核验：`stage-b-technical-closeout-20260930.md`、`stage-b-runtime-by-track-20260930.csv`、`stage-b-runtime-setting-ledger-20260930.csv`。
 - Stage C 配对数据、描述性点估计和区间限制：`stage-c-descriptive-review-20260930.md`、`stage-c-descriptive-estimates-20260930.csv`、`stage-c-asset-paired-estimates-20260930.csv`。
 - Stage D 与 XPU 门控：`phase1-next-steps-gate-20260930.md`、`stage-b-local-intel-xpu-readiness-20260930.md`。
