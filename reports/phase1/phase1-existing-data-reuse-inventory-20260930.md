@@ -1,13 +1,13 @@
 # Phase 1 现有数据可用性与复用盘点（2026-09-30）
 
-**范围：** 盘点仓库中现成的 Phase 1 清单、intake、attempt 产物、分析摘要和授权状态，判断哪些问题可由现有数据回答。此盘点不读取 Stage B 测试分数、不启动训练、不移动或改写原始产物，也不修改现行协议。
+**范围：** 盘点仓库中现成的 Phase 1 清单、intake、attempt 产物、分析摘要和授权状态，判断哪些问题可由现有数据回答。盘点底稿不读取 Stage B 测试分数；后续对固定 P4 子面板做的描述性复核见 [Stage B P4 子面板复核](stage-b-p4-subpanel-descriptive-review-20260930.md)。全程没有启动训练、移动或改写原始产物，也没有修改现行协议。
 
 ## 结论摘要
 
 当前无需先重跑完整 Stage B。现有数据最实际的用法是：
 
 1. 把 Stage C 作为 DeReFusion 与 RevIN-DLinear 主问题的现成配对证据；配对和数值完整性已复核，但目前只有分层描述性点估计，缺少事前固定的 bootstrap 参数，不能当作确认性区间结论。
-2. 将 Stage B 的 P4 轨道单独处理：其中 240 个非 TimesNet 设置形成完整的 4 模型 × 30 资产 × 2 horizon 同轨子面板，可在明确标为探索性的前提下，复用预测/真值/指标产物，不必重跑。具体分析前须核实并冻结 estimand、分层和多重性规则。
+2. 将 Stage B 的 P4 轨道单独处理：其中 240 个非 TimesNet 设置形成完整的 4 模型 × 30 资产 × 2 horizon 同轨子面板。已验证 60/60 个资产 × horizon 组的键、真值、数据和 split 配对，并从全部 240 个包生成限定范围的描述性摘要；不必为配对问题重跑。该摘要不作显著性、确认性或跨轨排名结论。
 3. RTX8000 的 55 个 TimesNet 设置保留为独立补充数据，适合运行可行性、耗时和该轨道自身的描述性审查；不能拿来填补 P4 的 TimesNet 面板并与 P4 模型排名。
 4. 暂缓 Stage D。144 个冻结设置仍是 planned，且无专属授权；只有明确的时间稳健性问题需要它时，再另立执行决策。
 
@@ -17,7 +17,7 @@
 |---|---:|---|---|---|
 | Stage A GPU calibration | 15/15 | `calibration_pass` receipts | 代码/环境/产物保留/运行可行性校准 | 按预注册不比较 calibration loss，不作模型效果证据 |
 | Stage A CPU 辅助轨道 | 13 pass、1 resource-blocked、1 缺 receipt | 有单独偏差记录 | 历史实现和资源诊断 | 与 P4 GPU 不同机器/构建；含执行偏差；不并入正式 GPU 校准或效果比较 |
-| Stage B P4 主轨 | 245 个 eligible，其中 240 个非 TimesNet，5 个 TimesNet | intake 0 issues；完整 receipt、哈希和日志核验；四个非 TimesNet 模型各覆盖全部 30 资产 × 2 horizon | 240-fit 同一 P4 轨道的四模型探索性比较；本轨训练耗时和技术失败审查 | 原授权仍是 partial；无 P4 TimesNet 完整面板；分数尚未进入技术收口分析 |
+| Stage B P4 主轨 | 245 个 eligible，其中 240 个非 TimesNet，5 个 TimesNet | intake 0 issues；完整 receipt、哈希和日志核验；240-fit 子面板的键、目标、split、数组和指标复算通过 | 限 P4 四模型描述性误差摘要；本轨训练耗时和技术失败审查 | 原授权仍是 partial；无 P4 TimesNet 完整面板；子面板结果不是显著性或确认性筛选 |
 | Stage B RTX8000 补充轨 | 55/55 TimesNet eligible | 最新 intake 0 issues；补充清单和产物一致 | TimesNet 补充轨自身的完整性、运行时间、描述性误差分布 | 不与 P4 pooling、排名或声称硬件数值等价 |
 | Stage C RTX 5060 Ti | 360/360；180 个 DLinear/DeReFusion 配对 | 1,080 个数值文件哈希、配对 keys/targets 和 MSE 复算通过 | 主模型对按 cohort、horizon、seed 的配对描述性结果；数据完整性复核 | 预注册缺少 bootstrap seed、重采样数、区间算法和跨 horizon/seed 汇总规则；现有点估计不是确认性区间结论 |
 | Stage D | 0/144 | 冻结 manifest 全部 planned；未发现专属授权或 attempt | 暂无结果可用 | 不应按现授权启动 |
@@ -35,9 +35,7 @@ Stage C 已有同一执行轨道上的 360 个训练设置，覆盖 30 个资产
 
 ### 路线 B：复用 Stage B 的 P4 四模型子面板
 
-240 个 P4 非 TimesNet fit 是现成、全覆盖的同轨子面板。只读比对 240 份 receipt 后，四模型构成 60 个 asset × horizon 配对组；60/60 组的 prediction-key SHA、true.npy SHA、数据 SHA、split ID 和数组形状均一致，未发现组缺项或元数据不匹配。这项检查没有读取 `pred.npy` 数值或比较模型误差；原 intake 已负责包级产物哈希与指标核验。
-
-因此这 240 项具备进入下一步受限分析的结构条件，无须重跑来解决配对身份问题。分析前仍需冻结一个**探索性、限 P4 的**分析定义，再从已审计数组只读提取指标。
+240 个 P4 非 TimesNet fit 是现成、全覆盖的同轨子面板。只读比对 240 份 receipt 后，四模型构成 60 个 asset × horizon 配对组；60/60 组的 prediction-key SHA、true.npy SHA、数据 SHA、split ID 和数组形状均一致。随后从全部固定包重算 MAE/MSE/RMSE 并核对保存值，结果和方法见 [Stage B P4 子面板复核](stage-b-p4-subpanel-descriptive-review-20260930.md)。没有重跑，也没有作显著性检验或跨轨合并。
 
 这个分析可以增加现代 baseline 的上下文，并直接复用 240 个 fit；它不等于原始五模型完整 Stage B，也不产生确认性结论。multiplicity family、估计量汇总和区间细节如不能从已有预注册唯一恢复，应先标为 `TBD`，不得看完分数再定。
 
@@ -52,14 +50,15 @@ Stage D 没有结果产物，也没有执行授权。它只服务于预注册的
 ## 建议的低成本推进顺序
 
 1. 保存本盘点作为数据入口；保持所有原始 attempt、receipt 和数组原位只读。
-2. 对 Stage B P4 的 240 个候选包做纯完整性/配对兼容性核验，不读分数；整理为固定 eligible-ID 列表。
+2. Stage B P4 的 240 个候选包已完成纯完整性/配对兼容性核验与限范围描述性复核。
 3. 复核 Stage C bootstrap/aggregation 的仓库历史及可验证外部记录。若无记录，保留点估计为描述性证据，不事后造参数。
-4. 在任何 Stage B 指标被读取前，确定是否需要一份版本化的限 P4 探索性分析计划；计划应固定所有 240 个设置、cohort 分层、比较 family、缺失处理和输出措辞。
+4. 若要继续推断而非描述，先固定版本化的限 P4 分析计划，包括比较 family、Holm 校正范围、区间/汇总规则和输出措辞；当前复核不作任何推断。
 5. 只有当现有数据无法回答明确的新问题时，才考虑新训练；届时用新轨道/授权，不覆盖旧结果。完整 300-fit 单硬件复做属于备用选择，不是默认下一步。
 
 ## 证据入口
 
 - Stage B 覆盖与 pooling/ranking 限制：`stage-b-coverage-audit-20260930.md`。
+- Stage B P4 240-fit 限范围复核：`stage-b-p4-subpanel-descriptive-review-20260930.md` 及其复现脚本和 CSV。
 - Stage B 分轨运行时、245+55 组成和技术核验：`stage-b-technical-closeout-20260930.md`、`stage-b-runtime-by-track-20260930.csv`、`stage-b-runtime-setting-ledger-20260930.csv`。
 - Stage C 配对数据、描述性点估计和区间限制：`stage-c-descriptive-review-20260930.md`、`stage-c-descriptive-estimates-20260930.csv`、`stage-c-asset-paired-estimates-20260930.csv`。
 - Stage D 与 XPU 门控：`phase1-next-steps-gate-20260930.md`、`stage-b-local-intel-xpu-readiness-20260930.md`。
