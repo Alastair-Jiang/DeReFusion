@@ -16,6 +16,12 @@ what was known when an earlier decision was made.
 | C1 blind specification/lock | [`24a`](evidence_closure/24a_c1_blind_recomputation_spec.md), [`24b`](evidence_closure/24b_c1_blind_handoff_lock_table.md) | frozen |
 | C1 result and audit | [`26_c1_result_and_blind_audit.md`](evidence_closure/26_c1_result_and_blind_audit.md), [`27`](evidence_closure/27_c1_rule_provenance_and_blind_audit_scope.md), [`28`](evidence_closure/28_c1_raw_replay_and_data_quality.md), [`29`](evidence_closure/29_c1_independent_blind_replay.md) | **FAIL**; independent blind replay complete; no material numerical discrepancies |
 | Literature and next plan | [`../docs/LITERATURE_AND_NEXT_PLAN.md`](../docs/LITERATURE_AND_NEXT_PLAN.md) | current |
+| Phase 1 modern-baseline programme | [`phase1/phase1-experiment-data-and-progress-20260930.md`](phase1/phase1-experiment-data-and-progress-20260930.md) | Stage A calibration 15/15; Stage B artifacts cover 300/300 across separate P4/RTX 8000 tracks; Stage C 360/360 with descriptive analysis only; Stage D gated |
+
+Phase 1's detailed stage reports, CSV summaries and reproduction scripts are
+indexed in the linked report. The 2026-09-29 artifact-inventory files are
+historical snapshots; the latest 2026-09-30 Stage B intake and closeout reports
+supersede their earlier 25/55 RTX 8000 progress count.
 
 ## Chronology
 
