@@ -2,10 +2,10 @@
 
 > 给第一次接触本项目的计算机专业读者：本 README 先解释项目在解决什么问题，再介绍模型、代码、数据、实验结果、复现方式和当前限制。除专有名称、命令与代码标识外，正文使用中文。
 
-**项目性质：** 基于公开 DeReFusion 与 THUML Time-Series-Library 代码的独立研究分支，不是论文作者发布的官方代码包。  
-**报告更新：** 2026-10-02。实验进度依据仓库中截至 2026-09-30 的阶段报告。  
-**主要语言与框架：** Python、PyTorch。  
-**研究主题：** 金融 OHLC 时间序列的多步预测，以及预测模型复杂度是否带来稳定收益。
+- **项目性质：** 基于公开 DeReFusion 与 THUML Time-Series-Library 代码的独立研究分支，不是论文作者发布的官方代码包。
+- **报告更新：** 2026-10-02；实验进度依据仓库中截至 2026-09-30 的阶段报告。
+- **主要语言与框架：** Python、PyTorch。
+- **研究主题：** 金融 OHLC 时间序列的多步预测，以及预测模型复杂度是否带来稳定收益。
 
 参考论文：Chih-Chien Hsieh、Mu-Yen Chen，*DeReFusion: A Controlled Comparison of Soft Computing Fusion Strategies for Financial Time Series Forecasting via a Decomposition-Residual Architecture*，Applied Soft Computing 203 (2026), 116252，[DOI](https://doi.org/10.1016/j.asoc.2026.116252)。使用原论文方法时请引用原论文，并同时说明本仓库是独立研究分支。
 
@@ -230,4 +230,3 @@ Phase 1 训练启动器默认是只读预览；真正训练还需要与代码提
 ---
 
 如果你是第一次读这个仓库，最重要的入口是本页的项目结构、当前结论和报告索引。项目代码回答“如何运行模型”，冻结方案与审计报告回答“实验可以支持什么结论”。
-
