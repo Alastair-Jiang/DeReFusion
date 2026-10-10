@@ -7,6 +7,8 @@
 
 本文是全仓导航和缺口台账，不是新的实验协议、授权、科学结论或数据许可。历史文件继续按原日期和版本解释；任何候选材料不因被索引而升格为控制文件。
 
+**后续勘误：** 本文关于 `dataset/`、`data/` 被忽略且不在远程的描述已由[追加式勘误](PROJECT_INVENTORY_ERRATA_V1_2026-10-10.md)更正。该勘误优先用于当前数据跟踪与发布边界；本文件保留其原始盘点快照。
+
 ## 项目进度与证据状态
 
 | 研究线 | 当前可核对状态 | 可支持的结论边界 | 远程入口/来源 |
@@ -46,9 +48,9 @@
 | `scripts/` | 1 | 未跟踪运行脚本，未审核其行为/依赖 |
 | 根目录临时文件 | 2 | `.fs-safe-*.tmp`，未删除，来源/用途待确认 |
 
-未跟踪文件按扩展名统计：`.json` 5,679、`.npy` 2,158、`.bin` 924、`.csv` 871、`.log` 716、`.pth` 644、`.txt` 496、`.py` 250、`.jsonl` 220、`.md` 184、`.tsv` 27、`.html` 23、`.gz` 17、`.patch` 10、`.sha256` 10、`.pdf` 9、`.tmp` 8、无扩展名 8；扩展名不能识别数据内容、来源、授权或实验状态。
+未跟踪文件按扩展名统计（原始枚举有遗漏，见[勘误](PROJECT_INVENTORY_ERRATA_V1_2026-10-10.md)）：`.json` 5,679、`.npy` 2,158、`.bin` 924、`.csv` 871、`.log` 716、`.pth` 644、`.txt` 496、`.py` 250、`.jsonl` 220、`.md` 184、`.tsv` 27、`.html` 23、`.gz` 17、`.patch` 10、`.sha256` 10、`.pdf` 9、`.tmp` 8、无扩展名 8。扩展名不能识别数据内容、来源、授权或实验状态。
 
-按路径元数据汇总的未跟踪文件大小：.npy 36,557,360 字节、.csv 1,538,627 字节、.pth 237,573,644 字节、.log 7,937,399 字节、.json 30,350,484 字节、.gz 3,277,757 字节。被忽略的本地目录另有 dataset/ 62 个文件共 8,786,277 字节、data/ 2 个文件共 5,746 字节、checkpoints/ 443 个文件共 960,482,240 字节；只看目录和文件属性，未读内容。
+按路径元数据汇总的未跟踪文件大小：.npy 36,557,360 字节、.csv 1,538,627 字节、.pth 237,573,644 字节、.log 7,937,399 字节、.json 30,350,484 字节、.gz 3,277,757 字节。另有本地 dataset/ 62 个文件共 8,786,277 字节（61 个 CSV 跟踪，README 被忽略）、data/ 2 个跟踪元数据文件共 5,746 字节、checkpoints/ 443 个被忽略文件共 960,482,240 字节；只看路径/属性，未读内容。
 
 未跟踪 `docs/` 候选共 13 件：
 
@@ -86,8 +88,8 @@
 
 ## 数据与模型产物的存储状态
 
-- `dataset/` 当前有 62 个文件，其中项目 README 说明 61 个日频 OHLC CSV、149,474 行；原始数据目录被 Git 忽略。这里只核对文件数量/文档声明，没有读 CSV 值。
-- `data/` 有 2 个文件，`checkpoints/` 有 443 个文件；没有打开内容或核验许可。
+- `dataset/` 本地有 62 个文件，其中 Git 树跟踪 61 个日频 OHLC CSV；项目 README 声明合计 149,474 行。额外的本地 `dataset/README.md` 被忽略。61 个 CSV 已存在于 `HEAD` 和 `origin/main`；勘误记录了远程可访问性及权利缺口。本盘点没有读 CSV 值。
+- `data/` 本地有 2 个跟踪的来源/下载元数据文件，不是原始 OHLC 面板；`checkpoints/` 有 443 个文件。未打开 checkpoint 内容或核验数据许可。
 - 本地候选与阶段记录提及 `.npy` 预测/真值数组、CSV/JSON 收据、`.pth` 模型权重和日志。按前述状态清点，这些产物不随本次文档提交上传。
 - `LICENSE` 是代码 MIT 许可；README 明示数据与预训练模型可能有独立条款。当前数据注册表没有逐项许可/供应商字段，不能从代码许可证推断 OHLC 或派生结果可公开再分发。
 
@@ -126,6 +128,7 @@
 
 - [项目状态与实验导航](PROJECT_STATUS_AND_EXPERIMENT_CATALOG_V1_2026-10-10.md)
 - [历史证据索引](../reports/README.md)
+- [2026-10-10 数据跟踪事实勘误与权利缺口](PROJECT_INVENTORY_ERRATA_V1_2026-10-10.md)
 - [Phase 1 预注册](PHASE1_PREREGISTRATION.md)
 - [Phase 1 数据与进度总览](../reports/phase1/phase1-experiment-data-and-progress-20260930.md)
-- [`dataset_registry.csv`](../reproduction/results/dataset_registry.csv)；`dataset/README.md` 虽在本地，但整个 `dataset/` 目录被忽略，不属于当前远程入口。
+- [`dataset_registry.csv`](../reproduction/results/dataset_registry.csv)；当前 Git 树中的数据跟踪状态与发布权利缺口见[勘误](PROJECT_INVENTORY_ERRATA_V1_2026-10-10.md)。

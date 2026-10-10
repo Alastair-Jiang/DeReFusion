@@ -9,6 +9,7 @@ what was known when an earlier decision was made.
 | Topic | Authoritative report | Status |
 |---|---|---|
 | Repository-wide audit | [`../docs/REPOSITORY_AUDIT_2026-09-18.md`](../docs/REPOSITORY_AUDIT_2026-09-18.md) | current |
+| 2026-10-10 project inventory and data-rights erratum | [`../docs/PROJECT_EXPERIMENT_DATA_INVENTORY_AND_GAPS_V1_2026-10-10.md`](../docs/PROJECT_EXPERIMENT_DATA_INVENTORY_AND_GAPS_V1_2026-10-10.md), [`../docs/PROJECT_INVENTORY_ERRATA_V1_2026-10-10.md`](../docs/PROJECT_INVENTORY_ERRATA_V1_2026-10-10.md) | inventory snapshot plus correction; 61 tracked OHLC files require rights review |
 | Gate A structural validation | [`14_structural_validation_result.md`](evidence_closure/14_structural_validation_result.md) | **FAIL** |
 | Post-gate boundaries | [`16_post_gate_experiment_program.md`](evidence_closure/16_post_gate_experiment_program.md) | binding boundaries; opening status text is historical |
 | F1 breadth panel | [`21_f1_result.md`](evidence_closure/21_f1_result.md) | **SUCCESS with 3/7 unstable caveat** |
