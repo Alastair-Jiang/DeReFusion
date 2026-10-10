@@ -5,6 +5,7 @@
 - **项目性质：** 基于公开 DeReFusion 与 THUML Time-Series-Library 代码的独立研究分支，不是论文作者发布的官方代码包。
 - **报告更新：** 2026-10-10；实验进度依据仓库中截至 2026-09-30 的阶段报告，资产清点见下方项目总盘点链接。
 - **项目资产总盘点：** [实验与数据资产总盘点](docs/PROJECT_EXPERIMENT_DATA_INVENTORY_AND_GAPS_V1_2026-10-10.md)及[数据跟踪事实勘误](docs/PROJECT_INVENTORY_ERRATA_V1_2026-10-10.md)，更新于 2026-10-10。
+- **数据权利审查：** [61 份 OHLC 数据逐文件来源与再分发审查](docs/DATASET_RIGHTS_REVIEW_V1_2026-10-10.md)及[61 行权利台账](docs/DATASET_RIGHTS_REVIEW_LEDGER_V1_2026-10-10.csv)；所有权利状态仍待核实。
 - **主要语言与框架：** Python、PyTorch。
 - **研究主题：** 金融 OHLC 时间序列的多步预测，以及预测模型复杂度是否带来稳定收益。
 
