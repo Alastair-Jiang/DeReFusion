@@ -1,0 +1,170 @@
+{
+  "version": 1,
+  "series": [
+    {
+      "id": "Phase1-A_calibration",
+      "manifest": "reproduction/results/phase1/A_calibration.manifest.csv",
+      "sha256": "4b4b02f392e7ffa0dc98252c9bee35a374fbc673b6c4cc3c1d2d430f64a93377",
+      "planned_rows_verified": 15,
+      "manifest_statuses": [
+        "planned"
+      ],
+      "outcome_evidence_level": "historical_report_not_rerun",
+      "current_attempts_validated_this_package": null,
+      "report": "reports/phase1/phase1-next-steps-gate-20260930.md"
+    },
+    {
+      "id": "Phase1-B_screen",
+      "manifest": "reproduction/results/phase1/B_screen.manifest.csv",
+      "sha256": "4bc275cf58922d18cab6840d31adb59368aea9304964b54d3f2a3e156ba63ea5",
+      "planned_rows_verified": 300,
+      "manifest_statuses": [
+        "planned"
+      ],
+      "outcome_evidence_level": "historical_report_not_rerun",
+      "current_attempts_validated_this_package": null,
+      "report": "reports/phase1/phase1-next-steps-gate-20260930.md"
+    },
+    {
+      "id": "Phase1-C_confirmation",
+      "manifest": "reproduction/results/phase1/C_confirmation.manifest.csv",
+      "sha256": "bda784f0dd816939cdfd02e30109369df6a3e2e76aecd79aa8ee87b3910e6bfa",
+      "planned_rows_verified": 360,
+      "manifest_statuses": [
+        "planned"
+      ],
+      "outcome_evidence_level": "historical_report_not_rerun",
+      "current_attempts_validated_this_package": null,
+      "report": "reports/phase1/phase1-next-steps-gate-20260930.md"
+    },
+    {
+      "id": "Phase1-D_temporal_robustness",
+      "manifest": "reproduction/results/phase1/D_temporal_robustness.manifest.csv",
+      "sha256": "04ce9d9bba9ccc3590dbdbb63698395a7a5b6c7169f7ffd99fc92011b62f0f7b",
+      "planned_rows_verified": 144,
+      "manifest_statuses": [
+        "planned"
+      ],
+      "outcome_evidence_level": "historical_report_not_rerun",
+      "current_attempts_validated_this_package": null,
+      "report": "reports/phase1/phase1-next-steps-gate-20260930.md"
+    },
+    {
+      "id": "Gate A",
+      "historical_report_statement": "FAIL",
+      "source": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/PROJECT_ASSESSMENT_AND_ROADMAP.md",
+      "evidence_level": "historical_report_only_not_raw_revalidated",
+      "current_attempts_validated_this_package": null
+    },
+    {
+      "id": "F1",
+      "historical_report_statement": "3/7 reported; not universal success",
+      "source": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/PROJECT_ASSESSMENT_AND_ROADMAP.md",
+      "evidence_level": "historical_report_only_not_raw_revalidated",
+      "current_attempts_validated_this_package": null
+    },
+    {
+      "id": "C1",
+      "historical_report_statement": "FAIL",
+      "source": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/PROJECT_ASSESSMENT_AND_ROADMAP.md",
+      "evidence_level": "historical_report_only_not_raw_revalidated",
+      "current_attempts_validated_this_package": null
+    },
+    {
+      "id": "NS",
+      "historical_report_statement": "preparation/status must be separately reconciled",
+      "source": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/PROJECT_ASSESSMENT_AND_ROADMAP.md",
+      "evidence_level": "historical_report_only_not_raw_revalidated",
+      "current_attempts_validated_this_package": null
+    },
+    {
+      "id": "R1-exploratory-small-panel-20261007-v1",
+      "state": "approved_design_execution_not_released",
+      "source": "research_work/forward_increment/lead_design_2026_10_07/R1_APPROVED_DESIGN_V1.json",
+      "sha256": "56f27c89a32e37005ff5c6ce239617ae60581c03c89fe8d72497e68c76a7f7f4",
+      "evidence_level": "design_and_hashes_verified_tests_not_rerun",
+      "scope": "exploratory",
+      "planned_workload": {
+        "neural_fits": 24,
+        "linear_candidate_solves": 24,
+        "selected_linear_models": 4,
+        "selected_neural_models": 24,
+        "persistence_fits": 0
+      }
+    }
+  ],
+  "receipt_snapshot": {
+    "parsed": 729,
+    "errors": [],
+    "archived_filenames": 1,
+    "status_statements": {
+      "calibration_pass": 28,
+      "resource_blocked": 1,
+      "completed_unreviewed": 699,
+      "interrupted": 1
+    },
+    "distinct_receipt_sha256": 724,
+    "absent_inline_field_counts": {
+      "logical_run_id": 14,
+      "attempt_id": 14,
+      "attempt": 14,
+      "created_at_utc": 14,
+      "supersedes_attempt": 729,
+      "batch_id": 275,
+      "execution_track": 275,
+      "execution_device": 30,
+      "authorization_commit": 29,
+      "environment_fingerprint_sha256": 29,
+      "split_manifest_id": 30,
+      "prediction_keys_sha256": 30,
+      "asset": 700,
+      "model": 700,
+      "horizon": 700,
+      "seed": 700,
+      "git_commit": 700,
+      "dataset_sha256": 1,
+      "scientific_use": 1
+    },
+    "missing_environment": 0,
+    "missing_config_fingerprint": 15,
+    "index_sha256": "34e7a53e51eca2959a08055d6dbe3a0839bbe77ee2be6e591f1c6d3c24cf897a",
+    "interpretation": "Records and status statements, not completed/eligible/independently audited runs. Absent inline fields may be optional or in linked manifests; do not call them missing evidence before joining. Authorization commit is not necessarily run code commit."
+  },
+  "receipt_to_manifest_join_complete": false,
+  "receipt_manifest_join": {
+    "path": "receipt_manifest_join.json",
+    "sha256": "612d16dcde803bb6f201a322eea45a64baa68cf2b9a35ae76e942356de35a2a3",
+    "receipt_paths_uniquely_mapped": 728,
+    "receipt_paths_without_run_identity": 1,
+    "distinct_planned_rows_covered": 675,
+    "planned_rows_total": 819,
+    "coverage_by_stage": {
+      "A_calibration": {
+        "manifest_rows_planned": 15,
+        "distinct_rows_covered": 15
+      },
+      "B_screen": {
+        "manifest_rows_planned": 300,
+        "distinct_rows_covered": 300
+      },
+      "C_confirmation": {
+        "manifest_rows_planned": 360,
+        "distinct_rows_covered": 360
+      },
+      "D_temporal_robustness": {
+        "manifest_rows_planned": 144,
+        "distinct_rows_covered": 0
+      }
+    },
+    "duplicate_receipt_groups": 4,
+    "extra_identical_quarantine_copies": 5,
+    "evidence_level": "identity metadata only; no payload hashes recomputed"
+  },
+  "environment_and_artifact_index": {
+    "path": "receipt_environment_artifact_index.json",
+    "sha256": "0889418329440115121d557e99aa60a7c1ff25e3ae178ebf1c84af41609699e3",
+    "receipt_environment_hashes_matched": 700,
+    "declared_artifacts_present_by_name": 3637,
+    "payload_hashes_recomputed": false
+  }
+}
