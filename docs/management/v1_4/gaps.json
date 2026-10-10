@@ -1,0 +1,259 @@
+{
+  "version": 1,
+  "gaps": [
+    {
+      "id": "G01",
+      "priority": "P0",
+      "title": "逐文件取数链",
+      "status": "open",
+      "observed": "已找到 Yahoo/Sohu 脚本和历史 cohort 陈述，四资产获取 agent 不详",
+      "missing": "每文件实际获取记录、日期、工具版本、响应到 CSV 的 hash 关联",
+      "blocking_scope": "仅阻断相关数据资格放行",
+      "owner": "Codex",
+      "next_action": "来源追溯",
+      "acceptance": "逐文件证据链或明确标记无法恢复并设计替代快照",
+      "dependencies": []
+    },
+    {
+      "id": "G02",
+      "priority": "P0",
+      "title": "使用与发布依据",
+      "status": "open",
+      "observed": "既有权利台账没有确定逐文件许可",
+      "missing": "内部使用、原始再分发、衍生产物使用依据分别核实",
+      "blocking_scope": "相关数据操作与对应发布",
+      "owner": "Codex",
+      "next_action": "查来源适用条款及既有授权",
+      "acceptance": "记录适用主体/范围/日期/证据哈希/结论；未知不批准",
+      "dependencies": [
+        "G01"
+      ]
+    },
+    {
+      "id": "G03",
+      "priority": "P0",
+      "title": "公开产物范围",
+      "status": "open",
+      "observed": "HEAD/origin/main 各 678 个数据/二进制候选",
+      "missing": "权重、数组、日志、外部缓存的内容分类与公开资格",
+      "blocking_scope": "涉及这些材料的新发布",
+      "owner": "Codex",
+      "next_action": "只读对象清单和脱敏审查",
+      "acceptance": "逐类处置方案；任何历史重写先有备份及用户专属决定",
+      "dependencies": []
+    },
+    {
+      "id": "G04",
+      "priority": "P0",
+      "title": "冻结记录可变性",
+      "status": "open",
+      "observed": "HEAD freeze-summary 状态 frozen_pre_authorization 与已提交 creator 写入的 frozen_not_yet_authorized 不一致；后续授权器原子替换同一路径。当前文件是既有 diff。",
+      "missing": "HEAD 摘要状态来源、修改归属、仓库外消费者和冻结/授权事件链；仓库内未找到 reader。",
+      "blocking_scope": "依赖该摘要的执行验收",
+      "owner": "Codex",
+      "next_action": "追查生成来源与消费边界；若来源不能恢复，明确记为不可重建并以追加事件承接。",
+      "acceptance": "来源可还原，或明确标记不可重建；消费者边界有证据；执行不依赖来源不明摘要。",
+      "dependencies": []
+    },
+    {
+      "id": "G05",
+      "priority": "P1",
+      "title": "完整数据合同",
+      "status": "open",
+      "observed": "R1 日期窗口与资产已定；单位和复权等仍待绑定",
+      "missing": "每文件时区、日历、单位、复权、异常政策",
+      "blocking_scope": "R1 数据 QA 后的建模准备",
+      "owner": "Codex",
+      "next_action": "负责人签发限定保管人 QA release",
+      "acceptance": "合同和 QA 报告绑定实际 snapshot，异常处理事前写明",
+      "dependencies": [
+        "G01",
+        "G02"
+      ]
+    },
+    {
+      "id": "G06",
+      "priority": "P1",
+      "title": "split 与共同键",
+      "status": "open",
+      "observed": "批准设计有边界与窗口规则",
+      "missing": "实际角色数据包、row/key hash、边界样本和 scaler 身份",
+      "blocking_scope": "R1 拟合及评分",
+      "owner": "Codex",
+      "next_action": "QA 后生成新包并做键/行负例",
+      "acceptance": "所有模型预期键一致，train-only fit，可追溯行绑定",
+      "dependencies": [
+        "G05"
+      ]
+    },
+    {
+      "id": "G07",
+      "priority": "P1",
+      "title": "合成生命周期独立复核",
+      "status": "open",
+      "observed": "53 清单与14源码 pin 匹配；历史 F11/B50 steps",
+      "missing": "精确版本的独立执行与审阅结果",
+      "blocking_scope": "R1 拟合",
+      "owner": "Codex",
+      "next_action": "交 DSH 检查版本后另行安排合成复核",
+      "acceptance": "F/B optimizer/validation/checkpoint 和重跑一致性被独立验证",
+      "dependencies": []
+    },
+    {
+      "id": "G08",
+      "priority": "P1",
+      "title": "T0 接口与资源",
+      "status": "open",
+      "observed": "已有合成边界探针，未作生产认证；24个神经fit的30分钟上限恰好耗尽12小时总上限，尚未含ridge/评估/汇总/重试。",
+      "missing": "错误角色、错键、错hash、冻结前evaluator负例；全阶段合成计时与硬上限内的预算余量。",
+      "blocking_scope": "R1 拟合/评分阶段",
+      "owner": "Codex",
+      "next_action": "按可信操作者威胁模型验证",
+      "acceptance": "负例拒绝且实际拟议负载加余量在12小时内；否则先做协议amendment；不声称T1/OS隔离。",
+      "dependencies": [
+        "G07"
+      ]
+    },
+    {
+      "id": "G09",
+      "priority": "P1",
+      "title": "可执行 release",
+      "status": "open",
+      "observed": "设计批准不等于执行；目前未签发",
+      "missing": "入口/环境/数据包/输出根/实际预算监控与阶段许可",
+      "blocking_scope": "R1 真实执行",
+      "owner": "Codex",
+      "next_action": "用候选模板补齐并由代理负责人逐阶段签发",
+      "acceptance": "可重放 manifest、阶段准入和停止条件满足",
+      "dependencies": [
+        "G02",
+        "G06",
+        "G07",
+        "G08"
+      ]
+    },
+    {
+      "id": "G10",
+      "priority": "P1",
+      "title": "receipt 关联与去重",
+      "status": "open",
+      "observed": "729条receipt路径、724种receipt哈希；4组重复含5份quarantine字节相同副本。728条receipt路径覆盖675个不同计划行；699状态仍completed_unreviewed。",
+      "missing": "planned ID→attempt→环境→产物→review全链；产物声明SHA尚未重算。",
+      "blocking_scope": "全量完成数和完整性结论",
+      "owner": "Codex",
+      "next_action": "接环境指纹和产物文件名/大小；数值/内容验收另行授权。",
+      "acceptance": "副本与独立attempt分开；各逻辑ID接收/有效/冲突/缺失/重复，覆盖分母清楚。",
+      "dependencies": []
+    },
+    {
+      "id": "G11",
+      "priority": "P1",
+      "title": "历史环境与源码",
+      "status": "open",
+      "observed": "receipt 内嵌与引用字段不同，授权 commit 非代码 commit",
+      "missing": "执行时完整源码/dirty diff/环境锁/设备身份",
+      "blocking_scope": "精确重现相关历史实验",
+      "owner": "Codex",
+      "next_action": "连接环境指纹、archive 和命令记录",
+      "acceptance": "可获取且 hash 一致；缺失则标不可精确重现",
+      "dependencies": [
+        "G10"
+      ]
+    },
+    {
+      "id": "G12",
+      "priority": "P1",
+      "title": "Stage C 事前统计记录",
+      "status": "open",
+      "observed": "历史报告称缺 bootstrap seed/算法/汇总规则",
+      "missing": "结果揭盲前可核验的统计记录",
+      "blocking_scope": "Stage C 确认性结论",
+      "owner": "Codex",
+      "next_action": "限定搜索历史控制记录",
+      "acceptance": "找到真实事前证据；否则保持描述性，不事后补造",
+      "dependencies": []
+    },
+    {
+      "id": "G13",
+      "priority": "P1",
+      "title": "跨硬件可比性",
+      "status": "open",
+      "observed": "B 历史覆盖 P4 245 + RTX8000 55",
+      "missing": "前瞻等价规则与符合该规则的证据",
+      "blocking_scope": "B 跨轨 pooled ranking",
+      "owner": "Codex",
+      "next_action": "保留分轨报告",
+      "acceptance": "无可比性证据时不统一排名；新实验另订方案",
+      "dependencies": []
+    },
+    {
+      "id": "G14",
+      "priority": "P1",
+      "title": "本地候选可恢复性",
+      "status": "open",
+      "observed": "R1 核心控制件尚未 tracked，已固定哈希",
+      "missing": "审核发布包与可验证独立备份",
+      "blocking_scope": "克隆复现和删除本地副本",
+      "owner": "Codex",
+      "next_action": "筛选控制件和依赖允许清单",
+      "acceptance": "干净克隆能解析公开依赖；不带入数据/秘密",
+      "dependencies": []
+    },
+    {
+      "id": "G15",
+      "priority": "P1",
+      "title": "备份恢复与存储预算",
+      "status": "open",
+      "observed": "尚未验证第二副本和恢复演练",
+      "missing": "备份位置/哈希/恢复证据、可用空间",
+      "blocking_scope": "不可恢复清理与大规模新增输出",
+      "owner": "Codex",
+      "next_action": "先只读核对并做合成恢复演练",
+      "acceptance": "关键材料双副本并验证，新增任务配输出预算",
+      "dependencies": []
+    },
+    {
+      "id": "G16",
+      "priority": "P2",
+      "title": "跨 checkout 审查稿",
+      "status": "open",
+      "observed": "40a7 三候选未导入；历史审查指出部分 EOL 差异",
+      "missing": "完整来源比较和采用决定",
+      "blocking_scope": "采用候选结论",
+      "owner": "Codex",
+      "next_action": "逐文件 raw+normalized hash 和 diff",
+      "acceptance": "无覆盖；新版本记录来源与采用段落",
+      "dependencies": []
+    },
+    {
+      "id": "G17",
+      "priority": "P2",
+      "title": "下一独立确认与 Stage D",
+      "status": "open",
+      "observed": "D 144 planned；C 解释边界未解决",
+      "missing": "独立问题/未暴露输入/统计计划/效果阈值/资源/专属 release",
+      "blocking_scope": "D 与新确认执行",
+      "owner": "Codex",
+      "next_action": "R1 完成后再排优先级",
+      "acceptance": "完整前瞻协议；不拿旧 exposed test 重新命名",
+      "dependencies": [
+        "G12",
+        "G13"
+      ]
+    },
+    {
+      "id": "G18",
+      "priority": "P1",
+      "title": "管理包独立复核",
+      "status": "in_progress",
+      "observed": "DSH 已审 v1 并结论“修正后再审”；v1.1 根据其问题修订。",
+      "missing": "DSH 对 v1.1 新 manifest 哈希的独立复核。",
+      "blocking_scope": "本包正式提交发布",
+      "owner": "Codex",
+      "next_action": "将新提示词和 manifest SHA-256 交 DSH。",
+      "acceptance": "具体问题闭环且复核对象字节哈希与 v1.1 manifest 相符。",
+      "dependencies": []
+    }
+  ],
+  "unknown_policy": "Do not invent absent historical facts; close with evidence or document unrecoverable limitation"
+}
