@@ -30,6 +30,8 @@ DeReFusion is a time-series forecasting research codebase with historical model/
 
 从已跟踪的 [README](../README.md)、[报告索引](../reports/README.md)、[Phase 1 预注册](PHASE1_PREREGISTRATION.md) 和 [Phase 1 数据与进展报告](../reports/phase1/phase1-experiment-data-and-progress-20260930.md) 开始导航。接管期间形成的扩展控制索引、交叉表与审查记录仍是本地候选，未随本目录自动发布；发布前需逐项审阅并固定哈希。
 
+全量路径/状态盘点、跨 checkout 哈希漂移和按优先级排列的缺口见[实验与数据资产总盘点](PROJECT_EXPERIMENT_DATA_INVENTORY_AND_GAPS_V1_2026-10-10.md)。
+
 ## Recommended experiment record fields
 
 For each attempt, maintain a stable record linking (not copying) the research question and claim boundary; protocol and approval/release state; code revision and dirty-tree scope; config, command, dependencies/runtime and hardware; dataset/source identity, rights, transformation and split/role definition; attempt ID, seed, start/end status, resource budget, failures/retries/deviations; output paths and permitted hashes; analysis/report link, limitations and review status. Preserve failed and partial attempts. A hash proves byte identity only—not rights, provenance, scientific validity, correct execution, or independent reproducibility.
