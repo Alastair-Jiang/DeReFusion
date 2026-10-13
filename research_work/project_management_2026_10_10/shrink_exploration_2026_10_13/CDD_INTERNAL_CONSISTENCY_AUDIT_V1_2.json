@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "type": "Codex internal consistency check; independent DSH review pending",
+  "timestamp_utc": "2026-10-13T03:03:17.756382+00:00",
+  "script_sha256": "d93277c142608d5057c7e8c122f910da1ef4c8490a6362ed6d6cbca5168fa88e",
+  "results_sha256": "dd8017676a0ccfe64bb4ab4bcf6ab81e477d183f2495377900049249b03883f5",
+  "checked_F_fits": 24,
+  "independently_reviewed_F_fits": 0,
+  "checks": [
+    "Raw/source/fit package digest binding",
+    "Split dates, all normalized targets, first/middle/last contexts from raw inputs",
+    "Training-only scaler and fixed full-train RMSSE denominator",
+    "600 steps, 12 validations, earliest minimum checkpoint",
+    "All 731 keys and yearly subsets; standard-library fsum metrics from stored predictions",
+    "Validation-only ranking, roster mean/median arithmetic and checkpoint-before-freeze/predictions-after-freeze timestamp order"
+  ],
+  "csv_target_codec": "Evaluator wrote NumPy float32 shortest-roundtrip targets; auditor v1.2 decodes target text to float32 before float64 arithmetic. Initial v1.1 treated decimal target text directly as float64 and raised an exact-equality failure (maximum normalized difference 2.35656739e-7); fits, packages, checkpoints, predictions and stored metrics unchanged.",
+  "publication": "Internal report only; no public raw/weights/predictions release"
+}

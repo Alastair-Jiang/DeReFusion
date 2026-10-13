@@ -1,0 +1,278 @@
+{
+  "protocol_id": "DRF-SHRINK-CDD-EXPLORATORY-20261013-V0.2",
+  "protocol_sha256": "f39db92c34cecaa646086134e93152a8c2f26bf898dba24538f775c8b934873d",
+  "runner_sha256": "2a4b2e9081e5ef7517bc3f297159914c5bdfd84bee7122a121c1ff213c122442",
+  "source_sha256": {
+    "models/derefusion/DeReFusion.py": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091",
+    "layers/derefusion_components.py": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33",
+    "layers/RevIN.py": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc"
+  },
+  "prepared_at_utc": "2026-10-13T02:51:11.462731+00:00",
+  "combinations": [
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.25,
+      "train_target_count": 433,
+      "train_raw_context_start": "2021-07-21",
+      "train_last_target": "2022-12-31",
+      "train_raw_candle_count": 529,
+      "close_output_std": 14192.597569704547,
+      "rmsse_denominator": 1038970.3069714521,
+      "packages": {
+        "train": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f025\\train.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f025\\train.keys.json",
+          "sha256": "86be1be8e6c9fc36ba5b163f01a5d08db5de0f9182108e89dd55bd4f8ef4e4f3",
+          "count": 433,
+          "keys_sha256": "a16e6344dc6b2b9c60ff6d33a4f725250f9329c99f6a56c3929f1efa72c37ec9"
+        },
+        "validation": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f025\\validation.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f025\\validation.keys.json",
+          "sha256": "aa6c54535cdf7994a13d29af142a2d6d3059454960354cc2d599b827013d4a9b",
+          "count": 365,
+          "keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5"
+        },
+        "test": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f025\\test.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f025\\test.keys.json",
+          "sha256": "7151d7c4d7fb0c4f0f61778f80d090a6b6365c8e512f23bd015b930dd66878d8",
+          "count": 731,
+          "keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e"
+        }
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.5,
+      "train_target_count": 865,
+      "train_raw_context_start": "2020-05-15",
+      "train_last_target": "2022-12-31",
+      "train_raw_candle_count": 961,
+      "close_output_std": 16259.22331624251,
+      "rmsse_denominator": 1038970.3069714521,
+      "packages": {
+        "train": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f050\\train.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f050\\train.keys.json",
+          "sha256": "e0c99e5c05055c5c0d5fa8745c778935be2ca78cedc038f5917add528c04c842",
+          "count": 865,
+          "keys_sha256": "1cef582f20881c9598a5b9e76014715ce237e9aece47529a056e47a2fe6ec1ca"
+        },
+        "validation": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f050\\validation.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f050\\validation.keys.json",
+          "sha256": "773ab497535b4782dfb1cd881e5a6d0f36124464154ae5e0f1d5c0772089b131",
+          "count": 365,
+          "keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5"
+        },
+        "test": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f050\\test.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f050\\test.keys.json",
+          "sha256": "c8aeff7d7d028785b852da93f11d1eb679f5189563f93f1cabfa061a04e4ac06",
+          "count": 731,
+          "keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e"
+        }
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.75,
+      "train_target_count": 1298,
+      "train_raw_context_start": "2019-03-09",
+      "train_last_target": "2022-12-31",
+      "train_raw_candle_count": 1394,
+      "close_output_std": 17411.005137763168,
+      "rmsse_denominator": 1038970.3069714521,
+      "packages": {
+        "train": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f075\\train.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f075\\train.keys.json",
+          "sha256": "0e32b1e0af893a2b76e1c80fcff0a0e0d779eb5c6069d81e3aef34b18d14433d",
+          "count": 1298,
+          "keys_sha256": "3b33ec147c8154de48e0e4a3b274d9541607919dd916005ede1f76b4a3ac8aa2"
+        },
+        "validation": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f075\\validation.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f075\\validation.keys.json",
+          "sha256": "5e63411cb7251e0f8abc522121a4dd62f120279108a07825b2360cf3b1dad040",
+          "count": 365,
+          "keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5"
+        },
+        "test": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f075\\test.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f075\\test.keys.json",
+          "sha256": "45815fa5bd4eb0ef85d40a4da02a9d507bb0a87403d5c0bfde2c6681ab55c7d9",
+          "count": 731,
+          "keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e"
+        }
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 1.0,
+      "train_target_count": 1730,
+      "train_raw_context_start": "2018-01-01",
+      "train_last_target": "2022-12-31",
+      "train_raw_candle_count": 1826,
+      "close_output_std": 16989.68226770193,
+      "rmsse_denominator": 1038970.3069714521,
+      "packages": {
+        "train": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f100\\train.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f100\\train.keys.json",
+          "sha256": "b50ba5ca1295bfa527df5f5b8c5a96ff86302e02e0bf31e06ce05730b5512ada",
+          "count": 1730,
+          "keys_sha256": "44de3217ae562bd2d9f6886d74029c8f54b2d88e276177fb48a31d7537d80388"
+        },
+        "validation": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f100\\validation.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f100\\validation.keys.json",
+          "sha256": "fa6842c7f628dd3b171dc4bdc0d4d9dfe6dfe7faadfad6c3312c7880ae22d95b",
+          "count": 365,
+          "keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5"
+        },
+        "test": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f100\\test.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f100\\test.keys.json",
+          "sha256": "88406d996f1ae5b7bc44b6ffb43bd16e0edd99e11fc9c3aef8edc29d0a8cf391",
+          "count": 731,
+          "keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e"
+        }
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.25,
+      "train_target_count": 433,
+      "train_raw_context_start": "2021-07-21",
+      "train_last_target": "2022-12-31",
+      "train_raw_candle_count": 529,
+      "close_output_std": 1066.2175207864732,
+      "rmsse_denominator": 6575.356746958903,
+      "packages": {
+        "train": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f025\\train.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f025\\train.keys.json",
+          "sha256": "5fa659014c0158a529e555c6e63a6651924330069f1de95dd040f4203395a577",
+          "count": 433,
+          "keys_sha256": "15fa16ee8a2ccc42a6d9e7b4c154d6fe2ecb11ca6d9d5c0076aa474d268f0955"
+        },
+        "validation": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f025\\validation.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f025\\validation.keys.json",
+          "sha256": "65e5e1ad57c74335e7faaf27db076e9de5254348cc7b4d53d89d3b91512c9a93",
+          "count": 365,
+          "keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde"
+        },
+        "test": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f025\\test.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f025\\test.keys.json",
+          "sha256": "32af2fd14d71d957625ca7673c7e8453909acd206cb5e31fbbdc7d8325181c2b",
+          "count": 731,
+          "keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302"
+        }
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.5,
+      "train_target_count": 865,
+      "train_raw_context_start": "2020-05-15",
+      "train_last_target": "2022-12-31",
+      "train_raw_candle_count": 961,
+      "close_output_std": 1217.4310298379744,
+      "rmsse_denominator": 6575.356746958903,
+      "packages": {
+        "train": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f050\\train.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f050\\train.keys.json",
+          "sha256": "41c00546cbc355126a68e4138900104a9d298261371cdaf4027e7eecbed82e79",
+          "count": 865,
+          "keys_sha256": "23323193db02bd941a036456a93e4b6541f89ceee6c7a246f9b6831873a65c95"
+        },
+        "validation": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f050\\validation.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f050\\validation.keys.json",
+          "sha256": "5c3d4228adc31dd3fad72582fb5fd2867da6b62f052f361b96b76ce3cf3f4fc6",
+          "count": 365,
+          "keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde"
+        },
+        "test": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f050\\test.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f050\\test.keys.json",
+          "sha256": "8e90a8c08a6e594380e50e3d3095c540de90f5c9d920d6c5ff1b76dfce898ba1",
+          "count": 731,
+          "keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302"
+        }
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.75,
+      "train_target_count": 1298,
+      "train_raw_context_start": "2019-03-09",
+      "train_last_target": "2022-12-31",
+      "train_raw_candle_count": 1394,
+      "close_output_std": 1284.4009973461737,
+      "rmsse_denominator": 6575.356746958903,
+      "packages": {
+        "train": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f075\\train.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f075\\train.keys.json",
+          "sha256": "23259e123dfeba224da7fc354f8313a557b1e593fba2f4a9212e4ecfea532936",
+          "count": 1298,
+          "keys_sha256": "5f3b1edbecbad2dba7ee3e6fcc21eb6881fb4c941477fcbd7d4f6b3eb5f71326"
+        },
+        "validation": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f075\\validation.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f075\\validation.keys.json",
+          "sha256": "ef3414a48b12ba6b6018af0be1484caea19320ff94cbe558ad97a176ddebe340",
+          "count": 365,
+          "keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde"
+        },
+        "test": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f075\\test.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f075\\test.keys.json",
+          "sha256": "29491966d1b2b30b9f78fd836a48c85733fdc122693f281b8cae565fa6ad04f9",
+          "count": 731,
+          "keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302"
+        }
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 1.0,
+      "train_target_count": 1730,
+      "train_raw_context_start": "2018-01-01",
+      "train_last_target": "2022-12-31",
+      "train_raw_candle_count": 1826,
+      "close_output_std": 1200.7981185436236,
+      "rmsse_denominator": 6575.356746958903,
+      "packages": {
+        "train": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\train.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\train.keys.json",
+          "sha256": "9f079158732d4cb2f7b2c7d30fbb584127a4f18f2b5944434a7f9bdd55188568",
+          "count": 1730,
+          "keys_sha256": "f39f799bdb872ad08715ab23dd4684efa6df628572330c7767959263e79788e9"
+        },
+        "validation": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\validation.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\validation.keys.json",
+          "sha256": "e78caf5bf15725bb33b7e080465fb6b92320f0ea64218bc711dc93190d9a2d54",
+          "count": 365,
+          "keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde"
+        },
+        "test": {
+          "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\test.npz",
+          "manifest": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\test.keys.json",
+          "sha256": "942bdbebb76d2b295fd4bf961dca533f89814b833015ea4a78f9be0f987564a8",
+          "count": 731,
+          "keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302"
+        }
+      }
+    }
+  ],
+  "result": "PASS"
+}

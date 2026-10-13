@@ -1,0 +1,31 @@
+{
+  "timestamp_utc": "2026-10-13T03:10:10.422139+00:00",
+  "head": "a74126c11d857da8514074b72282adc8d47f28a7",
+  "scope": "CDD candidate deliverables only; no private data",
+  "files": {
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/audit_and_report_cdd_v1_1.py": "dbeed550da8092371b174691c369e21a4228a2e4d544d1429b351654410ce4cb",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/audit_and_report_cdd_v1_2.py": "d93277c142608d5057c7e8c122f910da1ef4c8490a6362ed6d6cbca5168fa88e",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_DATASET_USE_REGISTER_V1.csv": "1435432161319bbec815176ad77593324e9851d43711ff696ecd843b73942d07",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_DSH_REVIEW_DISPOSITION_V1.json": "f374668346163b3db007a9b7c6f20f8a9ef0d2881c10fce276d4627be424c882",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_INTERNAL_CONSISTENCY_AUDIT_V1_2.json": "569c4e10891fa8846e134d2329fed65ea863140988da57feabaef39453c02723",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_LOCAL_RESEARCH_QUALIFICATION_RELEASE_V1.json": "71f08a26aef6c3917e1e2984e7090c18627153eba54fd9b947624b49c7cd65cc",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_MATRIX_EXECUTION_RELEASE_V1_1.json": "962766f127f8fa188093022356e546e247521b0ca503beae307c3e00c34f5e09",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_MATRIX_SYNTHETIC_CHECK_V1.json": "d596809fa32d945512d7fef4aa2e7d9199b3ed36c367a1724b81278f3822407c",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_MATRIX_SYNTHETIC_CHECK_V1_1.json": "5957baa13f4dbe3a608d7a6ce5314a95b881ef3ea9772bd7e25306f9fd4b762d",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_PREPARATION_MANIFEST_V1_1.json": "271bcd25af27be3bc476820b8253a4040109e408dd82ed38d42cdbd037f3cdba",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_QUALIFICATION_RESULTS_V1.json": "852540ad21d78b938a261542c9074ad74fa57e3c33430172f8e3b31eed6dcf3e",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_SHRINK_EXPLORATORY_RESULTS_V1_1.json": "dd8017676a0ccfe64bb4ab4bcf6ab81e477d183f2495377900049249b03883f5",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_VALIDATION_ROSTER_FREEZE_V1_1.json": "98acd37a6e8bb2241dfc20df5bc6afa53b0d4c3b56a39d2e9ed191df4cac51ba",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_WORKTREE_INVENTORY_SUPPLEMENT_V1.json": "7c62681a826c7daa5e4da2c18c741f5d90a7aeb6a41c192d7132efcc038340f5",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/PROGRESS_2026-10-13.json": "86bc05e2c32f58497a40696b10af513718e3f3a9f54c3bd452ab76ff9cccf88f",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/record_dsh_disposition_v1.py": "9cc81494b2c9d656cdda05679c2dcd901f2c69c97ffdef9aa3c70c3e506fd5d2",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/refresh_cdd_hashes_v1.py": "4c313c24a42b4646f962ac7df6ab057966b710d435bad521443ed5c303987283",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/run_shrink_cdd_v1.py": "52081c0fd15d27a54fd8c28c056891bae8ba07678d3a31364da1514382c18000",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/run_shrink_cdd_v1_1.py": "2a4b2e9081e5ef7517bc3f297159914c5bdfd84bee7122a121c1ff213c122442",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SHRINK_CDD_EXPLORATORY_PROTOCOL_V0.2.json": "f39db92c34cecaa646086134e93152a8c2f26bf898dba24538f775c8b934873d"
+  },
+  "reports": {
+    "docs/DRF_CDD_SHRINK_FIRST_BATCH_RESULTS_2026-10-13.md": "a29929a0f01bc114e4e5ae6d78684b7cda04e88075c3780a981f478ff2522aad",
+    "docs/DRF_CDD_DSH_REVIEW_DISPOSITION_2026-10-13.md": "4a8a809770df9ec40c929eca3263251b923c94387b23064c198f1971fc8b3c94"
+  }
+}

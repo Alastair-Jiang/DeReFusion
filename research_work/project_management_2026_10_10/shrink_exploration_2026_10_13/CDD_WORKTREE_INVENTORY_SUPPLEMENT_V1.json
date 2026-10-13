@@ -1,0 +1,8 @@
+{
+  "captured_at_utc": "2026-10-13T03:00:24.549133+00:00",
+  "kind": "untracked paths only, not file-content integrity",
+  "command_override": "core.longpaths=true; persistent Git config unchanged",
+  "inventory_sha256": "c89cb1d6128f9ef7f3dc55480f6b55ac4efe1c89bc35655da3ac7f1a170cfc5b",
+  "path_count": 12453,
+  "earlier_release_inventory": "limited because long-path warnings; exact active input pins unaffected"
+}

@@ -1,0 +1,389 @@
+{
+  "arms": {
+    "B": {
+      "checkpoint_sha256": "51601042d8046a030c63e2ea30f20bd6a755a2def4605e7ec55391ab55cb45f7",
+      "evaluation": {
+        "arm": "B",
+        "checkpoint_best_epoch": 50,
+        "test_key_count": 5,
+        "test_key_mse": 10.880273183214012,
+        "test_keys_sha256": "cfba92353c1a0a655e99dd0d7cf3b23e0e6a0f6b32720fb363429765030e2e75"
+      },
+      "train": {
+        "arm": "B",
+        "best_epoch": 50,
+        "best_validation_key_mse": 11.580759183927771,
+        "history": [
+          {
+            "epoch": 1,
+            "strict_improvement": true,
+            "validation_key_mse": 14.192026725637593
+          },
+          {
+            "epoch": 2,
+            "strict_improvement": true,
+            "validation_key_mse": 14.071954154376206
+          },
+          {
+            "epoch": 3,
+            "strict_improvement": true,
+            "validation_key_mse": 13.951361090277455
+          },
+          {
+            "epoch": 4,
+            "strict_improvement": true,
+            "validation_key_mse": 13.827097413254835
+          },
+          {
+            "epoch": 5,
+            "strict_improvement": true,
+            "validation_key_mse": 13.699384008883499
+          },
+          {
+            "epoch": 6,
+            "strict_improvement": true,
+            "validation_key_mse": 13.570731810252514
+          },
+          {
+            "epoch": 7,
+            "strict_improvement": true,
+            "validation_key_mse": 13.44383998390653
+          },
+          {
+            "epoch": 8,
+            "strict_improvement": true,
+            "validation_key_mse": 13.320593288093473
+          },
+          {
+            "epoch": 9,
+            "strict_improvement": true,
+            "validation_key_mse": 13.202170471926886
+          },
+          {
+            "epoch": 10,
+            "strict_improvement": true,
+            "validation_key_mse": 13.089206197931032
+          },
+          {
+            "epoch": 11,
+            "strict_improvement": true,
+            "validation_key_mse": 12.981950546673033
+          },
+          {
+            "epoch": 12,
+            "strict_improvement": true,
+            "validation_key_mse": 12.880450148118793
+          },
+          {
+            "epoch": 13,
+            "strict_improvement": true,
+            "validation_key_mse": 12.784616369097161
+          },
+          {
+            "epoch": 14,
+            "strict_improvement": true,
+            "validation_key_mse": 12.694310540266867
+          },
+          {
+            "epoch": 15,
+            "strict_improvement": true,
+            "validation_key_mse": 12.609408505078006
+          },
+          {
+            "epoch": 16,
+            "strict_improvement": true,
+            "validation_key_mse": 12.529777980875224
+          },
+          {
+            "epoch": 17,
+            "strict_improvement": true,
+            "validation_key_mse": 12.455320336498387
+          },
+          {
+            "epoch": 18,
+            "strict_improvement": true,
+            "validation_key_mse": 12.385864383765563
+          },
+          {
+            "epoch": 19,
+            "strict_improvement": true,
+            "validation_key_mse": 12.321280484661527
+          },
+          {
+            "epoch": 20,
+            "strict_improvement": true,
+            "validation_key_mse": 12.261328173743095
+          },
+          {
+            "epoch": 21,
+            "strict_improvement": true,
+            "validation_key_mse": 12.205820676363405
+          },
+          {
+            "epoch": 22,
+            "strict_improvement": true,
+            "validation_key_mse": 12.154477228568535
+          },
+          {
+            "epoch": 23,
+            "strict_improvement": true,
+            "validation_key_mse": 12.107066491510652
+          },
+          {
+            "epoch": 24,
+            "strict_improvement": true,
+            "validation_key_mse": 12.063337306832961
+          },
+          {
+            "epoch": 25,
+            "strict_improvement": true,
+            "validation_key_mse": 12.023017109388352
+          },
+          {
+            "epoch": 26,
+            "strict_improvement": true,
+            "validation_key_mse": 11.985864095564466
+          },
+          {
+            "epoch": 27,
+            "strict_improvement": true,
+            "validation_key_mse": 11.951589303141061
+          },
+          {
+            "epoch": 28,
+            "strict_improvement": true,
+            "validation_key_mse": 11.919943705259357
+          },
+          {
+            "epoch": 29,
+            "strict_improvement": true,
+            "validation_key_mse": 11.890653096688245
+          },
+          {
+            "epoch": 30,
+            "strict_improvement": true,
+            "validation_key_mse": 11.863487699800837
+          },
+          {
+            "epoch": 31,
+            "strict_improvement": true,
+            "validation_key_mse": 11.838222577436161
+          },
+          {
+            "epoch": 32,
+            "strict_improvement": true,
+            "validation_key_mse": 11.814655090150024
+          },
+          {
+            "epoch": 33,
+            "strict_improvement": true,
+            "validation_key_mse": 11.792632328105226
+          },
+          {
+            "epoch": 34,
+            "strict_improvement": true,
+            "validation_key_mse": 11.772003172730495
+          },
+          {
+            "epoch": 35,
+            "strict_improvement": true,
+            "validation_key_mse": 11.752653896559163
+          },
+          {
+            "epoch": 36,
+            "strict_improvement": true,
+            "validation_key_mse": 11.734503623023297
+          },
+          {
+            "epoch": 37,
+            "strict_improvement": true,
+            "validation_key_mse": 11.717467677022796
+          },
+          {
+            "epoch": 38,
+            "strict_improvement": true,
+            "validation_key_mse": 11.701500491422069
+          },
+          {
+            "epoch": 39,
+            "strict_improvement": true,
+            "validation_key_mse": 11.686562798983816
+          },
+          {
+            "epoch": 40,
+            "strict_improvement": true,
+            "validation_key_mse": 11.672599703098447
+          },
+          {
+            "epoch": 41,
+            "strict_improvement": true,
+            "validation_key_mse": 11.659584363490078
+          },
+          {
+            "epoch": 42,
+            "strict_improvement": true,
+            "validation_key_mse": 11.64749698387459
+          },
+          {
+            "epoch": 43,
+            "strict_improvement": true,
+            "validation_key_mse": 11.636308117420413
+          },
+          {
+            "epoch": 44,
+            "strict_improvement": true,
+            "validation_key_mse": 11.626000657819011
+          },
+          {
+            "epoch": 45,
+            "strict_improvement": true,
+            "validation_key_mse": 11.616536106822812
+          },
+          {
+            "epoch": 46,
+            "strict_improvement": true,
+            "validation_key_mse": 11.60789354825725
+          },
+          {
+            "epoch": 47,
+            "strict_improvement": true,
+            "validation_key_mse": 11.600019987273429
+          },
+          {
+            "epoch": 48,
+            "strict_improvement": true,
+            "validation_key_mse": 11.592910941207915
+          },
+          {
+            "epoch": 49,
+            "strict_improvement": true,
+            "validation_key_mse": 11.586519259086344
+          },
+          {
+            "epoch": 50,
+            "strict_improvement": true,
+            "validation_key_mse": 11.580759183927771
+          }
+        ],
+        "optimizer_steps": 50,
+        "state_tensor_sha256": "0b5079edc465c52a27e5ee63c76d9db6243904552cdab5ae297678c5c7307870",
+        "test_payload_argument_present": false,
+        "train_key_count": 13,
+        "validation_key_count": 7
+      }
+    },
+    "F": {
+      "checkpoint_sha256": "e94491c4354da6a65a97c58b312fabfdcf1bf70f99f306e7790f426d6c0dd771",
+      "evaluation": {
+        "arm": "F",
+        "checkpoint_best_epoch": 1,
+        "test_key_count": 5,
+        "test_key_mse": 22.54832167843124,
+        "test_keys_sha256": "cfba92353c1a0a655e99dd0d7cf3b23e0e6a0f6b32720fb363429765030e2e75"
+      },
+      "train": {
+        "arm": "F",
+        "best_epoch": 1,
+        "best_validation_key_mse": 15.715964332123153,
+        "history": [
+          {
+            "epoch": 1,
+            "strict_improvement": true,
+            "validation_key_mse": 15.715964332123153
+          },
+          {
+            "epoch": 2,
+            "strict_improvement": false,
+            "validation_key_mse": 16.179138529846178
+          },
+          {
+            "epoch": 3,
+            "strict_improvement": false,
+            "validation_key_mse": 16.63857188397586
+          },
+          {
+            "epoch": 4,
+            "strict_improvement": false,
+            "validation_key_mse": 17.12786602731129
+          },
+          {
+            "epoch": 5,
+            "strict_improvement": false,
+            "validation_key_mse": 17.6047067152436
+          },
+          {
+            "epoch": 6,
+            "strict_improvement": false,
+            "validation_key_mse": 17.977084145232634
+          },
+          {
+            "epoch": 7,
+            "strict_improvement": false,
+            "validation_key_mse": 18.330382517555595
+          },
+          {
+            "epoch": 8,
+            "strict_improvement": false,
+            "validation_key_mse": 18.603090174238396
+          },
+          {
+            "epoch": 9,
+            "strict_improvement": false,
+            "validation_key_mse": 18.923769184546213
+          },
+          {
+            "epoch": 10,
+            "strict_improvement": false,
+            "validation_key_mse": 19.304000430332962
+          },
+          {
+            "epoch": 11,
+            "strict_improvement": false,
+            "validation_key_mse": 19.714876435040164
+          }
+        ],
+        "optimizer_steps": 11,
+        "state_tensor_sha256": "e8e71532a914502196826d85f8f2dbb8ec94f48f7518524b8f474fec6078ee2c",
+        "test_payload_argument_present": false,
+        "train_key_count": 13,
+        "validation_key_count": 7
+      }
+    }
+  },
+  "checks": {
+    "checkpoint_restore": true,
+    "real_data_access": false,
+    "strict_tie_keeps_earlier": true,
+    "test_argument_rejected_by_train_worker": true,
+    "train_test_sentinel": true,
+    "train_worker_has_no_test_argument": true,
+    "validation_tail_key_included": true
+  },
+  "rejected_synthetic_cases": {
+    "duplicate_key": "{\"reason\": \"key cardinality/uniqueness failure\", \"worker_result\": \"REJECTED\"}",
+    "missing_expected_key": "{\"reason\": \"payload keys do not exactly match frozen expected-key manifest\", \"worker_result\": \"REJECTED\"}",
+    "nonfinite_input": "{\"reason\": \"non-finite payload\", \"worker_result\": \"REJECTED\"}",
+    "wrong_role": "{\"reason\": \"role mismatch: expected validation, got test\", \"worker_result\": \"REJECTED\"}"
+  },
+  "result": "PASS",
+  "scope": "synthetic-only; actual patched F/B model, optimizer steps, key-weighted validation, checkpoint restore, separate evaluator process",
+  "sentinel_train_artifacts_unchanged": {
+    "B": {
+      "state_tensor_identical": true,
+      "train_result_identical": true
+    },
+    "F": {
+      "state_tensor_identical": true,
+      "train_result_identical": true
+    }
+  },
+  "source_sha256": {
+    "layers/RevIN.py": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc",
+    "layers/derefusion_components.py": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33",
+    "models/derefusion/DeReFusion.py": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091",
+    "models/derefusion/ablation_variant/DeReFusion-woDy.py": "b231a3d0d4bf0effe6a8348a42e489f2baa957ab6698b1be46f8d7a6f9972eb2"
+  },
+  "test_payload_hash_after_sentinel": "acb7ba9d5126f00851c38a0a96cca11c44b00a71e2d875cc6cbe13e7af3240b4",
+  "test_payload_hash_before": "db696f92db08fe4d498fc93e2a7144efad8a43643e137ff303371af2ce3062fa",
+  "torch": "2.5.1+cpu"
+}

@@ -1,0 +1,71 @@
+{
+  "protocol_id": "DRF-SHRINK-CDD-EXPLORATORY-20261013-V0.2",
+  "status": "APPROVED_FOR_SYNTHETIC_CHECKS_AND_BOUND_PREPROCESSING; training requires execution release",
+  "approval_owner": "Codex under the user's project-lead delegation",
+  "intent": "Start a bounded, local, non-commercial exploration promptly on a newly acquired documented research-data source; do not relabel historical Yahoo files as licensed",
+  "assets": ["BTCUSD", "ETHUSD"],
+  "asset_selection_reason": "Both USD spot pairs have complete declared daily coverage and were specified before forecast-score access; GSPC/N225 are absent because of unresolved source-use basis, not poor scores",
+  "source": "CryptoDataDownload Bitstamp daily OHLC; new data version",
+  "qualification_record_sha256": "852540ad21d78b938a261542c9074ad74fa57e3c33430172f8e3b31eed6dcf3e",
+  "raw_sha256": {"BTCUSD": "e1cb6852d73d04ddebbd7e6b1d666906537e840528bcdf95fc80058b286fdef4", "ETHUSD": "cfe6b3cecb44026292a8ab5499a5590c36750936e2c625196400a12ca7ec17ca"},
+  "storage": "data/shrink-cdd-20261013-v1; existing gitignored local-only root",
+  "data_contract": {
+    "features": ["open", "high", "low", "close"],
+    "units": "USD per base crypto unit; exchange spot OHLC, no equity adjustment",
+    "grid": "24/7 daily candles, Unix timestamp interpreted as UTC candle start; verified midnight and date-label agreement",
+    "target": "Close of the next candle after 96 preceding completed daily OHLC candles",
+    "sequence_length": 96, "horizon": 1, "wall_clock_context": "96 calendar days", "wall_clock_horizon": "one calendar-day candle",
+    "split_on": "target candle start timestamp, half-open intervals",
+    "train": ["2018-01-01", "2023-01-01"], "validation": ["2023-01-01", "2024-01-01"], "test": ["2024-01-01", "2026-01-01"],
+    "first_training_target": "2018-04-07; context must be fully within the declared train interval",
+    "data_qualification_exposure": "QA custodian inspected prices before 2026; fit workers receive train/validation packages only. Test is exploratory and historically exposed across the broader project. No unexposed-confirmation claim.",
+    "missing_or_invalid_rule": "Any missing daily key, non-finite/non-positive OHLC or inconsistent OHLC range causes failure; no filling, silent deletion, offset or score-driven asset substitution"
+  },
+  "line_A": {
+    "estimand": "Descriptive paired loss change with fewer training targets within a fixed asset and forecast task",
+    "fractions": [0.25, 0.5, 0.75, 1.0],
+    "retention": "Contiguous tail of ceil(fraction * full eligible train-target count), ending at the same cutoff; preserve 96 preceding context candles. Report target count and actual raw-context span separately.",
+    "invariants": "Same validation/test keys, model configuration, seeds and maximum optimizer steps; full-training-prefix naive-loss denominator remains fixed across fractions for comparable RMSSE"
+  },
+  "line_B": {
+    "estimand": "Descriptive difficulty ranking and roster composition under per-asset models; no causal asset-count training claim",
+    "history_fraction": 1.0,
+    "ranking": "Mean validation RMSSE(F) over all three seeds; ties broken by lexicographic asset ID",
+    "rosters": ["top-1", "all-2"],
+    "freeze_before_test": true,
+    "reuse": "Reuse the 100%-history fits from line A; different questions with shared evidence, not independent statistical samples",
+    "summary": "Equal-asset mean and median of per-asset seed-mean RMSSE; always retain complete per-asset results"
+  },
+  "model": {
+    "reference": "Existing R1 model_bundle_v3 full DeReFusion implementation; exact source pins, no architecture changes",
+    "bundle": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source",
+    "source_sha256": {"models/derefusion/DeReFusion.py": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091", "layers/derefusion_components.py": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33", "layers/RevIN.py": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc"},
+    "configuration": {"seq_len": 96, "pred_len": 1, "enc_in": 4, "d_model": 32, "moving_avg": 25, "n_heads": 4, "e_layers": 1, "d_ff": 128, "dropout": 0.3},
+    "fidelity": "All listed architecture settings match the earlier candidate matrix and pinned model configuration: d_ff/d_model=4, d_model/n_heads=8; single-layer LSTM fixed in source. Record actual parameter count before fitting. This is the full model, not a claim about the nonlinear branch alone.",
+    "preprocessing": "For each asset/fraction, channelwise population mean/std from that fraction's training contexts and targets only; apply unchanged to validation/test; retain model RevIN",
+    "loss": "Mean squared next-Close error in training-normalized units",
+    "optimizer": {"type": "Adam", "learning_rate": 0.001, "betas": [0.9, 0.999], "epsilon": 1e-8, "weight_decay": 0},
+    "batch_size": 32, "seeds": [17, 29, 43], "steps_per_fit": 600, "validation_every_steps": 50,
+    "checkpoint_rule": "Lowest complete validation-key MSE; strict improvement only, ties retain earlier step; no early stopping; record sample exposures and epochs",
+    "schedule_change": "This new exploratory protocol uses a fixed 600-step budget instead of the prior R1 epoch/patience schedule, to compare history sizes under equal step caps. It is not an R1 run."
+  },
+  "linear_baseline": {
+    "identity": "Ridge linear regression on flattened 96x4 training-standardized OHLC windows with intercept; no DLinear label",
+    "objective": "mean squared error plus lambda * squared coefficient norm; intercept unpenalized",
+    "lambdas": [0.001, 0.01, 0.1, 1, 10, 100],
+    "selection": "Complete validation-key MSE, strict improvement; ties retain earliest ascending lambda",
+    "seeds": "Deterministic; seed repeats are not independent baseline evidence"
+  },
+  "persistence": "Predict last observed Close in each 96-candle context",
+  "metrics": {
+    "losses": ["original-unit MSE", "RMSSE = sqrt(MSE / full-train mean squared one-day Close difference)"],
+    "report": "Per asset/fraction/seed, full test and 2024/2025 separately, shared key hashes/counts, F/L/P losses and MSE(L)-MSE(F)",
+    "rmsse_denominator": "One-day Close differences entirely within the full [2018,2023) training prefix; never fitted/selected with test; fixed metric ruler across fractions",
+    "coverage": "100% of expected daily prediction keys, including incomplete batches",
+    "claims": "Exploratory descriptions only; no market-level significance, no pooled raw MSE, no seed independence or nonlinear-mechanism claim; 600 steps may undertrain and are not a convergence guarantee"
+  },
+  "access": "Custodian prepares roles; training subprocess accepts only train and validation package paths; independent evaluator gets test only after all fitting and the ranking freeze; T0 process/input discipline, not OS isolation",
+  "budget": {"device": "CPU", "threads": 2, "dtype": "float32 neural / float64 ridge", "maximum_F_fits": 24, "maximum_optimizer_steps": 14400, "maximum_seconds_per_worker": 1800, "maximum_seconds_batch": 21600, "maximum_output_bytes": 2147483648, "paid_cost": 0},
+  "failure_policy": "No automatic retry or configuration change; retain failure record and halt affected batch. Repairs require a new attempt/release. No silent removal of seed, asset or fraction.",
+  "publication": "Local internal research artifacts only for this release; no public raw CSV, predictions, checkpoints or model weights; publishing summaries requires separate review"
+}

@@ -1,0 +1,15 @@
+{
+  "protocol_id": "DRF-SHRINK-CDD-EXPLORATORY-20261013-V0.2",
+  "frozen_at_utc": "2026-10-13T03:00:51.061269+00:00",
+  "before_any_test_evaluation": true,
+  "ranking": [
+    {
+      "asset": "ETHUSD",
+      "mean_validation_rmsse_F": 0.5769414487950446
+    },
+    {
+      "asset": "BTCUSD",
+      "mean_validation_rmsse_F": 0.7080749122386142
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "release_id": "DRF-SHRINK-CDD-MATRIX-20261013-V1.1",
+  "decision": "APPROVED",
+  "decision_owner": "Codex under explicit project-lead delegation; user prioritizes startup with adequate permission or alternative source",
+  "decided_at_utc": "2026-10-13T02:52:29.956777+00:00",
+  "repository": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head": "a74126c11d857da8514074b72282adc8d47f28a7",
+  "tracked_diff_sha256": "812971edc8ec7cfb6afb3d93096391290fa97c478331c29a2732b81443a60ba2",
+  "untracked_path_inventory_sha256": "a445d719664919496c53ed2c0373ea39bbe5d10c8f35e12040f4f14bfcb03c31",
+  "protocol_id": "DRF-SHRINK-CDD-EXPLORATORY-20261013-V0.2",
+  "protocol_sha256": "f39db92c34cecaa646086134e93152a8c2f26bf898dba24538f775c8b934873d",
+  "runner_sha256": "2a4b2e9081e5ef7517bc3f297159914c5bdfd84bee7122a121c1ff213c122442",
+  "preparation_sha256": "271bcd25af27be3bc476820b8253a4040109e408dd82ed38d42cdbd037f3cdba",
+  "synthetic_sha256": "5957baa13f4dbe3a608d7a6ce5314a95b881ef3ea9772bd7e25306f9fd4b762d",
+  "source_sha256": {
+    "models/derefusion/DeReFusion.py": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091",
+    "layers/derefusion_components.py": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33",
+    "layers/RevIN.py": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc"
+  },
+  "raw_sha256": {
+    "BTCUSD": "e1cb6852d73d04ddebbd7e6b1d666906537e840528bcdf95fc80058b286fdef4",
+    "ETHUSD": "cfe6b3cecb44026292a8ab5499a5590c36750936e2c625196400a12ca7ec17ca"
+  },
+  "qualification_release_sha256": "71f08a26aef6c3917e1e2984e7090c18627153eba54fd9b947624b49c7cd65cc",
+  "scope": "New CDD Bitstamp BTC/USD and ETH/USD; internal local non-commercial exploratory fits, validation selection and private evaluation",
+  "input_root": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1",
+  "output_root": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1",
+  "worker_access": "Fit takes only train+validation package paths. Evaluator gets test after all fits and validation roster freeze. T0 discipline, not OS security.",
+  "budget": {
+    "device": "CPU",
+    "threads": 2,
+    "dtype": "float32 neural / float64 ridge",
+    "maximum_F_fits": 24,
+    "maximum_optimizer_steps": 14400,
+    "maximum_seconds_per_worker": 1800,
+    "maximum_seconds_batch": 21600,
+    "maximum_output_bytes": 2147483648,
+    "paid_cost": 0
+  },
+  "torch": "2.5.1+cpu",
+  "paid_cost": 0,
+  "planned_F_fits": 24,
+  "planned_ridge_unique_conditions": 8,
+  "planned_optimizer_steps": 14400,
+  "forbidden": "No processing of old Yahoo files; no public raw data/predictions/weights/commercial use; no confirmation claims",
+  "stops": "No automatic retry or configuration change; retain failure record and halt affected batch. Repairs require a new attempt/release. No silent removal of seed, asset or fraction.",
+  "repair_record": "v1 preparation wrote eight packages but could not serialize a NumPy integer in metadata. Preserve failed packages and v1 synthetic report. v1.1 casts metadata integer, adds synthetic metadata-serialization check, creates a fresh package/output root; no scientific configuration changed."
+}

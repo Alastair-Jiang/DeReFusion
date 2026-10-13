@@ -1,0 +1,31 @@
+{
+  "release_id": "DRF-SHRINK-CDD-QUALIFY-20261013-V1",
+  "decision": "APPROVED_FOR_BOUNDED_LOCAL_NONCOMMERCIAL_RESEARCH_QUALIFICATION",
+  "decision_owner": "Codex, under the user's explicit project-lead delegation and direction to prioritize lawful project startup",
+  "repository": "C:/Users/26843/Documents/ChatGPT/redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head": "a74126c11d857da8514074b72282adc8d47f28a7",
+  "worktree_state": "dirty; preserve existing tracked and untracked work",
+  "allowed_stages": ["documented catalog lookup", "two provided daily CSV downloads", "raw-byte hashing", "schema/date/units/OHLC quality qualification"],
+  "allowed_assets": ["BTCUSD", "ETHUSD"],
+  "supplier": "CryptoDataDownload; Bitstamp exchange series, not the historical Yahoo files",
+  "catalog_url": "https://api.cryptodatadownload.com/v1/data/ohlc/bitstamp/available",
+  "basis": {
+    "research_offering": "Official about page expressly invites historical-data use for research and analysis at no cost",
+    "use_limit": "Official terms, last updated 2023-09-20, describe a free research starting point and limit use to non-commercial purposes",
+    "acquisition_route": "Official Bitstamp catalog offers CSV downloads and explicitly says they may be consumed automatically by scripts",
+    "evidence_manifest": "data/shrink-cdd-20261013-v1/SUPPLIER_SNAPSHOTS.json",
+    "terms_html_sha256": "d50c904b3596ebcdf12ba5d1430bb3c9fc0630913d4e3eea29afe081a50dff41",
+    "about_html_sha256": "6ac09f39b7ea22847cd878d5d9f9a3d7a520e344a80b1db833ac32287ba18937",
+    "catalog_html_sha256": "f2e2a411972aab62fd24f524be004c803a8d444110426ed7e9d4d71ba41238eb",
+    "judgment": "The supplier's affirmative research offering is accepted as a verifiable operational basis for the limited local use; a separate signed vendor letter is not demanded",
+    "residual_boundary": "Supplier disclaims warranties, including third-party rights restrictions. This is not an unrestricted license or provider-side proof of upstream rights; do not infer redistribution/commercial rights. Stop if a concrete conflicting restriction or supplier objection is found."
+  },
+  "raw_storage": "C:/Users/26843/Documents/ChatGPT/redefusion/data/shrink-cdd-20261013-v1",
+  "git_exclusion": "/data/ is already ignored; raw data and supplier snapshots must remain local",
+  "budget": {"paid_cost": 0, "maximum_raw_downloads": 2, "maximum_file_bytes": 2097152, "timeout_seconds_per_request": 45, "retry": "none; record failures before any separately approved retry", "device": "CPU only for qualification"},
+  "stops": ["source redirects outside supplier-provided hosts", "terms snapshot digest mismatch", "missing required symbol/daily catalog row", "unexpected schema", "non-finite or non-positive OHLC", "duplicate dates", "coverage or calendar defects for the declared 2018-2025 interval"],
+  "excluded_permissions": ["commercial use", "raw-data redistribution", "public model/prediction release", "historical Yahoo-file processing", "training or scoring before a separate frozen experiment release"],
+  "historical_controls": "No active R1 or Phase 1 confirmation file is amended by this new exploratory acquisition",
+  "execution_record": "qualification script records timestamp, its own SHA-256, release digest, exact URLs, HTTP status, input-byte digests and failure events"
+}

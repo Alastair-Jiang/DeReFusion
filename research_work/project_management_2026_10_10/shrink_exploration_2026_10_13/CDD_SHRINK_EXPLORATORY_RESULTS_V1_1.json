@@ -1,0 +1,4211 @@
+{
+  "protocol_id": "DRF-SHRINK-CDD-EXPLORATORY-20261013-V0.2",
+  "release_sha256": "962766f127f8fa188093022356e546e247521b0ca503beae307c3e00c34f5e09",
+  "scope": "EXPLORATORY; new CDD source, not R1 confirmation",
+  "finished_at_utc": "2026-10-13T03:01:39.412027+00:00",
+  "planned_F_fits": 24,
+  "completed_F_fits": 24,
+  "total_optimizer_steps": 14400,
+  "source_raw_sha256": {
+    "BTCUSD": "e1cb6852d73d04ddebbd7e6b1d666906537e840528bcdf95fc80058b286fdef4",
+    "ETHUSD": "cfe6b3cecb44026292a8ab5499a5590c36750936e2c625196400a12ca7ec17ca"
+  },
+  "validation_roster_freeze_sha256": "98acd37a6e8bb2241dfc20df5bc6afa53b0d4c3b56a39d2e9ed191df4cac51ba",
+  "runs": [
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.25,
+      "seed": 17,
+      "fit": {
+        "seed": 17,
+        "steps": 600,
+        "training_samples_seen": 18570,
+        "effective_epochs": 42.88683602771363,
+        "parameters": 21743,
+        "best_step": 550,
+        "validation_keys": 365,
+        "train_keys": 433,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 678358.6053119609,
+          "L": 772064.9210828582,
+          "P": 435812.11673366895
+        },
+        "validation_rmsse": {
+          "F": 0.8080311462540004,
+          "L": 0.8620358795874768,
+          "P": 0.6476615015049464
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0038329225481385744
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.004066439108076713
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.007005899655519101
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.01890044504246231
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.05637478676423712
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.10038408906740738
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.010497495743489146,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.008237336482805394,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.006163429471795511,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.004654496356361204,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.004207805393303174,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.004185150470357066,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.003608059542345948,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.004320470099284924,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0036300343695361663,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.003892343472422557,
+            "strict_improvement": false
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.003367716785237815,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0036021455611063304,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "3657b6248d7e4117cdcba5ccb71113f88355e9876b2be7bcfc5a24f1e2c9bb6c",
+        "train_package_sha256": "86be1be8e6c9fc36ba5b163f01a5d08db5de0f9182108e89dd55bd4f8ef4e4f3",
+        "validation_package_sha256": "aa6c54535cdf7994a13d29af142a2d6d3059454960354cc2d599b827013d4a9b",
+        "test_path_received": false,
+        "seconds": 18.937999999994645
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f025_s17\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f025\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "a4a70caa60595c749e7a59925a736692e20313883b43406854e088b77d358f99",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 5676199.315528724,
+              "L": 6744311.185831385,
+              "P": 4016813.5564455367
+            },
+            "rmsse": {
+              "F": 2.337368842546818,
+              "L": 2.5478111410796087,
+              "P": 1.9662524151937248
+            },
+            "mse_L_minus_F": 1068111.8703026604
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 5096213.443570249,
+              "L": 5360020.462471632,
+              "P": 3449865.300893963
+            },
+            "rmsse": {
+              "F": 2.2147373848900695,
+              "L": 2.2713374198279133,
+              "P": 1.822214513175828
+            },
+            "mse_L_minus_F": 263807.0189013835
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 6257774.189876128,
+              "L": 8132394.486515411,
+              "P": 4585315.094889034
+            },
+            "rmsse": {
+              "F": 2.4541910947079857,
+              "L": 2.797741923341087,
+              "P": 2.1007918530708576
+            },
+            "mse_L_minus_F": 1874620.2966392832
+          }
+        },
+        "seconds": 1.9689999999827705
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.25,
+      "seed": 29,
+      "fit": {
+        "seed": 29,
+        "steps": 600,
+        "training_samples_seen": 18570,
+        "effective_epochs": 42.88683602771363,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 433,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 628847.5004894441,
+          "L": 772064.9210828582,
+          "P": 435812.11673366895
+        },
+        "validation_rmsse": {
+          "F": 0.7779847813553951,
+          "L": 0.8620358795874768,
+          "P": 0.6476615015049464
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0038329225481385744
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.004066439108076713
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.007005899655519101
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.01890044504246231
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.05637478676423712
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.10038408906740738
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.01409399541454179,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.01128091714184247,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0068251910620174775,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.005837681417427341,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.005886397433961608,
+            "strict_improvement": false
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.004916030826464302,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.004210413074352023,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.00484028456952796,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.003663362052515084,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0036789965409983407,
+            "strict_improvement": false
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0040713914120286444,
+            "strict_improvement": false
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0031219185047106895,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "c018d7732b93dc02a887277803db2df5b56af110ed34eeb3f819a96664f5f0b5",
+        "train_package_sha256": "86be1be8e6c9fc36ba5b163f01a5d08db5de0f9182108e89dd55bd4f8ef4e4f3",
+        "validation_package_sha256": "aa6c54535cdf7994a13d29af142a2d6d3059454960354cc2d599b827013d4a9b",
+        "test_path_received": false,
+        "seconds": 19.734000000025844
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f025_s29\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f025\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "dcd9fbab8270c8d2e5a581d2b5b22f0680992563d2c9b8e261154eaab7841ced",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 5313027.783523787,
+              "L": 6744311.185831385,
+              "P": 4016813.5564455367
+            },
+            "rmsse": {
+              "F": 2.261358800521508,
+              "L": 2.5478111410796087,
+              "P": 1.9662524151937248
+            },
+            "mse_L_minus_F": 1431283.402307598
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 4533802.493814361,
+              "L": 5360020.462471632,
+              "P": 3449865.300893963
+            },
+            "rmsse": {
+              "F": 2.0889581072091454,
+              "L": 2.2713374198279133,
+              "P": 1.822214513175828
+            },
+            "mse_L_minus_F": 826217.968657271
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 6094387.937040636,
+              "L": 8132394.486515411,
+              "P": 4585315.094889034
+            },
+            "rmsse": {
+              "F": 2.4219405574460997,
+              "L": 2.797741923341087,
+              "P": 2.1007918530708576
+            },
+            "mse_L_minus_F": 2038006.5494747749
+          }
+        },
+        "seconds": 2.125
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.25,
+      "seed": 43,
+      "fit": {
+        "seed": 43,
+        "steps": 600,
+        "training_samples_seen": 18570,
+        "effective_epochs": 42.88683602771363,
+        "parameters": 21743,
+        "best_step": 500,
+        "validation_keys": 365,
+        "train_keys": 433,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 954066.0310596088,
+          "L": 772064.9210828582,
+          "P": 435812.11673366895
+        },
+        "validation_rmsse": {
+          "F": 0.9582694628399687,
+          "L": 0.8620358795874768,
+          "P": 0.6476615015049464
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0038329225481385744
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.004066439108076713
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.007005899655519101
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.01890044504246231
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.05637478676423712
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.10038408906740738
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.03150243992489136,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.02105613242350767,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0166180280461424,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.011179107361222745,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.00783961169836135,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.007995937204670773,
+            "strict_improvement": false
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.006201444256166187,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.006476860627962289,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.005916338471827207,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.004736468531341287,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.005708428813482187,
+            "strict_improvement": false
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.005018914687339718,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "9a7d8d38f5f796babe05a848b857216e83c6ee8e3290b49b8ad9bc03db537dd7",
+        "train_package_sha256": "86be1be8e6c9fc36ba5b163f01a5d08db5de0f9182108e89dd55bd4f8ef4e4f3",
+        "validation_package_sha256": "aa6c54535cdf7994a13d29af142a2d6d3059454960354cc2d599b827013d4a9b",
+        "test_path_received": false,
+        "seconds": 19.937999999994645
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f025_s43\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f025\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "54e366a2280e642c8cf290eaf7cfa88e5da4c15ab41fa16334334b462a300fc6",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 6645015.565694613,
+              "L": 6744311.185831385,
+              "P": 4016813.5564455367
+            },
+            "rmsse": {
+              "F": 2.5289860475626673,
+              "L": 2.5478111410796087,
+              "P": 1.9662524151937248
+            },
+            "mse_L_minus_F": 99295.62013677135
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 6702155.675400075,
+              "L": 5360020.462471632,
+              "P": 3449865.300893963
+            },
+            "rmsse": {
+              "F": 2.539836076159407,
+              "L": 2.2713374198279133,
+              "P": 1.822214513175828
+            },
+            "mse_L_minus_F": -1342135.2129284423
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 6587718.907743385,
+              "L": 8132394.486515411,
+              "P": 4585315.094889034
+            },
+            "rmsse": {
+              "F": 2.518059349465382,
+              "L": 2.797741923341087,
+              "P": 2.1007918530708576
+            },
+            "mse_L_minus_F": 1544675.578772026
+          }
+        },
+        "seconds": 1.9690000000118744
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.5,
+      "seed": 17,
+      "fit": {
+        "seed": 17,
+        "steps": 600,
+        "training_samples_seen": 18549,
+        "effective_epochs": 21.44393063583815,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 865,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 503867.28474208154,
+          "L": 547747.288248121,
+          "P": 435812.09285817726
+        },
+        "validation_rmsse": {
+          "F": 0.6963963924570354,
+          "L": 0.7260868144057555,
+          "P": 0.6476614837642315
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0020719565515585187
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.002127952082887263
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.0031026304784639116
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.006500217130933516
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.016484714541315452
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.04805717594370356
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.006669791938926083,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.004311112965808908,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0030769158220764134,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0027859105677000974,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0024038689795210415,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0023561744666780985,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0021715130046992756,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.002097003579047166,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.002505861470882001,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0020002182916854057,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0019101815318017326,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0019059722323343492,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "96938a601e4b5d86cde698b44e629daa52c77c1ef98c9d1faae8fd4c54b88b12",
+        "train_package_sha256": "e0c99e5c05055c5c0d5fa8745c778935be2ca78cedc038f5917add528c04c842",
+        "validation_package_sha256": "773ab497535b4782dfb1cd881e5a6d0f36124464154ae5e0f1d5c0772089b131",
+        "test_path_received": false,
+        "seconds": 19.312000000005355
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f050_s17\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f050\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "7a0c14464a23b1515faed7a3707615447e57a531535eeda6026929c1c2358cd0",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 4597127.567440127,
+              "L": 5254531.845896158,
+              "P": 4016813.343746758
+            },
+            "rmsse": {
+              "F": 2.1034960930172906,
+              "L": 2.248875671745278,
+              "P": 1.9662523631351108
+            },
+            "mse_L_minus_F": 657404.2784560313
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 3943362.537095215,
+              "L": 4188876.0961377476,
+              "P": 3449865.0534319873
+            },
+            "rmsse": {
+              "F": 1.9481921324066305,
+              "L": 2.0079236233988005,
+              "P": 1.822214447821275
+            },
+            "mse_L_minus_F": 245513.55904253246
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 5252683.734854476,
+              "L": 6323107.200448428,
+              "P": 4585314.917048692
+            },
+            "rmsse": {
+              "F": 2.248480152449158,
+              "L": 2.466969069745167,
+              "P": 2.1007918123315044
+            },
+            "mse_L_minus_F": 1070423.4655939527
+          }
+        },
+        "seconds": 1.9839999999967404
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.5,
+      "seed": 29,
+      "fit": {
+        "seed": 29,
+        "steps": 600,
+        "training_samples_seen": 18549,
+        "effective_epochs": 21.44393063583815,
+        "parameters": 21743,
+        "best_step": 550,
+        "validation_keys": 365,
+        "train_keys": 865,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 493326.41281947243,
+          "L": 547747.288248121,
+          "P": 435812.09285817726
+        },
+        "validation_rmsse": {
+          "F": 0.6890736076096499,
+          "L": 0.7260868144057555,
+          "P": 0.6476614837642315
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0020719565515585187
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.002127952082887263
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.0031026304784639116
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.006500217130933516
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.016484714541315452
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.04805717594370356
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.006892166061814763,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.004937142069236264,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.003656538218220254,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0029622995741926403,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0025098471803749003,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0022426916615414408,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0021062060349599787,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0025528200756898766,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0019673166109620333,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.002208703993718228,
+            "strict_improvement": false
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0018660994130474816,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.00197495783639111,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "449260d1b71235b512214465b3f7a9799ae84965396438a5222e011134012a59",
+        "train_package_sha256": "e0c99e5c05055c5c0d5fa8745c778935be2ca78cedc038f5917add528c04c842",
+        "validation_package_sha256": "773ab497535b4782dfb1cd881e5a6d0f36124464154ae5e0f1d5c0772089b131",
+        "test_path_received": false,
+        "seconds": 20.75
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f050_s29\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f050\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "d3a77e4c11c3ffad2c21bed261605a2661aa340eb85a90ef34096fa0a105dfb0",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 4794513.479391963,
+              "L": 5254531.845896158,
+              "P": 4016813.343746758
+            },
+            "rmsse": {
+              "F": 2.14818017374326,
+              "L": 2.248875671745278,
+              "P": 1.9662523631351108
+            },
+            "mse_L_minus_F": 460018.36650419515
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 4084847.810460956,
+              "L": 4188876.0961377476,
+              "P": 3449865.0534319873
+            },
+            "rmsse": {
+              "F": 1.9828340691071444,
+              "L": 2.0079236233988005,
+              "P": 1.822214447821275
+            },
+            "mse_L_minus_F": 104028.2856767918
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 5506123.437826892,
+              "L": 6323107.200448428,
+              "P": 4585314.917048692
+            },
+            "rmsse": {
+              "F": 2.3020852577759507,
+              "L": 2.466969069745167,
+              "P": 2.1007918123315044
+            },
+            "mse_L_minus_F": 816983.7626215359
+          }
+        },
+        "seconds": 1.9530000000086147
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.5,
+      "seed": 43,
+      "fit": {
+        "seed": 43,
+        "steps": 600,
+        "training_samples_seen": 18549,
+        "effective_epochs": 21.44393063583815,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 865,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 523828.2249755653,
+          "L": 547747.288248121,
+          "P": 435812.09285817726
+        },
+        "validation_rmsse": {
+          "F": 0.7100564548118267,
+          "L": 0.7260868144057555,
+          "P": 0.6476614837642315
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0020719565515585187
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.002127952082887263
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.0031026304784639116
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.006500217130933516
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.016484714541315452
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.04805717594370356
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.015291167077545001,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.011021444301760193,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.006007830612488124,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0047384479574569234,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.003688338629224283,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0031201588861468482,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0030744916832298073,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0026177433591434937,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.003330649473931111,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0024609070970154244,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0020881091056641535,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0019814782216461576,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "82739a0f6aecd3a2ee166089381bca86893529f5296ce70836d60fb40ac5a09b",
+        "train_package_sha256": "e0c99e5c05055c5c0d5fa8745c778935be2ca78cedc038f5917add528c04c842",
+        "validation_package_sha256": "773ab497535b4782dfb1cd881e5a6d0f36124464154ae5e0f1d5c0772089b131",
+        "test_path_received": false,
+        "seconds": 19.390999999974156
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f050_s43\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f050\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "6eac88c1610a825075a36d777c83224662aef1de209b641f6c5a91ff9996ab34",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 5000755.575850708,
+              "L": 5254531.845896158,
+              "P": 4016813.343746758
+            },
+            "rmsse": {
+              "F": 2.193897059102392,
+              "L": 2.248875671745278,
+              "P": 1.9662523631351108
+            },
+            "mse_L_minus_F": 253776.27004544996
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 4398394.301455387,
+              "L": 4188876.0961377476,
+              "P": 3449865.0534319873
+            },
+            "rmsse": {
+              "F": 2.057526853075294,
+              "L": 2.0079236233988005,
+              "P": 1.822214447821275
+            },
+            "mse_L_minus_F": -209518.20531763928
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 5604767.155107387,
+              "L": 6323107.200448428,
+              "P": 4585314.917048692
+            },
+            "rmsse": {
+              "F": 2.3226149627112296,
+              "L": 2.466969069745167,
+              "P": 2.1007918123315044
+            },
+            "mse_L_minus_F": 718340.0453410409
+          }
+        },
+        "seconds": 1.952999999979511
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.75,
+      "seed": 17,
+      "fit": {
+        "seed": 17,
+        "steps": 600,
+        "training_samples_seen": 19004,
+        "effective_epochs": 14.640986132511557,
+        "parameters": 21743,
+        "best_step": 550,
+        "validation_keys": 365,
+        "train_keys": 1298,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 510933.8137988235,
+          "L": 534572.7377301,
+          "P": 435812.13497780537
+        },
+        "validation_rmsse": {
+          "F": 0.7012627246417811,
+          "L": 0.7173016592028981,
+          "P": 0.6476615150612751
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0017634336321483799
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0020023424156562055
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.0032231646452964583
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.007372197079252028
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.021535428607976786
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.058045209616686425
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.005822741665247054,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.0035345864407026035,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.002731007450601194,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.002232396761126047,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.00210004482090258,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0019569799137993285,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.001819358310766955,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0017317731497476089,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0022305914159186013,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.001689189962019681,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0016854542094318086,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0017881831931475197,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "8097767246fadb7e86dc7f6e2b1871fc0f05406e47e8466689299967382e72b7",
+        "train_package_sha256": "0e32b1e0af893a2b76e1c80fcff0a0e0d779eb5c6069d81e3aef34b18d14433d",
+        "validation_package_sha256": "5e63411cb7251e0f8abc522121a4dd62f120279108a07825b2360cf3b1dad040",
+        "test_path_received": false,
+        "seconds": 20.0
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f075_s17\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f075\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "1df92913b4ae2197b5c0293ab77f85f25c71c3a374d9cc95670a270da61d7db5",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 4745689.249589003,
+              "L": 4763059.038396857,
+              "P": 4016813.0270930706
+            },
+            "rmsse": {
+              "F": 2.1372143450942342,
+              "L": 2.141122002471941,
+              "P": 1.966252285633243
+            },
+            "mse_L_minus_F": 17369.788807854056
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 4160489.170124826,
+              "L": 3972813.3258896577,
+              "P": 3449864.9197029416
+            },
+            "rmsse": {
+              "F": 2.0011084690345697,
+              "L": 1.9554535832193036,
+              "P": 1.8222144125035162
+            },
+            "mse_L_minus_F": -187675.8442351683
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 5332492.616942123,
+              "L": 5555469.807650651,
+              "P": 4585314.4169692
+            },
+            "rmsse": {
+              "F": 2.2654973757960453,
+              "L": 2.3123779949098733,
+              "P": 2.1007916977741674
+            },
+            "mse_L_minus_F": 222977.19070852827
+          }
+        },
+        "seconds": 2.047000000020489
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.75,
+      "seed": 29,
+      "fit": {
+        "seed": 29,
+        "steps": 600,
+        "training_samples_seen": 19004,
+        "effective_epochs": 14.640986132511557,
+        "parameters": 21743,
+        "best_step": 550,
+        "validation_keys": 365,
+        "train_keys": 1298,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 464478.7964689574,
+          "L": 534572.7377301,
+          "P": 435812.13497780537
+        },
+        "validation_rmsse": {
+          "F": 0.6686231028378997,
+          "L": 0.7173016592028981,
+          "P": 0.6476615150612751
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0017634336321483799
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0020023424156562055
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.0032231646452964583
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.007372197079252028
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.021535428607976786
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.058045209616686425
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.006130221936648186,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.0039302460563721,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0032630000075465344,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.002365967526626389,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0025790952698548837,
+            "strict_improvement": false
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0019549525869727515,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0018236279002761817,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0021826108499322524,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.001801775344627721,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0015835255340053613,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.001532209694402158,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0015747386656277955,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "d6bf026ef6cb5b54dc286b902b79e4dc01fc95b3fe01e207152a31e9a4033368",
+        "train_package_sha256": "0e32b1e0af893a2b76e1c80fcff0a0e0d779eb5c6069d81e3aef34b18d14433d",
+        "validation_package_sha256": "5e63411cb7251e0f8abc522121a4dd62f120279108a07825b2360cf3b1dad040",
+        "test_path_received": false,
+        "seconds": 20.375
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f075_s29\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f075\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "291f44830766e09908021ae54367316b947678176c06990f20dfe4fcefe06f13",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 4589529.173026518,
+              "L": 4763059.038396857,
+              "P": 4016813.0270930706
+            },
+            "rmsse": {
+              "F": 2.101756984990107,
+              "L": 2.141122002471941,
+              "P": 1.966252285633243
+            },
+            "mse_L_minus_F": 173529.86537033878
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 3783338.465174472,
+              "L": 3972813.3258896577,
+              "P": 3449864.9197029416
+            },
+            "rmsse": {
+              "F": 1.9082533347259338,
+              "L": 1.9554535832193036,
+              "P": 1.8222144125035162
+            },
+            "mse_L_minus_F": 189474.86071518576
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 5397928.622543912,
+              "L": 5555469.807650651,
+              "P": 4585314.4169692
+            },
+            "rmsse": {
+              "F": 2.2793551617301118,
+              "L": 2.3123779949098733,
+              "P": 2.1007916977741674
+            },
+            "mse_L_minus_F": 157541.18510673847
+          }
+        },
+        "seconds": 1.9059999999881256
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.75,
+      "seed": 43,
+      "fit": {
+        "seed": 43,
+        "steps": 600,
+        "training_samples_seen": 19004,
+        "effective_epochs": 14.640986132511557,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 1298,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 529080.0734842262,
+          "L": 534572.7377301,
+          "P": 435812.13497780537
+        },
+        "validation_rmsse": {
+          "F": 0.7136070544199079,
+          "L": 0.7173016592028981,
+          "P": 0.6476615150612751
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0017634336321483799
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0020023424156562055
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.0032231646452964583
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.007372197079252028
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.021535428607976786
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.058045209616686425
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.013184959373460033,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.007749603550138894,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.005783792154638338,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0038207140121355276,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0033744561643365865,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.002577389463801498,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.002337495265217472,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.002069376862244831,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.002474832041401505,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0019230761951866701,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0018645578793583279,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0017453145845845231,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "ab4ef5700e7465e413691d9ac64633b2a377279c70f304b597f3c0439d412e67",
+        "train_package_sha256": "0e32b1e0af893a2b76e1c80fcff0a0e0d779eb5c6069d81e3aef34b18d14433d",
+        "validation_package_sha256": "5e63411cb7251e0f8abc522121a4dd62f120279108a07825b2360cf3b1dad040",
+        "test_path_received": false,
+        "seconds": 19.812000000005355
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f075_s43\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f075\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "0ffa0d0e600cc7b6ebca6feb4780822bb9546265a6b3d74895fed95953f20269",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 5045077.712768392,
+              "L": 4763059.038396857,
+              "P": 4016813.0270930706
+            },
+            "rmsse": {
+              "F": 2.2035979629182494,
+              "L": 2.141122002471941,
+              "P": 1.966252285633243
+            },
+            "mse_L_minus_F": -282018.67437153496
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 4491200.910523826,
+              "L": 3972813.3258896577,
+              "P": 3449864.9197029416
+            },
+            "rmsse": {
+              "F": 2.079120563009555,
+              "L": 1.9554535832193036,
+              "P": 1.8222144125035162
+            },
+            "mse_L_minus_F": -518387.58463416854
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 5600471.985704038,
+              "L": 5555469.807650651,
+              "P": 4585314.4169692
+            },
+            "rmsse": {
+              "F": 2.3217248332515874,
+              "L": 2.3123779949098733,
+              "P": 2.1007916977741674
+            },
+            "mse_L_minus_F": -45002.17805338744
+          }
+        },
+        "seconds": 1.9070000000065193
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 1.0,
+      "seed": 17,
+      "fit": {
+        "seed": 17,
+        "steps": 600,
+        "training_samples_seen": 18900,
+        "effective_epochs": 10.92485549132948,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 1730,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 483863.24539153185,
+          "L": 533423.9950031667,
+          "P": 435812.12001045357
+        },
+        "validation_rmsse": {
+          "F": 0.6824325749143824,
+          "L": 0.7165305403704079,
+          "P": 0.6476615039397654
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.001848000284182119
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0021867662508596956
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.003684654157640624
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.008896125011446529
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.028442727420666655
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.08961321600942879
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.005900051733642417,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.0041707160778307415,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0030815406013494063,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0024280957085579032,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.002339730491483306,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0020371511895849893,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0018815189566061328,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0017948243481928359,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.001867882017460382,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.002021688347798606,
+            "strict_improvement": false
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0017600576319506188,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0016763014475633493,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "2c7b7ceee1a9c943d4f068632b0c33bfdc15482704ae491fda8bcdb88155bc72",
+        "train_package_sha256": "b50ba5ca1295bfa527df5f5b8c5a96ff86302e02e0bf31e06ce05730b5512ada",
+        "validation_package_sha256": "fa6842c7f628dd3b171dc4bdc0d4d9dfe6dfe7faadfad6c3312c7880ae22d95b",
+        "test_path_received": false,
+        "seconds": 20.25
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f100_s17\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f100\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "0dae61c5ed6240d2dd5d8bb099dba303f989b1948cb042c714764ad5af52c2b8",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 4532738.133226785,
+              "L": 4693370.35077009,
+              "P": 4016813.49074326
+            },
+            "rmsse": {
+              "F": 2.0887128897356217,
+              "L": 2.125400824777867,
+              "P": 1.966252399112911
+            },
+            "mse_L_minus_F": 160632.2175433049
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 3978536.373240605,
+              "L": 3938697.709967071,
+              "P": 3449864.8399926866
+            },
+            "rmsse": {
+              "F": 1.9568615434064776,
+              "L": 1.9470394779541162,
+              "P": 1.8222143914520867
+            },
+            "mse_L_minus_F": -39838.663273533806
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 5088458.254199226,
+              "L": 5450110.587849282,
+              "P": 4585315.425468491
+            },
+            "rmsse": {
+              "F": 2.2130515992278883,
+              "L": 2.290345966635772,
+              "P": 2.100791928799418
+            },
+            "mse_L_minus_F": 361652.33365005534
+          }
+        },
+        "seconds": 2.014999999984866
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 1.0,
+      "seed": 29,
+      "fit": {
+        "seed": 29,
+        "steps": 600,
+        "training_samples_seen": 18900,
+        "effective_epochs": 10.92485549132948,
+        "parameters": 21743,
+        "best_step": 550,
+        "validation_keys": 365,
+        "train_keys": 1730,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 504244.34690840176,
+          "L": 533423.9950031667,
+          "P": 435812.12001045357
+        },
+        "validation_rmsse": {
+          "F": 0.696656913067581,
+          "L": 0.7165305403704079,
+          "P": 0.6476615039397654
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.001848000284182119
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0021867662508596956
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.003684654157640624
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.008896125011446529
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.028442727420666655
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.08961321600942879
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.00524001269326751,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.004334109408760064,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0029931725317661963,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.002568348124201853,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0022537977725162147,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.002553486972655612,
+            "strict_improvement": false
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0018804251183340134,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0018935982874307884,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0020379893734722497,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0018209590552118976,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0017469099723915146,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0018116817742693566,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "4b6722d0066fb06e94157d9cfe3117a2a0460be989bd73332257419b17ba0cfc",
+        "train_package_sha256": "b50ba5ca1295bfa527df5f5b8c5a96ff86302e02e0bf31e06ce05730b5512ada",
+        "validation_package_sha256": "fa6842c7f628dd3b171dc4bdc0d4d9dfe6dfe7faadfad6c3312c7880ae22d95b",
+        "test_path_received": false,
+        "seconds": 19.15700000000652
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f100_s29\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f100\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "89d2364517c557897431e83d3017fcd53d24b8a23162dda14462f908293f51aa",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 4804201.8926468445,
+              "L": 4693370.35077009,
+              "P": 4016813.49074326
+            },
+            "rmsse": {
+              "F": 2.1503495235514682,
+              "L": 2.125400824777867,
+              "P": 1.966252399112911
+            },
+            "mse_L_minus_F": -110831.54187675472
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 4014412.6461579297,
+              "L": 3938697.709967071,
+              "P": 3449864.8399926866
+            },
+            "rmsse": {
+              "F": 1.9656646979373742,
+              "L": 1.9470394779541162,
+              "P": 1.8222143914520867
+            },
+            "mse_L_minus_F": -75714.93619085848
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 5596154.945290523,
+              "L": 5450110.587849282,
+              "P": 4585315.425468491
+            },
+            "rmsse": {
+              "F": 2.320829827239523,
+              "L": 2.290345966635772,
+              "P": 2.100791928799418
+            },
+            "mse_L_minus_F": -146044.35744124092
+          }
+        },
+        "seconds": 2.0
+      }
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 1.0,
+      "seed": 43,
+      "fit": {
+        "seed": 43,
+        "steps": 600,
+        "training_samples_seen": 18900,
+        "effective_epochs": 10.92485549132948,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 1730,
+        "validation_keys_sha256": "7bff31fe29e2156aa62b5cb8c800d1dfd78302fe9615aa746c9958851d68b1f5",
+        "validation_mse": {
+          "F": 576863.8875655517,
+          "L": 533423.9950031667,
+          "P": 435812.12001045357
+        },
+        "validation_rmsse": {
+          "F": 0.745135248733879,
+          "L": 0.7165305403704079,
+          "P": 0.6476615039397654
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.001848000284182119
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0021867662508596956
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.003684654157640624
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.008896125011446529
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.028442727420666655
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.08961321600942879
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.014922924015648301,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.008590786662361958,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.007238320630495993,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.004876508754320414,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.003830059367315921,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0029971815659263867,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0025501575980469973,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0024265705490132262,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.002138939962205515,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0024722048422434876,
+            "strict_improvement": false
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.002545663733601017,
+            "strict_improvement": false
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0019984939525437223,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "6348332ce846dac8883edb8bd2824d674b9d40e1a8ee2edcb2c2fa92ff6752fb",
+        "train_package_sha256": "b50ba5ca1295bfa527df5f5b8c5a96ff86302e02e0bf31e06ce05730b5512ada",
+        "validation_package_sha256": "fa6842c7f628dd3b171dc4bdc0d4d9dfe6dfe7faadfad6c3312c7880ae22d95b",
+        "test_path_received": false,
+        "seconds": 19.578000000008615
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\BTCUSD_f100_s43\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\BTCUSD_f100\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "ef43ce88b4a1bd8f6bedc70f2a99c4b2e262ee5cfd6960e0a0dfc366970f476e",
+        "test_key_count": 731,
+        "checkpoint_sha256": "c420d96dc7f5fd2a6bf71360dc3379a905e5aee6d475c1338fca6c63c6f7ab2e",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 5249191.183098436,
+              "L": 4693370.35077009,
+              "P": 4016813.49074326
+            },
+            "rmsse": {
+              "F": 2.2477325118614946,
+              "L": 2.125400824777867,
+              "P": 1.966252399112911
+            },
+            "mse_L_minus_F": -555820.8323283466
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 4786549.912194266,
+              "L": 3938697.709967071,
+              "P": 3449864.8399926866
+            },
+            "rmsse": {
+              "F": 2.146395395496823,
+              "L": 1.9470394779541162,
+              "P": 1.8222143914520867
+            },
+            "mse_L_minus_F": -847852.2022271948
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 5713099.96433385,
+              "L": 5450110.587849282,
+              "P": 4585315.425468491
+            },
+            "rmsse": {
+              "F": 2.3449540856399627,
+              "L": 2.290345966635772,
+              "P": 2.100791928799418
+            },
+            "mse_L_minus_F": -262989.37648456823
+          }
+        },
+        "seconds": 1.985000000015134
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.25,
+      "seed": 17,
+      "fit": {
+        "seed": 17,
+        "steps": 600,
+        "training_samples_seen": 18570,
+        "effective_epochs": 42.88683602771363,
+        "parameters": 21743,
+        "best_step": 550,
+        "validation_keys": 365,
+        "train_keys": 433,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2250.848066598326,
+          "L": 3518.5544461313116,
+          "P": 1978.4612851179857
+        },
+        "validation_rmsse": {
+          "F": 0.5850775446966072,
+          "L": 0.7315137226697607,
+          "P": 0.5485347150344712
+        },
+        "ridge_lambda": 0.01,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0033240893228096346
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0030950854665620416
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.003606318520042417
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.007326494348254177
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.015831136345263286
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.021176336638258745
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.005445650022188088,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.004144142503090745,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0035756712845775723,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.002671970914419065,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.002519700099162516,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0022007402819229967,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0021447314904847812,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0021587582581373815,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.002099294023795532,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.002095204500144458,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.001979951495713691,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.002142366378689022,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "7d7505830d59c052f21c73754fb59a2d46a159f52c34184e44e8c01dba624bdf",
+        "train_package_sha256": "5fa659014c0158a529e555c6e63a6651924330069f1de95dd040f4203395a577",
+        "validation_package_sha256": "65e5e1ad57c74335e7faaf27db076e9de5254348cc7b4d53d89d3b91512c9a93",
+        "test_path_received": false,
+        "seconds": 18.25
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f025_s17\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f025\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "5e8e84c1bbbc110d0e7830c54a975cb47770dbc334a46ea399c71b009e997797",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 15548.98369205973,
+              "L": 18026.48774607296,
+              "P": 12508.808960316404
+            },
+            "rmsse": {
+              "F": 1.5377698572233918,
+              "L": 1.6557543266775416,
+              "P": 1.3792669179235275
+            },
+            "mse_L_minus_F": 2477.5040540132286
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 13034.523432908747,
+              "L": 16032.6284372009,
+              "P": 10751.816208823315
+            },
+            "rmsse": {
+              "F": 1.4079522245448386,
+              "L": 1.5615025709297985,
+              "P": 1.2787370710776507
+            },
+            "mse_L_minus_F": 2998.1050042921524
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 18070.332883427564,
+              "L": 20025.8096831885,
+              "P": 14270.61539058071
+            },
+            "rmsse": {
+              "F": 1.6577667177465218,
+              "L": 1.745160529725009,
+              "P": 1.4731999333190933
+            },
+            "mse_L_minus_F": 1955.4767997609379
+          }
+        },
+        "seconds": 2.0
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.25,
+      "seed": 29,
+      "fit": {
+        "seed": 29,
+        "steps": 600,
+        "training_samples_seen": 18570,
+        "effective_epochs": 42.88683602771363,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 433,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2224.609668858562,
+          "L": 3518.5544461313116,
+          "P": 1978.4612851179857
+        },
+        "validation_rmsse": {
+          "F": 0.5816573896939118,
+          "L": 0.7315137226697607,
+          "P": 0.5485347150344712
+        },
+        "ridge_lambda": 0.01,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0033240893228096346
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0030950854665620416
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.003606318520042417
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.007326494348254177
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.015831136345263286
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.021176336638258745
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.006384067727108936,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.005212939014509975,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0036611369937746257,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0030772424269436614,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.002783224330975001,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.002453786863380554,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.002319634137432781,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.002265232697246894,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0021068883738388946,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0022589894753076933,
+            "strict_improvement": false
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.002308970751195048,
+            "strict_improvement": false
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0019568709708124754,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "86c0780427dc4cbc8ae1b5290271a17ba4f2591cafc471c8d32b99a1e9770476",
+        "train_package_sha256": "5fa659014c0158a529e555c6e63a6651924330069f1de95dd040f4203395a577",
+        "validation_package_sha256": "65e5e1ad57c74335e7faaf27db076e9de5254348cc7b4d53d89d3b91512c9a93",
+        "test_path_received": false,
+        "seconds": 24.280999999988126
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f025_s29\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f025\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "4bc6518ef3123e4c083dff3df6b344ef14008e1a37a5de905fc36b5250e003fe",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 14356.509034475837,
+              "L": 18026.48774607296,
+              "P": 12508.808960316404
+            },
+            "rmsse": {
+              "F": 1.4776268158216446,
+              "L": 1.6557543266775416,
+              "P": 1.3792669179235275
+            },
+            "mse_L_minus_F": 3669.978711597121
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 12253.955358436677,
+              "L": 16032.6284372009,
+              "P": 10751.816208823315
+            },
+            "rmsse": {
+              "F": 1.3651440692374341,
+              "L": 1.5615025709297985,
+              "P": 1.2787370710776507
+            },
+            "mse_L_minus_F": 3778.6730787642227
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 16464.82313154524,
+              "L": 20025.8096831885,
+              "P": 14270.61539058071
+            },
+            "rmsse": {
+              "F": 1.5824094748279343,
+              "L": 1.745160529725009,
+              "P": 1.4731999333190933
+            },
+            "mse_L_minus_F": 3560.986551643262
+          }
+        },
+        "seconds": 1.937000000005355
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.25,
+      "seed": 43,
+      "fit": {
+        "seed": 43,
+        "steps": 600,
+        "training_samples_seen": 18570,
+        "effective_epochs": 42.88683602771363,
+        "parameters": 21743,
+        "best_step": 500,
+        "validation_keys": 365,
+        "train_keys": 433,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2609.1153619685915,
+          "L": 3518.5544461313116,
+          "P": 1978.4612851179857
+        },
+        "validation_rmsse": {
+          "F": 0.6299222963760558,
+          "L": 0.7315137226697607,
+          "P": 0.5485347150344712
+        },
+        "ridge_lambda": 0.01,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0033240893228096346
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0030950854665620416
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.003606318520042417
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.007326494348254177
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.015831136345263286
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.021176336638258745
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.010350933876917547,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.007202908012293394,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0062229827053806985,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.004326653920780564,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.003273938352980693,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.003439740422917576,
+            "strict_improvement": false
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0026297966773379364,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.002855775577909894,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0025113889534628584,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0022951002069306545,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0025136882837382434,
+            "strict_improvement": false
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0026735324000421398,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "aa54fb5fd8c57c888218877d975c0bae1e3c87e1c35b32ce27283178c631556b",
+        "train_package_sha256": "5fa659014c0158a529e555c6e63a6651924330069f1de95dd040f4203395a577",
+        "validation_package_sha256": "65e5e1ad57c74335e7faaf27db076e9de5254348cc7b4d53d89d3b91512c9a93",
+        "test_path_received": false,
+        "seconds": 21.14100000000326
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f025_s43\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f025\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "33cc9e039164c79729bc8ba7994ab523bf882758977dd1ae6e77153db2b0ad2e",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 18199.07849244758,
+              "L": 18026.48774607296,
+              "P": 12508.808960316404
+            },
+            "rmsse": {
+              "F": 1.663661777319349,
+              "L": 1.6557543266775416,
+              "P": 1.3792669179235275
+            },
+            "mse_L_minus_F": -172.59074637462254
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 15178.150598107251,
+              "L": 16032.6284372009,
+              "P": 10751.816208823315
+            },
+            "rmsse": {
+              "F": 1.519321797131095,
+              "L": 1.5615025709297985,
+              "P": 1.2787370710776507
+            },
+            "mse_L_minus_F": 854.4778390936481
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 21228.282901566923,
+              "L": 20025.8096831885,
+              "P": 14270.61539058071
+            },
+            "rmsse": {
+              "F": 1.7967918668035023,
+              "L": 1.745160529725009,
+              "P": 1.4731999333190933
+            },
+            "mse_L_minus_F": -1202.4732183784217
+          }
+        },
+        "seconds": 2.1559999999881256
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.5,
+      "seed": 17,
+      "fit": {
+        "seed": 17,
+        "steps": 600,
+        "training_samples_seen": 18549,
+        "effective_epochs": 21.44393063583815,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 865,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2149.133153642771,
+          "L": 2507.9594169001402,
+          "P": 1978.4613498426459
+        },
+        "validation_rmsse": {
+          "F": 0.5717050147533203,
+          "L": 0.6175904788550656,
+          "P": 0.5485347240070305
+        },
+        "ridge_lambda": 0.01,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0017708116775886872
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0016921223855404879
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.002092175528651167
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.0035899006246254165
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.007786369542200839
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.019597711950743883
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.003907597846206525,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.0027069479519428344,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.002118648091789127,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.001890712969021955,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0016867994363988935,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.001546431752479776,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0015557541452816935,
+            "strict_improvement": false
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0015109449365175419,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0015842150262816393,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0015373815903260174,
+            "strict_improvement": false
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0014822537696455211,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0014500219956832565,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "c0c6662d89fa25172ddc5bbe242656f92a01e0afed3e8e97a201a1ae33898d9c",
+        "train_package_sha256": "41c00546cbc355126a68e4138900104a9d298261371cdaf4027e7eecbed82e79",
+        "validation_package_sha256": "5c3d4228adc31dd3fad72582fb5fd2867da6b62f052f361b96b76ce3cf3f4fc6",
+        "test_path_received": false,
+        "seconds": 20.437000000005355
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f050_s17\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f050\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "d5925d2611906ddea08f02de4d76f64d304e37b3dac767050f7b01aa7ac76c2b",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 14714.915183184718,
+              "L": 15723.294526057229,
+              "P": 12508.808838499654
+            },
+            "rmsse": {
+              "F": 1.4959573824916943,
+              "L": 1.5463653672007691,
+              "P": 1.3792669112075475
+            },
+            "mse_L_minus_F": 1008.3793428725112
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 12284.88979929396,
+              "L": 13620.118252281974,
+              "P": 10751.816355234932
+            },
+            "rmsse": {
+              "F": 1.3668660989418224,
+              "L": 1.4392319080966485,
+              "P": 1.278737079784178
+            },
+            "mse_L_minus_F": 1335.2284529880144
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 17151.598170866953,
+              "L": 17832.232926609948,
+              "P": 14270.614999800711
+            },
+            "rmsse": {
+              "F": 1.6150747835329133,
+              "L": 1.6468088942000871,
+              "P": 1.4731999131483768
+            },
+            "mse_L_minus_F": 680.6347557429945
+          }
+        },
+        "seconds": 2.125
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.5,
+      "seed": 29,
+      "fit": {
+        "seed": 29,
+        "steps": 600,
+        "training_samples_seen": 18549,
+        "effective_epochs": 21.44393063583815,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 865,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2045.7001201404155,
+          "L": 2507.9594169001402,
+          "P": 1978.4613498426459
+        },
+        "validation_rmsse": {
+          "F": 0.5577779285232354,
+          "L": 0.6175904788550656,
+          "P": 0.5485347240070305
+        },
+        "ridge_lambda": 0.01,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0017708116775886872
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0016921223855404879
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.002092175528651167
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.0035899006246254165
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.007786369542200839
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.019597711950743883
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.003908431444485985,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.0027083175027724418,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.002040963498191442,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0017611751862052752,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0018146036684986116,
+            "strict_improvement": false
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0015532494574583082,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.001553674888990099,
+            "strict_improvement": false
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0017193732214470154,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0014694479275693905,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0014160650398172938,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0014173303402003983,
+            "strict_improvement": false
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0013802356386097346,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "e701bcc3c47e46ad0bd991aa273abc07ad6eacecb8c6da8abc98bb7601c31b6a",
+        "train_package_sha256": "41c00546cbc355126a68e4138900104a9d298261371cdaf4027e7eecbed82e79",
+        "validation_package_sha256": "5c3d4228adc31dd3fad72582fb5fd2867da6b62f052f361b96b76ce3cf3f4fc6",
+        "test_path_received": false,
+        "seconds": 20.39100000000326
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f050_s29\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f050\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "df4c5e4d9112eca05d30133aa3afea558e247efb70e59680cdf6b10694d365ea",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 14176.622904396703,
+              "L": 15723.294526057229,
+              "P": 12508.808838499654
+            },
+            "rmsse": {
+              "F": 1.4683403501815502,
+              "L": 1.5463653672007691,
+              "P": 1.3792669112075475
+            },
+            "mse_L_minus_F": 1546.6716216605255
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 12104.257217612998,
+              "L": 13620.118252281974,
+              "P": 10751.816355234932
+            },
+            "rmsse": {
+              "F": 1.3567799331399641,
+              "L": 1.4392319080966485,
+              "P": 1.278737079784178
+            },
+            "mse_L_minus_F": 1515.8610346689766
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 16254.666305390776,
+              "L": 17832.232926609948,
+              "P": 14270.614999800711
+            },
+            "rmsse": {
+              "F": 1.5722781130571861,
+              "L": 1.6468088942000871,
+              "P": 1.4731999131483768
+            },
+            "mse_L_minus_F": 1577.5666212191718
+          }
+        },
+        "seconds": 2.0789999999979045
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.5,
+      "seed": 43,
+      "fit": {
+        "seed": 43,
+        "steps": 600,
+        "training_samples_seen": 18549,
+        "effective_epochs": 21.44393063583815,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 865,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2265.664336891029,
+          "L": 2507.9594169001402,
+          "P": 1978.4613498426459
+        },
+        "validation_rmsse": {
+          "F": 0.5870000308244189,
+          "L": 0.6175904788550656,
+          "P": 0.5485347240070305
+        },
+        "ridge_lambda": 0.01,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0017708116775886872
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0016921223855404879
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.002092175528651167
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.0035899006246254165
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.007786369542200839
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.019597711950743883
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.006131648154281257,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.00465062628142074,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0035368813560734368,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.002476839135939492,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0021739581022868384,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0019412270728594815,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0018257992486906429,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.001717477365786773,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0017451628190456204,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0016281419140382488,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0015628153049726094,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0015286456857075633,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "370f0a2de7048d31bc47c6cef570a57d6f730464c431ee418b60909048991d14",
+        "train_package_sha256": "41c00546cbc355126a68e4138900104a9d298261371cdaf4027e7eecbed82e79",
+        "validation_package_sha256": "5c3d4228adc31dd3fad72582fb5fd2867da6b62f052f361b96b76ce3cf3f4fc6",
+        "test_path_received": false,
+        "seconds": 20.187000000005355
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f050_s43\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f050\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "91f8985d6e77e90152113c95dfac7e8d7b2e06368c7098897362544d11af7e7e",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 15711.747281011247,
+              "L": 15723.294526057229,
+              "P": 12508.808838499654
+            },
+            "rmsse": {
+              "F": 1.5457974347160686,
+              "L": 1.5463653672007691,
+              "P": 1.3792669112075475
+            },
+            "mse_L_minus_F": 11.547245045981981
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 13462.727275225334,
+              "L": 13620.118252281974,
+              "P": 10751.816355234932
+            },
+            "rmsse": {
+              "F": 1.430892026969408,
+              "L": 1.4392319080966485,
+              "P": 1.278737079784178
+            },
+            "mse_L_minus_F": 157.39097705664062
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 17966.928985443148,
+              "L": 17832.232926609948,
+              "P": 14270.614999800711
+            },
+            "rmsse": {
+              "F": 1.653016792152674,
+              "L": 1.6468088942000871,
+              "P": 1.4731999131483768
+            },
+            "mse_L_minus_F": -134.69605883320037
+          }
+        },
+        "seconds": 2.125
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.75,
+      "seed": 17,
+      "fit": {
+        "seed": 17,
+        "steps": 600,
+        "training_samples_seen": 19004,
+        "effective_epochs": 14.640986132511557,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 1298,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2112.038813798779,
+          "L": 2659.3933518831823,
+          "P": 1978.4614650886099
+        },
+        "validation_rmsse": {
+          "F": 0.5667496848659075,
+          "L": 0.6359626774926834,
+          "P": 0.548534739983186
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0016120604027978268
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.001653079178510216
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.0021973246462982194
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.0040738731205989375
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.010733975636157201
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.027087495009993055
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.0035172875284359265,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.0024073359505943828,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0018610531257872139,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.001606103376986133,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0015574248926677329,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0014226388213282272,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0013834285300815278,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0013785350142818062,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0013968664077980474,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0013037154893776324,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0013392739906445965,
+            "strict_improvement": false
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.001280267222780762,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "7bf8c5acddcdb6d2ee9f633ea35b6b8c701ae018ed89c738681c824c0fb3b4db",
+        "train_package_sha256": "23259e123dfeba224da7fc354f8313a557b1e593fba2f4a9212e4ecfea532936",
+        "validation_package_sha256": "ef3414a48b12ba6b6018af0be1484caea19320ff94cbe558ad97a176ddebe340",
+        "test_path_received": false,
+        "seconds": 20.062999999994645
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f075_s17\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f075\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "c53bd10c90ff849f87a6a016f9acf9902853d82ca92b6074fc85c8efb0a08f7f",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 14361.619007538655,
+              "L": 14963.806135486542,
+              "P": 12508.808704020244
+            },
+            "rmsse": {
+              "F": 1.477889761411166,
+              "L": 1.5085557907090372,
+              "P": 1.3792669037934524
+            },
+            "mse_L_minus_F": 602.1871279478873
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 12141.456623455977,
+              "L": 12592.174954456206,
+              "P": 10751.815832364087
+            },
+            "rmsse": {
+              "F": 1.3588631955875528,
+              "L": 1.3838554048804115,
+              "P": 1.2787370486910898
+            },
+            "mse_L_minus_F": 450.7183310002292
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 16587.864028290052,
+              "L": 17341.934936190934,
+              "P": 14270.615254776825
+            },
+            "rmsse": {
+              "F": 1.5883111077796892,
+              "L": 1.6240115588441224,
+              "P": 1.4731999263093647
+            },
+            "mse_L_minus_F": 754.0709079008811
+          }
+        },
+        "seconds": 1.9679999999934807
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.75,
+      "seed": 29,
+      "fit": {
+        "seed": 29,
+        "steps": 600,
+        "training_samples_seen": 19004,
+        "effective_epochs": 14.640986132511557,
+        "parameters": 21743,
+        "best_step": 500,
+        "validation_keys": 365,
+        "train_keys": 1298,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2068.803343592652,
+          "L": 2659.3933518831823,
+          "P": 1978.4614650886099
+        },
+        "validation_rmsse": {
+          "F": 0.5609187331064197,
+          "L": 0.6359626774926834,
+          "P": 0.548534739983186
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0016120604027978268
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.001653079178510216
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.0021973246462982194
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.0040738731205989375
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.010733975636157201
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.027087495009993055
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.0029967262527907726,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.0021806908064824627,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0019137769530454061,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0015770245440130956,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.001514423164270425,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0015202679767248044,
+            "strict_improvement": false
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0013480243449346216,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0013169852540371892,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0013281003639919308,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.00125405891874545,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.00127872663668721,
+            "strict_improvement": false
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0016574719988239998,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "f298851dd72cb1da4f373d1c7a16991ee6f2f7a5428d31959f3320871037ea9b",
+        "train_package_sha256": "23259e123dfeba224da7fc354f8313a557b1e593fba2f4a9212e4ecfea532936",
+        "validation_package_sha256": "ef3414a48b12ba6b6018af0be1484caea19320ff94cbe558ad97a176ddebe340",
+        "test_path_received": false,
+        "seconds": 20.812000000005355
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f075_s29\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f075\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "686c355da1025ad6400b53b9041200a8f701b65f71752b10fc15e6d00c084751",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 13942.690996245256,
+              "L": 14963.806135486542,
+              "P": 12508.808704020244
+            },
+            "rmsse": {
+              "F": 1.4561752356353255,
+              "L": 1.5085557907090372,
+              "P": 1.3792669037934524
+            },
+            "mse_L_minus_F": 1021.1151392412867
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 12047.669633600046,
+              "L": 12592.174954456206,
+              "P": 10751.815832364087
+            },
+            "rmsse": {
+              "F": 1.3536047345000666,
+              "L": 1.3838554048804115,
+              "P": 1.2787370486910898
+            },
+            "mse_L_minus_F": 544.5053208561603
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 15842.904198240174,
+              "L": 17341.934936190934,
+              "P": 14270.615254776825
+            },
+            "rmsse": {
+              "F": 1.5522359508185903,
+              "L": 1.6240115588441224,
+              "P": 1.4731999263093647
+            },
+            "mse_L_minus_F": 1499.0307379507594
+          }
+        },
+        "seconds": 1.985000000015134
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.75,
+      "seed": 43,
+      "fit": {
+        "seed": 43,
+        "steps": 600,
+        "training_samples_seen": 19004,
+        "effective_epochs": 14.640986132511557,
+        "parameters": 21743,
+        "best_step": 550,
+        "validation_keys": 365,
+        "train_keys": 1298,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2334.627103648488,
+          "L": 2659.3933518831823,
+          "P": 1978.4614650886099
+        },
+        "validation_rmsse": {
+          "F": 0.5958666804351919,
+          "L": 0.6359626774926834,
+          "P": 0.548534739983186
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0016120604027978268
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.001653079178510216
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.0021973246462982194
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.0040738731205989375
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.010733975636157201
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.027087495009993055
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.006365626682680463,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.0038720928033408966,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0031417412061332138,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0021687787234489792,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0019517229971618094,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.001805573155178017,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0016318813785319852,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0016387402488014411,
+            "strict_improvement": false
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0014994662037087624,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0014711718187716603,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.001415194900154667,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0014358568226035201,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "919dd4eb452befe5435ca07c61249a6bad8962cccf1dfec5398971b21229ff97",
+        "train_package_sha256": "23259e123dfeba224da7fc354f8313a557b1e593fba2f4a9212e4ecfea532936",
+        "validation_package_sha256": "ef3414a48b12ba6b6018af0be1484caea19320ff94cbe558ad97a176ddebe340",
+        "test_path_received": false,
+        "seconds": 21.60999999998603
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f075_s43\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f075\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "7477de7c5b2fdd07cdd9378f267f2ca6299551c563505a52bcd88f902ba346e4",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 15935.756961833382,
+              "L": 14963.806135486542,
+              "P": 12508.808704020244
+            },
+            "rmsse": {
+              "F": 1.556778010552429,
+              "L": 1.5085557907090372,
+              "P": 1.3792669037934524
+            },
+            "mse_L_minus_F": -971.9508263468397
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 13644.974167267583,
+              "L": 12592.174954456206,
+              "P": 10751.815832364087
+            },
+            "rmsse": {
+              "F": 1.4405445662933587,
+              "L": 1.3838554048804115,
+              "P": 1.2787370486910898
+            },
+            "mse_L_minus_F": -1052.7992128113765
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 18232.815873644566,
+              "L": 17341.934936190934,
+              "P": 14270.615254776825
+            },
+            "rmsse": {
+              "F": 1.6652031082002627,
+              "L": 1.6240115588441224,
+              "P": 1.4731999263093647
+            },
+            "mse_L_minus_F": -890.8809374536322
+          }
+        },
+        "seconds": 2.0
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 1.0,
+      "seed": 17,
+      "fit": {
+        "seed": 17,
+        "steps": 600,
+        "training_samples_seen": 18900,
+        "effective_epochs": 10.92485549132948,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 1730,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2092.513855618721,
+          "L": 2641.7723668373433,
+          "P": 1978.4611842866893
+        },
+        "validation_rmsse": {
+          "F": 0.5641239145983427,
+          "L": 0.633852250009208,
+          "P": 0.5485347010565713
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0018321262433025507
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0019429539975909442
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.002652690360438203
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.00514502567410922
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.01518188530272098
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.05036104029998681
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.004180878583249715,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.0029667907607672916,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.002360600524020752,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0021622405734634353,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0019622038476373445,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0017259981973564782,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0016390615911379854,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0015496909269464936,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0014916603008882806,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0016165544963465189,
+            "strict_improvement": false
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0015394305154593684,
+            "strict_improvement": false
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0014512035925119931,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "1a438fc30394c45ac4552a14b6f1c26d8bd9b0dee1bac205259cb89611f96270",
+        "train_package_sha256": "9f079158732d4cb2f7b2c7d30fbb584127a4f18f2b5944434a7f9bdd55188568",
+        "validation_package_sha256": "e78caf5bf15725bb33b7e080465fb6b92320f0ea64218bc711dc93190d9a2d54",
+        "test_path_received": false,
+        "seconds": 21.796000000002095
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f100_s17\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "553df03d74b22c337f21ae9e35d5559fd48be3ab37e586fc2e4ad8971d16f81f",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 14946.973155269321,
+              "L": 14785.250233478457,
+              "P": 12508.80989969513
+            },
+            "rmsse": {
+              "F": 1.5077070549349336,
+              "L": 1.4995283444795497,
+              "P": 1.3792669697131894
+            },
+            "mse_L_minus_F": -161.72292179086435
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 12543.349431604829,
+              "L": 12489.433815407472,
+              "P": 10751.817070359135
+            },
+            "rmsse": {
+              "F": 1.3811698843652465,
+              "L": 1.3781983168820748,
+              "P": 1.2787371223098214
+            },
+            "mse_L_minus_F": -53.91561619735694
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 17357.182149409604,
+              "L": 17087.356559544158,
+              "P": 14270.616408015609
+            },
+            "rmsse": {
+              "F": 1.6247253260884702,
+              "L": 1.6120473005576246,
+              "P": 1.473199985835574
+            },
+            "mse_L_minus_F": -269.8255898654461
+          }
+        },
+        "seconds": 2.0
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 1.0,
+      "seed": 29,
+      "fit": {
+        "seed": 29,
+        "steps": 600,
+        "training_samples_seen": 18900,
+        "effective_epochs": 10.92485549132948,
+        "parameters": 21743,
+        "best_step": 600,
+        "validation_keys": 365,
+        "train_keys": 1730,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2106.7253093076497,
+          "L": 2641.7723668373433,
+          "P": 1978.4611842866893
+        },
+        "validation_rmsse": {
+          "F": 0.5660363164815828,
+          "L": 0.633852250009208,
+          "P": 0.5485347010565713
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0018321262433025507
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0019429539975909442
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.002652690360438203
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.00514502567410922
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.01518188530272098
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.05036104029998681
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.003541404773242307,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.002898727720608583,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.0021000495016618276,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.0018858553965900053,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0016451425838343175,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0016120485209773466,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0015797592894916726,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.001502855019579717,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0015126827283274394,
+            "strict_improvement": false
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.0015221252486609929,
+            "strict_improvement": false
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.001470488266437124,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0014610595428526866,
+            "strict_improvement": true
+          }
+        ],
+        "state_tensor_sha256": "3eeba493c802d4881720998b3ce01cc8cf0b2e885db7b7ca06c593e2db7b593e",
+        "train_package_sha256": "9f079158732d4cb2f7b2c7d30fbb584127a4f18f2b5944434a7f9bdd55188568",
+        "validation_package_sha256": "e78caf5bf15725bb33b7e080465fb6b92320f0ea64218bc711dc93190d9a2d54",
+        "test_path_received": false,
+        "seconds": 20.98499999998603
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f100_s29\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "c315ec67865d2d86e3397fbe79afe60e83d4770108805d353531adedf7d4576d",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 14530.754524576088,
+              "L": 14785.250233478457,
+              "P": 12508.80989969513
+            },
+            "rmsse": {
+              "F": 1.4865667775892912,
+              "L": 1.4995283444795497,
+              "P": 1.3792669697131894
+            },
+            "mse_L_minus_F": 254.49570890236828
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 12097.158293934854,
+              "L": 12489.433815407472,
+              "P": 10751.817070359135
+            },
+            "rmsse": {
+              "F": 1.3563820115808487,
+              "L": 1.3781983168820748,
+              "P": 1.2787371223098214
+            },
+            "mse_L_minus_F": 392.2755214726185
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 16971.018142150584,
+              "L": 17087.356559544158,
+              "P": 14270.616408015609
+            },
+            "rmsse": {
+              "F": 1.6065501558779327,
+              "L": 1.6120473005576246,
+              "P": 1.473199985835574
+            },
+            "mse_L_minus_F": 116.33841739357376
+          }
+        },
+        "seconds": 2.0469999999913853
+      }
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 1.0,
+      "seed": 43,
+      "fit": {
+        "seed": 43,
+        "steps": 600,
+        "training_samples_seen": 18900,
+        "effective_epochs": 10.92485549132948,
+        "parameters": 21743,
+        "best_step": 550,
+        "validation_keys": 365,
+        "train_keys": 1730,
+        "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "validation_mse": {
+          "F": 2372.371483024067,
+          "L": 2641.7723668373433,
+          "P": 1978.4611842866893
+        },
+        "validation_rmsse": {
+          "F": 0.6006641153052084,
+          "L": 0.633852250009208,
+          "P": 0.5485347010565713
+        },
+        "ridge_lambda": 0.001,
+        "ridge_history": [
+          {
+            "lambda": 0.001,
+            "validation_normalized_mse": 0.0018321262433025507
+          },
+          {
+            "lambda": 0.01,
+            "validation_normalized_mse": 0.0019429539975909442
+          },
+          {
+            "lambda": 0.1,
+            "validation_normalized_mse": 0.002652690360438203
+          },
+          {
+            "lambda": 1,
+            "validation_normalized_mse": 0.00514502567410922
+          },
+          {
+            "lambda": 10,
+            "validation_normalized_mse": 0.01518188530272098
+          },
+          {
+            "lambda": 100,
+            "validation_normalized_mse": 0.05036104029998681
+          }
+        ],
+        "history": [
+          {
+            "step": 50,
+            "validation_normalized_mse": 0.006530931967433138,
+            "strict_improvement": true
+          },
+          {
+            "step": 100,
+            "validation_normalized_mse": 0.004350513633462907,
+            "strict_improvement": true
+          },
+          {
+            "step": 150,
+            "validation_normalized_mse": 0.003213962376995077,
+            "strict_improvement": true
+          },
+          {
+            "step": 200,
+            "validation_normalized_mse": 0.002703683648220141,
+            "strict_improvement": true
+          },
+          {
+            "step": 250,
+            "validation_normalized_mse": 0.0023465389785900155,
+            "strict_improvement": true
+          },
+          {
+            "step": 300,
+            "validation_normalized_mse": 0.0021212240918532855,
+            "strict_improvement": true
+          },
+          {
+            "step": 350,
+            "validation_normalized_mse": 0.0020775535612432357,
+            "strict_improvement": true
+          },
+          {
+            "step": 400,
+            "validation_normalized_mse": 0.0019012418977042624,
+            "strict_improvement": true
+          },
+          {
+            "step": 450,
+            "validation_normalized_mse": 0.0018197193619977718,
+            "strict_improvement": true
+          },
+          {
+            "step": 500,
+            "validation_normalized_mse": 0.00171581125065566,
+            "strict_improvement": true
+          },
+          {
+            "step": 550,
+            "validation_normalized_mse": 0.0016452909067689566,
+            "strict_improvement": true
+          },
+          {
+            "step": 600,
+            "validation_normalized_mse": 0.0016583476232627213,
+            "strict_improvement": false
+          }
+        ],
+        "state_tensor_sha256": "5d1066fc31d90a82cce588814219216a42991a4a4ea33382beff0c3c15535446",
+        "train_package_sha256": "9f079158732d4cb2f7b2c7d30fbb584127a4f18f2b5944434a7f9bdd55188568",
+        "validation_package_sha256": "e78caf5bf15725bb33b7e080465fb6b92320f0ea64218bc711dc93190d9a2d54",
+        "test_path_received": false,
+        "seconds": 21.234000000025844
+      },
+      "checkpoint": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\runs_v1_1\\ETHUSD_f100_s43\\model.pt",
+      "test": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\test.npz",
+      "evaluation": {
+        "test_keys_sha256": "dc7443b72e6a214ed10ee4d4c73c8c4eb539676d8416bffa82f599ca67091302",
+        "test_key_count": 731,
+        "checkpoint_sha256": "4a89928aeebdaef584f37c49591bb20af1464ac5ecd0f8ab1b8c68b7eed9e5ba",
+        "metrics": {
+          "all": {
+            "key_count": 731,
+            "mse": {
+              "F": 16829.99281271285,
+              "L": 14785.250233478457,
+              "P": 12508.80989969513
+            },
+            "rmsse": {
+              "F": 1.5998611964007219,
+              "L": 1.4995283444795497,
+              "P": 1.3792669697131894
+            },
+            "mse_L_minus_F": -2044.7425792343947
+          },
+          "2024": {
+            "key_count": 366,
+            "mse": {
+              "F": 14656.980182811458,
+              "L": 12489.433815407472,
+              "P": 10751.817070359135
+            },
+            "rmsse": {
+              "F": 1.493009565071409,
+              "L": 1.3781983168820748,
+              "P": 1.2787371223098214
+            },
+            "mse_L_minus_F": -2167.5463674039856
+          },
+          "2025": {
+            "key_count": 365,
+            "mse": {
+              "F": 19008.958901874248,
+              "L": 17087.356559544158,
+              "P": 14270.616408015609
+            },
+            "rmsse": {
+              "F": 1.700276316974801,
+              "L": 1.6120473005576246,
+              "P": 1.473199985835574
+            },
+            "mse_L_minus_F": -1921.6023423300903
+          }
+        },
+        "seconds": 2.0309999999881256
+      }
+    }
+  ],
+  "line_B_rosters": [
+    {
+      "size": 1,
+      "assets": [
+        "ETHUSD"
+      ],
+      "period": "all",
+      "equal_asset_mean_RMSSE_F": 1.531378342974982,
+      "median_asset_RMSSE_F": 1.531378342974982
+    },
+    {
+      "size": 1,
+      "assets": [
+        "ETHUSD"
+      ],
+      "period": "2024",
+      "equal_asset_mean_RMSSE_F": 1.4101871536725012,
+      "median_asset_RMSSE_F": 1.4101871536725012
+    },
+    {
+      "size": 1,
+      "assets": [
+        "ETHUSD"
+      ],
+      "period": "2025",
+      "equal_asset_mean_RMSSE_F": 1.6438505996470678,
+      "median_asset_RMSSE_F": 1.6438505996470678
+    },
+    {
+      "size": 2,
+      "assets": [
+        "ETHUSD",
+        "BTCUSD"
+      ],
+      "period": "all",
+      "equal_asset_mean_RMSSE_F": 1.8468216590122553,
+      "median_asset_RMSSE_F": 1.8468216590122553
+    },
+    {
+      "size": 2,
+      "assets": [
+        "ETHUSD",
+        "BTCUSD"
+      ],
+      "period": "2024",
+      "equal_asset_mean_RMSSE_F": 1.7165805163096963,
+      "median_asset_RMSSE_F": 1.7165805163096963
+    },
+    {
+      "size": 2,
+      "assets": [
+        "ETHUSD",
+        "BTCUSD"
+      ],
+      "period": "2025",
+      "equal_asset_mean_RMSSE_F": 1.9683978851747628,
+      "median_asset_RMSSE_F": 1.9683978851747628
+    }
+  ],
+  "limitations": [
+    "Two crypto assets only, 24/7 grid; no stock-index evidence",
+    "600-step cap is not a convergence guarantee",
+    "Validation-selected rosters change composition, not training quality of an individual asset",
+    "Three seeds and two test years are not independent markets",
+    "Historical test exposure; exploratory only",
+    "No nonlinear-mechanism attribution; no commercial/public raw, predictions or weights release"
+  ]
+}

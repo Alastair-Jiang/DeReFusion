@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "work_id": "DRF-SHRINK-EXPLORATION-20261013",
+  "deadline_local": "2026-10-13T18:30:00+08:00",
+  "repository": "C:/Users/26843/Documents/ChatGPT/redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head_at_start": "a74126c11d857da8514074b72282adc8d47f28a7",
+  "working_tree_at_start": "dirty; existing modifications and untracked materials preserved",
+  "candidate_artifacts": {
+    "protocol": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SHRINK_EXPLORATION_PROTOCOL_DRAFT_V0.1.md",
+    "protocol_sha256": "60e35b8bd5b932b5c40b144cfd933611c2d776f3bcd2497942a7b94c475e9073",
+    "execution_matrix": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SHRINK_EXPLORATION_EXECUTION_MATRIX_CANDIDATE_V0.1.md",
+    "execution_matrix_sha256": "5b4ef56ca06f656516a6fab562b3b07684962623b02514fe6efef9e4ba6b16eb",
+    "synthetic_preflight_runner": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/synthetic_preflight_20261013/run_synthetic_lifecycle_v2.py",
+    "synthetic_preflight_runner_sha256": "74c8383f1e01ad58c98fdfc307de08c4fc9e85325262709945008d96f3816943",
+    "synthetic_preflight_results": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/synthetic_preflight_20261013/SYNTHETIC_LIFECYCLE_RESULTS.json",
+    "synthetic_preflight_results_sha256": "83a72d0d91c261001a9af432823257382b3ab4cdb7066f4c32b790707bcd2f58",
+    "source_trace_followup": "docs/DRF_SOURCE_TRACE_FOLLOWUP_2026-10-13.md",
+    "source_trace_followup_sha256": "c6b0b746ec4a05fc80c0447dbd97c2248e736430f65a48c75811a3dbe385f0f3",
+    "source_trace_input_sha256": "7c99ec5465c2138a2962b0c3fbe082594be0b8286d506b99fe5416a0bf4a6841",
+    "source_rights_register": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SOURCE_RIGHTS_GAP_REGISTER_V0.2_2026-10-13.csv",
+    "source_rights_register_sha256": "81050faaaf89ffda7b81190bdb2a1b6346ca70c19ef9db257c3a4774d30ed2e2",
+    "source_rights_register_v0_1": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SOURCE_RIGHTS_GAP_REGISTER.csv",
+    "source_rights_register_v0_1_sha256": "e1eed1f58a86bce32a87940f88feeae64b291746d000be613f83f23571066d8a",
+    "source_rights_supplement": "docs/DRF_SOURCE_RIGHTS_SUPPLEMENT_2026-10-13.md",
+    "source_rights_supplement_sha256": "57036e92c7ab30ce42c610a144c5a81c76106b853445bc787a40b36f71a7a1f8",
+    "cdd_qualification": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_QUALIFICATION_RESULTS_V1.json",
+    "cdd_qualification_sha256": "852540ad21d78b938a261542c9074ad74fa57e3c33430172f8e3b31eed6dcf3e",
+    "cdd_protocol": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SHRINK_CDD_EXPLORATORY_PROTOCOL_V0.2.json",
+    "cdd_protocol_sha256": "f39db92c34cecaa646086134e93152a8c2f26bf898dba24538f775c8b934873d",
+    "cdd_runner": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/run_shrink_cdd_v1_1.py",
+    "cdd_runner_sha256": "2a4b2e9081e5ef7517bc3f297159914c5bdfd84bee7122a121c1ff213c122442",
+    "cdd_preparation": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_PREPARATION_MANIFEST_V1_1.json",
+    "cdd_preparation_sha256": "271bcd25af27be3bc476820b8253a4040109e408dd82ed38d42cdbd037f3cdba",
+    "cdd_synthetic": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_MATRIX_SYNTHETIC_CHECK_V1_1.json",
+    "cdd_synthetic_sha256": "5957baa13f4dbe3a608d7a6ce5314a95b881ef3ea9772bd7e25306f9fd4b762d",
+    "cdd_execution_release": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_MATRIX_EXECUTION_RELEASE_V1_1.json",
+    "cdd_execution_release_sha256": "962766f127f8fa188093022356e546e247521b0ca503beae307c3e00c34f5e09",
+    "cdd_results": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_SHRINK_EXPLORATORY_RESULTS_V1_1.json",
+    "cdd_results_sha256": "dd8017676a0ccfe64bb4ab4bcf6ab81e477d183f2495377900049249b03883f5",
+    "cdd_internal_audit": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_INTERNAL_CONSISTENCY_AUDIT_V1_2.json",
+    "cdd_internal_audit_sha256": "569c4e10891fa8846e134d2329fed65ea863140988da57feabaef39453c02723",
+    "cdd_result_report": "docs/DRF_CDD_SHRINK_FIRST_BATCH_RESULTS_2026-10-13.md",
+    "cdd_result_report_sha256": "a29929a0f01bc114e4e5ae6d78684b7cda04e88075c3780a981f478ff2522aad",
+    "cdd_roster_freeze": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_VALIDATION_ROSTER_FREEZE_V1_1.json",
+    "cdd_roster_freeze_sha256": "98acd37a6e8bb2241dfc20df5bc6afa53b0d4c3b56a39d2e9ed191df4cac51ba",
+    "cdd_dsh_disposition": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_DSH_REVIEW_DISPOSITION_V1.json",
+    "cdd_dsh_disposition_sha256": "f374668346163b3db007a9b7c6f20f8a9ef0d2881c10fce276d4627be424c882",
+    "cdd_dsh_disposition_report": "docs/DRF_CDD_DSH_REVIEW_DISPOSITION_2026-10-13.md",
+    "cdd_dsh_disposition_report_sha256": "4a8a809770df9ec40c929eca3263251b923c94387b23064c198f1971fc8b3c94"
+  },
+  "status": "FIRST_CDD_TWO_ASSET_BATCH_COMPLETE_INTERNAL_PASS_DSH_LIMITED_REVIEW_RECEIVED",
+  "tracks": {
+    "history_window_reduction": {
+      "state": "FIRST_TWO_ASSET_BATCH_COMPLETE_INTERNAL_CHECKS_PASS",
+      "candidate_windows": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "assets": [
+        "BTCUSD",
+        "ETHUSD"
+      ],
+      "shared_test_prediction_keys": "731 complete daily keys per asset, identical across fractions and seeds; manifests bound",
+      "primary_compute_control": "600 optimizer steps per fit; complete validation every 50; checkpoint by strict minimum; no early stopping",
+      "run_authorized": true
+    },
+    "asset_reduction_and_easy_asset_screen": {
+      "state": "FIRST_TWO_ASSET_BATCH_COMPLETE_INTERNAL_CHECKS_PASS",
+      "eligibility_selection": "source, rights, target semantics, grid, coverage; score-blind",
+      "performance_selection": "exploratory development only; requires independent future confirmation",
+      "clarification": "per-asset difficulty screen and nested roster summaries; not a causal test that reducing assets improves an individual asset forecast",
+      "run_authorized": true,
+      "assets": [
+        "BTCUSD",
+        "ETHUSD"
+      ]
+    }
+  },
+  "gates": [
+    {
+      "id": "G0",
+      "state": "CLEARED_FOR_NEW_CDD_BTC_ETH_ONLY",
+      "evidence": "Official supplier affirmative non-commercial research offering and automatable CSV download route, snapshots hashed; bounded internal basis accepted; old Yahoo source remains unresolved"
+    },
+    {
+      "id": "G1",
+      "state": "FROZEN_FOR_V0.2",
+      "evidence": "Protocol fixes target/grid/splits/retained contexts/common keys/baselines/seeds/600 steps/checkpoint/rank/budget/failure rules"
+    },
+    {
+      "id": "G2",
+      "state": "RELEASED_V1.1",
+      "evidence": "QA PASS, eight prepared conditions, matrix-specific synthetic PASS, exact runner/data/key/source pins checked"
+    },
+    {
+      "id": "G3",
+      "state": "COMPLETE_INTERNAL_PASS_DSH_LIMITED_REVIEW_RECEIVED",
+      "evidence": "24 structural/arithmetic checks; 0 raw-array/full scientific acceptances. See disposition."
+    }
+  ],
+  "today_1830_deliverable": "Finalize a reviewable run/no-run decision, protocol fields, source/rights gap list, and executable checklist. Empirical completion is conditional on G0-G2 being satisfied; do not imply results if blocked.",
+  "milestones_local": [
+    {
+      "due": "2026-10-13T11:00:00+08:00",
+      "deliverable": "Complete source archaeology and initial per-asset gap register",
+      "dependency": "DSH read-only search plus repository evidence"
+    },
+    {
+      "due": "2026-10-13T12:30:00+08:00",
+      "deliverable": "Decide whether any asset has adequate source and processing-right evidence",
+      "dependency": "G0 evidence; otherwise keep real-data run blocked"
+    },
+    {
+      "due": "2026-10-13T14:30:00+08:00",
+      "deliverable": "If G0 clears, freeze target, split, keys, configs, budget, and run record; otherwise finalize no-run explanation",
+      "dependency": "G0 and protocol fields"
+    },
+    {
+      "due": "2026-10-13T18:30:00+08:00",
+      "deliverable": "Report completed exploratory status and artifacts, or exact blockers and next actions",
+      "dependency": "All applicable gates"
+    }
+  ],
+  "last_updated_local": "2026-10-13T11:10:10.466144+08:00",
+  "latest_actions": [
+    "Wrote a separate two-line execution matrix candidate with independent history-window and asset-screen estimands; no real-data values read.",
+    "Checked current official Yahoo Terms of Service; automated access/collection requires express prior permission. Historical applicable version and the actual source for three original assets remain unresolved.",
+    "Independently verified SHA-256 for six external T004 dispatch/receipt/manifest/acceptance records and Git metadata for the adjacent original-10 commits; evidence narrows source leads but still does not establish acquisition permission or internal-use basis.",
+    "Recorded the new source-trace follow-up; authorization policy distinguishes internal research from redistribution and allows other verifiable bases, but unknown internal-use basis still blocks data-specific actions.",
+    "Reran the existing hash-pinned F/B lifecycle with synthetic inputs in an isolated candidate directory; PASS, result hash matches the prior deterministic result. This does not test the new matrix or real-data performance.",
+    "Real-data execution remains blocked; no fits, scoring, or price-value inspection performed.",
+    "Reviewed the supplied read-only rights audit; corrected the N225 register mismatch in an append-only v0.2 successor, preserving the prior register and linking the custodian receipt and manifest by verified hashes.",
+    "Checked current official Yahoo Developer API Terms and developer-guidelines branch alongside the general Terms of Service; historical applicability and chart-endpoint scope remain unresolved, so G0 stays blocked and no real-data processing is released.",
+    "Accepted a scoped local non-commercial research basis for new CDD Bitstamp BTC/ETH using official research/terms/automated-download pages; no request for signed vendor permission.",
+    "Downloaded two new-source CSVs into an already gitignored directory; QA PASS, 2922 complete 2018-2025 daily keys each. Old Yahoo inputs untouched.",
+    "Fixed a preparation metadata serialization error in a retained v1.1 successor; synthetic checks and eight fresh role-package combinations PASS.",
+    "Issued exact-pinned execution release for 24 exploratory F fits (600 steps each), deterministic ridge/persistence comparisons, and a validation-frozen two-asset screen.",
+    "Completed the first two-asset real-data exploration on the new CDD source; internally checked all 24 fits, 14400 steps, shared keys, metrics and frozen roster. Independent review pending; no public data/model/prediction release.",
+    "Received DSH limited independent review; reverified immutable bindings, reconciled stale audit status, recorded actual epoch exposure and budget enforcement gap; no refit or publication."
+  ],
+  "legacy_source_gate": {
+    "scope": "Original Yahoo-labelled BTCUSD/ETHUSD/GSPC/N225 files",
+    "state": "UNRESOLVED; do not process or infer retroactive permission"
+  },
+  "active_protocol_id": "DRF-SHRINK-CDD-EXPLORATORY-20261013-V0.2",
+  "active_counts": {
+    "planned_F_fits": 24,
+    "completed_F_fits": 24,
+    "internally_checked_F_fits": 24,
+    "independently_reviewed_F_fits": 0,
+    "unique_history_conditions": 8,
+    "qualified_assets": 2,
+    "evaluated_F_fits": 24,
+    "independent_structural_arithmetic_review_F_fits": 24,
+    "independent_raw_array_review_F_fits": 0,
+    "independent_full_scientific_acceptance": "not claimed"
+  },
+  "independent_review_scope": "24 structural/arithmetic checks; 0 raw-array/full scientific acceptances. See disposition."
+}

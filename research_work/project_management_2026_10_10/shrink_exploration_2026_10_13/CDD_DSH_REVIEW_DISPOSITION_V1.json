@@ -1,0 +1,86 @@
+{
+  "timestamp_utc": "2026-10-13T03:10:10.422139+00:00",
+  "repository": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion",
+  "head": "a74126c11d857da8514074b72282adc8d47f28a7",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "review_input_path": "C:\\Users\\26843\\.codex\\attachments\\7d20cf32-a095-4ad8-bf3a-9244d6dd4332\\已粘贴的文本.txt",
+  "review_input_sha256": "e12cac9d29b327fe8591cf066455473eac795cddc92184fcbd73d1a37a1b6d8a",
+  "verified_artifact_bindings": {
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SHRINK_EXPLORATION_PROTOCOL_DRAFT_V0.1.md": "60e35b8bd5b932b5c40b144cfd933611c2d776f3bcd2497942a7b94c475e9073",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SHRINK_EXPLORATION_EXECUTION_MATRIX_CANDIDATE_V0.1.md": "5b4ef56ca06f656516a6fab562b3b07684962623b02514fe6efef9e4ba6b16eb",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/synthetic_preflight_20261013/run_synthetic_lifecycle_v2.py": "74c8383f1e01ad58c98fdfc307de08c4fc9e85325262709945008d96f3816943",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/synthetic_preflight_20261013/SYNTHETIC_LIFECYCLE_RESULTS.json": "83a72d0d91c261001a9af432823257382b3ab4cdb7066f4c32b790707bcd2f58",
+    "docs/DRF_SOURCE_TRACE_FOLLOWUP_2026-10-13.md": "c6b0b746ec4a05fc80c0447dbd97c2248e736430f65a48c75811a3dbe385f0f3",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SOURCE_RIGHTS_GAP_REGISTER_V0.2_2026-10-13.csv": "81050faaaf89ffda7b81190bdb2a1b6346ca70c19ef9db257c3a4774d30ed2e2",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SOURCE_RIGHTS_GAP_REGISTER.csv": "e1eed1f58a86bce32a87940f88feeae64b291746d000be613f83f23571066d8a",
+    "docs/DRF_SOURCE_RIGHTS_SUPPLEMENT_2026-10-13.md": "57036e92c7ab30ce42c610a144c5a81c76106b853445bc787a40b36f71a7a1f8",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_QUALIFICATION_RESULTS_V1.json": "852540ad21d78b938a261542c9074ad74fa57e3c33430172f8e3b31eed6dcf3e",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SHRINK_CDD_EXPLORATORY_PROTOCOL_V0.2.json": "f39db92c34cecaa646086134e93152a8c2f26bf898dba24538f775c8b934873d",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/run_shrink_cdd_v1_1.py": "2a4b2e9081e5ef7517bc3f297159914c5bdfd84bee7122a121c1ff213c122442",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_PREPARATION_MANIFEST_V1_1.json": "271bcd25af27be3bc476820b8253a4040109e408dd82ed38d42cdbd037f3cdba",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_MATRIX_SYNTHETIC_CHECK_V1_1.json": "5957baa13f4dbe3a608d7a6ce5314a95b881ef3ea9772bd7e25306f9fd4b762d",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_MATRIX_EXECUTION_RELEASE_V1_1.json": "962766f127f8fa188093022356e546e247521b0ca503beae307c3e00c34f5e09",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_SHRINK_EXPLORATORY_RESULTS_V1_1.json": "dd8017676a0ccfe64bb4ab4bcf6ab81e477d183f2495377900049249b03883f5",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_INTERNAL_CONSISTENCY_AUDIT_V1_2.json": "569c4e10891fa8846e134d2329fed65ea863140988da57feabaef39453c02723",
+    "docs/DRF_CDD_SHRINK_FIRST_BATCH_RESULTS_2026-10-13.md": "a29929a0f01bc114e4e5ae6d78684b7cda04e88075c3780a981f478ff2522aad",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_VALIDATION_ROSTER_FREEZE_V1_1.json": "98acd37a6e8bb2241dfc20df5bc6afa53b0d4c3b56a39d2e9ed191df4cac51ba"
+  },
+  "effective_training_exposure": [
+    {
+      "fraction": 0.25,
+      "training_targets": 433,
+      "samples_seen_min": 18570,
+      "samples_seen_max": 18570,
+      "effective_epochs_min": 42.88683602771363,
+      "effective_epochs_max": 42.88683602771363
+    },
+    {
+      "fraction": 0.5,
+      "training_targets": 865,
+      "samples_seen_min": 18549,
+      "samples_seen_max": 18549,
+      "effective_epochs_min": 21.44393063583815,
+      "effective_epochs_max": 21.44393063583815
+    },
+    {
+      "fraction": 0.75,
+      "training_targets": 1298,
+      "samples_seen_min": 19004,
+      "samples_seen_max": 19004,
+      "effective_epochs_min": 14.640986132511557,
+      "effective_epochs_max": 14.640986132511557
+    },
+    {
+      "fraction": 1.0,
+      "training_targets": 1730,
+      "samples_seen_min": 18900,
+      "samples_seen_max": 18900,
+      "effective_epochs_min": 10.92485549132948,
+      "effective_epochs_max": 10.92485549132948
+    }
+  ],
+  "private_storage": {
+    "files": 201,
+    "bytes": 68615080,
+    "prediction_files": 24,
+    "gitignored": true,
+    "scope": "Whole CDD private directory including failed v1 packages and snapshots"
+  },
+  "acceptance": "No invalidating defect reported; bounded exploratory batch accepted with stated limitations",
+  "counts": {
+    "planned_F_fits": 24,
+    "completed_F_fits": 24,
+    "evaluated_F_fits": 24,
+    "internally_checked_F_fits": 24,
+    "independent_structural_arithmetic_review_F_fits": 24,
+    "independent_raw_array_review_F_fits": 0,
+    "independent_full_scientific_acceptance": "not claimed"
+  },
+  "remaining": [
+    "Independent raw-array comparison and bitwise refit determinism not verified",
+    "Programmatic hard output/batch budget enforcement requires a successor before future runs",
+    "Commercial use and public raw/prediction/weight distribution not released; summary publication requires separate review",
+    "Original Yahoo-labelled four-asset source basis unresolved"
+  ],
+  "immutable_artifacts_changed": false
+}

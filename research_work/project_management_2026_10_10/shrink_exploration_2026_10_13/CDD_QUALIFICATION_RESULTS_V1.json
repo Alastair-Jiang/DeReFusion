@@ -1,0 +1,101 @@
+{
+  "release_id": "DRF-SHRINK-CDD-QUALIFY-20261013-V1",
+  "release_sha256": "71f08a26aef6c3917e1e2984e7090c18627153eba54fd9b947624b49c7cd65cc",
+  "script_sha256": "bf617dcee54787e1227f7682b96793bb05c66da5058d446ca97a44f23d34ab0b",
+  "head": "a74126c11d857da8514074b72282adc8d47f28a7",
+  "tracked_diff_sha256": "812971edc8ec7cfb6afb3d93096391290fa97c478331c29a2732b81443a60ba2",
+  "started_at_utc": "2026-10-13T02:45:36.682909+00:00",
+  "assets": {
+    "BTCUSD": {
+      "url": "https://www.cryptodatadownload.com/cdd/Bitstamp_BTCUSD_d.csv",
+      "final_url": "https://www.cryptodatadownload.com/cdd/Bitstamp_BTCUSD_d.csv",
+      "http_status": 200,
+      "fetched_at_utc": "2026-10-13T02:45:41.085636+00:00",
+      "sha256": "e1cb6852d73d04ddebbd7e6b1d666906537e840528bcdf95fc80058b286fdef4",
+      "bytes": 422231,
+      "catalog_entry": {
+        "symbol": "BTC/USD",
+        "timeframe": "day",
+        "start_date": "2014-11-28 00:00:00",
+        "end_date": "2026-10-12 00:00:00",
+        "file": "https://www.cryptodatadownload.com/cdd/Bitstamp_BTCUSD_d.csv"
+      },
+      "local_path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\BTCUSD.raw.csv",
+      "columns": [
+        "unix",
+        "date",
+        "symbol",
+        "open",
+        "high",
+        "low",
+        "close",
+        "Volume BTC",
+        "Volume USD"
+      ],
+      "timestamp_units": [
+        "seconds"
+      ],
+      "time_grid": "UTC daily candle starts; 24/7 calendar",
+      "source_label_date_mismatches": 0,
+      "reviewed_price_interval": "available history before 2026-01-01",
+      "planned_interval": "[2018-01-01,2026-01-01)",
+      "planned_rows": 2922,
+      "missing_dates": [],
+      "observed_min_date": "2014-11-28",
+      "observed_max_date": "2025-12-31",
+      "ohcl_finite_positive_and_range_check": "PASS",
+      "status": "ELIGIBLE"
+    },
+    "ETHUSD": {
+      "url": "https://www.cryptodatadownload.com/cdd/Bitstamp_ETHUSD_d.csv",
+      "final_url": "https://www.cryptodatadownload.com/cdd/Bitstamp_ETHUSD_d.csv",
+      "http_status": 200,
+      "fetched_at_utc": "2026-10-13T02:45:43.136476+00:00",
+      "sha256": "cfe6b3cecb44026292a8ab5499a5590c36750936e2c625196400a12ca7ec17ca",
+      "bytes": 327728,
+      "catalog_entry": {
+        "symbol": "ETH/USD",
+        "timeframe": "day",
+        "start_date": "2017-11-09 00:00:00",
+        "end_date": "2026-10-12 00:00:00",
+        "file": "https://www.cryptodatadownload.com/cdd/Bitstamp_ETHUSD_d.csv"
+      },
+      "local_path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\ETHUSD.raw.csv",
+      "columns": [
+        "unix",
+        "date",
+        "symbol",
+        "open",
+        "high",
+        "low",
+        "close",
+        "Volume ETH",
+        "Volume USD"
+      ],
+      "timestamp_units": [
+        "seconds"
+      ],
+      "time_grid": "UTC daily candle starts; 24/7 calendar",
+      "source_label_date_mismatches": 0,
+      "reviewed_price_interval": "available history before 2026-01-01",
+      "planned_interval": "[2018-01-01,2026-01-01)",
+      "planned_rows": 2922,
+      "missing_dates": [],
+      "observed_min_date": "2017-11-09",
+      "observed_max_date": "2025-12-31",
+      "ohcl_finite_positive_and_range_check": "PASS",
+      "status": "ELIGIBLE"
+    }
+  },
+  "scope": "Local non-commercial QA only; no training/scoring; old Yahoo files untouched",
+  "catalog": {
+    "url": "https://api.cryptodatadownload.com/v1/data/ohlc/bitstamp/available",
+    "final_url": "https://api.cryptodatadownload.com/v1/data/ohlc/bitstamp/available",
+    "http_status": 200,
+    "fetched_at_utc": "2026-10-13T02:45:38.445540+00:00",
+    "sha256": "30fb79e7a632fdeefabdf5679d3501cc4412a642c85863c26d3e17a7536983f9",
+    "bytes": 58318
+  },
+  "result": "PASS",
+  "finished_at_utc": "2026-10-13T02:45:43.149988+00:00"
+}
