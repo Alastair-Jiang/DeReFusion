@@ -48,3 +48,8 @@ docs/PHASE1_OUTSOURCING_EXECUTION_PLAN.md -text
 # Shell scripts are executed on the Linux worker, so their line endings are
 # load-bearing: a CRLF shebang fails with ": command not found".
 *.sh text eol=lf
+
+# The management package manifest seals raw file bytes; preserve those bytes
+# across Git checkout and source archive creation on Windows.
+/docs/management/v1_3/** -text
+/docs/management/v1_4/** -text

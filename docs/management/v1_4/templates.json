@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "role": "field_specifications_not_executable_records",
+  "null_means": "unknown, never approved by default",
+  "records": {
+    "data_contract": {
+      "required": [
+        "dataset_id",
+        "parent_snapshot",
+        "raw_sha256",
+        "source_evidence",
+        "acquired_at",
+        "tool_version",
+        "symbol",
+        "timezone",
+        "calendar",
+        "units",
+        "adjustment",
+        "schema",
+        "quality_policy",
+        "internal_use_basis",
+        "raw_publication_basis",
+        "derived_publication_basis",
+        "owner",
+        "evidence_hashes"
+      ]
+    },
+    "attempt": {
+      "required": [
+        "protocol_id",
+        "logical_run_id",
+        "attempt_id",
+        "supersedes_attempt",
+        "reason",
+        "root",
+        "branch",
+        "code_head",
+        "dirty_patch_hash",
+        "source_manifest_hash",
+        "config_hash",
+        "dataset_contract_hash",
+        "split_key_hash",
+        "environment_hash",
+        "device",
+        "start_utc",
+        "end_utc",
+        "command_redacted",
+        "resource_limits",
+        "actual_resources",
+        "status",
+        "optimizer_steps",
+        "selected_checkpoint_hash",
+        "artifact_manifest_hash",
+        "exposure_events"
+      ]
+    },
+    "decision": {
+      "required": [
+        "decision_id",
+        "actor",
+        "authority_basis",
+        "timestamp",
+        "input_pins",
+        "old_state",
+        "new_state",
+        "scope",
+        "rationale",
+        "evidence",
+        "blocking_gaps",
+        "revocation_conditions"
+      ]
+    },
+    "release": {
+      "required": [
+        "release_id",
+        "stage",
+        "issuer",
+        "issued_at",
+        "protocol_hash",
+        "input_allowlist",
+        "input_hashes",
+        "output_root",
+        "environment_hash",
+        "resource_limits",
+        "acceptance_evidence",
+        "stop_conditions",
+        "state"
+      ],
+      "valid_states": [
+        "draft",
+        "issued",
+        "revoked",
+        "expired",
+        "closed"
+      ],
+      "rule": "Only issued scoped records with validated dependencies authorize a stage"
+    },
+    "publication": {
+      "required": [
+        "destination",
+        "branch",
+        "base_head",
+        "allowlisted_paths",
+        "artifact_hashes",
+        "independent_review_hash",
+        "secret_review",
+        "rights_review",
+        "staged_diff_hash",
+        "commit",
+        "remote_commit",
+        "excluded_materials"
+      ]
+    }
+  }
+}

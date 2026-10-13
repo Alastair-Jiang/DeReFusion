@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "state": "DRAFT_BLOCKED",
+  "issued_at": null,
+  "issued_by": null,
+  "execution_permitted": false,
+  "repository": "[local repository root withheld]",
+  "baseline_branch": "docs/project-status-catalog-2026-10-10",
+  "baseline_head": "8953da122bd5fca293f8c2d68e166e53138403a5",
+  "protocol_path": "research_work/forward_increment/lead_design_2026_10_07/R1_APPROVED_DESIGN_V1.json",
+  "protocol_sha256": "56f27c89a32e37005ff5c6ce239617ae60581c03c89fe8d72497e68c76a7f7f4",
+  "protocol_id": "R1-exploratory-small-panel-20261007-v1",
+  "assets": [
+    "BTCUSD",
+    "ETHUSD",
+    "GSPC",
+    "N225"
+  ],
+  "resource_limits": {
+    "device": "cpu",
+    "dtype": "float32 neural; float64 ridge/aggregation",
+    "concurrent_fits": 1,
+    "compute_threads": 2,
+    "data_workers": 0,
+    "total_wall_hours_cap": 12,
+    "per_neural_fit_wall_minutes_cap": 30,
+    "paid_resources_authorized": false,
+    "limit_action": "stop and report incomplete; no silent resource or protocol change"
+  },
+  "planned_workload": {
+    "neural_fits": 24,
+    "linear_candidate_solves": 24,
+    "selected_linear_models": 4,
+    "selected_neural_models": 24,
+    "persistence_fits": 0
+  },
+  "stages": [
+    {
+      "stage": "custodian_qa",
+      "state": "not_issued",
+      "release_preconditions": [
+        "G01",
+        "G02",
+        "approved_qa_task_and_output_budget"
+      ],
+      "completion_evidence": [
+        "G05"
+      ],
+      "input_manifest_sha256": null,
+      "output_root": null,
+      "release_record": null
+    },
+    {
+      "stage": "preprocess",
+      "state": "not_issued",
+      "release_preconditions": [
+        "G05",
+        "approved_transform_and_key_specification"
+      ],
+      "completion_evidence": [
+        "G06"
+      ],
+      "input_manifest_sha256": null,
+      "output_root": null,
+      "release_record": null
+    },
+    {
+      "stage": "fit",
+      "state": "not_issued",
+      "release_preconditions": [
+        "G06",
+        "G07",
+        "G08",
+        "frozen_executable_manifest_and_resource_monitor",
+        "synthetic full-workload time estimate with overhead and failure margin fits the approved 12-hour hard cap"
+      ],
+      "completion_evidence": [
+        "validated_attempts",
+        "frozen_checkpoint_and_config"
+      ],
+      "input_manifest_sha256": null,
+      "output_root": null,
+      "release_record": null
+    },
+    {
+      "stage": "evaluate",
+      "state": "not_issued",
+      "release_preconditions": [
+        "frozen_checkpoint_and_config",
+        "expected_prediction_keys",
+        "G08",
+        "approved_evaluator_manifest"
+      ],
+      "completion_evidence": [
+        "complete_stratified_report"
+      ],
+      "input_manifest_sha256": null,
+      "output_root": null,
+      "release_record": null
+    }
+  ],
+  "data_contract": null,
+  "executable_entrypoint": null,
+  "environment_fingerprint": null,
+  "source_manifest": null,
+  "dirty_diff_sha256": null,
+  "qualified_snapshot_manifest": null,
+  "freeze_record": null,
+  "reason": "Administrative delegation exists; staged operational evidence not yet accepted; candidate is not an authorization",
+  "revision_note": "v1.1 records DSH budget finding; approved R1 source file and 12-hour cap remain unchanged."
+}

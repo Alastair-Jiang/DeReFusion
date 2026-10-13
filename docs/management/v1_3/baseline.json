@@ -1,0 +1,940 @@
+{
+  "schema_version": 1,
+  "started_at_utc": "2026-10-10T18:24:23.523231+08:00",
+  "finished_at_utc": "2026-10-10T18:24:30.852629+08:00",
+  "repository": "[local repository root withheld]",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head": "8953da122bd5fca293f8c2d68e166e53138403a5",
+  "head_unchanged": true,
+  "scan_exclusions": [
+    ".git directories and root .git file",
+    "symlinks/junctions (listed separately)",
+    "research_work/project_management_2026_10_10 (output)",
+    "other checkouts and external/cloud storage"
+  ],
+  "payload_values_read": false,
+  "counts": {
+    "untracked": 12327,
+    "tracked": 1511,
+    "ignored": 92426
+  },
+  "git_enumerated_counts": {
+    "tracked": 1511,
+    "untracked": 12337,
+    "ignored": 92426
+  },
+  "tracked_paths_not_seen": [],
+  "groups": {
+    ".venv": {
+      "ignored": 35275,
+      "bytes": 1794891241
+    },
+    ".vscode": {
+      "tracked": 1,
+      "bytes": 135
+    },
+    "[root]": {
+      "untracked": 2,
+      "bytes": 515415,
+      "tracked": 26
+    },
+    "__pycache__": {
+      "ignored": 2,
+      "bytes": 39405
+    },
+    "_research": {
+      "untracked": 63,
+      "bytes": 16245070,
+      "ignored": 1
+    },
+    "checkpoints": {
+      "tracked": 36,
+      "bytes": 960482240,
+      "ignored": 407
+    },
+    "data": {
+      "tracked": 2,
+      "bytes": 5746
+    },
+    "data_provider": {
+      "tracked": 5,
+      "bytes": 207989,
+      "ignored": 10
+    },
+    "dataset": {
+      "tracked": 61,
+      "bytes": 8786277,
+      "ignored": 1
+    },
+    "docs": {
+      "tracked": 26,
+      "bytes": 1192443,
+      "untracked": 15
+    },
+    "exp": {
+      "tracked": 8,
+      "bytes": 198011,
+      "ignored": 11
+    },
+    "layers": {
+      "tracked": 18,
+      "bytes": 533139,
+      "ignored": 25
+    },
+    "models": {
+      "tracked": 23,
+      "bytes": 314755,
+      "ignored": 28
+    },
+    "reports": {
+      "untracked": 6,
+      "bytes": 1626407,
+      "tracked": 66
+    },
+    "reproduction": {
+      "tracked": 380,
+      "bytes": 22193290602,
+      "untracked": 8716,
+      "ignored": 178
+    },
+    "requirements": {
+      "tracked": 5,
+      "bytes": 1534
+    },
+    "research-ops-site": {
+      "tracked": 102,
+      "bytes": 818843263,
+      "ignored": 52291
+    },
+    "research_work": {
+      "untracked": 3521,
+      "bytes": 16924452,
+      "ignored": 66
+    },
+    "results": {
+      "tracked": 705,
+      "bytes": 35382847,
+      "ignored": 1221
+    },
+    "scripts": {
+      "untracked": 1,
+      "bytes": 2259
+    },
+    "sweep_runs": {
+      "tracked": 22,
+      "bytes": 244454
+    },
+    "test_results": {
+      "ignored": 2869,
+      "bytes": 400693924
+    },
+    "tests": {
+      "tracked": 11,
+      "bytes": 360994,
+      "untracked": 3,
+      "ignored": 18
+    },
+    "utils": {
+      "tracked": 14,
+      "bytes": 308900,
+      "ignored": 23
+    }
+  },
+  "extensions": {
+    "untracked": {
+      ".adoc": 1,
+      ".bin": 956,
+      ".csv": 879,
+      ".gz": 17,
+      ".html": 23,
+      ".json": 5687,
+      ".jsonl": 220,
+      ".log": 716,
+      ".md": 185,
+      ".mdx": 2,
+      ".npy": 2158,
+      ".patch": 10,
+      ".pdf": 9,
+      ".ps1": 1,
+      ".pth": 644,
+      ".py": 251,
+      ".rst": 1,
+      ".scala": 1,
+      ".sha256": 10,
+      ".tmp": 8,
+      ".tsv": 27,
+      ".txt": 512,
+      "[none]": 9
+    },
+    "tracked": {
+      ".cls": 1,
+      ".cmd": 2,
+      ".css": 2,
+      ".csv": 110,
+      ".gz": 1,
+      ".json": 117,
+      ".log": 35,
+      ".md": 97,
+      ".mjs": 8,
+      ".npy": 569,
+      ".pdf": 2,
+      ".ps1": 9,
+      ".pth": 48,
+      ".py": 141,
+      ".sh": 5,
+      ".svg": 4,
+      ".tex": 2,
+      ".ts": 10,
+      ".tsx": 63,
+      ".txt": 276,
+      ".yml": 1,
+      "[none]": 8
+    },
+    "ignored": {
+      ".1": 4,
+      ".357d1f5f60a5f00f2e0c325cef16bbd4": 1,
+      ".a": 114,
+      ".a99": 2,
+      ".afm": 60,
+      ".al": 16,
+      ".ani": 1,
+      ".apache": 5,
+      ".arff": 16,
+      ".b99": 2,
+      ".bat": 3,
+      ".bazel": 1,
+      ".bnf": 4,
+      ".bsd": 8,
+      ".build": 26,
+      ".bz2": 9,
+      ".bzl": 1,
+      ".c": 62,
+      ".capnp": 1,
+      ".cc": 7,
+      ".cfg": 3,
+      ".cjs": 2029,
+      ".closure-compiler": 1,
+      ".cmake": 29,
+      ".cmd": 41,
+      ".coffee": 2,
+      ".cpp": 45,
+      ".css": 39,
+      ".csv": 50,
+      ".cts": 1831,
+      ".cu": 1,
+      ".cuh": 52,
+      ".dat": 28,
+      ".def": 10,
+      ".dll": 21,
+      ".egg": 1,
+      ".esprima": 1,
+      ".exe": 38,
+      ".external": 1,
+      ".f": 21,
+      ".f90": 55,
+      ".f95": 1,
+      ".fits": 1,
+      ".flow": 44,
+      ".g4": 2,
+      ".go": 1,
+      ".gyp": 1,
+      ".gz": 100,
+      ".gzip": 5,
+      ".h": 8612,
+      ".hpp": 40,
+      ".html": 16,
+      ".ico": 1,
+      ".in": 1,
+      ".inc": 1,
+      ".ini": 4,
+      ".ipynb": 80,
+      ".jpg": 14,
+      ".js": 19274,
+      ".json": 1383,
+      ".jsonc": 3,
+      ".jst": 50,
+      ".lark": 2,
+      ".lib": 157,
+      ".license": 1,
+      ".lock": 1,
+      ".log": 77,
+      ".lua": 1,
+      ".lzma": 5,
+      ".map": 7388,
+      ".markdown": 5,
+      ".mat": 110,
+      ".md": 1569,
+      ".mit": 1,
+      ".mjs": 4563,
+      ".mplstyle": 29,
+      ".mts": 2272,
+      ".nc": 3,
+      ".node": 7,
+      ".npy": 1253,
+      ".npz": 33,
+      ".opts": 1,
+      ".pc": 1,
+      ".pdf": 438,
+      ".pem": 1,
+      ".php": 1,
+      ".pkl": 15,
+      ".png": 2541,
+      ".ps1": 42,
+      ".pth": 481,
+      ".pxd": 44,
+      ".pxi": 2,
+      ".py": 11202,
+      ".pyc": 11409,
+      ".pyd": 277,
+      ".pyf": 5,
+      ".pyi": 388,
+      ".pyx": 64,
+      ".rst": 86,
+      ".sav": 47,
+      ".sh": 3,
+      ".snap": 25,
+      ".sqlite": 1,
+      ".sqlite-shm": 1,
+      ".sqlite-wal": 1,
+      ".svg": 29,
+      ".tab": 8,
+      ".template": 1,
+      ".tmpl": 2,
+      ".toml": 1,
+      ".tp": 24,
+      ".tpl": 7,
+      ".ts": 10399,
+      ".tsf": 4,
+      ".tsv": 1,
+      ".tsx": 53,
+      ".ttf": 40,
+      ".txt": 164,
+      ".typed": 41,
+      ".wasm": 9,
+      ".wav": 22,
+      ".whl": 2,
+      ".woff2": 8,
+      ".xml": 1,
+      ".xrc": 1,
+      ".xsl": 3,
+      ".xz": 5,
+      ".yaml": 5,
+      ".yml": 132,
+      ".z": 3,
+      ".zi": 2,
+      ".zip": 1,
+      "[none]": 2629
+    }
+  },
+  "walk_errors": [],
+  "skipped_links": [],
+  "git_warnings": [],
+  "attempt_named_directory_candidates": 2146,
+  "attempt_count_caveat": "Path heuristic includes synthetic, duplicate and child folders; not a run count.",
+  "collector_sha256": "374928bd5abac3484f45e96acbb14320d81ac7bbf44f25bf483a9db0cd2d554c",
+  "receipt_metadata": {
+    "parsed": 729,
+    "errors": [],
+    "archived_filenames": 1,
+    "status_statements": {
+      "calibration_pass": 28,
+      "resource_blocked": 1,
+      "completed_unreviewed": 699,
+      "interrupted": 1
+    },
+    "distinct_receipt_sha256": 724,
+    "absent_inline_field_counts": {
+      "logical_run_id": 14,
+      "attempt_id": 14,
+      "attempt": 14,
+      "created_at_utc": 14,
+      "supersedes_attempt": 729,
+      "batch_id": 275,
+      "execution_track": 275,
+      "execution_device": 30,
+      "authorization_commit": 29,
+      "environment_fingerprint_sha256": 29,
+      "split_manifest_id": 30,
+      "prediction_keys_sha256": 30,
+      "asset": 700,
+      "model": 700,
+      "horizon": 700,
+      "seed": 700,
+      "git_commit": 700,
+      "dataset_sha256": 1,
+      "scientific_use": 1
+    },
+    "missing_environment": 0,
+    "missing_config_fingerprint": 15,
+    "index_sha256": "34e7a53e51eca2959a08055d6dbe3a0839bbe77ee2be6e591f1c6d3c24cf897a",
+    "interpretation": "Records and status statements, not completed/eligible/independently audited runs. Absent inline fields may be optional or in linked manifests; do not call them missing evidence before joining. Authorization commit is not necessarily run code commit."
+  },
+  "tracked_payload_candidates": {
+    "HEAD": {
+      "count": 678,
+      "extensions": {
+        ".pth": 48,
+        ".csv": 61,
+        ".npy": 569
+      },
+      "git_blob_bytes": 37694363
+    },
+    "origin/main": {
+      "count": 678,
+      "extensions": {
+        ".pth": 48,
+        ".csv": 61,
+        ".npy": 569
+      },
+      "git_blob_bytes": 37694363
+    }
+  },
+  "tracked_payload_candidate_index_sha256": "87f784d79646f4496d9c72fc479162eb5315623b88209b9763ca97b1fb17dd35",
+  "input_pins": {
+    "docs/EXPERIMENTAL_DOCTRINE.md": {
+      "sha256": "eb9d56d8be421ffd035c3cb5f42963d397fbd47093c76587bb40171518047e2f",
+      "bytes": 33208,
+      "tracked": true
+    },
+    "docs/PHASE1_PREREGISTRATION.md": {
+      "sha256": "e9d0f075ba552928ab8683adb7f842f49e6a3aa4002dafda7bc4529a4698aa67",
+      "bytes": 8113,
+      "tracked": true
+    },
+    "docs/PHASE1_EXECUTION_DECISION_V1.2.json": {
+      "sha256": "39ddcbcfe7213aaa010e15a9f6edf435d4313079ddc5751749cc30f4f85baa64",
+      "bytes": 3031,
+      "tracked": true
+    },
+    "docs/DRF_PROJECT_CONTROL_INDEX_V1_2026-10-08.md": {
+      "sha256": "d3ab997652d115b715ce359998a760509c171df71777d299cdd47eb9564afae6",
+      "bytes": 10556,
+      "tracked": false
+    },
+    "docs/PROJECT_EXPERIMENT_DATA_INVENTORY_AND_GAPS_V1_2026-10-10.md": {
+      "sha256": "56ddd96d71aaf65fa05a343b972370fab0afcacad2c6b3eefec1b941f4a21be3",
+      "bytes": 16108,
+      "tracked": true
+    },
+    "docs/DATASET_RIGHTS_REVIEW_V1_2026-10-10.md": {
+      "sha256": "60ef5a6c62f878332b5841e082fad837aa999475b2df4c9c1007ea95ed6c2b11",
+      "bytes": 6765,
+      "tracked": true
+    },
+    "docs/DATASET_RIGHTS_REVIEW_LEDGER_V1_2026-10-10.csv": {
+      "sha256": "30696c28a9f7f2abcff8ebc3e07d39faea1c0f12b1a1fefe224d4bc010845b41",
+      "bytes": 23215,
+      "tracked": true
+    },
+    "reproduction/results/dataset_registry.csv": {
+      "sha256": "96e70b15740ed6ee666445f54bdc4bca6ce995b0a752824238ab01fca49d7458",
+      "bytes": 10246,
+      "tracked": true
+    },
+    "reports/README.md": {
+      "sha256": "ebe2f3339373cd0eae385fe45c69a1bb0f256605d0e945c47d16f0e5907d1669",
+      "bytes": 5040,
+      "tracked": true
+    },
+    "reports/phase1/phase1-experiment-data-and-progress-20260930.md": {
+      "sha256": "fa2b61e76dc32e3b5eb54b0a7b70f955bf30c8954c0ee0677584c12d9a9979a4",
+      "bytes": 8188,
+      "tracked": true
+    },
+    "reports/phase1/phase1-next-steps-gate-20260930.md": {
+      "sha256": "960f6ff9f652fc6d9fec07ffecf110e2e514a79a3b65df6549d401fbe95defb4",
+      "bytes": 4774,
+      "tracked": true
+    },
+    "dataset/README.md": {
+      "sha256": "b072aaadefb01935326c589ff278ab3a9e9fda768d70dc29654c3bfd808ab6da",
+      "bytes": 2190,
+      "tracked": false
+    },
+    "data/raw/yahoo/DOWNLOAD_LINKS.md": {
+      "sha256": "4a8950bb588c65e7887673c6832ed5921839f7edd7db46158e98e60a6bdb37e9",
+      "bytes": 5434,
+      "tracked": true
+    },
+    "research_work/forward_increment/lead_design_2026_10_07/R1_APPROVED_DESIGN_V1.json": {
+      "sha256": "56f27c89a32e37005ff5c6ce239617ae60581c03c89fe8d72497e68c76a7f7f4",
+      "bytes": 13543,
+      "tracked": false
+    },
+    "research_work/forward_increment/lead_design_2026_10_07/DELEGATED_LEAD_APPROVAL_R1_V1.md": {
+      "sha256": "0911bcc5f3a134d01462716656c99bd48a6c76c68bbbc699bc79878a455bba76",
+      "bytes": 6713,
+      "tracked": false
+    },
+    "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/R1_EXECUTION_GATE_DECISION_V1.md": {
+      "sha256": "4dcc3906dde618219c70bd47381ad6a48b263b97045c626788b95413cc14443c",
+      "bytes": 3240,
+      "tracked": false
+    },
+    "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/PROJECT_ASSESSMENT_AND_ROADMAP.md": {
+      "sha256": "75d30f9af1ff4f091038fc0e89d6b7b1d85819b2462d90a10e296b2a1794d894",
+      "bytes": 17877,
+      "tracked": false
+    },
+    "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/EVIDENCE_INDEX.json": {
+      "sha256": "d020999c21e31dde2ccbf073736501880d873ebeacb4bee5c0e4f64ff4d215b5",
+      "bytes": 8714,
+      "tracked": false
+    },
+    "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/DELIVERABLE_HASHES.json": {
+      "sha256": "f8692324daa83d6e286a929ee9305b386dbce02a2bc6c64496f9206db1235b97",
+      "bytes": 5084,
+      "tracked": false
+    },
+    "reproduction/results/phase1/A_calibration.manifest.csv": {
+      "sha256": "4b4b02f392e7ffa0dc98252c9bee35a374fbc673b6c4cc3c1d2d430f64a93377",
+      "bytes": 1616,
+      "tracked": true
+    },
+    "reproduction/results/phase1/B_screen.manifest.csv": {
+      "sha256": "4bc275cf58922d18cab6840d31adb59368aea9304964b54d3f2a3e156ba63ea5",
+      "bytes": 27524,
+      "tracked": true
+    },
+    "reproduction/results/phase1/C_confirmation.manifest.csv": {
+      "sha256": "bda784f0dd816939cdfd02e30109369df6a3e2e76aecd79aa8ee87b3910e6bfa",
+      "bytes": 34338,
+      "tracked": true
+    },
+    "reproduction/results/phase1/D_temporal_robustness.manifest.csv": {
+      "sha256": "04ce9d9bba9ccc3590dbdbb63698395a7a5b6c7169f7ffd99fc92011b62f0f7b",
+      "bytes": 18066,
+      "tracked": true
+    },
+    "reproduction/data/fetch_dataset.py": {
+      "sha256": "dea3aabe2d152e5ad2639376aad892166c6f3d49b01c822f281cd47dcbd4b6a4",
+      "bytes": 3748,
+      "tracked": true
+    },
+    "reproduction/data/fetch_dataset_v2.py": {
+      "sha256": "30f67c9a589c5cb18a0992ebcb949031fc421ec4872846144cf19dac7faa29fa",
+      "bytes": 4328,
+      "tracked": true
+    },
+    "reproduction/data/fetch_dataset_v3.py": {
+      "sha256": "58d6d54726fa314c608899bdd08455c581efdd7717db59b8e81652fe81da3174",
+      "bytes": 2501,
+      "tracked": true
+    },
+    "reproduction/data/fetch_candidate_pool.py": {
+      "sha256": "4e4052308e78521d5b2bb34c358c55089e86fc96225370d5ce6a4b7733710fec",
+      "bytes": 4150,
+      "tracked": true
+    },
+    "reproduction/data/fetch_pool_sohu.py": {
+      "sha256": "24dfc2b4e7799fad00bf5c7c9c677f8b11313b8377119d593a1dbaaed5a5379c",
+      "bytes": 3912,
+      "tracked": true
+    },
+    "reproduction/data/fetch_pool_sohu2.py": {
+      "sha256": "5b2cab44582401d9145f978a85ee86f13d433581aff2b4f4332c3e45c9a770d5",
+      "bytes": 2930,
+      "tracked": true
+    },
+    "reports/evidence_closure/11_structural_validation_preregistration.md": {
+      "sha256": "acf23cb64bc8fcb59fcb88330d2d8b354c735d2f65c27a5d2d10cb5eafd9ac88",
+      "bytes": 6215,
+      "tracked": true
+    },
+    "reports/evidence_closure/15_data_acquisition_diagnosis.md": {
+      "sha256": "67d9f6611f3da166d1f0ef398e309e3b280db8c0099641bd3d9a8700b6753312",
+      "bytes": 4172,
+      "tracked": true
+    }
+  },
+  "missing_pin_paths": [],
+  "local_path_manifest_sha256": "f950fe7aeefe1860dd4b1b5455eaa81086db9e9a34e116e68f0190809ca72beb",
+  "snapshot_path": "research_work/project_management_2026_10_10/20261010T102423523231Z",
+  "snapshot_summary_sha256": "a6fc7210c497b55413d503a46baf9963edf38ca8e5e0d4653e02400bd0287988",
+  "rechecked_evidence": [
+    {
+      "path": "data_provider/data_factory.py",
+      "expected": "419a532437a55eadbbcd5925b258784ef6f7161702fc797be818fb84236257bb",
+      "actual": "419a532437a55eadbbcd5925b258784ef6f7161702fc797be818fb84236257bb"
+    },
+    {
+      "path": "exp/exp_long_term_forecasting.py",
+      "expected": "5074d13cd0e6aa57633a8c8e61c98830fd89d7675c65e0e2cb80b374d51526f8",
+      "actual": "5074d13cd0e6aa57633a8c8e61c98830fd89d7675c65e0e2cb80b374d51526f8"
+    },
+    {
+      "path": "layers/RevIN.py",
+      "expected": "86ae5f290032e2f9ff83846f36480a56b9a0077837e656a0dfb5f8268d59d215",
+      "actual": "86ae5f290032e2f9ff83846f36480a56b9a0077837e656a0dfb5f8268d59d215"
+    },
+    {
+      "path": "models/derefusion/DeReFusion.py",
+      "expected": "7e5194f7db66a1b8218dbacc9f9ca1b63f419dc12f74c6b6a3cafadbcc9c9320",
+      "actual": "7e5194f7db66a1b8218dbacc9f9ca1b63f419dc12f74c6b6a3cafadbcc9c9320"
+    },
+    {
+      "path": "reports/evidence_closure/14_structural_validation_result.md",
+      "expected": "99b9f9d395c2eed692456920b1648d5431100407c77ea352bb2aed0b43210945",
+      "actual": "99b9f9d395c2eed692456920b1648d5431100407c77ea352bb2aed0b43210945"
+    },
+    {
+      "path": "reports/evidence_closure/21_f1_result.md",
+      "expected": "070d78263fb15cccac48cf36c7c82855af7e23df237f44fbb814dbec59d51f26",
+      "actual": "070d78263fb15cccac48cf36c7c82855af7e23df237f44fbb814dbec59d51f26"
+    },
+    {
+      "path": "reports/evidence_closure/26_c1_result_and_blind_audit.md",
+      "expected": "21473e3f43d0e62c8b34f56762cab768627dc2151799d089f48d7db261842218",
+      "actual": "21473e3f43d0e62c8b34f56762cab768627dc2151799d089f48d7db261842218"
+    },
+    {
+      "path": "reports/evidence_closure/29_c1_independent_blind_replay.md",
+      "expected": "951c014fcb76c0c2102871883c754999c55358d39aac976371da49ff626d1694",
+      "actual": "951c014fcb76c0c2102871883c754999c55358d39aac976371da49ff626d1694"
+    },
+    {
+      "path": "reports/phase1/stage-b-technical-closeout-20260930.md",
+      "expected": "734e8532ac7bb89e472bc457b05c6641f45f3307535dc7bd64a6819b9e7178d5",
+      "actual": "734e8532ac7bb89e472bc457b05c6641f45f3307535dc7bd64a6819b9e7178d5"
+    },
+    {
+      "path": "reports/phase1/stage-c-descriptive-review-20260930.md",
+      "expected": "2e8f6a77a65207b87d80c82dcba49439786971f796065fd73bacce558cf384b9",
+      "actual": "2e8f6a77a65207b87d80c82dcba49439786971f796065fd73bacce558cf384b9"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/DELEGATED_LEAD_APPROVAL_R1_V1.md",
+      "expected": "0911bcc5f3a134d01462716656c99bd48a6c76c68bbbc699bc79878a455bba76",
+      "actual": "0911bcc5f3a134d01462716656c99bd48a6c76c68bbbc699bc79878a455bba76"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/R1_APPROVED_DESIGN_V1.json",
+      "expected": "56f27c89a32e37005ff5c6ce239617ae60581c03c89fe8d72497e68c76a7f7f4",
+      "actual": "56f27c89a32e37005ff5c6ce239617ae60581c03c89fe8d72497e68c76a7f7f4"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/CURRENT_DATE_ONLY_COVERAGE.json",
+      "expected": "ac01964dc43e7c28152700f7d6fb5680945aba9aa45ec5407829700ed68e5222",
+      "actual": "ac01964dc43e7c28152700f7d6fb5680945aba9aa45ec5407829700ed68e5222"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/SPEC_CLARIFICATIONS_V5.md",
+      "expected": "7200c58ff1a27ed4802dd65ba817bde54ee79e66b448b24ae5b3b9c62fb90a35",
+      "actual": "7200c58ff1a27ed4802dd65ba817bde54ee79e66b448b24ae5b3b9c62fb90a35"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/exp_long_term_forecasting.r1.candidate.py",
+      "expected": "c4d7daccb23152ab0d34624e2fc5b72d6e47a1c88912a2c146947b2243cad380",
+      "actual": "c4d7daccb23152ab0d34624e2fc5b72d6e47a1c88912a2c146947b2243cad380"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/PROJECT_ASSESSMENT_AND_ROADMAP.md",
+      "expected": "75d30f9af1ff4f091038fc0e89d6b7b1d85819b2462d90a10e296b2a1794d894",
+      "actual": "75d30f9af1ff4f091038fc0e89d6b7b1d85819b2462d90a10e296b2a1794d894"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/R1_EXECUTION_GATE_DECISION_V1.md",
+      "expected": "4dcc3906dde618219c70bd47381ad6a48b263b97045c626788b95413cc14443c",
+      "actual": "4dcc3906dde618219c70bd47381ad6a48b263b97045c626788b95413cc14443c"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/R1_GATE_STATUS_UPDATE_2026-10-07.md",
+      "expected": "c785e1e73c4edb3eca1a8be5dd0ab3e5f71f821fc66ff3a16cd9376f8334e20c",
+      "actual": "c785e1e73c4edb3eca1a8be5dd0ab3e5f71f821fc66ff3a16cd9376f8334e20c"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/ERRATUM_2026-10-07_OPTIMIZER_STEPS.md",
+      "expected": "6f12243f8b55f46d3ebfeb898ced8cba469bfa1ba09ebe496563ab4f81c358a5",
+      "actual": "6f12243f8b55f46d3ebfeb898ced8cba469bfa1ba09ebe496563ab4f81c358a5"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/R1_LIFECYCLE_SYNTHETIC_REVIEW.md",
+      "expected": "9018653a637368e2707ef8b933c66d8e7e65ca6b462ccd216784e05bf6a03799",
+      "actual": "9018653a637368e2707ef8b933c66d8e7e65ca6b462ccd216784e05bf6a03799"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/SYNTHETIC_CPU_RESOURCE_RESULTS.json",
+      "expected": "6111fa5c25ce6ab82e74d79ff29484567782efad6244b30d251ecd591f5e6732",
+      "actual": "6111fa5c25ce6ab82e74d79ff29484567782efad6244b30d251ecd591f5e6732"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/SYNTHETIC_LIFECYCLE_RESULTS.json",
+      "expected": "a883d3645226302a24f9d256c5fe55f66b2626b9f03644035d0aacc1ce85205e",
+      "actual": "a883d3645226302a24f9d256c5fe55f66b2626b9f03644035d0aacc1ce85205e"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/run_synthetic_lifecycle.py",
+      "expected": "5d2bdde942aa36aa020693b09dc98f156153ec7351f3cb3bdf9f24919fc59716",
+      "actual": "5d2bdde942aa36aa020693b09dc98f156153ec7351f3cb3bdf9f24919fc59716"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/synthetic_cpu_resource_smoke.py",
+      "expected": "f99c1ea9580a16e5ad0e45506bbe1f5a0127a216215044a22a332c847c19c23c",
+      "actual": "f99c1ea9580a16e5ad0e45506bbe1f5a0127a216215044a22a332c847c19c23c"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v2/R1_LIFECYCLE_SYNTHETIC_REVIEW_V2.md",
+      "expected": "b28ccfcaf93477930fb36c254bee4ac7848f46230e8b4d65d06f7fcdcb894384",
+      "actual": "b28ccfcaf93477930fb36c254bee4ac7848f46230e8b4d65d06f7fcdcb894384"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v2/SYNTHETIC_LIFECYCLE_RESULTS.json",
+      "expected": "83a72d0d91c261001a9af432823257382b3ab4cdb7066f4c32b790707bcd2f58",
+      "actual": "83a72d0d91c261001a9af432823257382b3ab4cdb7066f4c32b790707bcd2f58"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v2/run_synthetic_lifecycle_v2.py",
+      "expected": "48c5731ec6080d9f6abc07d5d080a2f1502b4550af53bd0629f2f1d722169f83",
+      "actual": "48c5731ec6080d9f6abc07d5d080a2f1502b4550af53bd0629f2f1d722169f83"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/CUSTODY_BOUNDARY_RESULTS.json",
+      "expected": "c14344dd4371851e3f273cf883cedf16990cff1f8cf390998d658ba8d53fc75b",
+      "actual": "c14344dd4371851e3f273cf883cedf16990cff1f8cf390998d658ba8d53fc75b"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/SYNTHETIC_ROLE_CUSTODY_REPORT_V1.md",
+      "expected": "0d914915af3c22fbe1858e72e13bf5af166eaf6c7f34f96416241a16e6adab42",
+      "actual": "0d914915af3c22fbe1858e72e13bf5af166eaf6c7f34f96416241a16e6adab42"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/custody_common.py",
+      "expected": "cfcbc906029910f0d23a5da3c014376aeb5fa4f4a70d9c56d17237b5ec169467",
+      "actual": "cfcbc906029910f0d23a5da3c014376aeb5fa4f4a70d9c56d17237b5ec169467"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/role_receiver.py",
+      "expected": "f7021d92413029220bdce659c130cbb423f9d3b589a3ae3129739ebf239c1e85",
+      "actual": "f7021d92413029220bdce659c130cbb423f9d3b589a3ae3129739ebf239c1e85"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/run_custody_boundary_probe.py",
+      "expected": "2cdfe1691caffcdae9689f53a7c02786905bdabc27b84e224edab31a953a6ea9",
+      "actual": "2cdfe1691caffcdae9689f53a7c02786905bdabc27b84e224edab31a953a6ea9"
+    },
+    {
+      "path": "research_work/forward_increment/qwen04_artifacts/fix_log_round5_publication_ownership_and_gate_actions.md",
+      "expected": "a51809a0734c2d35be80a5884df04cf8edeead862e381bac3df19ac9def622e4",
+      "actual": "a51809a0734c2d35be80a5884df04cf8edeead862e381bac3df19ac9def622e4"
+    },
+    {
+      "path": "research_work/forward_increment/qwen05_review/interop_followup/round5_recheck/GRADER_FIX_R5B_EVIDENCE.md",
+      "expected": "c4664d0445a3b68d919a24c430ab6a785697543b289040b1202fd9a6dd36249a",
+      "actual": "c4664d0445a3b68d919a24c430ab6a785697543b289040b1202fd9a6dd36249a"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/ANALYTIC_WORKLOAD.json",
+      "expected": "02ff1b821b365b8c139fa7742a78dd2b1d4ffdfd88209354d46126eb6838c0b8",
+      "actual": "02ff1b821b365b8c139fa7742a78dd2b1d4ffdfd88209354d46126eb6838c0b8"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/EVIDENCE_INDEX.json",
+      "expected": "d020999c21e31dde2ccbf073736501880d873ebeacb4bee5c0e4f64ff4d215b5",
+      "actual": "d020999c21e31dde2ccbf073736501880d873ebeacb4bee5c0e4f64ff4d215b5"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/PROJECT_ASSESSMENT_AND_ROADMAP.md",
+      "expected": "75d30f9af1ff4f091038fc0e89d6b7b1d85819b2462d90a10e296b2a1794d894",
+      "actual": "75d30f9af1ff4f091038fc0e89d6b7b1d85819b2462d90a10e296b2a1794d894"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/R1_EXECUTION_GATE_DECISION_V1.md",
+      "expected": "4dcc3906dde618219c70bd47381ad6a48b263b97045c626788b95413cc14443c",
+      "actual": "4dcc3906dde618219c70bd47381ad6a48b263b97045c626788b95413cc14443c"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/R1_GATE_STATUS_UPDATE_2026-10-07.md",
+      "expected": "c785e1e73c4edb3eca1a8be5dd0ab3e5f71f821fc66ff3a16cd9376f8334e20c",
+      "actual": "c785e1e73c4edb3eca1a8be5dd0ab3e5f71f821fc66ff3a16cd9376f8334e20c"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/ERRATUM_2026-10-07_OPTIMIZER_STEPS.md",
+      "expected": "6f12243f8b55f46d3ebfeb898ced8cba469bfa1ba09ebe496563ab4f81c358a5",
+      "actual": "6f12243f8b55f46d3ebfeb898ced8cba469bfa1ba09ebe496563ab4f81c358a5"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/R1_LIFECYCLE_SYNTHETIC_REVIEW.md",
+      "expected": "9018653a637368e2707ef8b933c66d8e7e65ca6b462ccd216784e05bf6a03799",
+      "actual": "9018653a637368e2707ef8b933c66d8e7e65ca6b462ccd216784e05bf6a03799"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/SYNTHETIC_CPU_RESOURCE_RESULTS.json",
+      "expected": "6111fa5c25ce6ab82e74d79ff29484567782efad6244b30d251ecd591f5e6732",
+      "actual": "6111fa5c25ce6ab82e74d79ff29484567782efad6244b30d251ecd591f5e6732"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/SYNTHETIC_LIFECYCLE_RESULTS.json",
+      "expected": "a883d3645226302a24f9d256c5fe55f66b2626b9f03644035d0aacc1ce85205e",
+      "actual": "a883d3645226302a24f9d256c5fe55f66b2626b9f03644035d0aacc1ce85205e"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/run_synthetic_lifecycle.py",
+      "expected": "5d2bdde942aa36aa020693b09dc98f156153ec7351f3cb3bdf9f24919fc59716",
+      "actual": "5d2bdde942aa36aa020693b09dc98f156153ec7351f3cb3bdf9f24919fc59716"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v1/synthetic_cpu_resource_smoke.py",
+      "expected": "f99c1ea9580a16e5ad0e45506bbe1f5a0127a216215044a22a332c847c19c23c",
+      "actual": "f99c1ea9580a16e5ad0e45506bbe1f5a0127a216215044a22a332c847c19c23c"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v2/R1_LIFECYCLE_SYNTHETIC_REVIEW_V2.md",
+      "expected": "b28ccfcaf93477930fb36c254bee4ac7848f46230e8b4d65d06f7fcdcb894384",
+      "actual": "b28ccfcaf93477930fb36c254bee4ac7848f46230e8b4d65d06f7fcdcb894384"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v2/SYNTHETIC_LIFECYCLE_RESULTS.json",
+      "expected": "83a72d0d91c261001a9af432823257382b3ab4cdb7066f4c32b790707bcd2f58",
+      "actual": "83a72d0d91c261001a9af432823257382b3ab4cdb7066f4c32b790707bcd2f58"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/r1_lifecycle_v2/run_synthetic_lifecycle_v2.py",
+      "expected": "48c5731ec6080d9f6abc07d5d080a2f1502b4550af53bd0629f2f1d722169f83",
+      "actual": "48c5731ec6080d9f6abc07d5d080a2f1502b4550af53bd0629f2f1d722169f83"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/CUSTODY_BOUNDARY_RESULTS.json",
+      "expected": "c14344dd4371851e3f273cf883cedf16990cff1f8cf390998d658ba8d53fc75b",
+      "actual": "c14344dd4371851e3f273cf883cedf16990cff1f8cf390998d658ba8d53fc75b"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/SYNTHETIC_ROLE_CUSTODY_REPORT_V1.md",
+      "expected": "0d914915af3c22fbe1858e72e13bf5af166eaf6c7f34f96416241a16e6adab42",
+      "actual": "0d914915af3c22fbe1858e72e13bf5af166eaf6c7f34f96416241a16e6adab42"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/custody_common.py",
+      "expected": "cfcbc906029910f0d23a5da3c014376aeb5fa4f4a70d9c56d17237b5ec169467",
+      "actual": "cfcbc906029910f0d23a5da3c014376aeb5fa4f4a70d9c56d17237b5ec169467"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/role_receiver.py",
+      "expected": "f7021d92413029220bdce659c130cbb423f9d3b589a3ae3129739ebf239c1e85",
+      "actual": "f7021d92413029220bdce659c130cbb423f9d3b589a3ae3129739ebf239c1e85"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/project_synthesis_v1/role_custody_synthetic_v1/run_custody_boundary_probe.py",
+      "expected": "2cdfe1691caffcdae9689f53a7c02786905bdabc27b84e224edab31a953a6ea9",
+      "actual": "2cdfe1691caffcdae9689f53a7c02786905bdabc27b84e224edab31a953a6ea9"
+    }
+  ],
+  "rechecked_model_sources": [
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/layers/__init__.py",
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/layers/derefusion_components.py",
+      "expected": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33",
+      "actual": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/layers/RevIN.py",
+      "expected": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc",
+      "actual": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/__init__.py",
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/__init__.py",
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/ablation_variant/__init__.py",
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/ablation_variant/DeReFusion-woDy.py",
+      "expected": "b231a3d0d4bf0effe6a8348a42e489f2baa957ab6698b1be46f8d7a6f9972eb2",
+      "actual": "b231a3d0d4bf0effe6a8348a42e489f2baa957ab6698b1be46f8d7a6f9972eb2"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/ablation_variant/DeReFusion-woLSTM.py",
+      "expected": "71cf19e075f7156ed64ce31bbe5c649cea56066b5bff8dfae509afe60aba6df6",
+      "actual": "71cf19e075f7156ed64ce31bbe5c649cea56066b5bff8dfae509afe60aba6df6"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/ablation_variant/DeReFusion-woTransformer.py",
+      "expected": "fa5928a6f2681af0fe29690cc9a8daada1865b8e38f88c91ebc7d979c389158e",
+      "actual": "fa5928a6f2681af0fe29690cc9a8daada1865b8e38f88c91ebc7d979c389158e"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/DeReFusion.py",
+      "expected": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091",
+      "actual": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/gate_variant/__init__.py",
+      "expected": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "actual": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/gate_variant/DeReFusion-gatev1-volatilityaware.py",
+      "expected": "705bc1904d588e0aaf9e301cc0bacce9bf9a1649b08db3c5c746b006bed2330d",
+      "actual": "705bc1904d588e0aaf9e301cc0bacce9bf9a1649b08db3c5c746b006bed2330d"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/gate_variant/DeReFusion-gatev2-learnable.py",
+      "expected": "6de053e50be678d0185113c88af48b8750b54a42ce8101d3fce46a0ed6731580",
+      "actual": "6de053e50be678d0185113c88af48b8750b54a42ce8101d3fce46a0ed6731580"
+    },
+    {
+      "path": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/gate_variant/DeReFusion-gatev3-inputconditioned.py",
+      "expected": "3e90d05455938d2124e63f76dc7b4a281bfad6b9a26f137fc7c0ec09ce0002c8",
+      "actual": "3e90d05455938d2124e63f76dc7b4a281bfad6b9a26f137fc7c0ec09ce0002c8"
+    }
+  ],
+  "preexisting_tracked_modifications": {
+    "docs/DRF_TAKEOVER_STATUS_CORRECTION_V1_2026-10-10.md": "4229535b50648fe3179b45e1b62a5ffaace61ef5fc80578a967a8d9a6efcd6a9",
+    "docs/PROJECT_STATUS_AND_EXPERIMENT_CATALOG_V1_2026-10-10.md": "6a2d0388fc816d8a0b89145cd601c17d7cb50daefe27944a64d61bd863c5f8a3",
+    "reproduction/analysis/receive_phase1_completed.py": "57d952f6538857c73ff25339010adc94feb6be384e5c55152231cd4b31b9b02e",
+    "reproduction/results/phase1/local-5060-manifests/freeze-summary.json": "a571c80576040e3e01db7dbd2356c119e015b3abe00f3333b11959e18dfb9fbd",
+    "tests/test_phase1_completed_receiver.py": "d122b598a48bee3c9065508d3c6103ed37816dd64ffec00a8d42912b24b70b73"
+  },
+  "scope_notes": [
+    "Inventory timestamp precedes management package creation",
+    "Hash identity is not test rerun or scientific acceptance",
+    "Full path and receipt indexes local only",
+    "Remote-tracking ref is not a fresh live server query"
+  ],
+  "dsh_prior_review": {
+    "path": "[local attachment path withheld]",
+    "sha256": "4104aaad72d13656d6b3eb40605a541482b5c71d594c6074c49e4c229e9c752d",
+    "reviewed_head": "0f4f86ed83b5d927ee2c4db326c71c585a99684e",
+    "applies_to_new_package": false
+  },
+  "count_reconciliation": {
+    "walk_untracked": 12327,
+    "git_untracked": 12337,
+    "difference": 10,
+    "cause": "The walker excludes research_work/project_management_2026_10_10 output root. At this scan time two earlier snapshots existed there with 4 and 6 files; Git enumeration included them while the walker skipped the parent. The new snapshot directory was empty during Git enumeration.",
+    "evidence": [
+      "research_work/project_management_2026_10_10/20261010T102127933413Z (4 files)",
+      "research_work/project_management_2026_10_10/20261010T102327569035Z (6 files)",
+      "collector creates output directory before Git enumeration and writes its files after enumeration"
+    ]
+  },
+  "dsh_review_v1": {
+    "report_sha256": "422091f45a920ac23867749e84cc606205ce5ff8202cf58923254c79e04c470d",
+    "reviewed_manifest_sha256": "4a0601afe97b5700d0836e3b4bdeab28bed278bc06430d2160cfc0a038dccde8",
+    "conclusion": "revision_required",
+    "reviewed_head": "8953da122bd5fca293f8c2d68e166e53138403a5"
+  },
+  "dsh_review_v1_1": {
+    "report_path": "docs/management/v1_3/DSH_REVIEW_REPORT_V1_1.md",
+    "report_sha256": "637b25d79ce2a52717c7d2fe7ff23ebbf0857fca6da847b9c56375f6bbeb4b09",
+    "source_path_at_ingest": "local attachment path withheld in public copy",
+    "reviewed_manifest_sha256": "ec414113e75e0068b96fe85e76b3b20c43c3ae6f9417493d05ed2f206cea71b4",
+    "conclusion": "acceptable_management_design_with_nonblocking_p2_items",
+    "reviewed_head": "8953da122bd5fca293f8c2d68e166e53138403a5",
+    "source_report_sha256": "1e11155480a8211ee8e060d26a190a433286c8fd914146a0235c655281bd6c81",
+    "redaction_note": "Local repository and attachment absolute paths redacted; source report hash retained; review findings unchanged."
+  },
+  "as_reviewed_v1_snapshot": "research_work/project_management_2026_10_10/followup_after_dsh_review/management_v1_as_reviewed"
+}

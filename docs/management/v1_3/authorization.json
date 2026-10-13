@@ -1,0 +1,41 @@
+{
+  "version": "v1.1",
+  "effective_date": "2026-10-10",
+  "authority": "user_delegated_project_lead",
+  "lead": "Codex",
+  "policy_status": "issued_internal_management_policy",
+  "independent_review": "v1 reviewed with corrections requested; v1.1 pending",
+  "automated_enforcement": false,
+  "autonomous": [
+    "metadata",
+    "documentation",
+    "code",
+    "synthetic_checks"
+  ],
+  "conditional": [
+    "data_qa",
+    "preprocess",
+    "fit",
+    "freeze",
+    "evaluate",
+    "reviewed_normal_commit_and_push"
+  ],
+  "user_reserved": [
+    "irreversible_loss",
+    "major_cost",
+    "history_rewrite_force_push",
+    "visibility_change",
+    "unapproved_external_message_or_destination"
+  ],
+  "external_authorization_granted": false,
+  "real_run_release_issued": false,
+  "default_synthetic_budget": {
+    "concurrency": 1,
+    "cpu_threads": 2,
+    "per_command_minutes": 30,
+    "batch_hours": 2,
+    "new_output_gib": 2,
+    "paid_cost": 0
+  },
+  "supersession": "See AUTHORIZATION.md; historical protocols and evidence unchanged"
+}
