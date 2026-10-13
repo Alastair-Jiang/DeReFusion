@@ -4,6 +4,8 @@
 
 - **项目性质：** 基于公开 DeReFusion 与 THUML Time-Series-Library 代码的独立研究分支，不是论文作者发布的官方代码包。
 - **报告更新：** 2026-10-13；历史 Phase 1 进度仍以截至 2026-09-30 的阶段报告为准。新 CDD 小规模开发试验见[三表示与预算诊断](docs/DRF_CDD_REPRESENTATION_BUDGET_DIAGNOSTIC_2026-10-13.md)，不替代原 Phase 1/R1 确认方案。
+- **小规模探索阶段结论：** 历史窗口缩短、资产筛选、固定 OHLC 压缩和 raw48 时间外评估已完成。现有结果未证明缩小规模能稳定改善预测：75% 历史在两项资产上略好于 100%，25% 更差；DeReFusion 在首批八个条件中均未胜过持久性基线。资产筛选改变的是组合构成，不能说明保留资产的单项预测变好。压缩试验减少输入字节和单次运行耗时，但 DeReFusion 验证误差上升。完整方法、数值、实验版本和限制见[18:30 阶段报告](docs/DRF_SHRINK_STAGE_REPORT_1830_V1_2026-10-13.md)。这些是经有限独立审计的探索性结果，不是确认性结论。
+- **公开摘要边界：** 本次只发布汇总报告，不发布原始行情、逐键预测、checkpoint 或模型权重。CryptoDataDownload 当前页面说明可发布研究成果且不得再分发原始数据；其条款同时声明上游数据可能受交易所等第三方权利限制，因此本项目不据此宣称取得了第三方数据权利或商业许可（[CDD 研究发布说明](https://www.cryptodatadownload.com/)，[使用条款](https://www.cryptodatadownload.com/terms-of-use/)）。旧 Yahoo 数据的来源和使用依据仍未解决。
 - **项目管理入口：** [授权、仓库与数据管理、实验流程及下一步](docs/management/v1_4/README.md)；v1.3、v1.4 的历史复核见[审查记录](docs/management/V1_4_INDEPENDENT_REVIEW_2026-10-10.md)。后来新 CDD 试验另行签发限定用途与执行记录；历史“未释放”状态不能解释为整个项目当前没有真实执行。
 - **项目资产总盘点：** [实验与数据资产总盘点](docs/PROJECT_EXPERIMENT_DATA_INVENTORY_AND_GAPS_V1_2026-10-10.md)及[数据跟踪事实勘误](docs/PROJECT_INVENTORY_ERRATA_V1_2026-10-10.md)，更新于 2026-10-10。
 - **数据权利审查：** [61 份 OHLC 数据逐文件来源与再分发审查](docs/DATASET_RIGHTS_REVIEW_V1_2026-10-10.md)及[61 行权利台账](docs/DATASET_RIGHTS_REVIEW_LEDGER_V1_2026-10-10.csv)；所有权利状态仍待核实。

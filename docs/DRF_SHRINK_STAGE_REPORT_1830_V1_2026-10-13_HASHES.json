@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "report": "docs/DRF_SHRINK_STAGE_REPORT_1830_V1_2026-10-13.md",
+  "report_sha256": "c71ee1fe47ea9a8c11df90516d7fd8ed66fe6e632a300a115e54e8a184a03226",
+  "checkout_head": "ef9e6394e0c3514f6306b01e5827b48cec976b5c",
+  "experiment_heads": {
+    "CDD_shrink": "a74126c11d857da8514074b72282adc8d47f28a7",
+    "compression": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+    "raw48": "db308d2b3bdf4fc14339ea4652974f4e6765e36c"
+  },
+  "stage_review_hashes_verified": "4/4",
+  "dsh_array_audit_hashes_verified": "10/10",
+  "followup_review_hashes_verified": "4/4",
+  "independent_audit_reexecuted_by_codex": false,
+  "private_data_published": false,
+  "historical_status_files_overwritten": false,
+  "inputs": [
+    {
+      "sha256": "a29929a0f01bc114e4e5ae6d78684b7cda04e88075c3780a981f478ff2522aad",
+      "path": "docs/DRF_CDD_SHRINK_FIRST_BATCH_RESULTS_2026-10-13.md"
+    },
+    {
+      "sha256": "06f2fe215b5090ea01f028ef633bee9f9447ee51e7cf41d493f836a21d096b10",
+      "path": "docs/DRF_CDD_ETH_COMPRESSION_MINIMAL_PILOT_2026-10-13.md"
+    },
+    {
+      "sha256": "ff3c2a198ee719a1e217c0c24f52533bfada145391482a3fa4b2b73e15e91e9a",
+      "path": "docs/DRF_RAW48_TEMPORAL_EVALUATION_AND_SOURCE_FIDELITY_2026-10-13.md"
+    },
+    {
+      "sha256": "d92abfe2c819bf41f8433875ca6cfd71c3e8451b80427ef72bddc7eb5b0d2e17",
+      "path": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/dsh_raw_array_review_v1/RAW_ARRAY_AUDIT_REPORT.md"
+    },
+    {
+      "sha256": "d4796620e4fc90de9dc8558f3a210f84e7a884f250e9f4a46e9d8fa71682b0ab",
+      "path": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/dsh_raw_array_review_v1/DELIVERABLE_HASHES.json"
+    },
+    {
+      "sha256": "4a77a2b85cef38b5158d67d4a8345fbed984d0264743fbc6249b571ae7c1170d",
+      "path": "research_work/project_management_2026_10_10/stage_review_kimi_2026_10_13/STAGE_REVIEW_REPORT.md"
+    },
+    {
+      "sha256": "cf8960133d6d66d981dc548a2284deff3abb8a1a305ab800ff05b2ef0f469148",
+      "path": "research_work/project_management_2026_10_10/stage_review_kimi_2026_10_13/STAGE_REVIEW_LEDGER.json"
+    },
+    {
+      "sha256": "32a813535f21f110ffb3a77d13e545dad6025e27ee6b98d82578e7ca8ce85613",
+      "path": "research_work/project_management_2026_10_10/stage_review_kimi_2026_10_13/INPUT_HASHES.json"
+    },
+    {
+      "sha256": "fd0613e899dd1ce40e0f5de8c1f9a60b9f2be167389b350cfd8fc233ae7b0a65",
+      "path": "research_work/project_management_2026_10_10/stage_review_kimi_2026_10_13/DELIVERABLE_HASHES.json"
+    },
+    {
+      "sha256": "6c49e03d7498fa23a6b61512646619e1d9c25109185ddbf8df4e0632207f3178",
+      "path": "research_work/project_management_2026_10_10/stage_review_followup_kimi_2026_10_13/FOLLOWUP_REVIEW_REPORT.md"
+    },
+    {
+      "sha256": "0321a8095603a1e68d969fd587cecde582fe5391e43bb0980d60ed56a660937c",
+      "path": "research_work/project_management_2026_10_10/stage_review_followup_kimi_2026_10_13/NEXT_STAGE_MINIMAL_PLAN_V1.md"
+    },
+    {
+      "sha256": "5b3d0b382ee5422097e541faa32ca44d23b5a58ae18f4ffd95208d9dade78c64",
+      "path": "research_work/project_management_2026_10_10/stage_review_followup_kimi_2026_10_13/DECISION_TABLE.json"
+    },
+    {
+      "sha256": "5f53d4d05a6f694f16de29718ea98e6a2dfd6c6ddefb3432b8fcdb98d3dd757f",
+      "path": "research_work/project_management_2026_10_10/stage_review_followup_kimi_2026_10_13/INPUT_HASHES.json"
+    },
+    {
+      "sha256": "38b6db631b3169f5c996ef4ad64c97d8520c6c53ec5d98495dbd696b94d4720d",
+      "path": "research_work/project_management_2026_10_10/stage_review_followup_kimi_2026_10_13/DELIVERABLE_HASHES.json"
+    }
+  ]
+}
