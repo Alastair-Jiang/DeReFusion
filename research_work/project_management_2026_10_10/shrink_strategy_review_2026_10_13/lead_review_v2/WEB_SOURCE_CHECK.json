@@ -1,0 +1,16 @@
+{
+  "checked_on": "2026-10-13",
+  "full_page_open": "403 Forbidden",
+  "doi": "10.1016/j.asoc.2026.116252",
+  "limited_findings": [
+    "Controlled fusion-strategy comparison under fixed architecture",
+    "Publisher Highlights reports increased error with longer look-backs in that study"
+  ],
+  "url": "https://www.sciencedirect.com/science/article/pii/S156849462601700X",
+  "claim_limits": [
+    "Does not establish exact original configurations or official code",
+    "Does not imply fewer training labels improve prediction"
+  ],
+  "evidence_level": "Search-indexed publisher abstract, Highlights and section snippets only",
+  "full_text_read": false
+}

@@ -1,0 +1,45 @@
+{
+  "result": "PASS_FOR_DESCRIPTIVE_REPORT",
+  "review_level": "Independent result-record and interpretation review; not independent raw-array or checkpoint restoration",
+  "head": "2925c344f435537e654a5521dfb67a4f53d77316",
+  "inputs": [
+    {
+      "path": "RESULTS_V1.json",
+      "sha256": "0c5dfa4ebcf551ddb147398d22e1084d0002718cd5a08e4c3513e0420587c87a"
+    },
+    {
+      "path": "ANALYSIS_V1.json",
+      "sha256": "599b0b333dfc6e95913b9ed27a9a97ca7a6062edba9e0d33b6192f9713d11cde"
+    },
+    {
+      "path": "ALL_RESULTS_V1.csv",
+      "sha256": "29adb16f566f3bdb830b1b3e47d9b2c95690e964ace8782328a633377acc7967"
+    },
+    {
+      "path": "RESULT_REPORT_V1.md",
+      "sha256": "f8ea46d60149100a6c1e28127bd2f24f95b4607dcb60f02a8f5daba4fd61ae2a"
+    }
+  ],
+  "record_checks": [
+    "9 trajectories x 1800 steps = 16200",
+    "27 CSV rows match RESULTS snapshots in arm/seed/budget/MSE/samples_seen",
+    "Budget prefix earliest strict minimum step matches history",
+    "Samples_seen 18900/37770/56640 at 600/1200/1800",
+    "No test_read flag in completed records"
+  ],
+  "findings": [
+    "P0=0 P1=0 no material numeric correction",
+    "All arm seed-mean F losses exceed persistence, two individual trajectories have best validation loss below persistence",
+    "Mixed48 versus raw48 mean gap ~0.514 percent with paired seed sign variation",
+    "Validation-selected prefix minima benefit from both optimization and added selection opportunities",
+    "Legacy/wide ridge both select 0.001 all arms; extension did not improve",
+    "Simple raw48 may be development default candidate, not confirmed best or noninferior"
+  ],
+  "limitations": [
+    "No private array/test/checkpoint reading or new scoring/fitting/training",
+    "54-checkpoint restoration PASS inherited from responsible agent internal audit, not repeated here",
+    "2023 exposed validation and repeated selection preclude confirmation claim",
+    "No numeric acceptance margin or convergence established"
+  ],
+  "review_notes_sha256": "251fad2402cdceaeaf2a566356108ee54932879ec39ad89ff22d71ed66016c8a"
+}

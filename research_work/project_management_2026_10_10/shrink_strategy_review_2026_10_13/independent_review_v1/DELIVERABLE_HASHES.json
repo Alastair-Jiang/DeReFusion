@@ -1,0 +1,17 @@
+{
+  "excludes_self": true,
+  "files": [
+    {
+      "path": "REVIEW.md",
+      "sha256": "712e356912f76cef87bf31effd34c97c9dcd6eb47eac982e0b037d93c0524bf7"
+    },
+    {
+      "path": "NEXT_STEP_PLAN.md",
+      "sha256": "fe77bfca8557f840c7e6e691e4e43b099679906a8763de99865c4f8e6eb2fbc5"
+    },
+    {
+      "path": "INPUT_HASHES.json",
+      "sha256": "83a9136fd8a06ed28c70c3e60ae1d89c1caa94b15e697cb799c4bee1b66fc6f6"
+    }
+  ]
+}

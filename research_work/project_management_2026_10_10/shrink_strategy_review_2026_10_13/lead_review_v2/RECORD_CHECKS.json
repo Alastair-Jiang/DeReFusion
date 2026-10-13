@@ -1,0 +1,257 @@
+{
+  "scope": "Arithmetic on existing result summaries; not independent array/checkpoint audit",
+  "repository": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion",
+  "head": "2925c344f435537e654a5521dfb67a4f53d77316",
+  "verified_v1_deliverables": [
+    "BRIEF_V1.md",
+    "INPUT_HASHES_V1.json",
+    "independent_review_v1/REVIEW.md",
+    "independent_review_v1/NEXT_STEP_PLAN.md",
+    "independent_review_v1/INPUT_HASHES.json",
+    "independent_review_v1/DELIVERABLE_HASHES.json"
+  ],
+  "shrink_F_fits": 24,
+  "shrink_best_at_budget_end": 13,
+  "unique_legacy_ridge_conditions": 8,
+  "unique_ridge_at_lower_grid_edge": 6,
+  "shrink_rows": [
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.25,
+      "seed": 17,
+      "best_step": 550,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.5565391123040198,
+      "validation_L_MSE_over_P": 1.771554510391638
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.25,
+      "seed": 29,
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.4429325765482144,
+      "validation_L_MSE_over_P": 1.771554510391638
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.25,
+      "seed": 43,
+      "best_step": 500,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 2.1891682090212563,
+      "validation_L_MSE_over_P": 1.771554510391638
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.5,
+      "seed": 17,
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.1561571902183332,
+      "validation_L_MSE_over_P": 1.2568427935439825
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.5,
+      "seed": 29,
+      "best_step": 550,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.1319704544775255,
+      "validation_L_MSE_over_P": 1.2568427935439825
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.5,
+      "seed": 43,
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.2019589028385,
+      "validation_L_MSE_over_P": 1.2568427935439825
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.75,
+      "seed": 17,
+      "best_step": 550,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.1723717005375351,
+      "validation_L_MSE_over_P": 1.226612787542789
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.75,
+      "seed": 29,
+      "best_step": 550,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.065777566043708,
+      "validation_L_MSE_over_P": 1.226612787542789
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 0.75,
+      "seed": 43,
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.2140095032259044,
+      "validation_L_MSE_over_P": 1.226612787542789
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 1.0,
+      "seed": 17,
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.110256514619019,
+      "validation_L_MSE_over_P": 1.2239769628030808
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 1.0,
+      "seed": 29,
+      "best_step": 550,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.157022312496281,
+      "validation_L_MSE_over_P": 1.2239769628030808
+    },
+    {
+      "asset": "BTCUSD",
+      "fraction": 1.0,
+      "seed": 43,
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.3236526959179447,
+      "validation_L_MSE_over_P": 1.2239769628030808
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.25,
+      "seed": 17,
+      "best_step": 550,
+      "ridge_lambda": 0.01,
+      "validation_F_MSE_over_P": 1.1376760735877107,
+      "validation_L_MSE_over_P": 1.7784297689310016
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.25,
+      "seed": 29,
+      "best_step": 600,
+      "ridge_lambda": 0.01,
+      "validation_F_MSE_over_P": 1.12441405125898,
+      "validation_L_MSE_over_P": 1.7784297689310016
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.25,
+      "seed": 43,
+      "best_step": 500,
+      "ridge_lambda": 0.01,
+      "validation_F_MSE_over_P": 1.3187598774837774,
+      "validation_L_MSE_over_P": 1.7784297689310016
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.5,
+      "seed": 17,
+      "best_step": 600,
+      "ridge_lambda": 0.01,
+      "validation_F_MSE_over_P": 1.0862649168323149,
+      "validation_L_MSE_over_P": 1.2676312413682518
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.5,
+      "seed": 29,
+      "best_step": 600,
+      "ridge_lambda": 0.01,
+      "validation_F_MSE_over_P": 1.0339853848057823,
+      "validation_L_MSE_over_P": 1.2676312413682518
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.5,
+      "seed": 43,
+      "best_step": 600,
+      "ridge_lambda": 0.01,
+      "validation_F_MSE_over_P": 1.1451648206679526,
+      "validation_L_MSE_over_P": 1.2676312413682518
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.75,
+      "seed": 17,
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.0675157697368578,
+      "validation_L_MSE_over_P": 1.3441724283288354
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.75,
+      "seed": 29,
+      "best_step": 500,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.045662693005747,
+      "validation_L_MSE_over_P": 1.3441724283288354
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 0.75,
+      "seed": 43,
+      "best_step": 550,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.180021519167636,
+      "validation_L_MSE_over_P": 1.3441724283288354
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 1.0,
+      "seed": 17,
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.0576471614595524,
+      "validation_L_MSE_over_P": 1.3352662098295363
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 1.0,
+      "seed": 29,
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.064830245869698,
+      "validation_L_MSE_over_P": 1.3352662098295363
+    },
+    {
+      "asset": "ETHUSD",
+      "fraction": 1.0,
+      "seed": 43,
+      "best_step": 550,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.1990993312711349,
+      "validation_L_MSE_over_P": 1.3352662098295363
+    }
+  ],
+  "compression_arms": [
+    {
+      "arm": "raw96",
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.0576471614595524,
+      "validation_L_MSE_over_P": 1.3352662098295363,
+      "mse_reduction_300_to_600_pct": 15.920909144943362,
+      "minimum_legacy_ridge_lambda": 0.001
+    },
+    {
+      "arm": "mixed48",
+      "best_step": 600,
+      "ridge_lambda": 0.001,
+      "validation_F_MSE_over_P": 1.1334742173015877,
+      "validation_L_MSE_over_P": 1.2647379520390953,
+      "mse_reduction_300_to_600_pct": 19.989731556001654,
+      "minimum_legacy_ridge_lambda": 0.001
+    }
+  ],
+  "new_training_fits": 0,
+  "private_arrays_read": 0
+}

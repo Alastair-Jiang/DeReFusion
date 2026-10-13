@@ -1,0 +1,17 @@
+{
+  "repository": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion",
+  "head": "2925c344f435537e654a5521dfb67a4f53d77316",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "tracked_diff_sha256": "812971edc8ec7cfb6afb3d93096391290fa97c478331c29a2732b81443a60ba2",
+  "existing_tracked_changes": [
+    " M docs/DRF_TAKEOVER_STATUS_CORRECTION_V1_2026-10-10.md",
+    " M docs/PROJECT_STATUS_AND_EXPERIMENT_CATALOG_V1_2026-10-10.md",
+    " M reproduction/analysis/receive_phase1_completed.py",
+    " M reproduction/results/phase1/local-5060-manifests/freeze-summary.json",
+    " M tests/test_phase1_completed_receiver.py"
+  ],
+  "observed_at_utc": "2026-10-13T06:16:25.119640+00:00",
+  "role_isolation": "Explicit train/validation paths; T0 discipline, not OS sandbox",
+  "private_output": "data/cdd-compression-diagnostic-20261013-v2",
+  "interpretation": "Exposed-validation development only"
+}

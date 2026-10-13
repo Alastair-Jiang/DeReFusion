@@ -1,0 +1,130 @@
+{
+  "status": "APPROVED_PREPARATION_ONLY_UNTIL_BOUND_RELEASE",
+  "code_and_history_sha256": {
+    "models/derefusion/bundle_v3_pin/RevIN.py": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_MATRIX_EXECUTION_RELEASE_V1_1.json": "962766f127f8fa188093022356e546e247521b0ca503beae307c3e00c34f5e09",
+    "models/derefusion/bundle_v3_pin/derefusion_components.py": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/INTERNAL_AUDIT_V1.json": "af25d57c9760c2eba65589e1b9584de854b9d24770d0675d8e242feeeec793f2",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/RESULTS_V1.json": "e9f6583723bb5049b1956dc106e2c131c4224d8d67ec31cf5d11d31e8015ee79",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/PROTOCOL_V1.json": "4bf497264b9f401c083b686df4ea3bd988173769a8a54c95adb8449f48c11fb5",
+    "models/derefusion/bundle_v3_pin/DeReFusion.py": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091",
+    "reproduction/preprocessing/fixed_ohlc.py": "4826f739f52858465cc2646d85fb7540306f89ab238add1ca65612f29737a4a6",
+    "research_work/project_management_2026_10_10/shrink_strategy_review_2026_10_13/lead_review_v2/NEXT_EXPERIMENT_PLAN.md": "a14e19aff24c96bd2350e4d08b9eb8dfa0553c8af4b04cc1d4f286ccc44b687d",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/run_pilot_v1.py": "e478878ba7896cb527e7f1ae593e9277685375e5ac62af9a587e6e584c6ede30",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/PREPARATION_V1.json": "06e4f5af718eec6a4be74d48c550bbcf89fadc551d7b42e2764c222be9c9d839",
+    "models/derefusion/bundle_v3_pin/BUNDLE_PIN_MANIFEST_V1.json": "e889a2acb2dc7d6329bf48da03949b470f44873d2fbc2815fe752927876fefd6",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_LOCAL_RESEARCH_QUALIFICATION_RELEASE_V1.json": "71f08a26aef6c3917e1e2984e7090c18627153eba54fd9b947624b49c7cd65cc",
+    "research_work/project_management_2026_10_10/compression_diagnostic_2026_10_13_v2/run_diagnostic.py": "5431af5ae9b731e66af07d5d1560639389c42b0932b68bbba10ceca779456e8c",
+    "models/derefusion/bundle_v3_pin/loader.py": "51b93f717f03cc5a3b51d5fb4c85abc2076e2f6a729d71b97d29eb0fc8bb847d",
+    "models/derefusion/bundle_v3_pin/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "checkpoint": "Earliest strict minimum per budget plus terminal",
+  "resources": {
+    "paid_cost": 0,
+    "worker_seconds": 300,
+    "automatic_retries": 0,
+    "batch_seconds": 3600,
+    "F_fits": 9,
+    "private_output_bytes": 134217728,
+    "optimizer_steps": 16200,
+    "threads": 2
+  },
+  "capacity": {
+    "reference": "Exact archived previous executed variant, not verified author implementation",
+    "d_ff_over_d_model": 4,
+    "d_model_over_n_heads": 8,
+    "deviation": "Sequence-dependent projections and temporal statistics differ; raw48/mixed48 same shapes and initial weights"
+  },
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "scaler": "Inherited common ETH f100 training normalization and RMSSE denominator",
+  "head": "2925c344f435537e654a5521dfb67a4f53d77316",
+  "train_targets": 1730,
+  "claim_limit": "No superiority/noninferiority, no market-independent seed inference, no stable speed claim; existing R1 unchanged",
+  "arms": {
+    "raw48": {
+      "positions": 48,
+      "days": 48,
+      "parameters": 21599
+    },
+    "mixed48": {
+      "positions": 48,
+      "days": 96,
+      "parameters": 21599
+    },
+    "raw96": {
+      "positions": 96,
+      "days": 96,
+      "parameters": 21743
+    }
+  },
+  "question": "Mixed48 versus recent raw48 at equal shapes, with raw96 reference and fixed 600/1200/1800-step sensitivity",
+  "source_use": "Inherited qualified CDD Bitstamp bounded local non-commercial research, no new external approval or download",
+  "grid": "24/7 completed daily UTC candles; future next-day Close",
+  "ridge_wide_lambdas": [
+    0,
+    1E-06,
+    1E-05,
+    0.0001,
+    0.001,
+    0.01,
+    0.1,
+    1,
+    10,
+    100
+  ],
+  "protocol_id": "DRF-CDD-ETH-REPRESENTATION-BUDGET-DIAGNOSTIC-20261013-V2",
+  "asset": "ETHUSD",
+  "authorization_basis": "User project delegation and explicit latest instruction to follow V2 high-quality plan",
+  "test": "NOT_PASSED_NOT_READ_NOT_SCORED",
+  "svd_rcond": 1E-12,
+  "model_configuration": {
+    "pred_len": 1,
+    "enc_in": 4,
+    "d_model": 32,
+    "moving_avg": 25,
+    "n_heads": 4,
+    "e_layers": 1,
+    "d_ff": 128,
+    "dropout": 0.3
+  },
+  "ridge_legacy_lambdas": [
+    0.001,
+    0.01,
+    0.1,
+    1,
+    10,
+    100
+  ],
+  "batch_size": 32,
+  "acceptance_margin": null,
+  "optimizer": {
+    "type": "Adam",
+    "learning_rate": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "epsilon": 1E-08,
+    "weight_decay": 0
+  },
+  "repository": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion",
+  "failure": "Stop affected batch, retain failures, no overwrite; a repair is a new attempt",
+  "validation_every": 50,
+  "budgets": [
+    600,
+    1200,
+    1800
+  ],
+  "steps": 1800,
+  "data_roles": [
+    "train",
+    "validation"
+  ],
+  "validation_targets": 365,
+  "estimand": "Paired same-seed validation MSE differences and descriptive resources; exposed development, not confirmation"
+}

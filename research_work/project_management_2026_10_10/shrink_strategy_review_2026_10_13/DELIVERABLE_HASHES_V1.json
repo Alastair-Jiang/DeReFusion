@@ -1,0 +1,29 @@
+{
+  "excludes_self": true,
+  "files": [
+    {
+      "path": "BRIEF_V1.md",
+      "sha256": "053e99944b38464eed342120f83023eccd8aeed11eb4dc9d9add67261aba8b24"
+    },
+    {
+      "path": "INPUT_HASHES_V1.json",
+      "sha256": "ec7cc98100a8c82b9c8352ea18d706186a4c8d55fbe403e746d9f1d9cd7272cc"
+    },
+    {
+      "path": "independent_review_v1/REVIEW.md",
+      "sha256": "712e356912f76cef87bf31effd34c97c9dcd6eb47eac982e0b037d93c0524bf7"
+    },
+    {
+      "path": "independent_review_v1/NEXT_STEP_PLAN.md",
+      "sha256": "fe77bfca8557f840c7e6e691e4e43b099679906a8763de99865c4f8e6eb2fbc5"
+    },
+    {
+      "path": "independent_review_v1/INPUT_HASHES.json",
+      "sha256": "83a9136fd8a06ed28c70c3e60ae1d89c1caa94b15e697cb799c4bee1b66fc6f6"
+    },
+    {
+      "path": "independent_review_v1/DELIVERABLE_HASHES.json",
+      "sha256": "85c2e83c42e63ef8a8b7fc8cc2e9cabbaf79d4bad5af038b1358f2d0d1db669e"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "decision": "APPROVED",
+  "head": "2925c344f435537e654a5521dfb67a4f53d77316",
+  "protocol_sha256": "b7c7a9c9b4084b16b2f160e0e0cdf3cc6a7cd9c148ba42c8cd9b2cf38188e9a3",
+  "gate_sha256": {
+    "SYNTHETIC_CHECK_V1.json": "099d4495877bf6246669ea4779fbb233067d1b62de2feba7929739c36ee103bd",
+    "PREPARATION_V1.json": "3624bddc20235c6c1b39cb40872ce79579334bf321a285e42c39bbdf95284056",
+    "HISTORICAL_RESTORE_V1.json": "a955ba82a647e66806d352e3b18889e7a97fb31f0aea68ffd95a0ab5216db0dd",
+    "ENGINEERING_REVIEW_V1.json": "ad27fdb81f3b3d8558375dde7a5a7a62f96e14878c4f36a380763edc2ca83627"
+  },
+  "decision_owner": "Codex project delegate",
+  "authorization_basis": "User standing project delegation plus explicit instruction to execute high-quality-model V2 plan",
+  "scope": "Nine ETH training/validation trajectories plus three deterministic ridge flows; no test, external contacts or paid compute",
+  "timestamp_utc": "2026-10-13T06:14:42.977049+00:00"
+}

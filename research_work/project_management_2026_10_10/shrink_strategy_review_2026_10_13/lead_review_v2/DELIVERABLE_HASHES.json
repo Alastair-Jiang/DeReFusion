@@ -1,0 +1,32 @@
+{
+  "excludes_self": true,
+  "repository": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion",
+  "head": "2925c344f435537e654a5521dfb67a4f53d77316",
+  "status": "RESEARCH_REVIEW_AND_PLAN_ONLY_NO_NEW_FITS",
+  "files": [
+    {
+      "sha256": "8a7e1c89c4035062b6e9dd57fd008555a1d4e7e55233302356c597e8f596b99c",
+      "path": "REVIEW_AND_DECISION.md"
+    },
+    {
+      "sha256": "a14e19aff24c96bd2350e4d08b9eb8dfa0553c8af4b04cc1d4f286ccc44b687d",
+      "path": "NEXT_EXPERIMENT_PLAN.md"
+    },
+    {
+      "sha256": "03085654f454fedcae68a740241db32437086f197606c30a56322bc4ff18b281",
+      "path": "RECORD_CHECKS.json"
+    },
+    {
+      "sha256": "1c88cb4e656f5b6437702f983f5871b1796f1f89b613007aceb42f7027c6aa9f",
+      "path": "INPUT_HASHES.json"
+    },
+    {
+      "sha256": "7592745f2e097852479e44a1f4f1bfe43b1634ce843f91e4da7a068e5a868dc0",
+      "path": "WEB_SOURCE_CHECK.json"
+    },
+    {
+      "sha256": "b2aebc18047989cf7a91ba665f1c4cf18d53a80bdce754ef4e382f9ba88177d7",
+      "path": "check_existing_records.py"
+    }
+  ]
+}

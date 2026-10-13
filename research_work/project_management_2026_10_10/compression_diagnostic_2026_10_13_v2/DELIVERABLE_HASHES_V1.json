@@ -1,0 +1,94 @@
+{
+  "execution_head": "2925c344f435537e654a5521dfb67a4f53d77316",
+  "scope": "Public code and summary/receipts only, excludes own manifest and private artifacts",
+  "summary": {
+    "sha256": "199b9f060293cd4cb99851fdd2a890f7f487e6116e05592ec078298e310460f5",
+    "path": "docs/DRF_CDD_REPRESENTATION_BUDGET_DIAGNOSTIC_2026-10-13.md"
+  },
+  "files": [
+    {
+      "sha256": "29adb16f566f3bdb830b1b3e47d9b2c95690e964ace8782328a633377acc7967",
+      "path": "ALL_RESULTS_V1.csv"
+    },
+    {
+      "sha256": "599b0b333dfc6e95913b9ed27a9a97ca7a6062edba9e0d33b6192f9713d11cde",
+      "path": "ANALYSIS_V1.json"
+    },
+    {
+      "sha256": "9fa30c3741c41f5474f3166640a95b08885b5e068b88fea57bc1e7ba7861b7e4",
+      "path": "audit_and_report.py"
+    },
+    {
+      "sha256": "f35da3b4a47c625ae3f6e854429ef5a3c6f5b221de55e99afdb95d29c7022923",
+      "path": "DECISION_V1.md"
+    },
+    {
+      "sha256": "ad27fdb81f3b3d8558375dde7a5a7a62f96e14878c4f36a380763edc2ca83627",
+      "path": "ENGINEERING_REVIEW_V1.json"
+    },
+    {
+      "sha256": "cf0c5de87700d3664bc254859247d179fb7eff166ce22d122fdd22f4fad96703",
+      "path": "EXECUTION_RELEASE_V1.json"
+    },
+    {
+      "sha256": "a955ba82a647e66806d352e3b18889e7a97fb31f0aea68ffd95a0ab5216db0dd",
+      "path": "HISTORICAL_RESTORE_V1.json"
+    },
+    {
+      "sha256": "4c3a1d60acda6a6821f727f4bac350a2d2d9d525f10921c1a2143823a7838d49",
+      "path": "INTERNAL_AUDIT_V1.json"
+    },
+    {
+      "sha256": "cf5f1b1aa0271f67fc5aadebc29bea8cc1544335f59804e62f50060c62af7e6f",
+      "path": "PAPER_FIDELITY_CROSSWALK_V1.md"
+    },
+    {
+      "sha256": "7b059193d5026f53d8b33fc3cf88d88d798dd20d545c4238bdea6318a4675a99",
+      "path": "PREPARATION_DEVIATION_V1.md"
+    },
+    {
+      "sha256": "3624bddc20235c6c1b39cb40872ce79579334bf321a285e42c39bbdf95284056",
+      "path": "PREPARATION_V1.json"
+    },
+    {
+      "sha256": "4b69f9f7b00557deba08181f9e4d09d5c6f16761b854c1e4331157a96d314d1b",
+      "path": "PROTOCOL_DRAFT_01_UNEXECUTED.json"
+    },
+    {
+      "sha256": "b7c7a9c9b4084b16b2f160e0e0cdf3cc6a7cd9c148ba42c8cd9b2cf38188e9a3",
+      "path": "PROTOCOL_V1.json"
+    },
+    {
+      "sha256": "f8ea46d60149100a6c1e28127bd2f24f95b4607dcb60f02a8f5daba4fd61ae2a",
+      "path": "RESULT_REPORT_V1.md"
+    },
+    {
+      "sha256": "b483b046646230d45405da37afe18e9c622491fc058dcb83d6d8d7ec207d5a7d",
+      "path": "RESULT_REVIEW_V1.json"
+    },
+    {
+      "sha256": "251fad2402cdceaeaf2a566356108ee54932879ec39ad89ff22d71ed66016c8a",
+      "path": "RESULT_REVIEW_V1.md"
+    },
+    {
+      "sha256": "0c5dfa4ebcf551ddb147398d22e1084d0002718cd5a08e4c3513e0420587c87a",
+      "path": "RESULTS_V1.json"
+    },
+    {
+      "sha256": "0e8e85edf6705c76ed149a2b4792c1048e731b8db2a28f8d5c29d52db52e300b",
+      "path": "REVIEW_NOTES.md"
+    },
+    {
+      "sha256": "e5ae07790f8c1eca03825a35355a5233c390292a77c7225364e840039dffee26",
+      "path": "RUN_CONTEXT_V1.json"
+    },
+    {
+      "sha256": "c29e6ed8ea6707c1fb5cb8fa670f60d380d77eb308406bae3af2c39f3cf01c79",
+      "path": "run_diagnostic.py"
+    },
+    {
+      "sha256": "099d4495877bf6246669ea4779fbb233067d1b62de2feba7929739c36ee103bd",
+      "path": "SYNTHETIC_CHECK_V1.json"
+    }
+  ]
+}

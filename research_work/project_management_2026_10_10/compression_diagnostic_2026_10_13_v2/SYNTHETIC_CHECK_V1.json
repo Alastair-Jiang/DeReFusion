@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "parameters": {
+    "raw96": 21743,
+    "raw48": 21599,
+    "mixed48": 21599
+  },
+  "scope": "Synthetic forward/gradient, transformations, paired initialization, 65-key tail and write-boundary checks",
+  "protocol_sha256": "b7c7a9c9b4084b16b2f160e0e0cdf3cc6a7cd9c148ba42c8cd9b2cf38188e9a3"
+}

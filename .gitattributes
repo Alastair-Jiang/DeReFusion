@@ -79,3 +79,8 @@ docs/PHASE1_OUTSOURCING_EXECUTION_PLAN.md -text
 /docs/DRF_CPU_ENVIRONMENT_RECIPE_V1_2026-10-13.md -text
 /docs/DRF_PROTOCOL_RESPIN_PROCEDURE_V1_2026-10-13.md -text
 /docs/DRF_COMPRESSION_ENGINEERING_DISPOSITION_V1_2026-10-13.md -text
+
+# V2 diagnostic and strategy records seal exact executed/inspected bytes.
+/research_work/project_management_2026_10_10/compression_diagnostic_2026_10_13_v2/** -text
+/research_work/project_management_2026_10_10/shrink_strategy_review_2026_10_13/** -text
+/docs/DRF_CDD_REPRESENTATION_BUDGET_DIAGNOSTIC_2026-10-13.md -text

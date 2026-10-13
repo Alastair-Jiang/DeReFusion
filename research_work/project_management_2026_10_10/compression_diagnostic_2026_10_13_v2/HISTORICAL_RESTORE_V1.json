@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "checks": [
+    {
+      "arm": "raw96",
+      "state_tensor_sha256": "1a438fc30394c45ac4552a14b6f1c26d8bd9b0dee1bac205259cb89611f96270",
+      "validation_keys": 365
+    },
+    {
+      "arm": "mixed48",
+      "state_tensor_sha256": "3166c0d126c00a10693e1d6f991e11485e29c9f116cff1f6df24ea7b709644e1",
+      "validation_keys": 365
+    }
+  ],
+  "fits": 0,
+  "test_read": false,
+  "scope": "All frozen validation predictions recovered with archive loader; no re-selection"
+}
