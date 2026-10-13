@@ -1,0 +1,5 @@
+# These files are byte-sealed archival sources, not editable working copies.
+DeReFusion.py -text
+derefusion_components.py -text
+RevIN.py -text
+__init__.py -text

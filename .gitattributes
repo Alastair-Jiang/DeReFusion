@@ -53,3 +53,29 @@ docs/PHASE1_OUTSOURCING_EXECUTION_PLAN.md -text
 # across Git checkout and source archive creation on Windows.
 /docs/management/v1_3/** -text
 /docs/management/v1_4/** -text
+
+# CDD protocols, receipts and code are bound by SHA-256 of executed file bytes.
+# Do not convert their Windows/LF mixture when storing or checking out Git blobs.
+/research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/** -text
+/research_work/project_management_2026_10_10/compression_pilot_2026_10_13/** -text
+/research_work/project_management_2026_10_10/compression_engineering_plan_k3_v1/** -text
+/research_work/project_management_2026_10_10/compression_engineering_implementation_v1/** -text
+/docs/DRF_CDD_DSH_REVIEW_DISPOSITION_2026-10-13.md -text
+/docs/DRF_CDD_PROJECT_STARTUP_DECISION_2026-10-13.md -text
+/docs/DRF_CDD_SHRINK_FIRST_BATCH_RESULTS_2026-10-13.md -text
+/docs/DRF_CDD_ETH_COMPRESSION_MINIMAL_PILOT_2026-10-13.md -text
+/docs/DRF_SOURCE_RIGHTS_SUPPLEMENT_2026-10-13.md -text
+/docs/DRF_SOURCE_TRACE_FOLLOWUP_2026-10-13.md -text
+/research_work/project_management_2026_10_10/compression_followup_2026_10_13/** -text
+/models/derefusion/bundle_v3_pin/** -text
+/reproduction/preprocessing/** -text
+/reproduction/analysis/compression_replay.py -text
+/reproduction/analysis/check_artifact_boundary.py -text
+/tests/test_fixed_ohlc_preprocessing.py -text
+/tests/test_compression_replay.py -text
+/requirements/torch-cpu*.txt -text
+/requirements/compression-cpu*.txt -text
+/docs/DRF_ARTIFACT_BOUNDARY_V1_2026-10-13.json -text
+/docs/DRF_CPU_ENVIRONMENT_RECIPE_V1_2026-10-13.md -text
+/docs/DRF_PROTOCOL_RESPIN_PROCEDURE_V1_2026-10-13.md -text
+/docs/DRF_COMPRESSION_ENGINEERING_DISPOSITION_V1_2026-10-13.md -text

@@ -1,0 +1,238 @@
+{
+  "schema": "drefusion.engineering-findings/v1",
+  "compiled_at_utc": "2026-10-13T00:00:00+00:00",
+  "compiler": "Claude Code engineering planning lead (Kimi K3)",
+  "repository": "C:/Users/26843/Documents/ChatGPT/redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "head_matches_remote_branch": true,
+  "categories": {
+    "confirmed": "已证实问题：直接观察文件、命令输出或本地只读实验得出",
+    "design_choice": "设计选择：现状是有意为之的取舍，列出供研究/工程定案",
+    "unverified": "未核实事项：外部边界或跨环境行为，核实前不得当作事实"
+  },
+  "confirmed": [
+    {
+      "id": "C-01",
+      "severity": "high",
+      "area": "reproducibility",
+      "claim": "执行器 pin 的模型源码 model_bundle_v3/source 不受 Git 跟踪、不在远程",
+      "evidence": "git ls-files research_work/forward_increment/ 输出为空；git check-ignore -v 对 source/models/derefusion/DeReFusion.py 退出码 1（未被忽略，从未 add）；父协议 model.bundle 指向该路径；verify_sources() 在 run_pilot_v1.py:67-77 与 run_shrink_cdd_v1_1.py:40-43 按其 sha 校验",
+      "consequence": "干净 checkout 后任何 phase 报 Model source drift，工程链不可独立运行",
+      "disposition": "T1：3 个 pin 文件 + 空 __init__.py 复制到 models/derefusion/bundle_v3_pin/ 并提交，sha 逐项等于 pin"
+    },
+    {
+      "id": "C-02",
+      "severity": "high",
+      "area": "reproducibility",
+      "claim": "压缩最小试验整批工件（执行器、协议、结果、审计、哈希清单共 10 文件）未提交",
+      "evidence": "git ls-files research_work/project_management_2026_10_10/compression_pilot_2026_10_13/ 输出为空；目录实物存在且 pin 链自洽（本轮逐项 sha 复核一致）",
+      "consequence": "远程无法获得执行器与结果；与交接快照'本地未提交候选'一致",
+      "disposition": "T2：整目录 + docs 报告提交，与 DELIVERABLE_HASHES_V1.json 逐项比对"
+    },
+    {
+      "id": "C-03",
+      "severity": "high",
+      "area": "reproducibility",
+      "claim": "全部训练/验证输入为本机私有 NPZ，位于 gitignored 的 data/ 下",
+      "evidence": "PREPARATION_V1.json 四个包路径均在 data/shrink-cdd-20261013-v1 与 data/cdd-compression-pilot-20261013-v1；.gitignore:153 为 /data/；本轮实测四包 sha256 与 PREPARATION pin 逐项一致",
+      "consequence": "干净 checkout 无输入；须按资质释放→重下→prepare 链重建（A.3 链）",
+      "disposition": "T4 重签程序文档化重建链；数据本身保持本地，不入 Git（数据边界不变）"
+    },
+    {
+      "id": "C-04",
+      "severity": "medium",
+      "area": "portability",
+      "claim": "worker 强制使用 PREPARATION 记录的本机绝对路径",
+      "evidence": "run_pilot_v1.py:243-245 resolve() 不等即拒；PREPARATION_V1.json 内嵌 C:\\Users\\26843\\... 路径",
+      "consequence": "跨机/跨平台即使 NPZ 字节一致，worker 也拒绝；须重走 prepare+release 全链",
+      "disposition": "T4 重签程序吸收该约束；后续新版执行器（非冻结文件）改仓库相对路径"
+    },
+    {
+      "id": "C-05",
+      "severity": "high",
+      "area": "environment",
+      "claim": "实验环境 torch 2.5.1+cpu / Python 3.11.15 无重建配方",
+      "evidence": "EXECUTION_RELEASE_V1.json 仅记录版本字符串；requirements/torch-cu121.txt 为 cu121 CUDA 轮（torch==2.5.1），与本实验 CPU 轮不符；本机仓库 .venv（gitignored）实测为 3.11.15 + 2.5.1+cpu + numpy 2.1.2，即实验环境；reproduction/README.md 只有推荐语",
+      "consequence": "远程无法确定重建逐位复现所需环境",
+      "disposition": "T3：新增 requirements/torch-cpu.txt 与配方文档"
+    },
+    {
+      "id": "C-06",
+      "severity": "medium",
+      "area": "reproducibility",
+      "claim": "执行器 pin 当前 HEAD，补依赖提交会使旧协议/旧释放立即失效",
+      "evidence": "run_pilot_v1.py:67-69 要求 git HEAD == 协议 head 字段（5a8220a...）；T1-T3 任何提交都移动 HEAD",
+      "consequence": "'提交依赖后直接复跑'在结构上不可能；必须重签",
+      "disposition": "T4：DRF_PROTOCOL_RESPIN_PROCEDURE_V1 文档化重签与复现验收（raw96 组 state_tensor_sha256 须逐位等于 1a438fc3...）"
+    },
+    {
+      "id": "C-07",
+      "severity": "info",
+      "area": "architecture",
+      "claim": "仓库存在两份功能等价的 DeReFusion 源码：已跟踪顶层单体版与未跟踪 bundle 拆分版",
+      "evidence": "顶层 models/derefusion/DeReFusion.py sha 7e5194f7...（git 跟踪）内嵌 MovingAvg/DLinearBranch/TransformerLSTMResidualBranch；bundle 版 sha 468a861d... 拆出 layers/derefusion_components.py。本轮 .venv 实测：同配置参数数均 21,743，参数名与形状逐一对齐，同 seed=17 初始化 state_dict 排序哈希逐位一致（564e61a1...）；layers/RevIN.py 两版仅 CRLF/LF 行尾差异，去 CR 后逐字节一致",
+      "consequence": "执行器按 sha 拒绝顶层版；但架构本身可从已跟踪源码复现，修复成本低于表面",
+      "disposition": "T1 保留两版并提交 pin 版；BUNDLE_PIN_MANIFEST_V1.json 记录等价性验证，不做统一重构"
+    },
+    {
+      "id": "C-08",
+      "severity": "info",
+      "area": "reproducibility",
+      "claim": "np.savez（无压缩）产物字节跨次构建稳定（固定 1980-01-01 zip 时间戳）",
+      "evidence": "本轮 .venv（numpy 2.1.2）实测：同一数组间隔 1.2s 两次 np.savez 字节相同，zip entry date_time=(1980,1,1,0,0,0)",
+      "consequence": "NPZ 重建可字节级复现 PREPARATION pin——A.3 重建链成立的技术基础",
+      "disposition": "正面事实；重建配方 pin numpy==2.1.2 并实测验证（见 U-04）"
+    },
+    {
+      "id": "C-09",
+      "severity": "info",
+      "area": "execution",
+      "claim": "压缩执行器已具备 worker/整批硬超时、剩余预算传递、输出字节上限、覆盖拒绝、失败记录、禁静默重试、张量级 checkpoint 绑定、逐键预测与汇总同目录绑定",
+      "evidence": "run_pilot_v1.py:57-65, 243-245, 269-275, 293-295, 322, 325-335, 343-344, 380-385；audit_and_report_v1.py:67-83 复算通过",
+      "consequence": "D 节资源管理能力大部分已存在，不得当作缺失重写",
+      "disposition": "保留；仅补 D-05/D-04 等小缺口"
+    },
+    {
+      "id": "C-10",
+      "severity": "low",
+      "area": "execution",
+      "claim": "压缩批无批内进度持久化文件（父批有 RUN_PROGRESS.json）",
+      "evidence": "run_shrink_cdd_v1_1.py:319 写 PRIVATE/RUN_PROGRESS.json；run_pilot_v1.py 无等价物（仅 stdout）",
+      "consequence": "2 组规模下影响可忽略；扩展到多组多 seed 后中断状态不可机读",
+      "disposition": "下一版执行器（非冻结）补进度文件：完成计数、完成组键、尾批键覆盖"
+    },
+    {
+      "id": "C-11",
+      "severity": "low",
+      "area": "portability",
+      "claim": "内存峰值测量仅 Windows 实现",
+      "evidence": "run_pilot_v1.py:100-116 peak_working_set 在 os.name != 'nt' 时返回 None",
+      "consequence": "非 Windows 复算时 training_phase_peak_working_set_bytes 为 null，资源对比缺一项",
+      "disposition": "下一版执行器可选补 resource.getrusage 路径并在 summary 标注平台来源"
+    },
+    {
+      "id": "C-12",
+      "severity": "low",
+      "area": "documentation",
+      "claim": "压缩批目录无 README 写明五段式入口顺序与环境前提",
+      "evidence": "目录清单无 README；入口在 run_pilot_v1.py:363-377（synthetic→prepare→release→run，worker 为内部子进程）",
+      "consequence": "新接手者须读执行器源码才能确定运行顺序",
+      "disposition": "T2 提交时附带（或 T4 重签文档中明确）"
+    },
+    {
+      "id": "C-13",
+      "severity": "low",
+      "area": "versioning",
+      "claim": "父协议模型源码 pin 只覆盖 3 个 .py，未覆盖 bundle 的 3 个空 __init__.py",
+      "evidence": "SHRINK_CDD_EXPLORATORY_PROTOCOL_V0.2.json model.source_sha256 仅三键；磁盘实测三 __init__.py 均 0 字节",
+      "consequence": "当前风险近零（空文件），但 pin 覆盖原则不完整",
+      "disposition": "T1 配套：新协议模板把 __init__.py 纳入 pin"
+    },
+    {
+      "id": "C-14",
+      "severity": "info",
+      "area": "interpretation",
+      "claim": "mixed48 相比 raw96：时间投影缩短（21,743 vs 21,599 参数）、同 seed 初始化抽样不同、无时长标记、RevIN 与 moving_avg=25 语义随位置变化——误差变化不能归因于纯预处理",
+      "evidence": "PROTOCOL_V1.json capacity_comparison/initialization/mixed_time_resolution_caveat 字段已声明；RESULTS_V1.json limitations 沿用",
+      "consequence": "单次 7.17% MSE 增加与 42.51% 单次计时下降都不能作机制结论",
+      "disposition": "C 节 C-1 用 raw48 等长对照分离覆盖与分辨率；数值容忍界留研究协议"
+    }
+  ],
+  "design_choice": [
+    {
+      "id": "D-01",
+      "area": "preprocessing",
+      "choice": "固定预处理模块接受'已缩放输入'，缩放与聚合顺序保持先缩放后聚合，scaler 绑定留在包层",
+      "rationale": "父批 package() 在打包前完成 channelwise population 缩放；合成检查已验证正仿射与聚合交换（run_pilot_v1.py:160-161，rtol=0 atol=2e-14）；两处各存一份 scaler 会产生双真相",
+      "alternatives": "模块内嵌 scaler 参数（拒绝：与父批冻结语义重复且无收益）"
+    },
+    {
+      "id": "D-02",
+      "area": "preprocessing",
+      "choice": "预处理模块放 reproduction/preprocessing/ 而非 research_work/ 或顶层",
+      "rationale": "reproduction/README.md 确立该区为可跟踪复现代码区；research_work/ 是批管理工件区；顶层新建包影响面大",
+      "alternatives": "修改冻结执行器内嵌 aggregate()（明确禁止）"
+    },
+    {
+      "id": "D-03",
+      "area": "experiment_design",
+      "choice": "推荐 raw48 等长对照（C-1）而非时长标记架构改动（C-3）",
+      "rationale": "raw48 不改模型源码/pin/scaler，参数形状与 mixed48 完全一致（21,599），同 seed 初始化逐位一致，可把'覆盖时长'与'分辨率'分离；C-3 引入新自由度使归因更复杂",
+      "cost": "约一组 fit（本批实测 12.6 秒量级）+ 一个尾部切片派生包 + 新协议签发",
+      "limitations": "不能归因 RevIN/moving_avg 语义差异；raw48 训练语境缩短须声明；seed 数与误差界仍属研究判断",
+      "alternatives": "C-2 仅元数据化（不单独成案，作 C-1 伴随项）；C-3 时长 embedding（现阶段不做）"
+    },
+    {
+      "id": "D-04",
+      "area": "execution",
+      "choice": "中断恢复保持'人工清理后整批重跑'，不引入自动续跑",
+      "rationale": "现有 exists-即拒 + 无静默重试是刻意的审计性设计（run_pilot_v1.py:322,329-330）；自动续跑引入部分状态复用风险",
+      "alternatives": "断点续跑（须配 checkpoint 级幂等设计，当前规模不值得）"
+    },
+    {
+      "id": "D-05",
+      "area": "execution",
+      "choice": "批末超时后已完成组保留为证据，不回滚",
+      "rationale": "run_pilot_v1.py:343-344 批末断言在产出后；fail closed 保留现场便于定位",
+      "alternatives": "超时即整批作废（浪费已完成有效组；维持现状，但报告须明示该语义）"
+    },
+    {
+      "id": "D-06",
+      "area": "data_governance",
+      "choice": "模型源码入 Git，数据/NPZ/预测/checkpoint 保持本地 gitignored",
+      "rationale": "源码无许可障碍（项目自有）；CDD 数据按限定本地非商业研究处理，公开原始数据/预测/权重未放行",
+      "alternatives": "数据入 Git（违反数据边界，禁止）"
+    }
+  ],
+  "unverified": [
+    {
+      "id": "U-01",
+      "area": "external_boundary",
+      "claim": "CDD 上游 BTCUSD/ETHUSD 日线 CSV 字节长期稳定（重下仍等于父协议 raw_sha256 pin）",
+      "why_it_matters": "A.3 重建链第 2 步依赖它；若上游修订/重发，重建在 qualify 阶段即停",
+      "how_to_verify": "获授权后按 qualify_cdd_v1.py 重下比对 sha；不一致则走新资质释放与新 pin，不得混用"
+    },
+    {
+      "id": "U-02",
+      "area": "external_boundary",
+      "claim": "CDD 限定本地非商业研究依据不覆盖摘要对外发布",
+      "why_it_matters": "两批文档均声明摘要外发须单独审查；本计划所有交付物为仓库内部工件",
+      "how_to_verify": "对外发布前由用户/研究侧单独审批"
+    },
+    {
+      "id": "U-03",
+      "area": "external_boundary",
+      "claim": "download.pytorch.org 的 cpu 索引与 numpy 2.1.2 wheel 持续可用",
+      "why_it_matters": "T3 配方的可执行性依赖外部包索引",
+      "how_to_verify": "T3 验收时实际建 venv 安装一次"
+    },
+    {
+      "id": "U-04",
+      "area": "cross_version",
+      "claim": "np.savez 固定 1980 时间戳行为跨 numpy 版本稳定",
+      "why_it_matters": "NPZ 字节级重建复现依赖该实现行为（2.1.2 实测成立，格式标准未承诺）",
+      "how_to_verify": "重建配方 pin numpy==2.1.2；升级 numpy 前先实测同数组两次保存字节一致性"
+    },
+    {
+      "id": "U-05",
+      "area": "external_boundary",
+      "claim": "旧 Yahoo 标记 BTCUSD/ETHUSD/GSPC/N225 来源问题仍未解决",
+      "why_it_matters": "不得与 CDD 链混用；本计划不涉及旧数据",
+      "how_to_verify": "维持 SOURCE_RIGHTS_GAP_REGISTER 系列现状；单独处置"
+    },
+    {
+      "id": "U-06",
+      "area": "cross_platform",
+      "claim": "torch 2.5.1 cpu 轮在 macOS（Mac Mini M4, arm64）与 Windows x64 产生逐位一致的训练轨迹",
+      "why_it_matters": "跨机复算验收（T4 的 state_tensor_sha256 比对）隐含同平台假设；跨平台逐位一致一般不成立（BLAS/线程/指令差异）",
+      "how_to_verify": "T4 验收限定同 OS 同 CPU 架构；跨平台只比对指标容差，不作逐位断言"
+    }
+  ],
+  "research_judgments_reserved": [
+    {"id": "J-01", "question": "可接受的压缩精度代价数值界", "note": "本批未设界；C-1 对照出结果前不设"},
+    {"id": "J-02", "question": "后续批 seed 集合与是否允许测试评估", "note": "本批单 seed 17、验证集已用于 checkpoint 选择"},
+    {"id": "J-03", "question": "raw48 训练语境缩短的解释口径与'同覆盖'定义", "note": "C 节已列工程可验证项与协议判断项的分界"},
+    {"id": "J-04", "question": "压缩批独立复核（internal audit 之外）由谁执行、何时排期", "note": "RESULTS_V1.json independent_review 仍 PENDING；父批 DSH 处置建议下一轮优先独立原始数组抽查"}
+  ]
+}

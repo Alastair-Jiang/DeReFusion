@@ -1,0 +1,264 @@
+{
+  "protocol_id": "DRF-CDD-ETH-COMPRESSION-MINIMAL-20261013-V1",
+  "scope": "EXPLORATORY VALIDATION-ONLY FEASIBILITY PILOT",
+  "finished_at_utc": "2026-10-13T03:28:20.675196+00:00",
+  "release_sha256": "c12de6d95041cd2d3947faad8b88205692b85b1d2b17a13d1bce08541c8fd68b",
+  "arms": [
+    {
+      "arm": "raw96",
+      "seed": 17,
+      "steps": 600,
+      "train_keys": 1730,
+      "validation_keys": 365,
+      "samples_seen": 18900,
+      "effective_epochs": 10.92485549132948,
+      "parameters": 21743,
+      "best_step": 600,
+      "history": [
+        {
+          "step": 50,
+          "validation_normalized_MSE": 0.004180878583249715,
+          "strict_improvement": true
+        },
+        {
+          "step": 100,
+          "validation_normalized_MSE": 0.0029667907607672916,
+          "strict_improvement": true
+        },
+        {
+          "step": 150,
+          "validation_normalized_MSE": 0.002360600524020752,
+          "strict_improvement": true
+        },
+        {
+          "step": 200,
+          "validation_normalized_MSE": 0.0021622405734634353,
+          "strict_improvement": true
+        },
+        {
+          "step": 250,
+          "validation_normalized_MSE": 0.0019622038476373445,
+          "strict_improvement": true
+        },
+        {
+          "step": 300,
+          "validation_normalized_MSE": 0.0017259981973564782,
+          "strict_improvement": true
+        },
+        {
+          "step": 350,
+          "validation_normalized_MSE": 0.0016390615911379854,
+          "strict_improvement": true
+        },
+        {
+          "step": 400,
+          "validation_normalized_MSE": 0.0015496909269464936,
+          "strict_improvement": true
+        },
+        {
+          "step": 450,
+          "validation_normalized_MSE": 0.0014916603008882806,
+          "strict_improvement": true
+        },
+        {
+          "step": 500,
+          "validation_normalized_MSE": 0.0016165544963465189,
+          "strict_improvement": false
+        },
+        {
+          "step": 550,
+          "validation_normalized_MSE": 0.0015394305154593684,
+          "strict_improvement": false
+        },
+        {
+          "step": 600,
+          "validation_normalized_MSE": 0.0014512035925119931,
+          "strict_improvement": true
+        }
+      ],
+      "neural_fit_validation_seconds": 16.982274500012863,
+      "training_phase_peak_working_set_bytes": 319291392,
+      "ridge_lambda": 0.001,
+      "ridge_history": [
+        {
+          "lambda": 0.001,
+          "validation_normalized_MSE": 0.0018321262433025507
+        },
+        {
+          "lambda": 0.01,
+          "validation_normalized_MSE": 0.0019429539975909442
+        },
+        {
+          "lambda": 0.1,
+          "validation_normalized_MSE": 0.002652690360438203
+        },
+        {
+          "lambda": 1,
+          "validation_normalized_MSE": 0.00514502567410922
+        },
+        {
+          "lambda": 10,
+          "validation_normalized_MSE": 0.01518188530272098
+        },
+        {
+          "lambda": 100,
+          "validation_normalized_MSE": 0.05036104029998681
+        }
+      ],
+      "mse": {
+        "F": 2092.513855618721,
+        "L": 2641.7723668373433,
+        "P": 1978.4611842866893
+      },
+      "rmsse": {
+        "F": 0.5641239145983427,
+        "L": 0.633852250009208,
+        "P": 0.5485347010565713
+      },
+      "close_output_std": 1200.7981185436236,
+      "rmsse_denominator": 6575.356746958903,
+      "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+      "train_package_sha256": "9f079158732d4cb2f7b2c7d30fbb584127a4f18f2b5944434a7f9bdd55188568",
+      "validation_package_sha256": "e78caf5bf15725bb33b7e080465fb6b92320f0ea64218bc711dc93190d9a2d54",
+      "state_tensor_sha256": "1a438fc30394c45ac4552a14b6f1c26d8bd9b0dee1bac205259cb89611f96270",
+      "test_inputs_received": false,
+      "worker_seconds": 19.981428099999903
+    },
+    {
+      "arm": "mixed48",
+      "seed": 17,
+      "steps": 600,
+      "train_keys": 1730,
+      "validation_keys": 365,
+      "samples_seen": 18900,
+      "effective_epochs": 10.92485549132948,
+      "parameters": 21599,
+      "best_step": 600,
+      "history": [
+        {
+          "step": 50,
+          "validation_normalized_MSE": 0.005363740132252334,
+          "strict_improvement": true
+        },
+        {
+          "step": 100,
+          "validation_normalized_MSE": 0.0035348038120554064,
+          "strict_improvement": true
+        },
+        {
+          "step": 150,
+          "validation_normalized_MSE": 0.0026456847356115657,
+          "strict_improvement": true
+        },
+        {
+          "step": 200,
+          "validation_normalized_MSE": 0.0023069772218290954,
+          "strict_improvement": true
+        },
+        {
+          "step": 250,
+          "validation_normalized_MSE": 0.002100756291749328,
+          "strict_improvement": true
+        },
+        {
+          "step": 300,
+          "validation_normalized_MSE": 0.0019438084019346104,
+          "strict_improvement": true
+        },
+        {
+          "step": 350,
+          "validation_normalized_MSE": 0.0018607818844929714,
+          "strict_improvement": true
+        },
+        {
+          "step": 400,
+          "validation_normalized_MSE": 0.0017434646071357504,
+          "strict_improvement": true
+        },
+        {
+          "step": 450,
+          "validation_normalized_MSE": 0.0016918900983428663,
+          "strict_improvement": true
+        },
+        {
+          "step": 500,
+          "validation_normalized_MSE": 0.0016725460407580966,
+          "strict_improvement": true
+        },
+        {
+          "step": 550,
+          "validation_normalized_MSE": 0.0015866032583782424,
+          "strict_improvement": true
+        },
+        {
+          "step": 600,
+          "validation_normalized_MSE": 0.001555246320424876,
+          "strict_improvement": true
+        }
+      ],
+      "neural_fit_validation_seconds": 9.762277899979381,
+      "training_phase_peak_working_set_bytes": 288227328,
+      "ridge_lambda": 0.001,
+      "ridge_history": [
+        {
+          "lambda": 0.001,
+          "validation_normalized_MSE": 0.0017353540258667702
+        },
+        {
+          "lambda": 0.01,
+          "validation_normalized_MSE": 0.0018862489660809818
+        },
+        {
+          "lambda": 0.1,
+          "validation_normalized_MSE": 0.0026046541488573835
+        },
+        {
+          "lambda": 1,
+          "validation_normalized_MSE": 0.005093489445150237
+        },
+        {
+          "lambda": 10,
+          "validation_normalized_MSE": 0.014121770189724178
+        },
+        {
+          "lambda": 100,
+          "validation_normalized_MSE": 0.06188531795502089
+        }
+      ],
+      "mse": {
+        "F": 2242.5347423209273,
+        "L": 2502.2349464035906,
+        "P": 1978.4611842866893
+      },
+      "rmsse": {
+        "F": 0.583996077030515,
+        "L": 0.6168852445217174,
+        "P": 0.5485347010565713
+      },
+      "close_output_std": 1200.7981185436236,
+      "rmsse_denominator": 6575.356746958903,
+      "validation_keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+      "train_package_sha256": "d598f88cb4dc8371bb973930ad2da3f79923b99f01d2cf2494f070ae50460759",
+      "validation_package_sha256": "b43c68d87c320895d47c685b707c26d0ddaed26813b9863a1b4eecf1e65dab9a",
+      "state_tensor_sha256": "3166c0d126c00a10693e1d6f991e11485e29c9f116cff1f6df24ea7b709644e1",
+      "test_inputs_received": false,
+      "worker_seconds": 12.614464899990708
+    }
+  ],
+  "fresh_control_matches_parent_state": true,
+  "fresh_control_matches_parent_validation_MSE": true,
+  "input_x_bytes_ratio": 0.5,
+  "aggregation_seconds": 0.0015690000145696104,
+  "private_bytes": 2479067,
+  "batch_seconds": 32.594000000011874,
+  "total_optimizer_steps": 1200,
+  "test_read_or_scored": false,
+  "independent_review": "PENDING",
+  "limitations": [
+    "One fresh subprocess per arm, raw96 then mixed48; no timing repeats, random order, thermal/cache control, or statistical resource claim",
+    "The source model treats all 48 positions equally: early positions span four days, recent positions one day; moving_avg=25 now has a different varying wall-clock span and RevIN weights summarized blocks equally. No claim of preserving daily-grid model semantics.",
+    "Same seed but sequence-dependent layers differ in size, so complete parameter draws are not identical across arms",
+    "ETHUSD only; exploratory development choice after earlier asset results, not independent confirmation or asset-selection evidence",
+    "No numeric acceptance threshold invented; report observed loss/resource tradeoff. This pilot cannot establish superiority, generalization, pure mechanism, or suitable final data selection."
+  ]
+}

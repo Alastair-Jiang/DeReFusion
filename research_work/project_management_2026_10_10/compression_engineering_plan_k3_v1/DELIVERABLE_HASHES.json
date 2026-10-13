@@ -1,0 +1,18 @@
+{
+  "schema": "drefusion.deliverable-hashes/v1",
+  "scope": "Claude Code (Kimi K3) 工程化规划交付物，compression_engineering_plan_k3_v1；本清单不包含自身（DELIVERABLE_HASHES.json）",
+  "compiled_by": "Claude Code engineering planning lead (Kimi K3)",
+  "compiled_at": "2026-10-13",
+  "repository": "C:/Users/26843/Documents/ChatGPT/redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head_at_compile_time": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "git_status_of_deliverables": "untracked (本轮边界：不提交、不推送)",
+  "files": {
+    "research_work/project_management_2026_10_10/compression_engineering_plan_k3_v1/ENGINEERING_PLAN.md": "c315979ab09ed8af5296d4ce6fc03060711da55d3dfafb95cfea7dd2d8b49184",
+    "research_work/project_management_2026_10_10/compression_engineering_plan_k3_v1/FINDINGS.json": "df1e0724f1478675cd012149e6ef3c22f965a55d18b9c82063a70d2de79806b9",
+    "research_work/project_management_2026_10_10/compression_engineering_plan_k3_v1/INPUT_HASHES.json": "ba918fd6bb6aafa430b3dff73b6e805cca8d40d8e406060b47220634d8cb49f0",
+    "research_work/project_management_2026_10_10/compression_engineering_plan_k3_v1/HANDOFF_TO_CODEX.md": "5c4a1f6241bc037f99afd6e99e5cec497747b838dff1fcf94c6628026e57083a"
+  },
+  "self_excluded": true,
+  "note": "若任何交付物后续被修改，重算 sha256 并升版本目录，不就地覆盖。"
+}

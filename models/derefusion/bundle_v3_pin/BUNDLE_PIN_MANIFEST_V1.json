@@ -1,0 +1,14 @@
+{
+  "schema": "derefusion.bundle-pin/v1",
+  "source_directory": "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source",
+  "files": {
+    "DeReFusion.py": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091",
+    "derefusion_components.py": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33",
+    "RevIN.py": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc",
+    "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "role": "Byte-preserved archive; loader.py privately binds both layers imports; never sys.path shadow top-level layers",
+  "provenance": "Original executed files matched protocol pins before copying; no top-level or historical source modification",
+  "expected_initial_state_sha256_seed17_seq96": "564e61a1932803617c37856f673bffb58c5f22fede24b3aeebdb685b6e1f560d",
+  "initialization_equivalence_status": "Codex synthetic PASS: same top-level reference initialization/output for seq96/48; expected initial digest verified; tests/test_fixed_ohlc_preprocessing.py"
+}

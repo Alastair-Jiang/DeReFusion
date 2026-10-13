@@ -1,0 +1,31 @@
+{
+  "decision": "APPROVED",
+  "timestamp_utc": "2026-10-13T03:27:36.481448+00:00",
+  "protocol_id": "DRF-CDD-ETH-COMPRESSION-MINIMAL-20261013-V1",
+  "head": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "decision_owner": "Codex under user's project delegation and explicit minimal-pilot instruction",
+  "scope": "Two ETH train/validation fits; no test read, download, confirmation or publication",
+  "protocol_sha256": "4bf497264b9f401c083b686df4ea3bd988173769a8a54c95adb8449f48c11fb5",
+  "runner_sha256": "e478878ba7896cb527e7f1ae593e9277685375e5ac62af9a587e6e584c6ede30",
+  "preparation_sha256": "06e4f5af718eec6a4be74d48c550bbcf89fadc551d7b42e2764c222be9c9d839",
+  "synthetic_sha256": "d6e7c2e08a11506476cc5c5d77b932044eec2376d67346c4b90b6521f45beecc",
+  "model_source_sha256": {
+    "models/derefusion/DeReFusion.py": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091",
+    "layers/derefusion_components.py": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33",
+    "layers/RevIN.py": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc"
+  },
+  "resources": {
+    "CPU_threads": 2,
+    "neural_dtype": "float32",
+    "ridge_dtype": "float64",
+    "F_fits": 2,
+    "optimizer_steps": 1200,
+    "worker_seconds": 300,
+    "batch_seconds": 900,
+    "private_output_bytes": 67108864,
+    "paid_cost": 0
+  },
+  "torch": "2.5.1+cpu",
+  "python": "3.11.15"
+}

@@ -1,0 +1,37 @@
+{
+  "protocol_id": "DRF-CDD-ETH-RAW48-CONTROL-20261013-V0.1-DRAFT",
+  "status": "DRAFT_NOT_RELEASED_NOT_EXECUTABLE",
+  "head_at_draft": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "question": "Does retaining 96 days in a mixed-resolution 48-position representation offer a useful tradeoff compared with 48 daily positions, under matched model shapes?",
+  "scope": "Exploratory development after observed ETH pilot; no independent confirmation or score-selected optimal representation",
+  "historical_pilot_protocol": "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/PROTOCOL_V1.json",
+  "historical_pilot_protocol_sha256": "4bf497264b9f401c083b686df4ea3bd988173769a8a54c95adb8449f48c11fb5",
+  "source_archive": "models/derefusion/bundle_v3_pin",
+  "model_loader": "models/derefusion/bundle_v3_pin/loader.py",
+  "fixed_transform_module": "reproduction/preprocessing/fixed_ohlc.py",
+  "asset": "ETHUSD",
+  "source_and_units": "Same private qualified CDD Bitstamp ETH/USD daily OHLC; bounded local non-commercial use",
+  "target": "Same next daily candle Close and model-independent training/validation keys as parent f100",
+  "scaler": "Same frozen full-training channel normalization; raw48 is a tail slice of the already normalized 96-day array; no arm-specific refit",
+  "arms": {
+    "raw96": {"input_positions": 96, "calendar_days": 96, "transform": "Identity", "position_spans_days": "[1]*96", "parameters": 21743},
+    "mixed48": {"input_positions": 48, "calendar_days": 96, "transform": "AggregationPlan(96,4,16,32)", "position_spans_days": "[4]*16+[1]*32", "parameters": 21599},
+    "raw48": {"input_positions": 48, "calendar_days": 48, "transform": "x[:, -48:, :].copy()", "position_spans_days": "[1]*48", "parameters": 21599}
+  },
+  "invariants": ["Same parent train/validation targets and keys, even though raw48 could otherwise generate more early windows", "Same scaler and full-train RMSSE denominator", "Same daily last Close; persistence must be identical", "Same 600-step training policy, shuffle seed, batch size, sample exposures and checkpoint rules", "raw48 and mixed48 have identical model shapes and same-seed initial parameter bytes"],
+  "comparisons": {
+    "mixed48_vs_raw48": "Joint representation tradeoff under equal input length/capacity: mixed48 adds 48 calendar days of coarse history and coarsens 16 days that raw48 represents daily. Coverage, resolution, RevIN and moving-average semantics are not individually isolated.",
+    "mixed48_vs_raw96": "Same 96-day wall-clock context but joint changes in resolution, projection capacity, initialization and temporal statistics; not pure preprocessing attribution"
+  },
+  "suggested_seeds": [17, 29, 43],
+  "seed_status": "Proposal, not finalized or released",
+  "proposed_resources": {"maximum_F_fits": 9, "optimizer_steps_per_fit": 600, "maximum_total_optimizer_steps": 5400, "threads": 2, "device": "CPU", "seconds_per_worker": 300, "batch_seconds": 3600, "private_output_bytes": 134217728, "paid_cost": 0},
+  "resource_basis": "Same verified architecture dimensions and explicit bounded count; not allocated from which condition scored better",
+  "test_evaluation": "NOT_AUTHORIZED_BY_THIS_DRAFT; default proposal is validation-only development",
+  "acceptance_margin": null,
+  "acceptance_margin_status": "TBD before a decision-based run: project resource/precision objective required. Cannot choose a noninferiority margin after viewing new scores.",
+  "missing_before_release": ["Formal prospective protocol approval with actual post-engineering HEAD and all code/manifest pins", "Independent engineering review of new modules", "Final seed and evaluation-scope decision", "Predefined cost/precision objective or explicit diagnostic-only interpretation", "New runner/preparation/audit supporting raw48 and position-span metadata", "Implementation-fidelity and complete synthetic gates", "Hash-bound execution authorization"],
+  "failure_policy": "New attempts only; preserve artifacts, no deletion-based retry or silent substitution",
+  "claim_limit": "Raw48 is a capacity control, not proof of incremental information or an independent isolation of coverage and resolution. Seed repeats are not independent markets. Validation-selected checkpoints are not unexposed confirmation.",
+  "publication": "No public raw/role arrays/per-key predictions/checkpoints; summary review is separate. Existing R1 confirmation remains unchanged."
+}

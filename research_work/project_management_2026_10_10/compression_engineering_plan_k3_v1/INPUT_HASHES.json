@@ -1,0 +1,66 @@
+{
+  "schema": "drefusion.input-hashes/v1",
+  "compiled_by": "Claude Code engineering planning lead (Kimi K3)",
+  "compiled_at": "2026-10-13",
+  "repository": "C:/Users/26843/Documents/ChatGPT/redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "note": "实际阅读并作为判断依据的输入。SHA-256 为本轮规划时磁盘实测值；标记 [untracked] 者不受 Git 跟踪。私有数据仅列哈希与路径，未读取数组内容用于任何其他用途，未复制。",
+  "compression_pilot_batch_untracked": {
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/PROTOCOL_V1.json": "4bf497264b9f401c083b686df4ea3bd988173769a8a54c95adb8449f48c11fb5",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/run_pilot_v1.py": "e478878ba7896cb527e7f1ae593e9277685375e5ac62af9a587e6e584c6ede30",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/SYNTHETIC_CHECK_V1.json": "d6e7c2e08a11506476cc5c5d77b932044eec2376d67346c4b90b6521f45beecc",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/PREPARATION_V1.json": "06e4f5af718eec6a4be74d48c550bbcf89fadc551d7b42e2764c222be9c9d839",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/EXECUTION_RELEASE_V1.json": "c12de6d95041cd2d3947faad8b88205692b85b1d2b17a13d1bce08541c8fd68b",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/RESULTS_V1.json": "e9f6583723bb5049b1956dc106e2c131c4224d8d67ec31cf5d11d31e8015ee79",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/audit_and_report_v1.py": "f1983c7c0952e6c615340ac1781610c1a6dd1eb4c2fa06851fd49ab4a34e7767",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/INTERNAL_AUDIT_V1.json": "af25d57c9760c2eba65589e1b9584de854b9d24770d0675d8e242feeeec793f2",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/PROGRESS_V1.json": "77b38296bc70a6b3fe35c0b5d5aca71b87075b916b2a70cc707bfd0fce78f59b",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/DELIVERABLE_HASHES_V1.json": "2cd892235280b46c2a7400261ab1b9ee00ca128b9a26f9b6035cfae128b2fda3"
+  },
+  "parent_shrink_batch_tracked": {
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/SHRINK_CDD_EXPLORATORY_PROTOCOL_V0.2.json": "f39db92c34cecaa646086134e93152a8c2f26bf898dba24538f775c8b934873d",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/run_shrink_cdd_v1_1.py": "2a4b2e9081e5ef7517bc3f297159914c5bdfd84bee7122a121c1ff213c122442",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_PREPARATION_MANIFEST_V1_1.json": "271bcd25af27be3bc476820b8253a4040109e408dd82ed38d42cdbd037f3cdba",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_MATRIX_EXECUTION_RELEASE_V1_1.json": "962766f127f8fa188093022356e546e247521b0ca503beae307c3e00c34f5e09",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_SHRINK_EXPLORATORY_RESULTS_V1_1.json": "dd8017676a0ccfe64bb4ab4bcf6ab81e477d183f2495377900049249b03883f5",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_INTERNAL_CONSISTENCY_AUDIT_V1_2.json": "569c4e10891fa8846e134d2329fed65ea863140988da57feabaef39453c02723",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_DSH_REVIEW_DISPOSITION_V1.json": "f374668346163b3db007a9b7c6f20f8a9ef0d2881c10fce276d4627be424c882",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/PROGRESS_2026-10-13.json": "86bc05e2c32f58497a40696b10af513718e3f3a9f54c3bd452ab76ff9cccf88f",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/qualify_cdd_v1.py": "bf617dcee54787e1227f7682b96793bb05c66da5058d446ca97a44f23d34ab0b",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/source_bootstrap_v1.py": "357f84c54f0be66daeee051a4bc35ca876c3044930bb36997b336272f1ed9dc1",
+    "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13/CDD_LOCAL_RESEARCH_QUALIFICATION_RELEASE_V1.json": "71f08a26aef6c3917e1e2984e7090c18627153eba54fd9b947624b49c7cd65cc"
+  },
+  "model_sources": {
+    "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/models/derefusion/DeReFusion.py [untracked]": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091",
+    "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/layers/derefusion_components.py [untracked]": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33",
+    "research_work/forward_increment/lead_design_2026_10_07/adapter_candidate_2026_10_07/integration_candidate_v1/model_bundle_v3/source/layers/RevIN.py [untracked]": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc",
+    "models/derefusion/DeReFusion.py [tracked, CRLF 区域行尾混合注意]": "7e5194f7db66a1b8218dbacc9f9ca1b63f419dc12f74c6b6a3cafadbcc9c9320",
+    "layers/RevIN.py [tracked, CRLF]": "86ae5f290032e2f9ff83846f36480a56b9a0077837e656a0dfb5f8268d59d215"
+  },
+  "reports_and_docs": {
+    "docs/DRF_CDD_ETH_COMPRESSION_MINIMAL_PILOT_2026-10-13.md [untracked]": "06f2fe215b5090ea01f028ef633bee9f9447ee51e7cf41d493f836a21d096b10",
+    "docs/DRF_CDD_PROJECT_STARTUP_DECISION_2026-10-13.md": "ec4773382b87130c197b2826f43827341ddad46f1e99fe69db93648f2d12147a",
+    "docs/DRF_CDD_SHRINK_FIRST_BATCH_RESULTS_2026-10-13.md": "a29929a0f01bc114e4e5ae6d78684b7cda04e88075c3780a981f478ff2522aad",
+    "docs/DRF_CDD_DSH_REVIEW_DISPOSITION_2026-10-13.md": "4a8a809770df9ec40c929eca3263251b923c94387b23064c198f1971fc8b3c94"
+  },
+  "repo_level_files": {
+    "requirements/core.txt": "2fb5e34f63fedadbdde6dc2c8c9bb1a797c819162d45484c2ac2b30d803a762c",
+    "requirements/torch-cu121.txt": "e447c4c42590a8242c9d5b6525e7494cb93e79082f4ff2fb4e8ad4dd4dacbc48",
+    "reproduction/README.md": "7fbcfd5f549f6d9bef5067cfd848e3a34253ca78d3c2bc3c253c358655580b05",
+    ".gitignore": "4a1621654741dab67a1f80a579441801c4e053e5d0b16273bd815d785707051c"
+  },
+  "private_packages_read_only_verified": {
+    "note": "本机只读复核 sha256，与 PREPARATION_V1.json pin 逐项一致；未复制、未改动；测试角色数组未读取",
+    "data/shrink-cdd-20261013-v1/packages_v1_1/ETHUSD_f100/train.npz [gitignored]": "9f079158732d4cb2f7b2c7d30fbb584127a4f18f2b5944434a7f9bdd55188568",
+    "data/shrink-cdd-20261013-v1/packages_v1_1/ETHUSD_f100/validation.npz [gitignored]": "e78caf5bf15725bb33b7e080465fb6b92320f0ea64218bc711dc93190d9a2d54",
+    "data/cdd-compression-pilot-20261013-v1/mixed48/train.npz [gitignored]": "d598f88cb4dc8371bb973930ad2da3f79923b99f01d2cf2494f070ae50460759",
+    "data/cdd-compression-pilot-20261013-v1/mixed48/validation.npz [gitignored]": "b43c68d87c320895d47c685b707c26d0ddaed26813b9863a1b4eecf1e65dab9a"
+  },
+  "local_verification_experiments": [
+    "顶层 models/derefusion/DeReFusion.py 与 bundle pin 版同配置参数数均 21743、参数名/形状逐一对齐；同 seed=17 初始化 state_dict 排序 sha256 两侧均为 564e61a1932803617c37856f673bffb58c5f22fede24b3aeebdb685b6e1f560d（.venv torch 2.5.1+cpu 实测）",
+    "np.savez 无压缩两次保存字节一致，zip entry 时间戳固定 (1980,1,1,0,0,0)（.venv numpy 2.1.2 实测）",
+    "仓库内 .venv（gitignored）实测：Python 3.11.15 / torch 2.5.1+cpu / numpy 2.1.2，与 EXECUTION_RELEASE_V1.json 记录一致",
+    "git ls-remote origin：refs/heads/docs/project-status-catalog-2026-10-10 = 5a8220ab0fdfb72601671f9fadf7de5e8a3b7554（与本地 HEAD 一致）"
+  ]
+}

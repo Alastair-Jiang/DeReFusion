@@ -1,0 +1,1 @@
+torch @ https://download.pytorch.org/whl/cpu/torch-2.5.1%2Bcpu-cp311-cp311-win_amd64.whl --hash=sha256:81531d4d5ca74163dc9574b87396531e546a60cceb6253303c7db6a21e867fdf

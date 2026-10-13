@@ -1,0 +1,18 @@
+{
+  "scope": "Local pilot candidate records, excludes private outputs",
+  "head": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "files": {
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/audit_and_report_v1.py": "f1983c7c0952e6c615340ac1781610c1a6dd1eb4c2fa06851fd49ab4a34e7767",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/EXECUTION_RELEASE_V1.json": "c12de6d95041cd2d3947faad8b88205692b85b1d2b17a13d1bce08541c8fd68b",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/INTERNAL_AUDIT_V1.json": "af25d57c9760c2eba65589e1b9584de854b9d24770d0675d8e242feeeec793f2",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/PREPARATION_V1.json": "06e4f5af718eec6a4be74d48c550bbcf89fadc551d7b42e2764c222be9c9d839",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/PROGRESS_V1.json": "77b38296bc70a6b3fe35c0b5d5aca71b87075b916b2a70cc707bfd0fce78f59b",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/PROTOCOL_V1.json": "4bf497264b9f401c083b686df4ea3bd988173769a8a54c95adb8449f48c11fb5",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/RESULTS_V1.json": "e9f6583723bb5049b1956dc106e2c131c4224d8d67ec31cf5d11d31e8015ee79",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/run_pilot_v1.py": "e478878ba7896cb527e7f1ae593e9277685375e5ac62af9a587e6e584c6ede30",
+    "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/SYNTHETIC_CHECK_V1.json": "d6e7c2e08a11506476cc5c5d77b932044eec2376d67346c4b90b6521f45beecc"
+  },
+  "report": {
+    "docs/DRF_CDD_ETH_COMPRESSION_MINIMAL_PILOT_2026-10-13.md": "06f2fe215b5090ea01f028ef633bee9f9447ee51e7cf41d493f836a21d096b10"
+  }
+}

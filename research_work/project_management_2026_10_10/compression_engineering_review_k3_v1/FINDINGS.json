@@ -1,0 +1,94 @@
+{
+  "schema": "drefusion.k3-review-findings/v1",
+  "reviewer": "Claude Code engineering reviewer (Kimi K3), independent read-only pass",
+  "reviewed_at": "2026-10-13",
+  "repository": "C:/Users/26843/Documents/ChatGPT/redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "baseline_head": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "subject": "compression_engineering_implementation_v1 staged tree (62 files: 43 A + 19 M)",
+  "verdict": {
+    "fit_for_commit": true,
+    "p0_count": 0,
+    "p1_count": 0,
+    "p2_count": 6,
+    "statement": "工程包适合提交；无 P0/P1；六项 P2 为记录完整性/健壮性提示，不改变语义正确性。提交与推送须用户明确授权。"
+  },
+  "p0": [],
+  "p1": [],
+  "p2": [
+    {
+      "id": "P2-1",
+      "area": "receipt-completeness",
+      "location": "research_work/project_management_2026_10_10/compression_engineering_implementation_v1/VALIDATION_RECEIPT_V1.json (newline_only_blob_repairs); verify_staged_source_v1.py:64-74",
+      "claim": "receipt 列 16 项 newline-only 修复，实际 newline-only 修复共 18 项（另有 docs/DRF_CDD_DSH_REVIEW_DISPOSITION_2026-10-13.md 与 docs/DRF_CDD_SHRINK_FIRST_BATCH_RESULTS_2026-10-13.md，verify 脚本只扫描 shrink 目录）",
+      "evidence": "K3 独立逐文件验证 18 个 staged M 文件：HEAD blob(LF) 与 staged blob(CRLF) 去 CR 后逐字节相等；staged==工作区；docs 两份 crlf 计数 0->42 / 0->45",
+      "impact": "记录口径歧义，无语义错误",
+      "recommendation": "提交信息写明 18 处 newline-only 字节封存，或后续补记 receipt"
+    },
+    {
+      "id": "P2-2",
+      "area": "environment",
+      "location": "data/engineering-cpu-validation-20261013-v1/wheelhouse/; requirements/torch-cpu-win311-wheel.txt",
+      "claim": "torch wheel 已安装但未在 wheelhouse 留档（9 个 PyPI wheel 留档且实物 sha 与回执/pin 三向一致）",
+      "evidence": "wheelhouse 仅 9 个非 torch wheel；torch 仅见 .venv dist-info；pin 的 URL+sha256 在 torch-cpu-win311-wheel.txt",
+      "impact": "完全离线重建需按 pin 重下 torch wheel",
+      "recommendation": "后续可把 torch wheel 一并留档；非阻断"
+    },
+    {
+      "id": "P2-3",
+      "area": "documentation",
+      "location": "reproduction/analysis/compression_replay.py:107-113; docs/DRF_PROTOCOL_RESPIN_PROCEDURE_V1_2026-10-13.md",
+      "claim": "replay 记录的 runner_sha256 指向 attempt wrapper（生成的 run_pilot_v1.py shim），不再是冻结引擎本体；引擎身份由 replay.code_sha256 绑定",
+      "evidence": "configure() 设 module.__file__ = attempt/run_pilot_v1.py（:108）；wrapper 文本由 generate() 内嵌（:80-86），其确定性间接绑定于 code_sha256 中的 compression_replay.py",
+      "impact": "审计者读新 PREPARATION 时可能误解 runner 身份",
+      "recommendation": "重签文档补一句该语义变化"
+    },
+    {
+      "id": "P2-4",
+      "area": "robustness",
+      "location": "models/derefusion/bundle_v3_pin/loader.py:41-46",
+      "claim": "私有 import 映射为模块名精确匹配，覆盖完整性依赖归档源码 sha pin 封死（若源码出现 'from layers import RevIN' 风格会逃逸到顶层 layers；当前归档两行 import 均为命中的 from-import 且 pin 阻止变动）",
+      "evidence": "DeReFusion.py:3-4 为 'from layers.RevIN import RevIN' 与 'from layers.derefusion_components import ...'；verify_archive 每次加载前校验 sha",
+      "impact": "pin 在则风险为零；属前提注明",
+      "recommendation": "BUNDLE_PIN_MANIFEST 注明该前提"
+    },
+    {
+      "id": "P2-5",
+      "area": "test-hygiene",
+      "location": "tests/test_compression_replay.py:24-45; data/engineering-cpu-validation-20261013-v1/staged-source-v1-1",
+      "claim": "每次运行测试会在 data/compression-replay-attempts/ 留 2 个合成 attempt（gitignored，注释声明 provenance）；导出 fixture 因测试运行从 62 变为 68 文件（receipt 的 source_export_files=62 为测试前计数）",
+      "evidence": "data/compression-replay-attempts/ 现有 3 bootstrap + 3 drift 目录（验收轮+DEST 轮+K3 复跑轮）；fixture 实测 68 文件",
+      "impact": "无；数字关系自洽但需说明以免复核者误读",
+      "recommendation": "receipt 或 README 注明测试产物留档策略"
+    },
+    {
+      "id": "P2-6",
+      "area": "portability",
+      "location": "reproduction/analysis/compression_replay.py:39",
+      "claim": "resolve_relative 拒绝一切含反斜杠路径——Windows 防御合理；Linux 下理论误伤含反斜杠的合法文件名",
+      "evidence": "仓库无此类命名；测试覆盖 Windows 风格逃逸拒绝",
+      "impact": "实际无影响",
+      "recommendation": "记录在案即可"
+    }
+  ],
+  "passed_checks": [
+    {"item": "归档字节与 pin 三向一致", "evidence": "staged blob sha256 == 旧 pin == BUNDLE_PIN_MANIFEST == loader.PINS == IMPLEMENTATION_MANIFEST（逐项）"},
+    {"item": "隔离加载正确且不污染全局", "evidence": "独立重跑 PinnedSource 3 测试 OK：参数 21743/21599、初始化逐位 564e61a1…、前向逐位相等、空 layers.* 注入下仍正确、sys.path 不变"},
+    {"item": "source drift 拒绝", "evidence": "test_archive_drift_rejected：RevIN.py 追加 '\\n' 即 ValueError；replay 侧篡改 code_sha256 即 configure 拒绝（test_source_drift_is_rejected_before_private_arrays_are_read）"},
+    {"item": "聚合模块固定语义与独立参照", "evidence": "独立重跑 FixedOHLC 5 测试 OK；oracle 为冻结 run_pilot_v1.py aggregate，4 dtype × n∈{0,1,7,67} 逐位一致、输入不变、无内存共享"},
+    {"item": "新授权门控 fail-closed", "evidence": "独立重跑：无 EXECUTION_AUTHORIZATION.json 时 release() FileNotFoundError，RELEASE/PRIVATE 未创建；TEMPLATE 恒 NOT_APPROVED；release() 六字段精确校验（compression_replay.py:190-194）；verify_release 绑定授权哈希"},
+    {"item": "replay 绑定真实 HEAD 与全部实现依赖", "evidence": "code_sha256 覆盖冻结四件+replay+fixed_ohlc+loader+manifest+两 requirements；verify_sources 五重校验含环境三元组精确绑死"},
+    {"item": "18 处 newline-only 修复", "evidence": "K3 逐文件验证：去 CR 逐字节相等、staged==工作区、sha 与 receipt 一致；.gitattributes 窄路径 -text，check-attr 实测 text:unset"},
+    {"item": "机器边界", "evidence": "独立重跑 check_artifact_boundary.py：62 staged 0 违规；920 历史存量保留另审；未暂存改动恰为 5 项用户既有改动"},
+    {"item": "环境验收真实", "evidence": "新 venv 实测 3.11.15/2.5.1+cpu/2.1.2；13 测试 K3 独立重跑全 OK；wheelhouse 9 wheel 三向一致；导出 zip sha == receipt"},
+    {"item": "raw48 草案表述", "evidence": "覆盖差 48 天正确；未声称完全分离；position_spans 无 100 天错误；acceptance_margin null + 不得事后补设；DRAFT 不可执行"}
+  ],
+  "reserved_items": [
+    "真实两臂复跑 NOT_RUN：需私有输入+正式授权+张量哈希/MSE 对账（raw96 1a438fc3…/2092.513855618721；mixed48 3166c0d1…/2242.5347423209273），含 checkpoint/逐键预测/覆盖恢复核对",
+    "新尝试完整独立审计适配未实施",
+    "压缩批全面独立科学验收（原始数组逐元素复核）仍 PENDING，本轮工程复核不升级为科学验收",
+    "raw48 正式协议未签发：接受界/seed/评估范围待研究侧前瞻填写",
+    "上游 CDD 字节稳定性与跨平台逐位一致性未验证",
+    "920 条历史 tracked private-like 路径处置审计另行排队"
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "result": "PASS",
+  "timestamp_utc": "2026-10-13T03:27:34.454131+00:00",
+  "protocol_sha256": "4bf497264b9f401c083b686df4ea3bd988173769a8a54c95adb8449f48c11fb5",
+  "runner_sha256": "e478878ba7896cb527e7f1ae593e9277685375e5ac62af9a587e6e584c6ede30",
+  "arms": {
+    "raw96": {
+      "train": {
+        "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\train.npz",
+        "sha256": "9f079158732d4cb2f7b2c7d30fbb584127a4f18f2b5944434a7f9bdd55188568",
+        "manifest_sha256": "c842ba5fe2094aa6277db3f8d4d6c81fcd35001e2705abc902767ae664183dcb",
+        "keys_count": 1730,
+        "keys_sha256": "f39f799bdb872ad08715ab23dd4684efa6df628572330c7767959263e79788e9",
+        "x_bytes": 2657280,
+        "y_bytes": 27680,
+        "shape": [
+          1730,
+          96,
+          4
+        ],
+        "close_output_std": 1200.7981185436236,
+        "rmsse_denominator": 6575.356746958903
+      },
+      "validation": {
+        "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\shrink-cdd-20261013-v1\\packages_v1_1\\ETHUSD_f100\\validation.npz",
+        "sha256": "e78caf5bf15725bb33b7e080465fb6b92320f0ea64218bc711dc93190d9a2d54",
+        "manifest_sha256": "34b57458ffa1fccf1c32eab7fdba543b9d66e6a94e0eb8dd61215d50d81ffbf8",
+        "keys_count": 365,
+        "keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "x_bytes": 560640,
+        "y_bytes": 5840,
+        "shape": [
+          365,
+          96,
+          4
+        ],
+        "close_output_std": 1200.7981185436236,
+        "rmsse_denominator": 6575.356746958903
+      }
+    },
+    "mixed48": {
+      "train": {
+        "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\cdd-compression-pilot-20261013-v1\\mixed48\\train.npz",
+        "sha256": "d598f88cb4dc8371bb973930ad2da3f79923b99f01d2cf2494f070ae50460759",
+        "manifest_sha256": "49fe94f12c46424686df908c20312adb6e0ad28f817b852a70d215a625bf5fd5",
+        "keys_count": 1730,
+        "keys_sha256": "f39f799bdb872ad08715ab23dd4684efa6df628572330c7767959263e79788e9",
+        "x_bytes": 1328640,
+        "y_bytes": 27680,
+        "shape": [
+          1730,
+          48,
+          4
+        ],
+        "close_output_std": 1200.7981185436236,
+        "rmsse_denominator": 6575.356746958903
+      },
+      "validation": {
+        "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\data\\cdd-compression-pilot-20261013-v1\\mixed48\\validation.npz",
+        "sha256": "b43c68d87c320895d47c685b707c26d0ddaed26813b9863a1b4eecf1e65dab9a",
+        "manifest_sha256": "e9df6c560dbc8e9b634445936d0b2c77c63850545247d6ec9d62c9824aa1d7c1",
+        "keys_count": 365,
+        "keys_sha256": "6ed87fafd070ecbd87b02edf2f0c61fef4b5a29abe109241bc50577b0dbefcde",
+        "x_bytes": 280320,
+        "y_bytes": 5840,
+        "shape": [
+          365,
+          48,
+          4
+        ],
+        "close_output_std": 1200.7981185436236,
+        "rmsse_denominator": 6575.356746958903
+      }
+    }
+  },
+  "aggregation_seconds": 0.0015690000145696104
+}

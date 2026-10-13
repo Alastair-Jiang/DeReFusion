@@ -1,0 +1,17 @@
+{
+  "schema": "drefusion.deliverable-hashes/v1",
+  "scope": "K3 独立工程复核交付物，compression_engineering_review_k3_v1；本清单不包含自身（DELIVERABLE_HASHES.json）",
+  "compiled_by": "Claude Code engineering reviewer (Kimi K3)",
+  "compiled_at": "2026-10-13",
+  "repository": "C:/Users/26843/Documents/ChatGPT/redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head_at_compile_time": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "git_status_of_deliverables": "untracked（本轮边界：不修改暂存区、不提交、不推送）",
+  "files": {
+    "research_work/project_management_2026_10_10/compression_engineering_review_k3_v1/REVIEW.md": "ba2f686fc6547b97cce544fe17b2d3190b3bc568260c6a81c9c750077559c1df",
+    "research_work/project_management_2026_10_10/compression_engineering_review_k3_v1/FINDINGS.json": "cdc03d40c5336301b73d7bcd96a8b89fd8fe317fb004d7d94c8d3e48d1070cce",
+    "research_work/project_management_2026_10_10/compression_engineering_review_k3_v1/INPUT_HASHES.json": "f9360a3102781cdb8b022efc16968c11ed72e23735b6dd02eec8c140cb87a1a3"
+  },
+  "self_excluded": true,
+  "note": "复核交付物未加入暂存区；是否纳入提交由用户/项目决定。"
+}

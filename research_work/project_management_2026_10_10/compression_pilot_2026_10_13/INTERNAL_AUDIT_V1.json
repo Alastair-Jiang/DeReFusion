@@ -1,0 +1,39 @@
+{
+  "result": "PASS",
+  "timestamp_utc": "2026-10-13T03:31:16.199603+00:00",
+  "type": "Codex internal consistency audit; not independent DSH acceptance",
+  "script_sha256": "f1983c7c0952e6c615340ac1781610c1a6dd1eb4c2fa06851fd49ab4a34e7767",
+  "results_sha256": "e9f6583723bb5049b1956dc106e2c131c4224d8d67ec31cf5d11d31e8015ee79",
+  "checked_F_fits": 2,
+  "checked_validation_keys_per_fit": 365,
+  "independent_review": "PENDING",
+  "checks": [
+    "All train/validation compressed arrays reconstructed by separate loop",
+    "Targets/key sets/scalers/sample exposures equal",
+    "Earliest minimum checkpoint and 600-step cadence",
+    "Restored F and ridge forecasts match every stored prediction",
+    "Standard-library full-key metric recomputation",
+    "Original96 bitwise state/validation replay matches parent",
+    "Persistence exact equality",
+    "Resource caps and source/release identities"
+  ],
+  "private_artifact_sha256": {
+    "raw96": {
+      "model.pt": "f72e8f5ecccab4f489b259ab31f2cf0228e9d28a3ba943a39347985614a9fa9c",
+      "fit.json": "1c6a951f4f6c9c93adaf33830a7b7dce087051618ae0c53790f6106db081f642",
+      "validation.predictions.csv": "58dbb844aa76fdf562fa3a22b929d98438af4a55c042956a07a5709bebfa60d4"
+    },
+    "mixed48": {
+      "model.pt": "58fe23306c95f0179f8eaa9ac9bb8e552c806af375c04e9bd1b60ad3362ebac3",
+      "fit.json": "8d0f11ec3dd2af719591fb48a2fa1adf5ba16f63784cacc90311fbe3cf9518b0",
+      "validation.predictions.csv": "6d93da60d170faa2ba10770415061995e0f7693bdcc229915f1c4d21806cac31"
+    }
+  },
+  "summary_changes_pct": {
+    "F_MSE_increase": 7.169409478430788,
+    "F_RMSSE_increase": 3.522659103420822,
+    "neural_fit_validation_time_reduction": 42.51489751875117,
+    "training_phase_peak_process_working_set_reduction": 9.729064039408863,
+    "ridge_MSE_change": -5.281962298697329
+  }
+}

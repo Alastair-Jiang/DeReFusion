@@ -1,0 +1,52 @@
+{
+  "schema": "drefusion.input-hashes/v1",
+  "compiled_by": "Claude Code engineering reviewer (Kimi K3)",
+  "compiled_at": "2026-10-13",
+  "repository": "C:/Users/26843/Documents/ChatGPT/redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "note": "本轮独立复核实际阅读/核验的输入，SHA-256 为复核时磁盘实测；全部与 IMPLEMENTATION_MANIFEST_V1.json 逐项一致（61 项 + self_excluded）。另对 62 个 staged blob 做了 cat-file 级哈希核验（mismatch NONE）；私有 fixture 仅只读核对元数据。",
+  "review_prompt_and_manifests": {
+    "research_work/project_management_2026_10_10/compression_engineering_implementation_v1/K3_REVIEW_PROMPT.md": "c5603a6a2c2f87a9679df1bffd564fcdacd7116ed520f39e5b0659ed293271f0",
+    "research_work/project_management_2026_10_10/compression_engineering_implementation_v1/README.md": "e81a9ca2db5a83623fbf644b362a24921ffc103d3b7339904bda1fe423f9f5e0",
+    "research_work/project_management_2026_10_10/compression_engineering_implementation_v1/IMPLEMENTATION_MANIFEST_V1.json": "bb09520046092215b9cd18886108fd27494e4df2bc62e92da3e94be21fab86d1",
+    "research_work/project_management_2026_10_10/compression_engineering_implementation_v1/VALIDATION_RECEIPT_V1.json": "0654d89d0c06d9e6fc93fbf400b031ba1cd652b4b0fb05a36ecca67358525435",
+    "research_work/project_management_2026_10_10/compression_engineering_implementation_v1/verify_staged_source_v1.py": "8e111fd91ca3cf19ff1a179b9ed462b648a17757feacb08116f67a6c00f1fb3d"
+  },
+  "new_docs": {
+    "docs/DRF_COMPRESSION_ENGINEERING_DISPOSITION_V1_2026-10-13.md": "ee9128bd2ce8c5ef517ef005740a16083e4f371101ec342e347fc38f886cb5ef",
+    "docs/DRF_ARTIFACT_BOUNDARY_V1_2026-10-13.json": "8af09798f79f3351a82a35323c529c80365aaa6780f0f2f11a9bea23565ac25f",
+    "docs/DRF_PROTOCOL_RESPIN_PROCEDURE_V1_2026-10-13.md": "de7062aab1f0fe2cf5c34ab2a694f39d3574b79fb55977d8a1e4f0ce258340fc",
+    "docs/DRF_CPU_ENVIRONMENT_RECIPE_V1_2026-10-13.md": "b438ad5728918b020a688348f5bab4a510c098866041b03c6725ad7b73bbaf2b"
+  },
+  "new_code_and_tests": {
+    "models/derefusion/bundle_v3_pin/loader.py": "51b93f717f03cc5a3b51d5fb4c85abc2076e2f6a729d71b97d29eb0fc8bb847d",
+    "models/derefusion/bundle_v3_pin/BUNDLE_PIN_MANIFEST_V1.json": "e889a2acb2dc7d6329bf48da03949b470f44873d2fbc2815fe752927876fefd6",
+    "reproduction/preprocessing/fixed_ohlc.py": "4826f739f52858465cc2646d85fb7540306f89ab238add1ca65612f29737a4a6",
+    "reproduction/analysis/compression_replay.py": "12789496d303dfa71c54e682b985685f0914ca558ad81f9070beeba3ef4f511f",
+    "reproduction/analysis/check_artifact_boundary.py": "8387cfb9788d7187cd5aaea4b0870c0f2b3330c056e1362487b4152f94721f97",
+    "tests/test_fixed_ohlc_preprocessing.py": "0927bafeb3f3795f8abc1207ab0bcc43f13d24cb406f69c1a415209bd42c6db2",
+    "tests/test_compression_replay.py": "2bc0a80ced2db062c117c4ec1312aa81e15ac0471d857bf15463a3188b91976b",
+    "research_work/project_management_2026_10_10/compression_followup_2026_10_13/PROTOCOL_V0.1-DRAFT.json": "07718cc0c823b32709af0cb7f9e2420c2ce9a8b0db1d5aab52c9f7c30d12c9b4",
+    ".gitattributes": "0d8b4865e1c70b4bb26b76b1828c46bb7acb142f7e5d932f08ca6262a2f0a8f5"
+  },
+  "archive_sources_staged_equals_pin": {
+    "models/derefusion/bundle_v3_pin/DeReFusion.py": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091",
+    "models/derefusion/bundle_v3_pin/derefusion_components.py": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33",
+    "models/derefusion/bundle_v3_pin/RevIN.py": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc",
+    "models/derefusion/bundle_v3_pin/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "private_fixture_metadata_readonly": {
+    "data/engineering-cpu-validation-20261013-v1/LOCAL_WHEEL_DOWNLOAD_RECEIPT.json": "4752131e68d32fb09d4d1da5c2745118e379d6a1d014acdc8fa762b29054f0c8",
+    "data/engineering-cpu-validation-20261013-v1/STAGED_SOURCE_V1_1.zip": "9ad21915c70e6098096515a3be2cbc4296ed26980aeb93bf653a8b86726932a6",
+    "wheelhouse": "9 个 PyPI wheel 实物 sha256 与下载回执及 requirements/compression-cpu-win311-wheels.txt pin 三向一致（逐项实测）",
+    "validation_venv": "data/engineering-cpu-validation-20261013-v1/.venv 实测 3.11.15 / 2.5.1+cpu / 2.1.2"
+  },
+  "independent_verification_runs": [
+    "62 staged blob sha256 vs IMPLEMENTATION_MANIFEST_V1.json：mismatch NONE, missing NONE（git cat-file 逐项）",
+    "新验证 venv 独立重跑：test_fixed_ohlc_preprocessing.py 8 tests OK；test_compression_replay.py 5 tests OK；check_artifact_boundary.py staged 62 路径 violations 0",
+    "18 个 staged M 文件 newline-only 逐文件验证：HEAD blob 与 staged blob 去 CR 逐字节相等，staged==工作区（16 shrink 文件 + 2 docs）",
+    "git check-attr：shrink/compression/plan/implementation/bundle_pin 等规则 text: unset 生效",
+    "未暂存改动恰为 receipt 声明的 5 项用户既有改动；data/compression-replay-attempts 确认 gitignored"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "timestamp_utc": "2026-10-13T03:27:22.216181+00:00",
+  "protocol_sha256": "4bf497264b9f401c083b686df4ea3bd988173769a8a54c95adb8449f48c11fb5",
+  "runner_sha256": "e478878ba7896cb527e7f1ae593e9277685375e5ac62af9a587e6e584c6ede30",
+  "parameters": {
+    "raw96": 21743,
+    "mixed48": 21599
+  },
+  "checks": [
+    "OHLC group boundaries",
+    "Recent daily rows and last Close exact",
+    "Affine normalization commutation",
+    "Recent rows do not affect old blocks",
+    "Both model shapes and finite gradients",
+    "Parameter capacity comparison"
+  ],
+  "scope": "Synthetic only; no real performance claim"
+}

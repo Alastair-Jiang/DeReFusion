@@ -1,0 +1,13 @@
+{
+  "status": "COMPLETE_INTERNAL_AUDIT_PASS_INDEPENDENT_REVIEW_PENDING",
+  "planned_F_fits": 2,
+  "completed_F_fits": 2,
+  "internally_checked_F_fits": 2,
+  "independently_reviewed_F_fits": 0,
+  "optimizer_steps": 1200,
+  "test_read_or_scored": false,
+  "report": "docs/DRF_CDD_ETH_COMPRESSION_MINIMAL_PILOT_2026-10-13.md",
+  "report_sha256": "06f2fe215b5090ea01f028ef633bee9f9447ee51e7cf41d493f836a21d096b10",
+  "results_sha256": "e9f6583723bb5049b1956dc106e2c131c4224d8d67ec31cf5d11d31e8015ee79",
+  "internal_audit_sha256": "af25d57c9760c2eba65589e1b9584de854b9d24770d0675d8e242feeeec793f2"
+}

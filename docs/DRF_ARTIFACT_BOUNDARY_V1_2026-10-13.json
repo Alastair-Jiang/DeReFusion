@@ -1,0 +1,36 @@
+{
+  "schema": "derefusion.artifact-boundary/v1",
+  "baseline_head": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "scope": "New or modified staged paths and subsequent changes relative to baseline; not a claim that historical Git contains no private-like files",
+  "default": "review-required",
+  "rules": [
+    {"path_glob": "data/**", "disposition": "local-only", "basis": "Existing /data/ ignore; CDD releases prohibit raw/role/prediction/checkpoint publication"},
+    {"path_glob": "dataset/**", "disposition": "local-only", "basis": "No new dataset publication authorized; preserve existing tracked history"},
+    {"path_glob": "checkpoints/**", "disposition": "local-only", "basis": "Model weights remain local"},
+    {"path_glob": "results/**", "disposition": "local-only", "basis": "No bulk experimental-array upload"},
+    {"path_glob": "**/*.npz", "disposition": "local-only", "basis": "Role payloads"},
+    {"path_glob": "**/*.npy", "disposition": "local-only", "basis": "Prediction/target/metric arrays"},
+    {"path_glob": "**/*.pt", "disposition": "local-only", "basis": "Checkpoints"},
+    {"path_glob": "**/*.pth", "disposition": "local-only", "basis": "Checkpoints"},
+    {"path_glob": "**/*.predictions.csv", "disposition": "local-only", "basis": "Per-key values"},
+    {"path_glob": "**/.venv/**", "disposition": "local-only", "basis": "Runtime, not project source"},
+    {"path_glob": ".venv/**", "disposition": "local-only", "basis": "Runtime"},
+    {"path_glob": "research_work/forward_increment/**", "disposition": "review-required", "basis": "Untracked mixed provenance candidate area; only explicitly verified archive copies are selected in this engineering package"},
+    {"path_glob": "models/derefusion/bundle_v3_pin/**", "disposition": "tracked-candidate", "basis": "Project source archive and isolated loader"},
+    {"path_glob": "research_work/project_management_2026_10_10/compression_pilot_2026_10_13/**", "disposition": "tracked-candidate", "basis": "Ten historical text records; never includes private payloads"},
+    {"path_glob": "reproduction/preprocessing/**", "disposition": "tracked-candidate", "basis": "Pure project preprocessing code"},
+    {"path_glob": "reproduction/analysis/compression_replay.py", "disposition": "tracked-candidate", "basis": "New versioned replay planning/bootstrap code"},
+    {"path_glob": "reproduction/analysis/check_artifact_boundary.py", "disposition": "tracked-candidate", "basis": "Publication boundary check"},
+    {"path_glob": "tests/test_fixed_ohlc_preprocessing.py", "disposition": "tracked-candidate", "basis": "Synthetic tests only"},
+    {"path_glob": "tests/test_compression_replay.py", "disposition": "tracked-candidate", "basis": "Synthetic/bootstrap tests only"},
+    {"path_glob": "requirements/torch-cpu.txt", "disposition": "tracked-candidate", "basis": "CPU package recipe"},
+    {"path_glob": "requirements/compression-cpu.txt", "disposition": "tracked-candidate", "basis": "Observed dependency version recipe"}
+  ],
+  "deny_before_allow": true,
+  "historical_tracked_inventory": {
+    "private_like_paths": 920,
+    "path_inventory_sha256": "aeba6436d148414a22b81fff81a954244dfebf8100eb92022f566db5b1910b8e",
+    "classification": "Existing tracked dataset/checkpoint/results paths or .npz/.npy/.pth/.pt; inventory of paths, not content or license audit",
+    "action": "Preserve history; flag as a separate review issue. Do not remove, rewrite, or treat existing tracking as permission for new uploads."
+  }
+}

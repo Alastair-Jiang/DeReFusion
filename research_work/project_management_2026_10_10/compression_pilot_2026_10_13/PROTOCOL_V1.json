@@ -1,0 +1,51 @@
+{
+  "protocol_id": "DRF-CDD-ETH-COMPRESSION-MINIMAL-20261013-V1",
+  "status": "APPROVED_PREPARATION; real fitting requires hash-bound execution release",
+  "decision_owner": "Codex under user's project delegation and explicit minimal-pilot instruction",
+  "repository": "C:/Users/26843/Documents/ChatGPT/redefusion",
+  "head": "5a8220ab0fdfb72601671f9fadf7de5e8a3b7554",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "question": "Can fixed historical OHLC aggregation halve input positions while retaining useful validation behavior and reducing measured resources?",
+  "estimand": "Single-seed descriptive validation loss and resource difference between raw96 and mixed48 input representations; feasibility diagnostic only",
+  "scope": "ETHUSD only; exploratory development choice after earlier asset results, not independent confirmation or asset-selection evidence",
+  "source_use_basis": "Inherited bounded local non-commercial CDD Bitstamp research release; no new download or new upstream license claim",
+  "parent_directory": "research_work/project_management_2026_10_10/shrink_exploration_2026_10_13",
+  "parent_protocol_sha256": "f39db92c34cecaa646086134e93152a8c2f26bf898dba24538f775c8b934873d",
+  "parent_preparation_sha256": "271bcd25af27be3bc476820b8253a4040109e408dd82ed38d42cdbd037f3cdba",
+  "parent_results_sha256": "dd8017676a0ccfe64bb4ab4bcf6ab81e477d183f2495377900049249b03883f5",
+  "private_storage": "data/cdd-compression-pilot-20261013-v1",
+  "data_contract": {
+    "asset": "ETHUSD", "history_fraction": 1.0,
+    "grid": "24/7 daily completed Bitstamp candles; original window spans 96 calendar days",
+    "features": ["open", "high", "low", "close"], "unit": "USD per ETH; same train-fitted channel normalization as parent",
+    "target": "Next daily candle Close; unchanged parent normalized target",
+    "training_targets": 1730, "validation_targets": 365,
+    "train": ["2018-04-07", "2023-01-01"], "validation": ["2023-01-01", "2024-01-01"],
+    "test": "Not read or evaluated in this pilot; no test role is passed to workers",
+    "keys": "Parent model-independent train/validation keys copied unchanged; full validation coverage including tail batches",
+    "normalization": "Frozen parent ETH f100 scaler; shared by both arms; no refit or validation-dependent transform",
+    "metric_denominator": "Parent full-train mean squared daily Close difference, identical in both arms"
+  },
+  "arms": {
+    "raw96": {"seq_len": 96, "transform": "Identity"},
+    "mixed48": {"seq_len": 48, "transform": "First 64 daily rows form 16 ordered non-overlapping four-day OHLC blocks; append last 32 daily rows unchanged. Block O=first O, H=max H, L=min L, C=last C."}
+  },
+  "transform_constraints": "Deterministic, causal within each completed 96-day context; no learned grouping, thresholds, sample deletion, interpolation, new features, or target access. Positive affine train normalization commutes with per-channel OHLC aggregation.",
+  "model": {
+    "reference": "Same pinned full DeReFusion source/configuration as parent, except seq_len=48 for mixed48",
+    "configuration": {"pred_len": 1, "enc_in": 4, "d_model": 32, "moving_avg": 25, "n_heads": 4, "e_layers": 1, "d_ff": 128, "dropout": 0.3},
+    "capacity_comparison": "d_ff/d_model=4 and d_model/n_heads=8 unchanged; raw96=21743 parameters, mixed48=21599 (three time projections shorten by 48 each); no claim of pure preprocessing-only causal isolation",
+    "seed": 17, "steps": 600, "batch_size": 32,
+    "optimizer": {"type": "Adam", "learning_rate": 0.001, "betas": [0.9, 0.999], "epsilon": 1e-8, "weight_decay": 0},
+    "checkpoint": "Complete validation MSE every 50 steps; strict minimum, ties retain earlier; all 600 steps run",
+    "initialization": "Same seed but sequence-dependent layers differ in size, so complete parameter draws are not identical across arms"
+  },
+  "baselines": {"ridge": "Each arm uses its own flattened windows; parent lambda grid [0.001,0.01,0.1,1,10,100], validation selection, intercept unpenalized", "persistence": "Last daily Close is unchanged by compression; predictions must match exactly across arms"},
+  "resources": {"CPU_threads": 2, "neural_dtype": "float32", "ridge_dtype": "float64", "F_fits": 2, "optimizer_steps": 1200, "worker_seconds": 300, "batch_seconds": 900, "private_output_bytes": 67108864, "paid_cost": 0},
+  "measurements": ["validation original-unit MSE and RMSSE F/L/P", "actual steps and sample exposures", "neural fit including validation seconds", "training-phase process peak working-set bytes on Windows", "worker total seconds", "input tensor bytes and fixed-aggregation time"],
+  "timing_caveat": "One fresh subprocess per arm, raw96 then mixed48; no timing repeats, random order, thermal/cache control, or statistical resource claim",
+  "failure_policy": "Fail closed on binding/coverage/non-finite/resource violations; retain failure and no automatic retry",
+  "interpretation": "No numeric acceptance threshold invented; report observed loss/resource tradeoff. This pilot cannot establish superiority, generalization, pure mechanism, or suitable final data selection.",
+  "mixed_time_resolution_caveat": "The source model treats all 48 positions equally: early positions span four days, recent positions one day; moving_avg=25 now has a different varying wall-clock span and RevIN weights summarized blocks equally. No claim of preserving daily-grid model semantics.",
+  "publication": "Local internal pilot; raw data, role arrays, per-key predictions and checkpoints remain gitignored. Summary release requires separate review. Active R1 confirmation is unchanged."
+}
