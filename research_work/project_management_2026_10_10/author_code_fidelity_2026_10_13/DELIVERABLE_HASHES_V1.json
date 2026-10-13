@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "created_date": "2026-10-13",
+  "project_head": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "reference_head": "d4824f0036001204152e5180776ffc01f5ea4edb",
+  "inputs": {
+    "paper_pdf": {
+      "path": "C:/Users/26843/Desktop/project/02_papers/DeReFusion_ASOC_2026.pdf",
+      "sha256": "69b1dfcb6f4566917037ff50d5b28c8a32af385db40857e244bfc7345340cba7"
+    },
+    "paper_fulltext": {
+      "path": "C:/Users/26843/Desktop/project/02_papers/txt/DeReFusion_ASOC_2026_fulltext.md",
+      "sha256": "023d134450be5c62b140dc6c85c2d5fd83f0bab9fc9ab0693e3581d5120309f5"
+    },
+    "rendered_table3_page": {
+      "path": "data/author-reference-paper-review-20261013/paper-page-6.png",
+      "sha256": "8c1bc603d7fd023e5ec0d0f5e03e97563dc204633ac052c2520801069b5df99c"
+    },
+    "archived_model": {
+      "path": "models/derefusion/bundle_v3_pin/DeReFusion.py",
+      "sha256": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091"
+    },
+    "archived_components": {
+      "path": "models/derefusion/bundle_v3_pin/derefusion_components.py",
+      "sha256": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33"
+    },
+    "archived_revin": {
+      "path": "models/derefusion/bundle_v3_pin/RevIN.py",
+      "sha256": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc"
+    },
+    "dsh_source_report": {
+      "path": "research_work/project_management_2026_10_10/paper_fidelity_kimi_v2/SOURCE_REPORT.md",
+      "sha256": "8a24823f0a53df10e6279c9d0edbe43dfe2fcf8c49e28d4a0a3b7979a41515ef"
+    },
+    "dsh_crosswalk": {
+      "path": "research_work/project_management_2026_10_10/paper_fidelity_kimi_v2/PAPER_VS_REPO_TABLE.md",
+      "sha256": "7095c571a8ee0fb1bcd235ef041a76779a16bed73b4f483ade06d57461168e85"
+    }
+  },
+  "outputs": {
+    "AUTHOR_CODE_DISPOSITION_V1.md": "4828927b564e4038515c6da083ca4b9682fadc7f8a07e47c8c5c051c6ff98871",
+    "DSH_FOLLOWUP_PROMPT.md": "7f8cbc6ce5ac23b9cc680d1e4f9de2a7bd9132b6c959ac97700e8b4c820fe220",
+    "SOURCE_BEHAVIOR_CHECK_V1.json": "c3d79a23b36506f5126249dae58282e7ac05bf86926cb3d6096541b815dafac5",
+    "SOURCE_IDENTITY_V1.json": "fa46a0481211fbdfbf3c89fc7e627a8dcb13756c9037b4c6beaaacaa9b897330",
+    "compare_sources.py": "82a58af7c65ce0bca4a185fbfc7392f67227123b9b05a52f9d2e20dfad0010ec"
+  },
+  "manifest_excludes_own_hash": true
+}

@@ -1,0 +1,10 @@
+{
+  "result": "MISSING_DATE_PERSISTS",
+  "url": "https://www.cryptodatadownload.com/cdd/Bitstamp_ETHUSD_d.csv",
+  "status": 200,
+  "sha256": "cfe6b3cecb44026292a8ab5499a5590c36750936e2c625196400a12ca7ec17ca",
+  "bytes": 327728,
+  "source_contains_missing_date": false,
+  "original_preserved": true,
+  "OHLC_numeric_parsing": false
+}

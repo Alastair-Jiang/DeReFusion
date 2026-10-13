@@ -1,0 +1,16 @@
+{
+  "decision": "APPROVED_BOUNDED_SOURCE_RECHECK_ONLY",
+  "head": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "decision_owner": "Codex under standing project delegation",
+  "purpose": "Check provider snapshot completeness after date QA failure, no scoring or patching",
+  "url": "https://www.cryptodatadownload.com/cdd/Bitstamp_ETHUSD_d.csv",
+  "external_basis": "Current supplier terms and research offering rechecked; bounded local non-commercial use, not redistribution or signed upstream permission",
+  "limits": {
+    "requests": 1,
+    "bytes": 2097152,
+    "timeout_seconds": 45,
+    "cost": 0
+  },
+  "old_failure": "2026-05-22 missing",
+  "time": "2026-10-13T06:47:56.827410+00:00"
+}

@@ -1,0 +1,45 @@
+{
+  "result": "PASS_FOR_DESCRIPTIVE_REPORT",
+  "review_level": "Independent result-record arithmetic and interpretation review, no new source/array/model recovery",
+  "head": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "inputs": [
+    {
+      "path": "RESULTS_V1.json",
+      "sha256": "cee418e6d9a5798be40ee84e719bedd9eb0a2aa4f2dff02d2ee407bf7a984c87"
+    },
+    {
+      "path": "INTERNAL_AUDIT_V1.json",
+      "sha256": "4a6fe3b99ce1fd3496973d252c19092748213d03877b3b61ce5a63b3627b2362"
+    },
+    {
+      "path": "RESULT_REPORT_V1.md",
+      "sha256": "69bc9eb6942070507ebc243fc91ee1340c94297bb916cfe19fa8834cb9eea786"
+    },
+    {
+      "path": "REPORT_CORRECTION_V1.md",
+      "sha256": "f5909ae4be7c46e139cd5653a3c9d9074f9e5295d8f8135d4f057a170786a2f8"
+    }
+  ],
+  "checks": [
+    "Mean three seed losses and F/L,F/P ratios exact within1e-12",
+    "All model full-period MSE matches181/104 weighted subperiod MSE within1e-8",
+    "Internal audit actual result hash matches",
+    "285 keys,0fits,3 fixed model scores record match",
+    "Revised source/exposure report records pre-score qualification repair and actual API provenance"
+  ],
+  "findings": [
+    "Current ETH2026 configuration lacks descriptive stable increment across seeds/subperiods",
+    "Only seed17 beats L full-period, all3seed F worse than P",
+    "Reported full-period F/L+0.974 percent and F/P+17.801 percent correct",
+    "No general original-paper invalidity or all-nonlinearity inference",
+    "Report provenance/exposure omission corrected without changing locked results"
+  ],
+  "limitations": [
+    "855prediction/window source integrity PASS inherited from internal audit, not independently repeated",
+    "V1QA/API qualification already saw2026prices, no global unexposed confirmation",
+    "Training CDD and entire333-day API evaluation distinct source observations, one overlap difference unresolved",
+    "No formal superiority/noninferiority threshold or market-independent seed inference",
+    "New paper/code availability not itself fidelity acceptance"
+  ],
+  "notes_sha256": "645bd98ddefda73b0b04d12f2e503986542194b5d1c4344b5ca3c574bee7e431"
+}

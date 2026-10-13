@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "project_head": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "reference_repository": "https://github.com/twcch/DeReFusion",
+  "reference_commit": "d4824f0036001204152e5180776ffc01f5ea4edb",
+  "paper_local_path": "C:/Users/26843/Desktop/project/02_papers/DeReFusion_ASOC_2026.pdf",
+  "paper_sha256": "69b1dfcb6f4566917037ff50d5b28c8a32af385db40857e244bfc7345340cba7",
+  "paper_page_visual_review": {
+    "table_3_page": 6,
+    "rendered_png_sha256": "8c1bc603d7fd023e5ec0d0f5e03e97563dc204633ac052c2520801069b5df99c",
+    "render_path_local_ignored": "data/author-reference-paper-review-20261013/paper-page-6.png",
+    "table_10_page": 12
+  },
+  "scope": "Selected public source files, paper table review, synthetic inference checks; no author data, fitting, or scoring",
+  "source_behavior_result": "PASS",
+  "source_behavior_report": "SOURCE_BEHAVIOR_CHECK_V1.json",
+  "not_a_claim": [
+    "full paper reproduction",
+    "paper experimental configuration resolved",
+    "author published scores independently reproduced",
+    "dataset permission granted by code license"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "code_sha256": "82a25c6e73ece90190c3e3782904e0f93b6b69871c43216d1fa54bb3659e2a6e",
+  "protocol_sha256": "1ed8bf689f771a6b3ac47aa5eba8ac7a037ef90961669742ad0bf3c6e09a508f",
+  "controller_sha256": "c5816b8e216e06254f4d09b5f0301983d94a6b2701fd421363c3f8dfa00ff9b8",
+  "head": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "review_level": "Independent static source-revision engineering review; no private 2026 values or arrays",
+  "findings": [
+    "P0=0 P1=0",
+    "Old V1 calendar failure preserved; no model score drove source repair",
+    "Entire333-day evaluation/context official API source, original CDD training/scaler unchanged",
+    "Old285key identity and all3model locks mechanically unchanged",
+    "Full historical train array/scaler equality gate prior to evaluation remains",
+    "Fixed F/L/P selection and mean-seed-loss policy unchanged, raw64 truth and previous raw Close",
+    "Reviewed controller enforces300second timeout; runner output bound32MiB/overwrite refusal"
+  ],
+  "limitations": [
+    "Source qualification numerical claims inherited, not independently inspected private API/canonical prices",
+    "Retained CDD logical key namespace does not identify actual official API evaluation provenance",
+    "Plan/exposure initial V1 snapshot paragraphs superseded by V1.1 source amendment",
+    "2026-05-21 discrepancy unresolved; no supplier equivalence claim",
+    "QA observed2026prices but no model scores; cross-agent exposure unknown, retrospective descriptive only",
+    "Public API local noncommercial basis not commercial/redistribution/signed approval"
+  ],
+  "notes_sha256": "bded167cb7318af3385a8273942c48f0d5ffb5b919975f0522a2fb5d94bd0912"
+}

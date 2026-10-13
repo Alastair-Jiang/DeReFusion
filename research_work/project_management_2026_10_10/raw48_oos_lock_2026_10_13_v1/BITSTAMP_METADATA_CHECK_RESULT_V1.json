@@ -1,0 +1,13 @@
+{
+  "result": "COMPLETE",
+  "http_status": 200,
+  "url": "https://www.bitstamp.net/api/v2/ohlc/ethusd/?step=86400&limit=333&start=1763078400&end=1791849599&exclude_current_candle=true",
+  "sha256": "ae798cd65620dda79552aa0bf83949981cc73f29e2a00962e4b85cd7d1d47f79",
+  "bytes": 43531,
+  "candles_received": 333,
+  "required_dates": 333,
+  "missing_dates": [],
+  "contains_original_missing_date": true,
+  "OHLC_numeric_parsing": false,
+  "no_substitution_or_scoring": true
+}

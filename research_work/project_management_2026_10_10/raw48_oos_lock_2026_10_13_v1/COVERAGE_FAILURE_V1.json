@@ -1,0 +1,11 @@
+{
+  "source": "data\\shrink-cdd-20261013-v1\\ETHUSD.raw.csv",
+  "scope": "Date metadata only, no numeric OHLC parsing in this check",
+  "required_context_start": "2025-11-14",
+  "evaluation_stop": "2026-10-13",
+  "missing_dates": [
+    "2026-05-22"
+  ],
+  "present_evaluation_dates": 284,
+  "prediction_scoring": "NOT_RUN"
+}

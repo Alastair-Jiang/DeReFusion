@@ -1,0 +1,7 @@
+{
+  "result": "FAIL",
+  "reason": "Traceback (most recent call last):\n  File \"C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\project_management_2026_10_10\\raw48_oos_lock_2026_10_13_v1\\run_oos.py\", line 141, in <module>\n    try:main()\n        ^^^^^^\n  File \"C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\project_management_2026_10_10\\raw48_oos_lock_2026_10_13_v1\\run_oos.py\", line 139, in main\n    {'preflight':preflight,'release':release,'evaluate':evaluate}[a.phase]()\n  File \"C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\project_management_2026_10_10\\raw48_oos_lock_2026_10_13_v1\\run_oos.py\", line 112, in evaluate\n    dd=dates('2025-11-14','2026-10-13');raw=np.stack([records[d] for d in dd]);normalized=(raw-mean)/std\n                                                     ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\project_management_2026_10_10\\raw48_oos_lock_2026_10_13_v1\\run_oos.py\", line 112, in <listcomp>\n    dd=dates('2025-11-14','2026-10-13');raw=np.stack([records[d] for d in dd]);normalized=(raw-mean)/std\n                                                      ~~~~~~~^^^\nKeyError: '2026-05-22'\n",
+  "type": "RuntimeError",
+  "seconds": 2.25,
+  "controller_sha256": "c5816b8e216e06254f4d09b5f0301983d94a6b2701fd421363c3f8dfa00ff9b8"
+}

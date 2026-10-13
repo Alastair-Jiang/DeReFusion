@@ -1,0 +1,9 @@
+{
+  "decision": "APPROVED_LOCAL_SOURCE_QUALIFICATION_ONLY",
+  "reason": "Observed calendar defect, no model scores exist",
+  "source": "Official unauthenticated Bitstamp daily OHLC API for entire 333-day context/evaluation span",
+  "scope": "Numeric OHLC positivity/envelope/calendar and overlap comparison, canonical separate source with original training prefix preserved",
+  "no_interpolation": true,
+  "no_model_or_roster_change": true,
+  "external_basis": "Public API research access accepted as limited operational basis; not a commercial/redistribution license; no external signed approval asserted"
+}

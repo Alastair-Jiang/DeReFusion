@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "old_CDD_sha256": "cfe6b3cecb44026292a8ab5499a5590c36750936e2c625196400a12ca7ec17ca",
+  "API_sha256": "ae798cd65620dda79552aa0bf83949981cc73f29e2a00962e4b85cd7d1d47f79",
+  "canonical_sha256": "7f7279cab78d5c2573680690586df115a5ec0ce3da6397b075e5e63ef6756bb5",
+  "canonical_path": "data\\raw48-oos-20261013-v1-1\\QUALIFIED_INPUT.csv",
+  "source_sections": {
+    "scaler_and_training": "Original CDD Bitstamp 2018-2022, unchanged numerical values",
+    "context_and_evaluation": "All 333 days from official Bitstamp API, no single-row patch"
+  },
+  "canonical_rows": 2159,
+  "overlapping_daily_candles": 332,
+  "exact_decimal_OHLC_mismatches": [
+    "2026-05-21"
+  ],
+  "missing_dates": [],
+  "old_attempt_evaluation": "Failed calendar QA before inference; no scores",
+  "new_models_or_fits": 0
+}

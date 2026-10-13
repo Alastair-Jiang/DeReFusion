@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "checks": [
+    {
+      "seed": 17,
+      "restored_validation_keys": 365,
+      "state_hash": "a142764da8b1461232aec300ab7c262ce3535388b9dbcf308e5383ec3c1b7d0b"
+    },
+    {
+      "seed": 29,
+      "restored_validation_keys": 365,
+      "state_hash": "4d01bbefd46cc6dd20165050ebb061750867578e822874c6ec0b018a54a363e2"
+    },
+    {
+      "seed": 43,
+      "restored_validation_keys": 365,
+      "state_hash": "3e7fb2dbe56fc8d2d867ee773ddc6da0b62e51dfa639a4d3d2d2816b9df7e430"
+    }
+  ],
+  "protocol_sha256": "1ed8bf689f771a6b3ac47aa5eba8ac7a037ef90961669742ad0bf3c6e09a508f",
+  "scope": "Frozen raw48 validation recovery and 65-key tail; no 2026 OHLC parsing"
+}

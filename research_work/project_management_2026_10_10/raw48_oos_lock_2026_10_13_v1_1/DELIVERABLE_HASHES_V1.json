@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "created_date": "2026-10-13",
+  "execution_head": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "protocol_id": "DRF-RAW48-LOCKED-TEMPORAL-EVALUATION-20261013-V1.1",
+  "protocol_sha256": "1ed8bf689f771a6b3ac47aa5eba8ac7a037ef90961669742ad0bf3c6e09a508f",
+  "release_sha256": "e688db10e1dfa914d0b32eb6364565fc2c6a18e63bc64c1506be44bbd4c1adc5",
+  "outputs": {
+    "DECISION_V1.md": "3593bac3ced3492556f9c20535943646fd89f69e9b974149162b205b27ec159c",
+    "RESULT_REPORT_V1.md": "69bc9eb6942070507ebc243fc91ee1340c94297bb916cfe19fa8834cb9eea786",
+    "RESULTS_V1.json": "cee418e6d9a5798be40ee84e719bedd9eb0a2aa4f2dff02d2ee407bf7a984c87",
+    "INTERNAL_AUDIT_V1.json": "4a6fe3b99ce1fd3496973d252c19092748213d03877b3b61ce5a63b3627b2362",
+    "RESULT_REVIEW_V1.md": "645bd98ddefda73b0b04d12f2e503986542194b5d1c4344b5ca3c574bee7e431",
+    "RESULT_REVIEW_V1.json": "c76710e96891eadaf0414b6ad755edb06e42e12dbf54fb35ba78e289f100a9c9",
+    "REPORT_CORRECTION_V1.md": "f5909ae4be7c46e139cd5653a3c9d9074f9e5295d8f8135d4f057a170786a2f8",
+    "PROTOCOL_V1.json": "1ed8bf689f771a6b3ac47aa5eba8ac7a037ef90961669742ad0bf3c6e09a508f",
+    "EXECUTION_RELEASE_V1.json": "e688db10e1dfa914d0b32eb6364565fc2c6a18e63bc64c1506be44bbd4c1adc5",
+    "PREFLIGHT_V1.json": "02c4b6054f3fd3e30dbeaa3d5f72289bc8a76de7a4b6da2f9754ec6b844001ed",
+    "ENGINEERING_REVIEW_V1.json": "893f6c6276742c8af994eecfe9d09fa5cbfe4fb12ef00a736bf705d4f31d03b3",
+    "DISPATCH_RECEIPT_V1.json": "9b6827685813454a6f4f1d6bf961d00a2d349d8faba5df5f66c39776dc3bc884",
+    "EXPOSURE_REGISTER_V1.md": "d764c208a57b32e44dbb41da6c27a24da6ad0d476765c98c3a1353efd7537042",
+    "PLAN_V1.md": "b51cd66f8014169dd75f819a8b02663d690286477f3e98a25a80ba5933bf354d",
+    "REVIEW_NOTES_V1.md": "bded167cb7318af3385a8273942c48f0d5ffb5b919975f0522a2fb5d94bd0912",
+    "run_oos.py": "82a25c6e73ece90190c3e3782904e0f93b6b69871c43216d1fa54bb3659e2a6e",
+    "execute_bound.py": "c5816b8e216e06254f4d09b5f0301983d94a6b2701fd421363c3f8dfa00ff9b8",
+    "audit_and_report.py": "236e4a9d85384e0a2319d07a1ae26561ffcf430030fe2b0a0b89a52c701019cc"
+  },
+  "private_inputs_and_prediction_payload_excluded_from_publication": true,
+  "source_qualification_records_in_parent_v1": {
+    "amendment": "../raw48_oos_lock_2026_10_13_v1/SOURCE_QUALIFICATION_AMENDMENT_V1_1.json",
+    "result": "../raw48_oos_lock_2026_10_13_v1/SOURCE_QUALIFICATION_RESULT_V1_1.json",
+    "source_recheck_release": "../raw48_oos_lock_2026_10_13_v1/SOURCE_RECHECK_RELEASE_V1.json",
+    "source_recheck_result": "../raw48_oos_lock_2026_10_13_v1/SOURCE_RECHECK_RESULT_V1.json"
+  },
+  "manifest_excludes_own_hash": true
+}

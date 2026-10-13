@@ -1,0 +1,132 @@
+{
+  "generated_at_local": "2026-10-13T15:1x+08:00",
+  "repository": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion",
+  "branch": "docs/project-status-catalog-2026-10-10",
+  "head_checked": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "handoff_head": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "head_drift": false,
+  "note": "SHA-256 computed read-only with Get-FileHash (SHA256). Paper full text is recorded by path+hash only; not copied into the repository. No credentials, payment, paywall bypass, or author contact was used. All listed digests were recomputed read-only via Get-FileHash (SHA256) at the checked HEAD/worktree.",
+  "external_identity_sources": [
+    {
+      "kind": "authors_official_code_declared_in_paper",
+      "url": "https://github.com/twcch/DeReFusion",
+      "http_status": 200,
+      "fetched_at_local": "2026-10-13",
+      "scope": "landing page only (identity); not cloned, not compared",
+      "identity_evidence": "paper Data availability (fulltext L15190-15198) names this URL; landing page self-describes as Decomposition-Residual Fusion forecaster built on thuml/Time-Series-Library"
+    },
+    {
+      "kind": "publisher_record",
+      "url": "https://www.sciencedirect.com/science/article/pii/S156849462601700X",
+      "http_status": "not_attempted_this_round",
+      "note": "project records report HTTP 403 on 2026-10-06; not bypassed"
+    }
+  ],
+  "items": [
+    {
+      "role": "paper_pdf",
+      "path": "C:\\Users\\26843\\Desktop\\project\\02_papers\\DeReFusion_ASOC_2026.pdf",
+      "description": "Elsevier ASOC 203 (2026) 116252 全文 PDF（本机既有，未复制入库）",
+      "read_scope": "full_structure + targeted sections",
+      "sha256": "69b1dfcb6f4566917037ff50d5b28c8a32af385db40857e244bfc7345340cba7"
+    },
+    {
+      "role": "paper_fulltext_extracted",
+      "path": "C:\\Users\\26843\\Desktop\\project\\02_papers\\txt\\DeReFusion_ASOC_2026_fulltext.md",
+      "description": "本地抽取的全文文本（39 页标记）",
+      "read_scope": "L1-40, L95-134, L300-374, L430-618, L618-737, L738-837, L1020-1060, L1555-1594, L15185-15202",
+      "sha256": "023d134450be5c62b140dc6c85c2d5fd83f0bab9fc9ab0693e3581d5120309f5"
+    },
+    {
+      "role": "repo_readme",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\README.md",
+      "description": "项目 README（脏工作区，含残差语义更正）",
+      "read_scope": "L13, L23, L53, L54, L62, L70, L120",
+      "sha256": "79a3aa9bd8c4cf947b068858054ffafce8f1fc77df58b4ca20ffc7cd59c98a07"
+    },
+    {
+      "role": "crosswalk_v1",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\project_management_2026_10_10\\compression_diagnostic_2026_10_13_v2\\PAPER_FIDELITY_CROSSWALK_V1.md",
+      "description": "本轮任务指定先读的对账（HEAD 2925c344）",
+      "read_scope": "full",
+      "sha256": "cf5f1b1aa0271f67fc5aadebc29bea8cc1544335f59804e62f50060c62af7e6f"
+    },
+    {
+      "role": "paper_source_addendum",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\forward_increment\\qwen03_models\\PAPER_SOURCE_ADDENDUM_2026-10-06.md",
+      "description": "项目论文来源记录（摘要级）",
+      "read_scope": "full",
+      "sha256": "88692c2946c89c02803a3816176374ce1557f2c457e76c791c90dfc8507982c0"
+    },
+    {
+      "role": "paper_source_addendum_correction",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\forward_increment\\qwen03_models\\PAPER_SOURCE_ADDENDUM_CORRECTION_2026-10-07.md",
+      "description": "项目论文来源更正（摘要级）",
+      "read_scope": "full",
+      "sha256": "016d364a4f7dfd673f955f2ea229c3c15697af37e71eee75cb141918fe0ed1d7"
+    },
+    {
+      "role": "paper_vs_repo_stage1",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\forward_increment\\qwen03_models\\PAPER_VS_REPO_FIDELITY_STAGE1_2026-10-06.md",
+      "description": "既有阶段1保真审计",
+      "read_scope": "metadata + hash only (not re-read in depth)",
+      "sha256": "329714f25cb3033c15717808639df3f4787efdc8793ab47320fb858e2cdf6cd3"
+    },
+    {
+      "role": "model_pin_derefusion",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\models\\derefusion\\bundle_v3_pin\\DeReFusion.py",
+      "description": "归档模型前向/融合（pin）",
+      "read_scope": "full",
+      "sha256": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091"
+    },
+    {
+      "role": "model_pin_components",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\models\\derefusion\\bundle_v3_pin\\derefusion_components.py",
+      "description": "DLinear/Residual 组件（pin）",
+      "read_scope": "full",
+      "sha256": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33"
+    },
+    {
+      "role": "model_pin_revin",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\models\\derefusion\\bundle_v3_pin\\RevIN.py",
+      "description": "RevIN（pin）",
+      "read_scope": "hash only",
+      "sha256": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc"
+    },
+    {
+      "role": "bundle_v3_source_derefusion",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\forward_increment\\lead_design_2026_10_07\\adapter_candidate_2026_10_07\\integration_candidate_v1\\model_bundle_v3\\source\\models\\derefusion\\DeReFusion.py",
+      "description": "bundle_v3 源（与 pin 同哈希）",
+      "read_scope": "full",
+      "sha256": "468a861d4e616a414ec603df87128ebe55bafe5f296502b54aef8aed23e5b091"
+    },
+    {
+      "role": "bundle_v3_source_components",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\forward_increment\\lead_design_2026_10_07\\adapter_candidate_2026_10_07\\integration_candidate_v1\\model_bundle_v3\\source\\layers\\derefusion_components.py",
+      "description": "bundle_v3 源组件",
+      "read_scope": "full",
+      "sha256": "91ae3bce16f8d758be71987672144fe400dd5f6a65352bf040c90c678ccd0a33"
+    },
+    {
+      "role": "bundle_v3_source_revin",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\forward_increment\\lead_design_2026_10_07\\adapter_candidate_2026_10_07\\integration_candidate_v1\\model_bundle_v3\\source\\layers\\RevIN.py",
+      "description": "bundle_v3 源 RevIN",
+      "read_scope": "hash only",
+      "sha256": "a7dc201d7ce2604bbdc19262d7c9ba8073a665e70f7cb734543d640c63bcf5cc"
+    },
+    {
+      "role": "v2_diagnostic_runner",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\project_management_2026_10_10\\compression_diagnostic_2026_10_13_v2\\run_diagnostic.py",
+      "description": "V2 诊断运行器",
+      "read_scope": "grep: optimizer/model wiring",
+      "sha256": "c29e6ed8ea6707c1fb5cb8fa670f60d380d77eb308406bae3af2c39f3cf01c79"
+    },
+    {
+      "role": "v2_protocol",
+      "path": "C:\\Users\\26843\\Documents\\ChatGPT\\redefusion\\research_work\\project_management_2026_10_10\\compression_diagnostic_2026_10_13_v2\\PROTOCOL_V1.json",
+      "description": "V2 协议（容量/优化器/种子/预算）",
+      "read_scope": "full",
+      "sha256": "b7c7a9c9b4084b16b2f160e0e0cdf3cc6a7cd9c148ba42c8cd9b2cf38188e9a3"
+    }
+  ]
+}

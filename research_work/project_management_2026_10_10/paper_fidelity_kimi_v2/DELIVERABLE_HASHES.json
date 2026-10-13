@@ -1,0 +1,23 @@
+{
+  "generated_at_local": "2026-10-13T15:2x+08:00",
+  "directory": "research_work/project_management_2026_10_10/paper_fidelity_kimi_v2",
+  "head_checked": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "note": "Self-hash of DELIVERABLE_HASHES.json is intentionally excluded (a file cannot contain its own digest). Digests computed after the files were written and not modified afterwards. No paper full text was copied into this repository.",
+  "deliverables": [
+    {
+      "file": "SOURCE_REPORT.md",
+      "sha256": "8a24823f0a53df10e6279c9d0edbe43dfe2fcf8c49e28d4a0a3b7979a41515ef",
+      "bytes": 6617
+    },
+    {
+      "file": "PAPER_VS_REPO_TABLE.md",
+      "sha256": "7095c571a8ee0fb1bcd235ef041a76779a16bed73b4f483ade06d57461168e85",
+      "bytes": 8825
+    },
+    {
+      "file": "INPUT_HASHES.json",
+      "sha256": "945d2df249b1ede7b0e601790c64c63bbf8ce75de171a23b71ad4d657edd819d",
+      "bytes": 7295
+    }
+  ]
+}

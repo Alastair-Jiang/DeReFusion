@@ -1,0 +1,34 @@
+{
+  "result": "PASS",
+  "scope": "Separate implementation by responsible agent, not external independent array acceptance",
+  "code_sha256": "236e4a9d85384e0a2319d07a1ae26561ffcf430030fe2b0a0b89a52c701019cc",
+  "results_sha256": "cee418e6d9a5798be40ee84e719bedd9eb0a2aa4f2dff02d2ee407bf7a984c87",
+  "payload_sha256": "a0816e79065f8b6db41f6662df280a6bd668b78afc2108d112002343ba26c844",
+  "restored_F_models": 3,
+  "restored_F_prediction_values": 855,
+  "source_rows_checked": 2159,
+  "input_windows_reconstructed": 285,
+  "subperiod_keys": [
+    181,
+    104
+  ],
+  "new_fits": 0,
+  "checks": [
+    {
+      "seed": 17,
+      "keys": 285,
+      "result": "PASS"
+    },
+    {
+      "seed": 29,
+      "keys": 285,
+      "result": "PASS"
+    },
+    {
+      "seed": 43,
+      "keys": 285,
+      "result": "PASS"
+    }
+  ],
+  "zero_2024_2025_role_packages": true
+}

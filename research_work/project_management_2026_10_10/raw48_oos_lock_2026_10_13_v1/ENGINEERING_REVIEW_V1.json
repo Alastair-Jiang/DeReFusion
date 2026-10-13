@@ -1,0 +1,25 @@
+{
+  "result": "PASS",
+  "code_sha256": "4b3ff68080e3777aa0c29f08be978889422dd70b668c5b13296f0439ce01ab9d",
+  "protocol_sha256": "67b4001eeda45d80ab71977bb5f67d163deec56ca9d33afbd1051adcca18e89b",
+  "controller_sha256": "c5816b8e216e06254f4d09b5f0301983d94a6b2701fd421363c3f8dfa00ff9b8",
+  "head": "db308d2b3bdf4fc14339ea4652974f4e6765e36c",
+  "mode": "Independent static review only; no 2026 values, private array/checkpoint access, evaluation or fitting",
+  "findings": [
+    "P0=0 P1=0, conditional formal entry must use reviewed execute_bound.py",
+    "285 expected keys independently date-generated match, subperiods 181/104",
+    "Latest 2026-10-12 target complete by current UTC2026-10-13 06:41:48",
+    "48-context strictly prior daily bars, old train scaler reconstruction authenticates all inherited training arrays",
+    "Fixed three F states and fixed legacy L, exact raw64 target and persistence, no ensemble/refit/selection",
+    "HEAD/environment/code/model/raw-file digest checks fail closed",
+    "300 second subprocess timeout and bounded 32MiB private writes, no overwrite or automatic retry"
+  ],
+  "limitations": [
+    "Actual source QA and forward predictions not run by this reviewer",
+    "Retrospective line-specific exposure evidence, not global unexposed confirmation",
+    "Supplier completed-bar assumption, historical ingestion delay/revisions not measured",
+    "Formal summary superiority/noninferiority and market inference remain unapproved/TBD",
+    "Direct evaluate entry lacks timeout; mandatory reviewed controller enforces it"
+  ],
+  "notes_sha256": "719eb318beae2e5116bee0c5b8f80edbe11afa2cb580558f905cdef7d9b2329f"
+}

@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "seconds": 2.2660000000032596,
+  "limit_seconds": 300,
+  "controller_sha256": "c5816b8e216e06254f4d09b5f0301983d94a6b2701fd421363c3f8dfa00ff9b8"
+}

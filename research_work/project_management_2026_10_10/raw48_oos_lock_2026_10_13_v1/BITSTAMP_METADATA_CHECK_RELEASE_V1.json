@@ -1,0 +1,15 @@
+{
+  "decision": "APPROVED_BOUNDED_PUBLIC_SOURCE_METADATA_CHECK",
+  "decision_owner": "Codex under standing project delegation",
+  "scope": "One unauthenticated official ETHUSD daily OHLC download; inspect timestamp coverage only, no fitting/scoring or automatic substitution",
+  "url": "https://www.bitstamp.net/api/v2/ohlc/ethusd/?step=86400&limit=333&start=1763078400&end=1791849599&exclude_current_candle=true",
+  "external_basis": "Official Bitstamp Public API documents OHLC and public access; commercial data license not granted; limited local non-commercial source verification only",
+  "official_documentation": "https://www.bitstamp.net/api/",
+  "limits": {
+    "requests": 1,
+    "bytes": 262144,
+    "timeout_seconds": 45,
+    "paid_cost": 0
+  },
+  "record_time": "2026-10-13T06:49:38.080318+00:00"
+}

@@ -1,0 +1,13 @@
+{
+  "decision": "APPROVED",
+  "protocol_sha256": "1ed8bf689f771a6b3ac47aa5eba8ac7a037ef90961669742ad0bf3c6e09a508f",
+  "gates": {
+    "PREFLIGHT_V1.json": "02c4b6054f3fd3e30dbeaa3d5f72289bc8a76de7a4b6da2f9754ec6b844001ed",
+    "ENGINEERING_REVIEW_V1.json": "893f6c6276742c8af994eecfe9d09fa5cbfe4fb12ef00a736bf705d4f31d03b3",
+    "EXPOSURE_REGISTER_V1.md": "d764c208a57b32e44dbb41da6c27a24da6ad0d476765c98c3a1353efd7537042"
+  },
+  "decision_owner": "Codex project delegate",
+  "authorization_basis": "Standing project delegation and latest instruction to proceed with high-quality-model next step",
+  "scope": "Existing ETH snapshot: training-scaler reconstruction, 2026 daily OHLC quality checks and one fixed raw48 F/L/P evaluation; zero fits, no candidate revision",
+  "timestamp_utc": "2026-10-13T07:02:08.842076+00:00"
+}
