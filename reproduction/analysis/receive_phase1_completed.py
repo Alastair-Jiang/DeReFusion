@@ -261,8 +261,18 @@ class Receiver:
         with sftp.open(remote, "rb") as source, local.open("xb") as target:
             # Bounded pipelining avoids one network round-trip per 32 KiB read.
             # Byte order and the full size/hash checks below remain unchanged.
-            if callable(getattr(source, "prefetch", None)):
-                source.prefetch(file_size=info.st_size, max_concurrent_requests=32)
+            # paramiko releases differ in the keyword set they accept, and pinning
+            # the transfer environment is an operator step, so degrade instead of
+            # turning an unsupported keyword into a failed receive pass.
+            prefetch = getattr(source, "prefetch", None)
+            if callable(prefetch):
+                try:
+                    prefetch(file_size=info.st_size, max_concurrent_requests=32)
+                except TypeError:
+                    try:
+                        prefetch(file_size=info.st_size)
+                    except TypeError:
+                        pass
             while True:
                 if self.deadline is not None and time.monotonic() >= self.deadline:
                     raise TimeoutError("authorized receiver duration expired; partial files retained")

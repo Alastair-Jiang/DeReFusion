@@ -35,6 +35,7 @@ class ReleaseGateV2Test(unittest.TestCase):
         self.historical_path.parent.mkdir(parents=True)
         self.runner = self.attempt / gate.RUNNER_NAME
         self.runner.write_text("# synthetic runner\n", encoding="utf-8")
+        self.runner_sha = gate.sha(self.runner)
         self.protocol_path = self.attempt / gate.PROTOCOL_NAME
         self.historical = {"result": "PASS", "arms": {
             arm: {role: {"sha256": (arm + role).encode().hex()[:64].ljust(64, "0"),
@@ -50,6 +51,7 @@ class ReleaseGateV2Test(unittest.TestCase):
             "replay": {
                 "gate": gate.GATE_VERSION,
                 "gate_implementation_sha256": gate.sha(GATE_PATH),
+                "runner_sha256": self.runner_sha,
                 "code_sha256": {
                     "pinned/engine.py": gate.sha(self.engine),
                     gate.HISTORICAL_PREPARATION: gate.sha(self.historical_path),
@@ -58,7 +60,6 @@ class ReleaseGateV2Test(unittest.TestCase):
         }
         self.write(self.protocol_path, self.protocol)
         self.protocol_sha = gate.sha(self.protocol_path)
-        self.runner_sha = gate.sha(self.runner)
         self.preparation = {"result": "PASS", "protocol_sha256": self.protocol_sha,
                             "runner_sha256": self.runner_sha,
                             "arms": json.loads(json.dumps(self.historical["arms"]))}
@@ -92,17 +93,26 @@ class ReleaseGateV2Test(unittest.TestCase):
             attempt=self.attempt, root=self.root, current_head=current_head,
             gate_path=GATE_PATH)
 
-    def cli(self, *extra, optimized=False, expect=None):
+    def cli(self, *extra, optimized=False, expect=None, fixture=True):
         command = [sys.executable]
         if optimized:
             command.append("-O")
         command += ["-m", "reproduction.analysis.compression_replay_release_v2",
                     "--attempt", str(self.attempt), "--root", str(self.root),
-                    "--current-head", HEAD, *extra]
+                    "--current-head", HEAD]
+        if fixture:
+            command.append("--allow-non-git-fixture")
+        command += list(extra)
         result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
         if expect is not None:
             self.assertEqual(result.returncode, expect, result.stdout + result.stderr)
         return result
+
+    def test_module_source_contains_no_assert_statement(self):
+        source = Path(gate.__file__).read_text(encoding="utf-8")
+        offending = [line for line in source.splitlines()
+                     if line.lstrip().startswith("assert ")]
+        self.assertEqual(offending, [], "the release entry must not gate on assert")
 
     # --- positive paths -------------------------------------------------
 
@@ -289,6 +299,92 @@ class ReleaseGateV2Test(unittest.TestCase):
         self.write_all()
         result = self.cli(optimized=True, expect=2)
         self.assertIn("raw96/validation/keys_sha256", result.stdout)
+
+    # --- attempt confinement and record identity -------------------------
+
+    def test_attempt_must_live_in_the_replay_area(self):
+        stray = self.root / "elsewhere/test"
+        stray.mkdir(parents=True)
+        with self.assertRaisesRegex(gate.GateError, "must live under"):
+            gate.check_release_prerequisites(
+                attempt=stray, root=self.root, current_head=HEAD,
+                gate_path=GATE_PATH)
+
+    def test_attempt_name_must_be_safe(self):
+        unsafe = self.root / gate.REPLAY_AREA / "bad name"
+        unsafe.mkdir(parents=True)
+        with self.assertRaisesRegex(gate.GateError, "name must be letters"):
+            gate.check_release_prerequisites(
+                attempt=unsafe, root=self.root, current_head=HEAD,
+                gate_path=GATE_PATH)
+
+    def test_record_symlink_is_rejected(self):
+        target = Path(self.temp.name) / "authorization-elsewhere.json"
+        self.write(target, self.authorization)
+        path = self.attempt / gate.AUTHORIZATION_NAME
+        path.unlink()
+        try:
+            path.symlink_to(target)
+        except (OSError, NotImplementedError):
+            self.skipTest("symlink creation is not permitted for this account")
+        with self.assertRaisesRegex(gate.GateError, "must not be a symlink"):
+            self.check()
+
+    def test_runner_must_be_pinned_by_protocol(self):
+        del self.protocol["replay"]["runner_sha256"]
+        self.rewrite_protocol()
+        with self.assertRaisesRegex(gate.GateError, "does not bind the runner"):
+            self.check()
+
+    def test_missing_synthetic_check_fails_closed(self):
+        (self.attempt / gate.SYNTHETIC_NAME).unlink()
+        with self.assertRaisesRegex(gate.GateError, "synthetic check missing"):
+            self.check()
+
+    def test_missing_preparation_fails_closed(self):
+        (self.attempt / gate.PREPARATION_NAME).unlink()
+        with self.assertRaisesRegex(gate.GateError, "preparation missing"):
+            self.check()
+
+    def test_synthetic_protocol_drift_fails_closed(self):
+        self.synthetic["protocol_sha256"] = "0" * 64
+        self.write_all()
+        with self.assertRaisesRegex(gate.GateError, "synthetic protocol binding"):
+            self.check()
+
+    def test_boolean_pin_value_is_rejected_on_either_side(self):
+        self.historical["arms"]["raw96"]["train"]["keys_count"] = True
+        self.write(self.historical_path, self.historical)
+        self.protocol["replay"]["code_sha256"][gate.HISTORICAL_PREPARATION] = gate.sha(self.historical_path)
+        self.rewrite_protocol()
+        with self.assertRaisesRegex(gate.GateError, "wrong type for raw96/train/keys_count"):
+            self.check()
+
+    def test_nested_attempt_directory_is_rejected(self):
+        nested = self.attempt / "child"
+        nested.mkdir()
+        with self.assertRaisesRegex(gate.GateError, "direct child"):
+            gate.check_release_prerequisites(
+                attempt=nested, root=self.root, current_head=HEAD,
+                gate_path=GATE_PATH)
+
+    def test_absent_pin_field_fails_closed(self):
+        del self.preparation["arms"]["raw96"]["train"]["keys_count"]
+        self.write_all()
+        with self.assertRaisesRegex(gate.GateError, "pin absent for raw96/train/keys_count"):
+            self.check()
+
+    def test_non_git_root_requires_the_fixture_flag(self):
+        result = self.cli(fixture=False, expect=2)
+        self.assertIn("non-git", result.stdout)
+        self.assertIn('"result": "BLOCKED"', result.stdout)
+
+    def test_write_does_not_emit_on_protocol_failure(self):
+        self.protocol["replay"]["gate"] = "compression-replay-release/v0"
+        self.rewrite_protocol()
+        result = self.cli("--write", expect=2)
+        self.assertIn("does not declare", result.stdout)
+        self.assertFalse((self.attempt / gate.RELEASE_NAME).exists())
 
     # --- head resolution ------------------------------------------------
 

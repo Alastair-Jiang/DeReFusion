@@ -1,10 +1,26 @@
 """Fail-closed release entry for a bound compression replay attempt (v2).
 
-This module replaces the historical release() paths in compression_replay.py
-and compression_pilot_2026_10_13/run_pilot_v1.py, which gate the same
-prerequisites with assert statements that disappear under "python -O".
-Those historical files are frozen and are not modified here; this entry is a
-new, separately versioned implementation.
+This module is the reviewed replacement for the historical release() paths in
+compression_replay.py and compression_pilot_2026_10_13/run_pilot_v1.py, which
+gate the same prerequisites with assert statements that disappear under
+"python -O". Those historical files are frozen and are not modified here.
+
+IMPORTANT: those historical files, and the historical PREPARATION_V1.json this
+entry pins, are NOT part of the main-baseline tree. They exist only on the
+docs/project-status-catalog-2026-10-10 candidate. On a tree that does not carry
+them the entry cannot pass: an existing historical protocol has no replay
+object and fails at "protocol has no replay object", while a new-schema
+protocol that pins the missing path fails at "protocol code entry is missing
+on disk". It therefore cannot be exercised against real historical records on
+the main baseline. That is intended, not a defect. Note also that
+replay.runner_sha256 is mandatory, so no pre-existing protocol satisfies this
+entry.
+
+Revision note (after external review): the runner is now pinned by the
+protocol, the attempt directory is confined to the replay area, a non-git
+checkout requires an explicit fixture flag, every attempt record must be a
+regular file, and pin fields must be present on both sides. The binding above
+this module is its SHA-256, not the label.
 
 Design rules:
 
@@ -27,7 +43,10 @@ authorization.decision_owner is the only anchor above this gate; the gate
 verifies consistency, not the legitimacy of that decision.
 
 A future execution protocol binds this file by SHA-256 and declares
-replay.gate == GATE_VERSION plus replay.gate_implementation_sha256.
+replay.gate == GATE_VERSION, replay.gate_implementation_sha256 and
+replay.runner_sha256. Because the runner must be written before the protocol,
+a future attempt generator must emit the wrapper first, hash it, and only then
+write the protocol.
 """
 from __future__ import annotations
 
@@ -51,6 +70,9 @@ SYNTHETIC_NAME = "SYNTHETIC_CHECK_V1.json"
 PREPARATION_NAME = "PREPARATION_V1.json"
 RELEASE_NAME = "EXECUTION_RELEASE_V1.json"
 RUNNER_NAME = "run_pilot_v1.py"
+
+REPLAY_AREA = "data/compression-replay-attempts"
+ATTEMPT_NAME = re.compile(r"[A-Za-z0-9][A-Za-z0-9_-]{0,63}")
 
 HISTORICAL_PREPARATION = (
     "research_work/project_management_2026_10_10/"
@@ -128,17 +150,21 @@ def check_protocol_binding(protocol: dict, gate_path: Path, root: Path) -> None:
                 f"protocol code entry drifted: {relative}")
 
 
-def load_historical_preparation(protocol: dict, root: Path) -> dict:
+def load_historical_preparation(protocol: dict, root: Path) -> tuple[dict, str]:
+    """Load the pinned historical preparation and re-hash it at use time."""
     codes = protocol["replay"]["code_sha256"]
     require(HISTORICAL_PREPARATION in codes,
             "protocol does not pin the historical preparation")
     path = resolve_within(root, HISTORICAL_PREPARATION, "historical preparation")
     historical = load_object(path, "historical preparation")
+    observed = sha(path)
+    require(observed == codes[HISTORICAL_PREPARATION],
+            "historical preparation changed after the protocol pin was checked")
     require(historical.get("result") == "PASS",
             "historical preparation is not a PASS record")
     require(isinstance(historical.get("arms"), dict),
             "historical preparation has no arm records")
-    return historical
+    return historical, observed
 
 
 def check_preparation(preparation: dict, protocol_sha: str, runner_sha: str,
@@ -163,11 +189,26 @@ def check_preparation(preparation: dict, protocol_sha: str, runner_sha: str,
             require(isinstance(prepared_role, dict) and isinstance(pinned_role, dict),
                     f"preparation lacks {arm}/{role}")
             for field in PIN_FIELDS:
-                require(prepared_role.get(field) == pinned_role.get(field),
+                prepared_value = prepared_role.get(field)
+                pinned_value = pinned_role.get(field)
+                require(prepared_value is not None and pinned_value is not None,
+                        f"preparation pin absent for {arm}/{role}/{field}")
+                if field == "keys_count":
+                    require(isinstance(prepared_value, int) and isinstance(pinned_value, int)
+                            and not isinstance(prepared_value, bool)
+                            and not isinstance(pinned_value, bool),
+                            f"preparation pin has the wrong type for {arm}/{role}/{field}")
+                else:
+                    require(isinstance(prepared_value, str) and isinstance(pinned_value, str)
+                            and HEX64.fullmatch(prepared_value) is not None
+                            and HEX64.fullmatch(pinned_value) is not None,
+                            f"preparation pin has the wrong type for {arm}/{role}/{field}")
+                require(prepared_value == pinned_value,
                         f"preparation pin differs for {arm}/{role}/{field}")
 
 
-def resolve_current_head(root: Path, override: str | None) -> str:
+def resolve_current_head(root: Path, override: str | None,
+                         allow_fixture: bool = False) -> str:
     """Return the head to compare, refusing to let an override hide a git drift."""
     actual = None
     try:
@@ -176,14 +217,22 @@ def resolve_current_head(root: Path, override: str | None) -> str:
             stderr=subprocess.DEVNULL).strip()
     except (OSError, subprocess.SubprocessError):
         actual = None
+    if actual is None:
+        require(allow_fixture,
+                "cannot determine current HEAD; a non-git --root requires "
+                "--allow-non-git-fixture and is for synthetic fixtures only")
+        require(override is not None,
+                "a non-git fixture root requires --current-head")
+        return override
     if override is None:
-        require(actual is not None,
-                "cannot determine current HEAD; --current-head is only for non-git fixtures")
         return actual
-    if actual is not None:
-        require(actual == override,
-                "declared current head differs from git HEAD")
+    require(actual == override, "declared current head differs from git HEAD")
     return override
+
+
+def require_regular(path: Path, label: str) -> None:
+    require(path.is_file(), f"{label} missing: {path}")
+    require(not path.is_symlink(), f"{label} must not be a symlink: {path}")
 
 
 def check_release_prerequisites(*, attempt: Path, root: Path, current_head: str,
@@ -194,22 +243,34 @@ def check_release_prerequisites(*, attempt: Path, root: Path, current_head: str,
     require(attempt.is_dir(), f"attempt directory missing: {attempt}")
     require(attempt.is_relative_to(root),
             "attempt directory is outside the repository root")
+    require(attempt.is_relative_to(root / REPLAY_AREA),
+            f"attempt directory must live under {REPLAY_AREA}")
+    require(attempt.parent == (root / REPLAY_AREA),
+            f"attempt directory must be a direct child of {REPLAY_AREA}")
+    require(ATTEMPT_NAME.fullmatch(attempt.name) is not None,
+            "attempt directory name must be letters, digits, underscore or hyphen")
 
     protocol_path = attempt / PROTOCOL_NAME
-    protocol = load_object(protocol_path, "protocol")
     synthetic_path = attempt / SYNTHETIC_NAME
     preparation_path = attempt / PREPARATION_NAME
     authorization_path = attempt / AUTHORIZATION_NAME
     runner_path = attempt / RUNNER_NAME
+    for path, label in ((protocol_path, "protocol"),
+                        (authorization_path, "execution authorization"),
+                        (synthetic_path, "synthetic check"),
+                        (preparation_path, "preparation"),
+                        (runner_path, "runner")):
+        require_regular(path, label)
 
+    protocol = load_object(protocol_path, "protocol")
     check_protocol_binding(protocol, gate_path, root)
     require(protocol.get("head") == current_head,
             "current HEAD differs from protocol head")
-    require(runner_path.is_file(), f"runner missing: {runner_path}")
-    require(not runner_path.is_symlink(), "runner must not be a symlink")
 
     protocol_sha = sha(protocol_path)
     runner_sha = sha(runner_path)
+    require(protocol["replay"].get("runner_sha256") == runner_sha,
+            "protocol does not bind the runner")
 
     authorization = load_object(authorization_path, "execution authorization")
     require(authorization.get("decision") == "APPROVED",
@@ -224,6 +285,10 @@ def check_release_prerequisites(*, attempt: Path, root: Path, current_head: str,
         value = authorization.get(field)
         require(isinstance(value, str) and bool(value.strip()),
                 f"execution authorization has no {field}")
+    declared_owner = protocol.get("decision_owner")
+    if declared_owner is not None:
+        require(declared_owner == authorization["decision_owner"],
+                "protocol decision owner differs from the authorization")
 
     synthetic = load_object(synthetic_path, "synthetic check")
     require(synthetic.get("result") == "PASS", "synthetic check did not pass")
@@ -233,7 +298,7 @@ def check_release_prerequisites(*, attempt: Path, root: Path, current_head: str,
             "synthetic runner binding differs")
 
     preparation = load_object(preparation_path, "preparation")
-    historical = load_historical_preparation(protocol, root)
+    historical, historical_sha = load_historical_preparation(protocol, root)
     check_preparation(preparation, protocol_sha, runner_sha, historical)
 
     return {
@@ -246,8 +311,10 @@ def check_release_prerequisites(*, attempt: Path, root: Path, current_head: str,
         "authorization_sha256": sha(authorization_path),
         "synthetic_sha256": sha(synthetic_path),
         "preparation_sha256": sha(preparation_path),
-        "historical_preparation_sha256": sha(resolve_within(
-            root, HISTORICAL_PREPARATION, "historical preparation")),
+        "historical_preparation_sha256": historical_sha,
+        "decision_owner": authorization["decision_owner"],
+        "branch": protocol.get("branch"),
+        "resources": protocol.get("resources"),
         "code_sha256": dict(sorted(protocol["replay"]["code_sha256"].items())),
         "scope": REQUIRED_SCOPE,
     }
@@ -277,13 +344,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--attempt", type=Path, required=True)
     parser.add_argument("--root", type=Path)
     parser.add_argument("--current-head")
+    parser.add_argument("--allow-non-git-fixture", action="store_true",
+                        help="permit a synthetic non-git root; never use for a real release")
     parser.add_argument("--write", action="store_true",
                         help="write EXECUTION_RELEASE_V1.json after every check passes")
     args = parser.parse_args(argv)
     root = (args.root or default_root()).resolve()
     attempt = args.attempt.resolve()
     try:
-        current_head = resolve_current_head(root, args.current_head)
+        current_head = resolve_current_head(
+            root, args.current_head, allow_fixture=args.allow_non_git_fixture)
         bindings = check_release_prerequisites(
             attempt=attempt, root=root, current_head=current_head,
             gate_path=Path(__file__).resolve())

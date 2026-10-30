@@ -127,6 +127,43 @@ class CompletedReceiverTest(unittest.TestCase):
         self.assertEqual(calls, [{"file_size": len(self.files[path]), "max_concurrent_requests": 32}])
         self.assertEqual(target.read_bytes(), self.files[path])
 
+    def test_prefetch_without_the_keyword_argument_falls_back(self):
+        calls = []
+        class OlderPrefetchFile(io.BytesIO):
+            def prefetch(self, **kwargs):
+                calls.append(kwargs)
+                if "max_concurrent_requests" in kwargs:
+                    raise TypeError("unexpected keyword argument 'max_concurrent_requests'")
+        path = self.remote + "/" + self.attempt + "/checkpoint.pth"
+        with patch.object(self.sftp, "open", return_value=OlderPrefetchFile(self.files[path])):
+            target = self.root / "older-prefetch.pth"
+            self.instance.download(self.sftp, path, target, self.receipt["sha256"]["checkpoint.pth"])
+        self.assertEqual(calls, [{"file_size": len(self.files[path]), "max_concurrent_requests": 32},
+                                 {"file_size": len(self.files[path])}])
+        self.assertEqual(target.read_bytes(), self.files[path])
+
+    def test_prefetch_unsupported_entirely_does_not_fail_the_transfer(self):
+        class NoPrefetchSupport(io.BytesIO):
+            def prefetch(self, **kwargs):
+                raise TypeError("prefetch not supported")
+        path = self.remote + "/" + self.attempt + "/checkpoint.pth"
+        with patch.object(self.sftp, "open", return_value=NoPrefetchSupport(self.files[path])):
+            target = self.root / "no-prefetch.pth"
+            self.instance.download(self.sftp, path, target, self.receipt["sha256"]["checkpoint.pth"])
+        self.assertEqual(target.read_bytes(), self.files[path])
+
+    def test_prefetch_does_not_hide_a_corrupt_artifact(self):
+        class PrefetchFile(io.BytesIO):
+            def prefetch(self, **kwargs):
+                return None
+        path = self.remote + "/" + self.attempt + "/checkpoint.pth"
+        corrupt = b"not the checkpoint"
+        with patch.object(self.sftp, "open", return_value=PrefetchFile(corrupt)):
+            target = self.root / "corrupt-prefetched.pth"
+            with self.assertRaises(receiver.IntegrityError):
+                self.instance.download(self.sftp, path, target,
+                                       self.receipt["sha256"]["checkpoint.pth"])
+
     def test_hash_mismatch_quarantines_and_never_publishes(self):
         self.files[self.remote + "/" + self.attempt + "/checkpoint.pth"] = b"corrupt"
         report = self.instance.receive_pass(self.sftp)
