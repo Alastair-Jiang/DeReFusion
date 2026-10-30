@@ -138,7 +138,11 @@
 
 ## 7. 提交与推送范围
 
-见第 1 节提交表；推送范围将在推送后补记于本节。**未合并到 `main`**；177 路径候选、各既有分支与工作区、历史协议与结果均未改动或删除。
+- 分支：`codex/remediation-delivery-20261030`，基线 `87bc113`，共 6 个提交（第 1 节表 + 两处文档补记）。
+- 已推送到 `origin`，新建分支，未强制、未改写任何既有 ref。推送时本地与远端 HEAD 同为 `8dbacba1a001bb2ba6c686fee5d4504e13bd85e3`。
+- `origin/main` 推送前后均为 `87bc113d892320a343d61893b1c849ce4391dca5`，**未合并、未开 PR**。
+- 未推送：177 路径候选、`codex/remediation-20261030` 早前草稿分支、`codex/live-hardware-flow`、`draft/ns-benchmark-runner`。
+- 未删除或移动：任何工作区、分支、原始数据、checkpoint、历史协议与结果。
 
 ## 8. 留给后续 Stage 的事项
 
