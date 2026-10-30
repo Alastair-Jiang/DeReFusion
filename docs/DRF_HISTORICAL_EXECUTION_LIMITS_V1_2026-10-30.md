@@ -57,12 +57,17 @@
 `reproduction/analysis/compression_replay_release_v2.py`（`compression-replay-release/v2`）：
 
 - 全文件无 `assert`；所有先决条件失败都抛 `GateError`，CLI 以退出码 2 输出 `BLOCKED`。
-- 检查：协议对 gate 版本与本文件哈希的绑定、协议 head 与实际 HEAD、`replay.code_sha256` 的**逐项落盘校验**、authorization 的 decision/scope/head/protocol 哈希/owner/basis、runner 存在且非符号链接、synthetic 与 preparation 的 PASS 与 protocol/runner 绑定、preparation 各 arm/role 的 pin 与**被协议钉住的历史 preparation**一致。
-- 历史 preparation 不是调用方可自由指定的参数：它必须是 `replay.code_sha256` 中被钉住的固定仓库相对路径，其字节在使用前重新哈希。
+- 检查：协议对 gate 版本与本文件哈希的绑定、协议 head 与实际 HEAD、`replay.code_sha256` 的**逐项落盘校验**、**runner 由 `replay.runner_sha256` 钉住**、authorization 的 decision/scope/head/protocol 哈希/owner/basis、synthetic 与 preparation 的 PASS 与 protocol/runner 绑定、preparation 各 arm/role 的 pin 与**被协议钉住的历史 preparation**一致。
+- 历史 preparation 不是调用方可自由指定的参数：它必须是 `replay.code_sha256` 中被钉住的固定仓库相对路径；载入后再次哈希并与钉住值比较，释放记录写这个钉住值。
+- 释放目录被限制在 `data/compression-replay-attempts/<安全名称>`；协议、授权、synthetic、preparation、runner 五个文件都必须是普通文件（拒绝符号链接）。
+- 非 git 根目录必须显式传 `--allow-non-git-fixture` 并给 `--current-head`；真实使用时该分支不可达，除非有人主动开启。
+- **互操作要求：** 因为 runner 现在必须被协议钉住，未来的 attempt 生成器必须先写出 wrapper（`run_pilot_v1.py`）、再计算其哈希写入 `replay.runner_sha256`、最后才写协议；否则协议生成后无法再改而不破坏授权绑定。冻结的 `generate()` 是先写协议后写 wrapper，因此不能直接复用。
 - 只有 `--write` 且全部检查通过后才写 `EXECUTION_RELEASE_V1.json`，且不覆盖已有记录。
-- 测试覆盖正常模式、`-O` 模式、缺失/篡改授权、错误哈希、未通过 preparation 等负例（37 项，见交付报告）。
+- 测试覆盖正常模式、`-O` 模式、缺失/篡改授权、错误哈希、未通过 preparation、未钉 runner、游离目录、符号链接记录、缺失 pin 字段等负例（47 项，见交付报告）。
 
-**这个入口不能做什么：** 它不修改、也不保护上述历史入口；历史入口在 `-O` 下仍然不安全。它不能让一份伪造的协议变得可信——协议与命名其哈希的授权都是仓库文件，最终锚点是 `decision_owner` 的人工决定。它只验证一致性，不验证该决定是否正当。
+**历史文件不在 main 基线内：** 本入口要替换的 `compression_replay.py`、`run_pilot_v1.py` 及其 `PREPARATION_V1.json` 只存在于 `docs/project-status-catalog-2026-10-10` 候选，不在 `main` 基线上。因此在 main 基线的树上调用本入口无法通过：已有历史协议没有 `replay` 对象，会停在"protocol has no replay object"；按新 schema 写、但钉了缺失路径的协议会停在"protocol code entry is missing on disk"。这是预期行为，不是缺陷；同时也意味着本轮**无法**在 main 基线上对真实历史记录做端到端演练，只能用合成 fixture 验证门禁逻辑。另外 `replay.runner_sha256` 现在是必填，任何既有协议都不满足本入口。
+
+**这个入口不能做什么：** 它不修改、也不保护上述历史入口；历史入口在 `-O` 下仍然不安全。它不能让一份伪造的协议变得可信——协议与命名其哈希的授权都是仓库文件，attempt 内的 preparation/synthetic 也是本地文件，协同伪造这三者仍可通过一致性检查；最终锚点是 `decision_owner` 的人工决定。它只验证一致性，不验证该决定是否正当，也不证明 synthetic/preparation 真的运行过。
 
 ## 5. 本轮未做
 
